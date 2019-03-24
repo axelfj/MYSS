@@ -87,9 +87,15 @@
                     <div class="col-lg-6">
                         <div class="single-amenities">
                             <div class="amenities-details">
-                                <h5>
-                                    <a href="#"> Text Post... </a>
-                                </h5>
+                                <h3>
+                                    <a> Title Post... </a>
+                                </h3>
+
+                                <div class = "amenities-meta mb-10">
+                                    <h7>
+                                        <a> Text Post... </a>
+                                    </h7>
+                                </div>
                                 <div class="amenities-meta mb-10">
                                     <a href="#" class="ti-user"> Username </a>
                                     <a href="#" class=""><span class="ti-alarm-clock"></span> Post Time </a>
@@ -113,9 +119,15 @@
 
                         <div class="single-amenities">
                             <div class="amenities-details">
-                                <h5>
-                                    <a href="#"> Text Post... </a>
-                                </h5>
+                                <h3>
+                                    <a> Title Post... </a>
+                                </h3>
+
+                                <div class = "amenities-meta mb-10">
+                                    <h7>
+                                        <a> Text Post... </a>
+                                    </h7>
+                                </div>
                                 <div class="amenities-meta mb-10">
                                     <a href="#" class="ti-user"> Username </a>
                                     <a href="#" class=""><span class="ti-alarm-clock"></span> Post Time </a>
@@ -139,9 +151,15 @@
 
                         <div class="single-amenities">
                             <div class="amenities-details">
-                                <h5>
-                                    <a href="#"> Text Post... </a>
-                                </h5>
+                                <h3>
+                                    <a> Title Post... </a>
+                                </h3>
+
+                                <div class = "amenities-meta mb-10">
+                                    <h7>
+                                        <a> Text Post... </a>
+                                    </h7>
+                                </div>
                                 <div class="amenities-meta mb-10">
                                     <a href="#" class="ti-user"> Username </a>
                                     <a href="#" class=""><span class="ti-alarm-clock"></span> Post Time </a>
@@ -165,9 +183,15 @@
 
                         <div class="single-amenities">
                             <div class="amenities-details">
-                                <h5>
-                                    <a href="#"> Text Post... </a>
-                                </h5>
+                                <h3>
+                                    <a> Title Post... </a>
+                                </h3>
+
+                                <div class = "amenities-meta mb-10">
+                                    <h7>
+                                        <a> Text Post... </a>
+                                    </h7>
+                                </div>
                                 <div class="amenities-meta mb-10">
                                     <a href="#" class="ti-user"> Username </a>
                                     <a href="#" class=""><span class="ti-alarm-clock"></span> Post Time </a>
@@ -193,9 +217,15 @@
                     <div class="col-lg-6 col-md-12">
                         <div class="single-amenities">
                             <div class="amenities-details">
-                                <h5>
-                                    <a href="#"> Text Post... </a>
-                                </h5>
+                                <h3>
+                                    <a> Title Post... </a>
+                                </h3>
+
+                                <div class = "amenities-meta mb-10">
+                                    <h7>
+                                        <a> Text Post... </a>
+                                    </h7>
+                                </div>
                                 <div class="amenities-meta mb-10">
                                     <a href="#" class="ti-user"> Username </a>
                                     <a href="#" class=""><span class="ti-alarm-clock"></span> Post Time </a>
@@ -219,9 +249,16 @@
 
                         <div class="single-amenities">
                             <div class="amenities-details">
-                                <h5>
-                                    <a href="#"> Text Post... </a>
-                                </h5>
+                                <h3>
+                                    <a> Title Post... </a>
+                                </h3>
+
+                                <div class = "amenities-meta mb-10">
+                                    <h7>
+                                        <a> Text Post... </a>
+                                    </h7>
+                                </div>
+
                                 <div class="amenities-meta mb-10">
                                     <a href="#" class="ti-user"> Username </a>
                                     <a href="#" class=""><span class="ti-alarm-clock"></span> Post Time </a>
@@ -245,9 +282,15 @@
 
                         <div class="single-amenities">
                             <div class="amenities-details">
-                                <h5>
-                                    <a href="#"> Text Post... </a>
-                                </h5>
+                                <h3>
+                                    <a> Title Post... </a>
+                                </h3>
+
+                                <div class = "amenities-meta mb-10">
+                                    <h7>
+                                        <a> Text Post... </a>
+                                    </h7>
+                                </div>
                                 <div class="amenities-meta mb-10">
                                     <a href="#" class="ti-user"> Username </a>
                                     <a href="#" class=""><span class="ti-alarm-clock"></span> Post Time </a>
@@ -271,9 +314,16 @@
 
                         <div class="single-amenities">
                             <div class="amenities-details">
-                                <h5>
-                                    <a href="#"> Text Post... </a>
-                                </h5>
+                                <h3>
+                                    <a> Title Post... </a>
+                                </h3>
+
+                                <div class = "amenities-meta mb-10">
+                                    <h7>
+                                        <a> Text Post... </a>
+                                    </h7>
+                                </div>
+
                                 <div class="amenities-meta mb-10">
                                     <a href="#" class="ti-user"> Username </a>
                                     <a href="#" class=""><span class="ti-alarm-clock"></span> Post Time </a>
