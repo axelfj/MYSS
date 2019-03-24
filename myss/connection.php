@@ -1,15 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Simastir_da
- * Date: 24/03/2019
- * Time: 13:09
- */
-
-// use the following line when using Composer
-// require __DIR__ . '/vendor/composer/autoload.php';
-
-// use the following line when using git
 require __DIR__ . '/arangodb-php/autoload.php';
 
 // set up some aliases for less typing later
@@ -29,12 +18,10 @@ use ArangoDBClient\UpdatePolicy as ArangoUpdatePolicy;
 
 // set up some basic connection options
 
-
-
 // turn on exception logging (logs to whatever PHP is configured)
 ArangoException::enableLogging();
 
-function conect(){
+function connect(){
     try{
         $connectionOptions = [
             // database name
@@ -60,7 +47,7 @@ function conect(){
         ];
         $connection = new ArangoConnection($connectionOptions);
     } catch (Exception $exception){
-        echo "No funcionó";
+        echo "No conectó.";
     }
     return $connection;
 }
