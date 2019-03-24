@@ -1,53 +1,33 @@
-<!DOCTYPE html>
-<html lang="zxx" class="no-js">
-<head>
+<?php
+include_once "header.php";
+include_once "banner.php";
+?>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<section class="login">
+    <div class="container" style="padding-top: 150px;">
 
-    <link rel="shortcut icon" href="img/fav.png" />
-    <meta name="author" content="CodePixar" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta charset="UTF-8" />
-    <title>MYSS</title>
-
-    <link
-            href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Playfair+Display:700,700i"
-            rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/linearicons.css" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" />
-    <link rel="stylesheet" href="css/magnific-popup.css" />
-    <link rel="stylesheet" href="css/nice-select.css" />
-    <link rel="stylesheet" href="css/owl.carousel.css" />
-    <link rel="stylesheet" href="css/bootstrap.css" />
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css" />
-    <link rel="stylesheet" href="css/themify-icons.css" />
-    <link rel="stylesheet" href="css/main.css" />
-</head>
-
-<body>
-<div align="center">
-
-    <div class="wrap-login100 p-t-190 p-b-30">
-    <span class="logo-outer" >
-        <span class="logo-inner">
-          <a href="index.php"><img class="mx-auto" src="img/logo.png" alt=""/></a>
-        </span>
-    </span>
-    </div>
-        <span>
-            My Social Space
-        </span>
-    <div>
-        <span>
-            building login...
-        </span>
-    </div>
+        <center>
+            <div class="col-md-6" style="box-shadow: 0px 20px 30px rgba(0, 35, 71, 0.1);background: #ffffff;height:340px;">
+                <h1><i class="fa fa-smile"></i>MYSS</h1>
+                <form method="post" class="form-signin">
+                    <h3 class="form-signin-heading">Login</h3><br>
+                    <div class="form-group">
+                        <input name="email" type="text" class="form-control" required placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" required placeholder="Password">
+                    </div>
+                    <button class="kafe-btn kafe-btn-mint btn-block" type="submit" name="subm">Login</button>
+                    <br/>
+                    <a class="btn" href="signup.php" role="button">Don't have an account yet? Register here.</a>
+                    <a class="btn" href="#" role="button">Forgot your password?</a>
+                </form>
+            </div><!-- /.col -->
 
 
-
-</div>
+        </center>
+    </div><!-- /.container -->
+</section> 
 
 </body>
 </html>
