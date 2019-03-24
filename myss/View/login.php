@@ -17,7 +17,9 @@ include_once "banner.php";
                     <div class="form-group">
                         <input type="password" class="form-control" name="password" required placeholder="Password">
                     </div>
-                    <button class="kafe-btn kafe-btn-mint btn-block" type="submit" name="subm">Login</button>
+                                        
+			
+			         <a href="#" class="genric-btn info circle">Login</a>			
                     <br/>
                     <a class="btn" href="signup.php" role="button">Don't have an account yet? Register here.</a>
                     <a class="btn" href="#" role="button">Forgot your password?</a>
