@@ -3,7 +3,7 @@ use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 use ArangoDBClient\DocumentHandler;
 
 require_once("connection.php");
-require ("createCollection.php");
+require("createCollection.php");
 
 $connection = connect();
 $collectionHandler = new ArangoCollectionHandler($connection);
