@@ -17,7 +17,7 @@
   <!-- meta character set -->
   <meta charset="UTF-8" />
   <!-- Site Title -->
-  <title>Category</title>
+  <title>Archive</title>
 
   <link
           href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Playfair+Display:700,700i"
@@ -46,14 +46,14 @@
               class="header-top d-flex justify-content-between align-items-lg-center navbar-expand-lg"
       >
         <div class="col menu-left">
-          <a class="active" href="index.html">Home</a>
-          <a href="tag.html">Category</a>
-          <a href="archive.html">Archive</a>
+          <a class="active" href="index.php">Home</a>
+          <a href="tag.php">Category</a>
+          <a href="archive.php">Archive</a>
         </div>
         <div class="col-5 text-lg-center mt-2 mt-lg-0">
               <span class="logo-outer">
                 <span class="logo-inner">
-                  <a href="index.html"
+                  <a href="index.php"
                   ><img class="mx-auto" src="img/logo.png" alt=""
                   /></a>
                 </span>
@@ -77,10 +77,10 @@
           >
             <ul class="navbar-nav justify-content-center w-100">
               <li class="nav-item hide-lg">
-                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link" href="index.php">Home</a>
               </li>
               <li class="nav-item hide-lg">
-                <a class="nav-link" href="tag.html">Category</a>
+                <a class="nav-link" href="tag.php">Category</a>
               </li>
               <!-- Dropdown -->
               <!-- <li class="nav-item dropdown">
@@ -97,13 +97,13 @@
                 </div>
               </li> -->
               <li class="nav-item">
-                <a class="nav-link" href="elements.html">Elements</a>
+                <a class="nav-link" href="elements.php">Elements</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="blog-single.html">Blog Detail</a>
+                <a class="nav-link" href="blog-single.php">Blog Detail</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="settings.html">Contact</a>
+                <a class="nav-link" href="settings.php">Contact</a>
               </li>
             </ul>
           </div>
@@ -118,7 +118,7 @@
 <section class="banner-area relative">
   <div class="overlay overlay-bg"></div>
   <div class="banner-content text-center">
-    <h1>Category Page</h1>
+    <h1>Post Archive</h1>
     <p>Elementum libero hac leo integer. Risus hac parturient feugiat litora <br /> cursus hendrerit bibendum per </p>
   </div>
 </section>
@@ -570,7 +570,7 @@
                   <img class="img-fluid" src="img/blog/pp1.jpg" alt="">
                 </div>
                 <div class="details mt-20">
-                  <a href="blog-single.html">
+                  <a href="blog-single.php">
                     <h6>Retro-electric 1967 Ford Mustang
                       revealed in Russia</h6>
                   </a>
@@ -582,7 +582,7 @@
                   <img class="img-fluid" src="img/blog/pp2.jpg" alt="">
                 </div>
                 <div class="details mt-20">
-                  <a href="blog-single.html">
+                  <a href="blog-single.php">
                     <h6>Unsettling trend of food safety at
                       sports stadiums uncovered</h6>
                   </a>
@@ -594,7 +594,7 @@
                   <img class="img-fluid" src="img/blog/pp3.jpg" alt="">
                 </div>
                 <div class="details mt-20">
-                  <a href="blog-single.html">
+                  <a href="blog-single.php">
                     <h6>Christmas cottage from the Holiday
                       flick selling for people</h6>
                   </a>
@@ -606,7 +606,7 @@
                   <img class="img-fluid" src="img/blog/pp4.jpg" alt="">
                 </div>
                 <div class="details mt-20">
-                  <a href="blog-single.html">
+                  <a href="blog-single.php">
                     <h6>Home improvement advice every
                       homeowner needs to know</h6>
                   </a>
