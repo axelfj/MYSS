@@ -1,15 +1,18 @@
 <?php
 
+// To use the AQL statements.
 use ArangoDBClient\Statement;
 
+// The connection to the data base. 
 require_once("connection.php");
 $connection = connect();
 
-// delete document via AQL
-$query = "FOR x IN user FILTER x.username == 'axl1210' REMOVE x IN user RETURN OLD";
-// user => nombre de la tabla //
-// username => campo que se desea filtrar
+// Delete document via AQL.
+// Note that @@collection calls the collection where you want to delete the document. 
+$query = "FOR x IN @@collection FILTER x.username == 'azzefj' REMOVE x IN @@collection RETURN OLD";
 
+ 
+// So, go and delete it!
 try {
     $statement = new Statement(
         $connection,
@@ -18,11 +21,12 @@ try {
             "count" => true,
             "batchSize" => 1,
             "sanitize" => true,
-            "bindVars"  => array("x.username" => "axl1210")
+            "bindVars"  => array("@collection" => "user")
         )
     );
+
     $cursor = $statement->execute();
-    var_dump($cursor);
+    
 } catch (\ArangoDBClient\Exception $e) {
     echo $e;
 }
