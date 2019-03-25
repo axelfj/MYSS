@@ -22,6 +22,8 @@ $documentHandler->update($document);
 
 
 /*
+use ArangoDBClient\statement;
+
 // update document via AQL
 $document = array(
     "name" => "azzefj",
