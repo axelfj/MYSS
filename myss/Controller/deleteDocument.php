@@ -1,19 +1,18 @@
 <?php
-<<<<<<< HEAD
-/**
- * Created by PhpStorm.
- * User: azzefj
- * Date: 3/24/2019
- * Time: 6:03 PM
- */
-=======
+
+// To use the AQL statements.
 use ArangoDBClient\Statement;
 
+// The connection to the data base. 
 require_once("connection.php");
 $connection = connect();
 
-// delete document via AQL
-$query = "FOR x IN @collection FILTER x.d == 'qux' REMOVE x IN @@collection RETURN OLD";
+// Delete document via AQL.
+// Note that @@collection calls the collection where you want to delete the document. 
+$query = "FOR x IN @@collection FILTER x.username == 'azzefj' REMOVE x IN @@collection RETURN OLD";
+
+ 
+// So, go and delete it!
 try {
     $statement = new Statement(
         $connection,
@@ -22,13 +21,13 @@ try {
             "count" => true,
             "batchSize" => 1,
             "sanitize" => true,
-            "bindVars" => array("@collection" => "firstCollection")
+            "bindVars"  => array("@collection" => "user")
         )
     );
+
     $cursor = $statement->execute();
-    var_dump($cursor);
+    
 } catch (\ArangoDBClient\Exception $e) {
-    echo 'Error.';
+    echo $e;
 }
 
->>>>>>> 261aeb6c44c20358316a518aeb307021029ef27d

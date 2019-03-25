@@ -1,12 +1,5 @@
 <?php
-<<<<<<< HEAD
-/**
- * Created by PhpStorm.
- * User: azzefj
- * Date: 3/24/2019
- * Time: 6:03 PM
- */
-=======
+
 use ArangoDBClient\Statement;
 
 require_once("connection.php");
@@ -15,6 +8,7 @@ $connection = connect();
 // execute AQL queries
 $query = 'FOR x IN user RETURN x.name';
 // user => nombre de colección a la que se le piden datos //
+// x.name => nombre del documento que desea consultar //
 
 try {
     $statement = new Statement(
@@ -37,4 +31,3 @@ try {
     echo 'Error.';
 }
 
->>>>>>> 261aeb6c44c20358316a518aeb307021029ef27d
