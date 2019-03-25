@@ -1,4 +1,12 @@
 <?php
+<<<<<<< HEAD
+/**
+ * Created by PhpStorm.
+ * User: azzefj
+ * Date: 3/24/2019
+ * Time: 6:03 PM
+ */
+=======
 use ArangoDBClient\Statement;
 
 require_once("connection.php");
@@ -30,3 +38,4 @@ try {
     echo 'Error.';
 }
 
+>>>>>>> 261aeb6c44c20358316a518aeb307021029ef27d

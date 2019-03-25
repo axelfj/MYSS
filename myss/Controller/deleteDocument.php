@@ -1,4 +1,5 @@
 <?php
+
 use ArangoDBClient\Statement;
 
 require_once("connection.php");
@@ -25,3 +26,4 @@ try {
 } catch (\ArangoDBClient\Exception $e) {
     echo $e;
 }
+
