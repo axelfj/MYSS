@@ -6,21 +6,23 @@ $connection = connect();
 
 // update document via AQL
 $document = array(
-    "c" => "qux",
+    "name" => "azzefj",
 );
 
-$query = "UPDATE @key WITH @doc IN user RETURN NEW";
+$query = 'UPDATE @name WITH @doc IN user RETURN NEW';
+
 try {
     $statement = new Statement(
         $connection,
         array(
-            "query" => $query,
-            "count" => true,
+            "query"     => $query,
+            "count"     => true,
             "batchSize" => 1,
-            "sanitize" => true,
-            "bindVars" => array("doc" => $document, "key" => "user")
+            "sanitize"  => true,
+            "bindVars"  => array("doc" => $document, "name" => "Axel Fernández Jiménez")
         )
     );
+
     $cursor = $statement->execute();
 
     $resultingDocuments = array();
@@ -30,6 +32,6 @@ try {
     }
     var_dump($resultingDocuments);
 } catch (\ArangoDBClient\Exception $e) {
-    echo 'Error.';
+    echo $e;
 }
 
