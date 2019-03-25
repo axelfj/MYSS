@@ -7,6 +7,7 @@ $connection = connect();
 // execute AQL queries
 $query = 'FOR x IN user RETURN x.name';
 // user => nombre de colección a la que se le piden datos //
+// x.name => nombre del documento que desea consultar //
 
 try {
     $statement = new Statement(

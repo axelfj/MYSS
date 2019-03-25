@@ -5,7 +5,10 @@ require_once("connection.php");
 $connection = connect();
 
 // delete document via AQL
-$query = "FOR x IN @collection FILTER x.d == 'qux' REMOVE x IN @@collection RETURN OLD";
+$query = "FOR x IN user FILTER x.username == 'axl1210' REMOVE x IN user RETURN OLD";
+// user => nombre de la tabla //
+// username => campo que se desea filtrar
+
 try {
     $statement = new Statement(
         $connection,
@@ -14,12 +17,11 @@ try {
             "count" => true,
             "batchSize" => 1,
             "sanitize" => true,
-            "bindVars" => array("@collection" => "firstCollection")
+            "bindVars"  => array("x.username" => "axl1210")
         )
     );
     $cursor = $statement->execute();
     var_dump($cursor);
 } catch (\ArangoDBClient\Exception $e) {
-    echo 'Error.';
+    echo $e;
 }
-
