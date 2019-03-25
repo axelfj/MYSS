@@ -1,7 +1,6 @@
 <?php
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 use ArangoDBClient\Collection as ArangoCollection;
-use ArangoDBClient\DocumentHandler;
 
 require_once("connection.php");
 
