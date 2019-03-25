@@ -4,7 +4,15 @@
     position: fixed;
     z-index:1;
     top: 0;
-    width: 100%;
+    width: 100%;    
+    border-bottom: 1px solid #DDDEDE;
+    -webkit-box-shadow: 4px 4px 4px rgba(0, 35, 71, 0.1);
+    -moz-box-shadow:    4px 4px 4px rgba(0, 35, 71, 0.1);
+    box-shadow:         4px 4px 4px rgba(0, 35, 71, 0.1);
+}
+
+.static-navbar a:hover {
+  color: rgb(56, 164, 255);
 }
 
 .form-container {
