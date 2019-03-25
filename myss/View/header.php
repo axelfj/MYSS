@@ -28,6 +28,7 @@
         <link rel="stylesheet" href="css/bootstrap-datepicker.css" />
         <link rel="stylesheet" href="css/themify-icons.css" />
         <link rel="stylesheet" href="css/main.css" />
+        <link rel="stylesheet" href="css/styles.css" />
     </head>
 
     
