@@ -1,10 +1,27 @@
 <?php
 
-use ArangoDBClient\Statement;
+use ArangoDBClient\DocumentHandler;
 
+// First, the connection to the database. 
 require_once("connection.php");
 $connection = connect();
 
+// Handler to manage the documents. 
+$documentHandler = new DocumentHandler($connection);
+
+// Then, it gets the item that needs to be changed.
+$collectionName = "user"; 
+$documentId     = "16690"; // This is burned in the code. 
+$document = $documentHandler->get($collectionName, $documentId);
+
+// So, that document should be in $document. 
+// Let's update it. 
+$document->set("username", "azzefj");
+$documentHandler->update($document);
+
+
+
+/*
 // update document via AQL
 $document = array(
     "name" => "azzefj",
@@ -33,4 +50,5 @@ try {
 } catch (\ArangoDBClient\Exception $e) {
     echo $e;
 }
+*/
 
