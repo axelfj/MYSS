@@ -7,7 +7,7 @@ include_once "banner.php";
     <div class="container" style="padding-top: 150px;">
         <center>
             <div class="col-md-6" style="box-shadow: 0px 20px 30px rgba(0, 35, 71, 0.1);background: #ffffff;height:365px;">
-                <br><h1><i class="fa fa-smile"></i>MYSS</h1>
+                <br><h1>MYSS</h1>
                 <form method="post" class="form-signin">
                     <h3 class="form-signin-heading">Log In</h3><br>
                     <div class="form-group">
