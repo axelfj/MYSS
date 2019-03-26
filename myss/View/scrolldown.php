@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>jQuery Infinite Scroll</title>
-</head>
+
+<?php
+include_once "header.php";
+include_once "navbar.php";
+?>
+
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -29,7 +29,7 @@
                         "<h7><a>"+r[i].descriptionPost+"</a></h7>" +
                         "</div>"+
                         "<div class=amenities-meta mb-10>" +
-                        "<a href=# class=ti-user>"+r[i].username+" </a>" +
+                        "<a href=# class=ti-user>"+r[i].username+"</a>" +
                         "<a class=><span class=ti-alarm-clock></span>"+r[i].postTime+"</a>" +
                         "</div>"+
                         "<div class=d-flex justify-content-between mt-20>"+
@@ -42,7 +42,7 @@
                         "</div>" + "</div>" + "</div>" + "</div>" + "</div>")
 
                 }
-                start += 5;
+                start += 4;
             },
             error: function(r) {
                 console.log("Something went wrong!");
@@ -64,7 +64,7 @@
                         for (var i = 0; i < r.length; i++) {
                             $('body').append(""+
                                 "<div class='row'>" +
-                                "<div class=col-md-12>" +
+                                "<div class=col-md-6>" +
                                 "<div class=single-amenities>" +
                                 "<div class=amenities-details col-md-12>"+
                                 "<h3><a>"+r[i].titlePost+"</a></h3>"+
@@ -84,7 +84,7 @@
                                 "</div>"+
                                 "</div>" + "</div>" + "</div>" + "</div>" + "</div>")
                         }
-                        start += 5;
+                        start += 4;
                         setTimeout(function() {
                             working = false;
                         }, 4000)
@@ -98,4 +98,7 @@
     })
 </script>
 </body>
-</html>
+
+<?php
+include_once "footer.php";
+?>

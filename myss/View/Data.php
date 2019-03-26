@@ -32,7 +32,7 @@ $possiblePost = array(
     new Post("Prueba #14","Descripción de prueba", "axl1210", "12:10", "YOLO"),
     new Post("Prueba #15","Descripción de prueba", "axl1210", "12:10", "YOLO")
 );
-for ($i = $start; $i < $start+5; $i++) {
+for ($i = $start; $i < $start+4; $i++) {
     if ($i < count($possiblePost)) {
         array_push($data, $possiblePost[$i]);
     }
