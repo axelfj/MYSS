@@ -151,34 +151,6 @@ include_once "navbar.php";
                         </div>                                            
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <nav class="blog-pagination justify-content-center d-flex">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Previous">
-                                  <span aria-hidden="true">
-                                      <span class="ti-arrow-left"></span>
-                                  </span>
-                                    </a>
-                                </li>
-                                <li class="page-item active"><a href="#" class="page-link">01</a></li>
-                                <li class="page-item"><a href="#" class="page-link">02</a></li>
-                                <li class="page-item"><a href="#" class="page-link">03</a></li>
-                                <li class="page-item"><a href="#" class="page-link">04</a></li>
-                                <li class="page-item"><a href="#" class="page-link">...</a></li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Next">
-                                  <span aria-hidden="true">
-                                      <span class="ti-arrow-right"></span>
-                                  </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
             </div>
 
             <!-- Start Blog Post Sidebar -->
@@ -234,7 +206,7 @@ include_once "navbar.php";
         </div>
         <!-- End Blog Post Siddebar -->
     </div>
-    </div>
+
 </section>
 <!--================ End Blog Post Area =================-->
 
