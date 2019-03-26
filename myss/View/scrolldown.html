@@ -19,7 +19,28 @@
             success: function(r) {
                 r = JSON.parse(r)
                 for (var i = 0; i < r.length; i++) {
-                    $('body').append("<div><h1>"+r[i].videoName+"</h1><h2>Video Views: "+r[i].videoViews+"</h2></div>")
+                    $('body').append(""+
+                        "<div class='row'>" +
+                        "<div class=col-md-12>" +
+                        "<div class=single-amenities>" +
+                        "<div class=amenities-details col-md-12>"+
+                        "<h3><a>"+r[i].titlePost+"</a></h3>"+
+                        "<div class = amenities-meta mb-10>" +
+                        "<h7><a>"+r[i].descriptionPost+"</a></h7>" +
+                        "</div>"+
+                        "<div class=amenities-meta mb-10>" +
+                        "<a href=# class=ti-user>"+r[i].username+" </a>" +
+                        "<a class=><span class=ti-alarm-clock></span>"+r[i].postTime+"</a>" +
+                        "</div>"+
+                        "<div class=d-flex justify-content-between mt-20>"+
+                        "<div>" +
+                        "<a href=# class=blog-post-btn># Comments <span class=ti-comment></span></a>" +
+                        "</div>" +
+                        "<div class=tag_btn>" +
+                        "<a href=#><span class=ti-tag mr-1></span>"+r[i].tag+"</a>" +
+                        "</div>"+
+                        "</div>" + "</div>" + "</div>" + "</div>" + "</div>")
+
                 }
                 start += 5;
             },
@@ -41,11 +62,27 @@
                     success: function(r) {
                         r = JSON.parse(r)
                         for (var i = 0; i < r.length; i++) {
-                            $('body').append("" +
+                            $('body').append(""+
+                                "<div class='row'>" +
+                                "<div class=col-md-12>" +
+                                "<div class=single-amenities>" +
+                                "<div class=amenities-details col-md-12>"+
+                                "<h3><a>"+r[i].titlePost+"</a></h3>"+
+                                "<div class = amenities-meta mb-10>" +
+                                "<h7><a>"+r[i].descriptionPost+"</a></h7>" +
+                                "</div>"+
+                                "<div class=amenities-meta mb-10>" +
+                                "<a href=# class=ti-user>"+r[i].username+" </a>" +
+                                "<a class=><span class=ti-alarm-clock></span>"+r[i].postTime+"</a>" +
+                                "</div>"+
+                                "<div class=d-flex justify-content-between mt-20>"+
                                 "<div>" +
-                                "<h1>"+r[i].videoName+"</h1>" +
-                                "<h2>Video Views: "+r[i].videoViews+"</h2>" +
-                                "</div>")
+                                "<a href=# class=blog-post-btn># Comments <span class=ti-comment></span></a>" +
+                                "</div>" +
+                                "<div class=tag_btn>" +
+                                "<a href=#><span class=ti-tag mr-1></span>"+r[i].tag+"</a>" +
+                                "</div>"+
+                                "</div>" + "</div>" + "</div>" + "</div>" + "</div>")
                         }
                         start += 5;
                         setTimeout(function() {
@@ -61,4 +98,33 @@
     })
 </script>
 </body>
+<!--
+<div class="row">
+    <div class="col-md-12">
+        <div class="single-amenities">
+            <div class="amenities-details col-md-12">
+                <h3><a> Title Post... </a></h3>
+
+                <div class = "amenities-meta mb-10">
+                    <h7><a> Text Post... </a></h7>
+                </div>
+                <div class="amenities-meta mb-10">
+                    <a href="#" class="ti-user"> Username </a>
+                    <a class=""><span class="ti-alarm-clock"></span> Post Time </a>
+                </div>
+
+                <div class="d-flex justify-content-between mt-20">
+                    <div>
+                        <a href="#" class="blog-post-btn"># Comments <span class="ti-comment"></span></a>
+                    </div>
+
+                    <div class="tag_btn">
+                        <a href="#"><span class="ti-tag mr-1"></span> Tag</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->
 </html>
