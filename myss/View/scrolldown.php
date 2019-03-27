@@ -1,10 +1,3 @@
-
-<?php
-include_once "header.php";
-include_once "navbar.php";
-?>
-
-<body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
     var start = 0;
@@ -40,7 +33,6 @@ include_once "navbar.php";
                         "<a href=#><span class=ti-tag mr-1></span>"+r[i].tag+"</a>" +
                         "</div>"+
                         "</div>" + "</div>" + "</div>" + "</div>" + "</div>")
-
                 }
                 start += 4;
             },
@@ -98,7 +90,3 @@ include_once "navbar.php";
     })
 </script>
 </body>
-
-<?php
-include_once "footer.php";
-?>
