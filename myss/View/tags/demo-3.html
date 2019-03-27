@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>
+         Tag Demo
+      </title>
+      <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+      <script src='http://code.jquery.com/jquery-1.9.1.min.js'></script>
+      <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+      <script src='dist/js/bootstrap-tags.js'></script>
+      <link rel="stylesheet" type="text/css" href="dist/css/bootstrap-tags.css" />
+   </head>
+   <body>
+      <div class="container">
+
+        <h3>Bootstrap 3.0.3</h3>
+
+        <p>Small</p>
+        <div id="small"></div>
+        <p>Large</p>
+        <div id="large"></div>
+        <p>Medium</p>
+        <div id="medium"></div>
+        <p>maxNumTags = 3</p>
+        <div id="maxNumTags"></div>
+        <p>suggestOnClick</p>
+        <div id="suggestOnClick"></div>
+        <p>caseInsensitive</p>
+        <div id="caseInsensitive"></div>
+        <p>readOnly</p>
+        <div id="readOnly"></div>
+
+
+        <script>
+          $(function(){
+            $("#small").tags({
+              tagSize: "sm",
+              suggestions: ["alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india"],
+              tagData: ["juliett", "kilo"]
+            });
+            $("#large").tags({
+              tagSize: "lg",
+              suggestions: ["alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india"],
+              tagData: ["juliett", "kilo"]
+            });
+            $("#medium").tags({
+              suggestions: ["alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india"],
+              tagData: ["juliett", "kilo"]
+            });
+            $("#readOnly").tags({
+              readOnly: true,
+              tagData: ["juliett", "kilo"]
+            });
+            $("#suggestOnClick").tags({
+              restrictTo: ["alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india"],
+              suggestions: ["alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india"],
+              promptText: "Click here to add new tags",
+              suggestOnClick: true
+            });
+            $("#caseInsensitive").tags({
+              suggestions: ["Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Golf", "Hotel", "India"],
+              tagData: ["india", "juliett"],
+              caseInsensitive: true
+            });
+            $("#maxNumTags").tags({
+              suggestions: ["alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india"],
+              tagData: ["alpha", "bravo", "charlie"],
+              maxNumTags: 3
+            });
+          });
+        </script>
+      </div>
+   </body>
+</html>
