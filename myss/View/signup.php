@@ -16,7 +16,6 @@ if((!empty($_POST['username'])) &&
     (!empty($_POST['password'])) &&
     (!empty($_POST['name'])) &&
     (!empty($_POST['birthday']))){
-
     try{
         // Gets the parameters.
         $username   = $_POST['username'];
@@ -36,12 +35,11 @@ if((!empty($_POST['username'])) &&
         // Insert him in the database.
         $database  = new ArangoInsert(connect());
         $newPerson = $database->save("user", $person);
-        $message   = "Succesfully registered";
+
     }
     catch (Exception $e){
         $message = $e->getMessage();
     }
-
 }
 ?>
 
@@ -72,13 +70,24 @@ if((!empty($_POST['username'])) &&
                     <div class="form-group">
                         <input id="birthday" name="birthday" type="date" parsley-trigger="change" required class="form-control">
                     </div>
-                    <button id="signinbtn" name="signinbtn" class="genric-btn info circle" type="submit">Sign up</button><br>                                        
+                    <button id="signinbtn" name="signinbtn" class="genric-btn info circle" type="submit" data-toggle="modal" data-target="#textModal">Sign up</button><br>
                     <a class="btn" href="login.php" role="button">Already have an account? Log in here.</a>                    
                 </form>
             </div><!-- /.col -->
         </center>
     </div><!-- /.container -->
-</section> 
+</section>
+
+<!-- Text Modal-->
+<div class="modal fade" id="textModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h2 class="modal-title" id="exampleModalLabel">You're successfully registered.</h2>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php
 include_once "footer.php";
