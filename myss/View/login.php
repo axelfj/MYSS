@@ -3,7 +3,7 @@ include_once "header.php";
 include_once "banner.php";
 
 // Connection to the database.
-require_once "Controller/connection.php";
+require_once "../Controller/connection.php";
 
 // Checks if all the values are set.
 if((!empty($_POST['email'])) && (!empty($_POST['password']))){
