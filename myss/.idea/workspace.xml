@@ -1,95 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="531e9700-9b17-45f9-881f-a6da34df658d" name="Default Changelist" comment="" />
+    <list default="true" id="531e9700-9b17-45f9-881f-a6da34df658d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/login.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/login.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/View/signup.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/signup.php" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/arangodb-php/composer.json</pharConfigPath>
-  </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="502845352">
-      <usages-collector id="statistics.file.extensions.edit">
-        <counts>
-          <entry key="dummy" value="2" />
-          <entry key="html" value="675" />
-          <entry key="php" value="445" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="HTML" value="675" />
-          <entry key="PHP" value="445" />
-          <entry key="PLAIN_TEXT" value="2" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="html" value="1" />
-          <entry key="json" value="1" />
-          <entry key="php" value="22" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="HTML" value="1" />
-          <entry key="JSON" value="1" />
-          <entry key="PHP" value="22" />
-        </counts>
-      </usages-collector>
-    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Controller/createCollection.php">
+        <entry file="file://$PROJECT_DIR$/View/login.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="58" selection-start-line="7" selection-start-column="58" selection-end-line="7" selection-end-column="62" />
+            <state relative-caret-position="68">
+              <caret line="4" selection-start-line="4" selection-end-line="10" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/View/signup.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
               <folding>
-                <element signature="e#6#70#0#PHP" expanded="true" />
+                <element signature="e#160#206#0#PHP" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Controller/connection.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="601">
-              <caret line="40" column="80" selection-start-line="40" selection-start-column="80" selection-end-line="40" selection-end-column="80" />
-              <folding>
-                <element signature="e#100#150#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Controller/updateDocument.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" selection-start-line="22" selection-end-line="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Controller/deleteDocument.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="693">
-              <caret line="33" selection-start-line="33" selection-end-line="33" />
             </state>
           </provider>
         </entry>
@@ -97,59 +41,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Controller/deleteCollection.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" selection-start-line="5" selection-end-line="5" />
+            <state relative-caret-position="34">
+              <caret line="2" column="50" selection-start-line="2" selection-end-line="2" selection-end-column="50" />
               <folding>
                 <element signature="e#6#70#0#PHP" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/View/index.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="560">
-              <caret line="28" column="16" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/View/scrolldown.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="23" column="45" selection-start-line="23" selection-start-column="45" selection-end-line="23" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/View/data.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Controller/insertDocument.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-              <folding>
-                <element signature="e#6#70#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Controller/readDocument.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="32" selection-start-line="32" selection-end-line="32" />
             </state>
           </provider>
         </entry>
@@ -169,23 +65,19 @@
         <option value="$PROJECT_DIR$/View/index.php" />
         <option value="$PROJECT_DIR$/View/Data.php" />
         <option value="$PROJECT_DIR$/View/scrolldown.php" />
+        <option value="$PROJECT_DIR$/View/login.php" />
+        <option value="$PROJECT_DIR$/View/signup.php" />
       </list>
     </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpServers">
     <servers />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.2" />
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-7" />
-    <option name="width" value="1442" />
-    <option name="height" value="1057" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="676" />
+    <option name="width" value="697" />
+    <option name="height" value="735" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -209,6 +101,27 @@
             <path>
               <item name="myss" type="b2602c69:ProjectViewProjectNode" />
               <item name="myss" type="462c0819:PsiDirectoryNode" />
+              <item name="Controller" type="462c0819:PsiDirectoryNode" />
+              <item name="arangodb-php" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="myss" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myss" type="462c0819:PsiDirectoryNode" />
+              <item name="Controller" type="462c0819:PsiDirectoryNode" />
+              <item name="arangodb-php" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="myss" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myss" type="462c0819:PsiDirectoryNode" />
+              <item name="Controller" type="462c0819:PsiDirectoryNode" />
+              <item name="arangodb-php" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+              <item name="ArangoDBClient" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="myss" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myss" type="462c0819:PsiDirectoryNode" />
               <item name="View" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -219,6 +132,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -248,17 +162,18 @@
       <workItem from="1553461405603" duration="171000" />
       <workItem from="1553470627086" duration="8748000" />
       <workItem from="1553570062109" duration="6546000" />
+      <workItem from="1553646197900" duration="3847000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6613000" />
+    <option name="totallyTimeSpent" value="10460000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <frame x="676" y="0" width="697" height="735" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15884861" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.3343799" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -283,24 +198,7 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/View/signup.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="89" selection-start-line="28" selection-start-column="89" selection-end-line="28" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/View/login.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="2" lean-forward="true" selection-start-line="29" selection-start-column="2" selection-end-line="29" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/arangodb-php/composer.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -331,30 +229,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Controller/updateDocument.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Controller/readDocument.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Controller/insertDocument.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
-          <folding>
-            <element signature="e#6#70#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Controller/createCollection.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -367,7 +241,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Controller/connection.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="601">
+        <state relative-caret-position="680">
           <caret line="40" column="80" selection-start-line="40" selection-start-column="80" selection-end-line="40" selection-end-column="80" />
           <folding>
             <element signature="e#100#150#0#PHP" expanded="true" />
@@ -375,27 +249,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Controller/deleteCollection.php">
+    <entry file="file://$PROJECT_DIR$/Controller/updateDocument.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-          <folding>
-            <element signature="e#6#70#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="-85">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Controller/deleteDocument.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
+        <state relative-caret-position="561">
           <caret line="33" selection-start-line="33" selection-end-line="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/View/data.php">
+    <entry file="file://$PROJECT_DIR$/View/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+        <state relative-caret-position="476">
+          <caret line="28" column="16" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -406,10 +277,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/View/index.php">
+    <entry file="file://$PROJECT_DIR$/View/Data.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="28" column="16" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
+        <state relative-caret-position="578">
+          <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Controller/insertDocument.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+          <folding>
+            <element signature="e#6#70#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Controller/readDocument.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/View/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" selection-start-line="4" selection-end-line="10" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Controller/deleteCollection.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="50" selection-start-line="2" selection-end-line="2" selection-end-column="50" />
+          <folding>
+            <element signature="e#6#70#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/View/signup.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+          <folding>
+            <element signature="e#160#206#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
