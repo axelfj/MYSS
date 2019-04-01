@@ -2,13 +2,16 @@
 include_once "header.php";
 include_once "banner.php";
 
-// Connection to the database.
+// Connection to the database and dependencies.
 require_once "../Controller/connection.php";
+require_once "../Controller/arangodb-php/lib/ArangoDBClient/CollectionHandler.php";
+require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
 
-// Saves it more easily.
-use ArangoDBClient\Document as ArangoDocument;
-use ArangoDBCLient\DocumentHandler as ArangoInsert;
+// Saves it more easily and allows it to call it differently.
+use ArangoDBCLient\DocumentHandler      as ArangoDocumentHandler;
+use ArangoDBClient\CollectionHandler    as ArangoCollectionHandler;
+use ArangoDBClient\Document             as ArangoDocument;
 
 // Checks if all the values are set.
 if((!empty($_POST['username'])) &&
@@ -16,29 +19,57 @@ if((!empty($_POST['username'])) &&
     (!empty($_POST['password'])) &&
     (!empty($_POST['name'])) &&
     (!empty($_POST['birthday']))){
+
+    // Calls the database and creates a collection handler.
+    $database = new ArangoDocumentHandler(connect());
+    $document = new ArangoCollectionHandler(connect());
+
+    // Basically, if the cursor gets one document, it means that the username is in the database, so we only
+    // have to check if the cursor is empty.
     try{
-        // Gets the parameters.
-        $username   = $_POST['username'];
-        $email      = $_POST['email'];
-        $password   = password_hash($_POST['password'],PASSWORD_BCRYPT);
-        $name       = $_POST['name'];
-        $birthday   = $_POST['birthday'];
 
-        // Creates an auxiliary to fill with the person.
-        $person = new ArangoDocument();
-        $person->set("username", $username);
-        $person->set("email", $email);
-        $person->set("password", $password);
-        $person->set("name", $name);
-        $person->set("birthday", $birthday);
+        // Ask for the document with the username given in the form.
+        $cursor     = $document -> byExample('user', ['username' => $_POST['username']]);
 
-        // Insert him in the database.
-        $database  = new ArangoInsert(connect());
-        $newPerson = $database->save("user", $person);
+        // Count it, if 0 : he's not in the database.
+        $valueFound = $cursor->getCount();
 
-    }
-    catch (Exception $e){
-        $message = $e->getMessage();
+        // So, insert him in the database.
+        if ($valueFound == 0){
+
+            // Checks if the email is valid.
+            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+                $message = 'The format of the email is invalid.';
+            }
+
+            else{
+
+                // Gets the parameters.
+                $username   = $_POST['username'];
+                $email      = $_POST['email'];
+                $password   = password_hash($_POST['password'],PASSWORD_BCRYPT);
+                $name       = $_POST['name'];
+                $birthday   = $_POST['birthday'];
+
+                // Creates an auxiliary to fill with the person.
+                $person = new ArangoDocument();
+                $person->set("username", $username);
+                $person->set("email", $email);
+                $person->set("password", $password);
+                $person->set("name", $name);
+                $person->set("birthday", $birthday);
+
+                // Insert him in the database.
+                $newPerson = $database->save("user", $person);
+            }
+        }
+
+        else{
+            $message = 'Username already taken.';
+        }
+
+    } catch (Exception $e){
+        $message = $e -> getMessage();
     }
 }
 ?>
