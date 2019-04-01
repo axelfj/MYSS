@@ -5,10 +5,25 @@ include_once "banner.php";
 // Connection to the database.
 require_once "../Controller/connection.php";
 
-// Checks if all the values are set.
-if((!empty($_POST['email'])) && (!empty($_POST['password']))){
+// Start the session.
+session_start();
 
+// Verifies that the User has already logged-in.
+if (isset($_SESSION['userId'])){
+    header('Location: ..\View\index.php');
 }
+
+// Creates a connection to the database.
+$database = connect();
+
+// If all the inputs are with values.
+if ((!empty($_POST['email'])) &&
+    (!empty($_POST['password']))){
+
+    // Makes an AQL querie.
+    $query = 'FOR x IN user RETURN x._key'
+}
+
 ?>
 <center>
 <section class="">
