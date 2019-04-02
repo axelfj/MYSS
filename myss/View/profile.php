@@ -31,7 +31,7 @@ include_once "navbar.php";
                             </h3>
                         </li>
                     </ul>
-                    <button class="btn btn-primary followbtn"><i class="fas fa-cog"></i>Follow</button>
+                    <button id="followbtn" name="followbtn" class="btn btn-primary followbtn"><!--<i class="fas fa-cog"></i>-->Follow</button>
 
                 </div>
                 <div class="clearfix"></div>
@@ -51,20 +51,31 @@ include_once "navbar.php";
                             <textarea id="post" name="post" type="text" class="form-control" required
                                       placeholder="What are you doing right now?"></textarea>
                             <br>
-                            <input type="text" value="Aquí deberían ir los tags, pero no me sirve jeje"
-                                   data-role="tagsinput" class="form-control"/>
+                            <input type="text" data-role="tagsinput" placeholder="Tags">
                             <hr>
-                            <button type="submit" class="btn btn-success pull-right"> Share</button>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <select class="browser-default">
+                                        <option value="Public">Public</option>
+                                        <option value="Private">Private</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-10">
+                                    <button id="postbtn" name="postbtn" type="submit" class="btn btn-success pull-right"> Post</button>
+                                </div>
+                            </div>
                         </form>
                         <br><br>
                     </div>
                     <!-- Status Upload  -->
                 </div>
             </div>
-            <br><h1 class="page-header small" style="color: grey;">Your posts</h1><br>
+            <br>
+            <h1 class="page-header small" style="color: grey;">Your posts</h1><br>
             <div class="panel container" style="background-color: white;">
                 <div class="btn-group pull-right postbtn">
-                    <button type="button" class="dotbtn dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="padding-top: 10px;">
+                    <button type="button" class="dotbtn dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+                            style="padding-top: 10px;">
                         <span class="dots"></span></button>
                     <ul class="dropdown-menu pull-right" role="menu">
                         <li><a href="javascript:void(0)">Hide this</a></li>
@@ -74,7 +85,7 @@ include_once "navbar.php";
                 <div class="col-md-12 container" style="background-color: white;">
                     <div class="media">
                         <div class="media-left"><a href="javascript:void(0)"><img
-                                        src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""
+                                        src="https://www.kwsme.com/wp-content/uploads/2016/06/login-user-icon.png" alt=""
                                         class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="media-body">
                             <h4 class="media-heading">Lucky Sans<br>
@@ -86,8 +97,8 @@ include_once "navbar.php";
 
                             <ul class="nav nav-pills pull-left ">
                                 <li><a href="" title=""><i class="far fa-thumbs-up"></i> 2015</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <li><a href="" title=""><i class="far fa-comment-alt"></i> 25</a></li>
-                                <!--<li><a href="" title=""><i class="glyphicon glyphicon-share-alt"></i> 15</a></li>-->
+                                <li><a href="" title=""><i class="far fa-comment-alt"></i> 25</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <li><a href="" title=""><i class="fas fa-tags"></i> jis, juas</a></li>
                             </ul>
                         </div>
                     </div>
@@ -95,7 +106,7 @@ include_once "navbar.php";
                     <div class="col-md-12 commentsblock border-top">
                         <div class="media">
                             <div class="media-left"><a href="javascript:void(0)"> <img alt="64x64"
-                                                                                       src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                                                       src="https://www.kwsme.com/wp-content/uploads/2016/06/login-user-icon.png"
                                                                                        class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <div class="media-body">
                                 <h4 class="media-heading">Astha Smith</h4>
@@ -107,7 +118,9 @@ include_once "navbar.php";
                         </div>
                     </div>
                     <hr>
-                    <input id="comment" name="comment" type="text" class="form-control" placeholder="Type a new comment..."><br>
+                    <textarea id="comment" name="comment" type="text" class="form-control"
+                              placeholder="Type a new comment..."></textarea><br>
+                    <button id="commentbtn" name="commentbtn" class="btn btn-primary pull-right" disabled><!--<i class="fas fa-cog"></i>-->Comment</button><br><br><br>
                 </div>
             </div>
         </div>
