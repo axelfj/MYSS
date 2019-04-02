@@ -2,76 +2,57 @@
 include_once "header.php";
 include_once "banner.php";
 
-// Connection to the database and dependencies.
 require_once "../Controller/connection.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/CollectionHandler.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
 
-// Saves it more easily and allows it to call it differently.
-use ArangoDBCLient\DocumentHandler      as ArangoDocumentHandler;
-use ArangoDBClient\CollectionHandler    as ArangoCollectionHandler;
-use ArangoDBClient\Document             as ArangoDocument;
+use ArangoDBCLient\DocumentHandler as ArangoDocumentHandler;
+use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
+use ArangoDBClient\Document as ArangoDocument;
 
-// Checks if all the values are set.
-if((!empty($_POST['username'])) &&
-    (!empty($_POST['email'])) &&
-    (!empty($_POST['password'])) &&
-    (!empty($_POST['name'])) &&
-    (!empty($_POST['birthday']))){
+try {
+    if ((!empty($_POST['username'])) &&
+        (!empty($_POST['email'])) &&
+        (!empty($_POST['password'])) &&
+        (!empty($_POST['name'])) &&
+        (!empty($_POST['birthday']))){
+        $database = new ArangoDocumentHandler(connect());
+        $document = new ArangoCollectionHandler(connect());
 
-    // Calls the database and creates a collection handler.
-    $database = new ArangoDocumentHandler(connect());
-    $document = new ArangoCollectionHandler(connect());
+        $cursor = $document->byExample('user', ['username' => $_POST['username']]);
 
-    // Basically, if the cursor gets one document, it means that the username is in the database, so we only
-    // have to check if the cursor is empty.
-    try{
-
-        // Ask for the document with the username given in the form.
-        $cursor = $document -> byExample('user', ['username' => $_POST['username']]);
-
-        // Count it, if 0 : he's not in the database.
+        // Count it, 0 = he's not in the database.
         $valueFound = $cursor->getCount();
 
-        // So, insert him in the database.
-        if ($valueFound == 0){
+        if ($valueFound == 0) {
 
-            // Checks if the email is valid.
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 $message = 'The format of the email is invalid.';
-            }
+            } else {
+                $username = $_POST['username'];
+                $email = $_POST['email'];
+                $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+                $name = $_POST['name'];
+                $birthday = $_POST['birthday'];
 
-            else{
+                $user = new ArangoDocument();
+                $user->set("username", $username);
+                $user->set("email", $email);
+                $user->set("password", $password);
+                $user->set("name", $name);
+                $user->set("birthday", $birthday);
 
-                // Gets the parameters.
-                $username   = $_POST['username'];
-                $email      = $_POST['email'];
-                $password   = password_hash($_POST['password'],PASSWORD_BCRYPT);
-                $name       = $_POST['name'];
-                $birthday   = $_POST['birthday'];
-
-                // Creates an auxiliary to fill with the person.
-                $person = new ArangoDocument();
-                $person->set("username", $username);
-                $person->set("email", $email);
-                $person->set("password", $password);
-                $person->set("name", $name);
-                $person->set("birthday", $birthday);
-
-                // Insert him in the database.
-                $newPerson = $database->save("user", $person);
-
+                $newUser = $database->save("user", $user);
                 $message = 'You have been successfully registered';
             }
         }
         else{
-            $message = 'Username already taken.';
+            $message = "Cannot register.";
         }
-
-    } catch (Exception $e){
-        $message = $e -> getMessage();
     }
+} catch (Exception $e){
+    $message = $e -> getMessage();
 }
 ?>
 
@@ -87,7 +68,7 @@ if((!empty($_POST['username'])) &&
                     </div>
                     <div class="form-group">
                         <input id="email" name="email" type="text" class="form-control" required placeholder="Email">
-                    </div>                                        
+                    </div>
                     <div class="form-group">
                         <input id="password" name="password" type="password" class="form-control" required placeholder="Password">
                     </div>
@@ -98,22 +79,19 @@ if((!empty($_POST['username'])) &&
                         <input id="birthday" name="birthday" type="date" parsley-trigger="change" required class="form-control">
                     </div>
                     <button id="signinbtn" name="signinbtn" class="genric-btn info circle" type="submit" data-toggle="modal" data-target="#textModal">Sign up</button><br>
-                    <a class="btn" href="login.php" role="button">Already have an account? Log in here.</a>                    
+                    <a class="btn" href="login.php" role="button">Already have an account? Log in here.</a>
                 </form>
-            </div><!-- /.col -->
+            </div>
         </center>
-    </div><!-- /.container -->
+    </div>
 </section>
 
-<!-- Text Modal-->
 <div class="modal fade" id="textModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
                 <h2 class="modal-title" id="exampleModalLabel">
-                    <?php if(!empty($message)):
-                         echo $message;
-                    endif; ?>
+                    <?php if(!empty($message)): echo $message; endif; ?>
                 </h2>
             </div>
         </div>
