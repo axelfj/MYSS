@@ -18,5 +18,16 @@
         ></script>
 <script src="js/bootstrap-datepicker.js"></script>
 <script src="js/main.js"></script>
+<script src="js/tagsinput.js"></script>
+<script>
+    $( "#comment" ).keyup(function() {
+        if($(this).val() != '') {
+             $("#commentbtn").removeAttr('disabled');
+        }
+        else{
+            $('#commentbtn').attr("disabled", true);
+        }
+    });
+</script>
 </body>
 </html>
