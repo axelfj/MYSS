@@ -51,7 +51,7 @@ include_once "navbar.php";
                             <textarea id="post" name="post" type="text" class="form-control" required
                                       placeholder="What are you doing right now?"></textarea>
                             <br>
-                            <input type="text" data-role="tagsinput" placeholder="Tags">
+                            <input id="tagsPost" name="tagsPost" type="text" data-role="tagsinput" placeholder="Tags">
                             <hr>
                             <div class="row">
                                 <div class="col-md-2">

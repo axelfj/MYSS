@@ -30,10 +30,12 @@
         </div>
 
         <?php include "comment.inc.php";?>
-        
+
         <hr>
         <textarea id="comment" name="comment" type="text" class="form-control"
                   placeholder="Type a new comment..." style="resize: none;"></textarea><br>
+        <input id="tagsComment" name="tagsComment" type="text" data-role="tagsinput" placeholder="Tags">
+        <hr>
         <button id="commentbtn" name="commentbtn" class="btn btn-primary pull-right" disabled><!--<i class="fas fa-cog"></i>-->Comment</button><br><br><br>
     </div>
 </div>
