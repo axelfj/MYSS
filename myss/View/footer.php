@@ -22,8 +22,10 @@
 <script>
     $( "#comment" ).keyup(function() {
         if($(this).val() != '') {
-            // Show alert dialog if value is not blank
              $("#commentbtn").removeAttr('disabled');
+        }
+        else{
+            $('#commentbtn').attr("disabled", true);
         }
     });
 </script>

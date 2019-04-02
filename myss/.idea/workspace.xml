@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="531e9700-9b17-45f9-881f-a6da34df658d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/View/footer.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/footer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/View/profile.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/profile.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,7 +28,7 @@
         <entry file="file://$PROJECT_DIR$/View/profile.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="572">
-              <caret line="122" column="105" selection-start-line="122" selection-start-column="97" selection-end-line="122" selection-end-column="105" />
+              <caret line="122" column="167" lean-forward="true" selection-start-line="122" selection-start-column="167" selection-end-line="122" selection-end-column="167" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -73,8 +71,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/View/footer.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="27" column="7" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
+            <state relative-caret-position="493">
+              <caret line="29" column="7" lean-forward="true" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -184,12 +182,12 @@
       <workItem from="1553470627086" duration="8748000" />
       <workItem from="1553570062109" duration="6546000" />
       <workItem from="1553646197900" duration="3847000" />
-      <workItem from="1554106689011" duration="21037000" />
+      <workItem from="1554106689011" duration="22415000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36123000" />
+    <option name="totallyTimeSpent" value="37501000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -338,7 +336,7 @@
     <entry file="file://$PROJECT_DIR$/View/profile.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="572">
-          <caret line="122" column="105" selection-start-line="122" selection-start-column="97" selection-end-line="122" selection-end-column="105" />
+          <caret line="122" column="167" lean-forward="true" selection-start-line="122" selection-start-column="167" selection-end-line="122" selection-end-column="167" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
@@ -379,8 +377,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/View/footer.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="7" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
+        <state relative-caret-position="493">
+          <caret line="29" column="7" lean-forward="true" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
         </state>
       </provider>
     </entry>
