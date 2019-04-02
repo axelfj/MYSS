@@ -2,13 +2,19 @@
 include_once "header.php";
 include_once "banner.php";
 
-// Connection to the database.
+// Connection to the database and dependencies.
 require_once "../Controller/connection.php";
+require_once "../Controller/arangodb-php/lib/ArangoDBClient/Statement.php";
+require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
+
+// So we can cast it in the Statement.
+use ArangoDBClient\Statement as ArangoStatement;
 
 // Start the session.
 session_start();
 
 // Verifies that the User has already logged-in.
+// If he's in, we must redirect him.
 if (isset($_SESSION['userId'])){
     header('Location: ..\View\index.php');
 }
@@ -16,12 +22,52 @@ if (isset($_SESSION['userId'])){
 // Creates a connection to the database.
 $database = connect();
 
-// If all the inputs are with values.
+// If all the inputs are with values we can try to log in.
 if ((!empty($_POST['email'])) &&
     (!empty($_POST['password']))){
 
-    // Makes an AQL querie.
-    $query = 'FOR x IN user RETURN x._key'
+    try{
+
+        // Saves the email on a var.
+        $emailOnInput = $_POST['email'];
+
+        // Makes an AQL query to look for the username with his email.
+        $query = 'FOR x IN user 
+                    FILTER user.email == @email
+                    RETURN x._key';
+
+        // Creates an Statement so we can bind the vars.
+        // He will look for the username in the collection user with the username = 'username'.
+        // Note that this will only returns the key, so later we have to read it again.
+        $statement = new ArangoStatement(
+            $database,
+            array(
+                "query"     => $query,
+                "count"     => true,
+                "batchSize" => 1,   // It is suppose to only bring one.
+                "sanitize"  => true,
+                "bindVars"  => array("email" => $emailOnInput)
+            )
+        );
+
+        // Executes the query.
+        $cursor = $statement->execute();
+
+        var_dump($cursor);
+
+        // And saves the result in an array.
+        $resultingDocuments = array();
+
+        foreach ($cursor as $key => $value) {
+            $resultingDocuments[$key] = $value;
+        }
+
+        var_dump($resultingDocuments);
+
+    } catch (Exception $e){
+        $message = $e ->getMessage();
+    }
+
 }
 
 ?>
@@ -31,7 +77,7 @@ if ((!empty($_POST['email'])) &&
         <center>
             <div class="col-md-6" style="box-shadow: 0px 20px 30px rgba(0, 35, 71, 0.1);background: #ffffff;height:365px;">
                 <br><h1>MYSS</h1>
-                <form method="post" class="form-signin">
+                <form method="post" class="form-signin" action="login.php">
                     <h3 class="form-signin-heading">Log In</h3><br>
                     <div class="form-group">
                         <input name="email" type="text" class="form-control" required placeholder="Email">
