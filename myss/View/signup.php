@@ -29,7 +29,7 @@ if((!empty($_POST['username'])) &&
     try{
 
         // Ask for the document with the username given in the form.
-        $cursor     = $document -> byExample('user', ['username' => $_POST['username']]);
+        $cursor = $document -> byExample('user', ['username' => $_POST['username']]);
 
         // Count it, if 0 : he's not in the database.
         $valueFound = $cursor->getCount();
@@ -61,9 +61,10 @@ if((!empty($_POST['username'])) &&
 
                 // Insert him in the database.
                 $newPerson = $database->save("user", $person);
+
+                $message = 'You have been successfully registered';
             }
         }
-
         else{
             $message = 'Username already taken.';
         }
@@ -75,11 +76,6 @@ if((!empty($_POST['username'])) &&
 ?>
 
 <section class="login">
-
-    <?php if(!empty($message)): ?>
-        <p> <?= $message ?></p>
-    <?php endif; ?>
-
     <div class="container" style="padding-top: 150px;">
         <center>
             <div class="col-md-6" style="box-shadow: 0px 20px 30px rgba(0, 35, 71, 0.1);background: #ffffff;height:490px;">
@@ -114,7 +110,11 @@ if((!empty($_POST['username'])) &&
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <h2 class="modal-title" id="exampleModalLabel">You're successfully registered.</h2>
+                <h2 class="modal-title" id="exampleModalLabel">
+                    <?php if(!empty($message)):
+                         echo $message;
+                    endif; ?>
+                </h2>
             </div>
         </div>
     </div>
