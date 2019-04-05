@@ -11,7 +11,6 @@ $connection = connect();
 // Note that @@collection calls the collection where you want to delete the document. 
 $query = "FOR x IN @@collection FILTER x.username == 'azzefj' REMOVE x IN @@collection RETURN OLD";
 
- 
 // So, go and delete it!
 try {
     $statement = new Statement(
