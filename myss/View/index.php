@@ -154,18 +154,18 @@ include_once "navbar.php";
             </div>
 
             <!-- Start Blog Post Sidebar -->
-            <div class="col-md-4 sidebar-widgets">
-                <div class="widget-wrap">
+            <div class="col-md-4 sidebar-widgets"  >
+                <div class="widget-wrap" style="position: fixed;width: 300px;">
 
                     <!-- Search Bar -->
-                    <div class="single-sidebar-widget search-widget">
-                        <form class="search-form" action="#">
-                            <input placeholder="Search" name="search" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search'">
-                            <button type="submit"><i class="fa fa-search"></i></button>
-                        </form>
-                    </div>
+<!--                    <div class="single-sidebar-widget search-widget">-->
+<!--                        <form class="search-form" action="#">-->
+<!--                            <input placeholder="Search" name="search" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search'">-->
+<!--                            <button type="submit"><i class="fa fa-search"></i></button>-->
+<!--                        </form>-->
+<!--                    </div>-->
 
-                    <div class="single-sidebar-widget post-category-widget">
+                    <div class="single-sidebar-widget post-category-widget" >
                         <h4 class="ti-tag"> Popular Tags </h4>
                         <ul class="cat-list mt-20">
                             <li>
