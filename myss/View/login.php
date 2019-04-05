@@ -27,13 +27,14 @@ try {
     if ((!empty($_POST['email'])) &&
         (!empty($_POST['password']))) {
 
-        // Saves the email on a var.
-        $emailOnInput = $_POST['email'];
+        // Saves the email and the password on a vars.
+        $emailOnInput       = $_POST['email'];
+        $passwordOnInput    = $_POST['password'];
 
         // Makes an AQL query to look for the username with his email.
         // Also, we're extracting all the info to save it in the Session.
         $query = 'FOR x IN user FILTER x.email == @email RETURN {password: x.password, key: x._key, 
-        username: x.username, name: x.name}';
+        username: x.username, name: x.name, email: x.email}';
 
         // Creates an Statement so we can bind the vars.
         // He will look for the username in the collection user with the email = to the email that is on the POST.
@@ -59,21 +60,37 @@ try {
         // Checks if the User exists.
         if ($cursor->getCount() > 0) {
 
-            echo 'Pasé por aquí.';
+            // Creates an another array to save the information of the person without saving it in the session without
+            // knowing if he's writing the right information.
+            $personalInformation = array();
 
             // Iterates over the array to process him.
             foreach ($cursor as $key => $value) {
 
                 // After it saves him in the $resultingDocuments, we get the attributes that we want.
-                $resultingDocuments[$key] = $value;
-                $_SESSION['username']   = $resultingDocuments[$key]->get('username');
-                $_SESSION['userKey']    = $resultingDocuments[$key]->get('key');
-                $_SESSION['name']       = $resultingDocuments[$key]->get('name');
+                $resultingDocuments[$key]           = $value;
+                $personalInformation['username']    = $resultingDocuments[$key]->get('username');
+                $personalInformation['userKey']     = $resultingDocuments[$key]->get('key');
+                $personalInformation['name']        = $resultingDocuments[$key]->get('name');
+                $personalInformation['email']       = $resultingDocuments[$key]->get('email');
+                $personalInformation['password']    = $resultingDocuments[$key]->get('password');
+             }
+
+            // Now, we must compare his password with the one that is in the form.
+            if (password_verify($passwordOnInput, $personalInformation['password'])){
+
+                // Save his information in the session and redirect him.
+                $_SESSION['username']   = $personalInformation['username'];
+                $_SESSION['userKey']    = $personalInformation['userKey'];
+                $_SESSION['name']       = $personalInformation['name'];
+                $_SESSION['email']      = $personalInformation['email'];
+
+                // Finally, redirect him to the index.
+                header('Location: ..\View\index.php');
             }
-
-            // Finally, redirect him to the index.
-            header('Location: ..\View\index.php');
-
+            else{
+                $message = 'Incorrect password.';
+            }
         } else {
             $message = 'The user is not registered.';
         }
