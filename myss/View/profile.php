@@ -44,30 +44,30 @@ if (isset($_POST['postbtn'])){
 }
 ?>
 
-<!--<head><link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"></head>-->
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center ">
             <div class="panel panel-default container" style="background-color: white;padding-top: 13px;">
                 <div class="userprofile social container" style="background-color: white;">
-                    <div class="userpic"><img src="img/hiena.png" alt="" class="userpicimg"></div>
-                    <h3 class="username"><?php echo $_SESSION['username']?> </h3>
+                    <div class="userpic"><img src="img/user.png" alt="" class="userpicimg"></div>
+                    <h3 class="username" style="font-size: 18px;"><?php echo $_SESSION['name']?></h3>
+                    <p><?php echo '@'.$_SESSION['username']?></p>
                 </div>
                 <div class="col-md-12 border-top border-bottom">
                     <ul class="nav nav-pills pull-left countlist" role="tablist">
                         <li role="presentation">
-                            <h3>1452<br>
+                            <h3>#<br>
                                 <small>Follower</small>
                             </h3>
                         </li>
                         <li role="presentation">
-                            <h3>666<br>
+                            <h3>#<br>
                                 <small>Following</small>
                             </h3>
                         </li>
                         <li role="presentation">
-                            <h3>5000<br>
-                                <small>Activity</small>
+                            <h3>#<br>
+                                <small>Posts</small>
                             </h3>
                         </li>
                     </ul>
@@ -126,21 +126,21 @@ if (isset($_POST['postbtn'])){
                 <hr>
                 <div class="col-md-12">
                     <div class="memberblock"><a href="" class="member"> <img
-                                    src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="">
+                                    src="img/user.png" alt="">
                             <div class="memmbername">Ajay Sriram</div>
-                        </a> <a href="" class="member"> <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                        </a> <a href="" class="member"> <img src="img/user.png"
                                                              alt="">
                             <div class="memmbername">Rajesh Sriram</div>
-                        </a> <a href="" class="member"> <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                        </a> <a href="" class="member"> <img src="img/user.png"
                                                              alt="">
                             <div class="memmbername">Manish Sriram</div>
-                        </a> <a href="" class="member"> <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                        </a> <a href="" class="member"> <img src="img/user.png"
                                                              alt="">
                             <div class="memmbername">Chandra Amin</div>
-                        </a> <a href="" class="member"> <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                        </a> <a href="" class="member"> <img src="img/user.png"
                                                              alt="">
                             <div class="memmbername">John Sriram</div>
-                        </a> <a href="" class="member"> <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                        </a> <a href="" class="member"> <img src="img/user.png"
                                                              alt="">
                             <div class="memmbername">Lincoln Sriram</div>
                         </a></div>
