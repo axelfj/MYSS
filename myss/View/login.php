@@ -99,6 +99,7 @@ try {
     catch (Exception $e){
     $message = $e ->getMessage();
 }
+
 ?>
     <center>
         <section class="">
@@ -119,7 +120,6 @@ try {
                             </div>
                             <button id="loginbtn" name="loginbtn" class="genric-btn info circle" type="submit">Log In</button><br>
                             <a class="btn" href="signup.php" role="button">Don't have an account yet? Register here.</a><br>
-                            <a class="btn" href="#" role="button">Forgot your password?</a>
                         </form>
                     </div><!-- /.col -->
                 </center>
