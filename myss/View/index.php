@@ -160,7 +160,7 @@ include_once "navbar.php";
                     <!-- Search Bar -->
                     <div class="single-sidebar-widget search-widget">
                         <form class="search-form" action="#">
-                            <input placeholder="Search Posts" name="search" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Posts'">
+                            <input placeholder="Search" name="search" type="text" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search'">
                             <button type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
