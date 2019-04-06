@@ -17,6 +17,3 @@ if ($collectionHandler->has('posts')) {
 if ($collectionHandler->has('tag')) {
     $collectionHandler->drop('tag');
 }
-if ($collectionHandler->has('comment')) {
-    $collectionHandler->drop('comment');
-}

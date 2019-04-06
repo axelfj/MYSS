@@ -50,25 +50,8 @@ if (isset($_POST['postbtn'])){
             <div class="panel panel-default container" style="background-color: white;padding-top: 13px;">
                 <div class="userprofile social container" style="background-color: white;">
                     <div class="userpic"><img src="img/user.png" alt="" class="userpicimg"></div>
-                    <h3 class="username" style="font-size: 18px;">
-                        <?php
-                        if (isset($_SESSION['name'])){
-                            echo $_SESSION['name'];
-                        }
-                        else{
-                            echo 'Name';
-                        }
-                        ?>
-                    </h3>
-                    <p><?php
-                        if (isset($_SESSION['username'])){
-                            echo '@';
-                            echo $_SESSION['username'];
-                        }
-                        else {
-                            echo '@username';
-                        }
-                        ?></p>
+                    <h3 class="username" style="font-size: 18px;"><?php echo $_SESSION['name']?></h3>
+                    <p><?php echo '@'.$_SESSION['username']?></p>
                 </div>
                 <div class="col-md-12 border-top border-bottom">
                     <ul class="nav nav-pills pull-left countlist" role="tablist">
@@ -133,11 +116,7 @@ if (isset($_POST['postbtn'])){
             </div>
             <br>
             <h1 class="page-header small" style="color: grey;">Your posts</h1><br>
-            <?php
-            if (isset($_SESSION['username'])):
-                include_once "post.inc.php";
-            endif;
-            ?>
+            <?php include_once "post.inc.php"; ?>
         </div>
         <div class="col-md-4 col-sm-12 pull-right">
             <div class="container" style="background-color: white;">
