@@ -10,6 +10,7 @@ require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php"
 use ArangoDBCLient\DocumentHandler as ArangoDocumentHandler;
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 use ArangoDBClient\Document as ArangoDocument;
+date_default_timezone_set('America/Costa_Rica');
 
 if (isset($_POST['postbtn'])){
     try {
@@ -19,16 +20,20 @@ if (isset($_POST['postbtn'])){
             $database = new ArangoDocumentHandler(connect());
             $document = new ArangoCollectionHandler(connect());
 
-            $title = $_POST['title'];
-            $text = $_POST['post'];
-            $tagsPost = $_POST['tagsPost'];
+            $title      = $_POST['title'];
+            $text       = $_POST['post'];
+            $tagsPost   = $_POST['tagsPost'];
             $visibility = $_POST['visibility'];
+            $owner      = $_SESSION['username'];
+            $time       = date('j-m-y H:i');
 
             $post = new ArangoDocument();
             $post->set("title", $title);
             $post->set("text", $text);
             $post->set("tagsPost", $tagsPost);
             $post->set("visibility", $visibility);
+            $post->set("owner", $owner);
+            $post->set("time", $time);
 
             $newPost = $database->save("posts", $post);
             $message = 'You have been successfully registered';
