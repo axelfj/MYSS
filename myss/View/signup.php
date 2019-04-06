@@ -49,32 +49,31 @@ try {
 
                 // We can get the email now.
                 $emailOnDatabase = $resultingDocuments[$key]->get('email');
+            }
 
+            // Checks if the format of the email is valid and that has not been taken.
+            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) && ($emailOnDatabase != $_POST['email'])) {
+                $message = 'The format of the email is invalid or has been taken.';
+            } else {
 
-                // Checks if the format of the email is valid and that has not been taken.
-                if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) && ($emailOnDatabase != $_POST['email'])) {
-                    $message = 'The format of the email is invalid or has been taken.';
-                } else {
+                // Gets all tha parameters to insert him.
+                $username   = $_POST['username'];
+                $email      = $_POST['email'];
+                $password   = password_hash($_POST['password'], PASSWORD_BCRYPT);
+                $name       = $_POST['name'];
+                $birthday   = $_POST['birthday'];
 
-                    // Gets all tha parameters to insert him.
-                    $username = $_POST['username'];
-                    $email = $_POST['email'];
-                    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-                    $name = $_POST['name'];
-                    $birthday = $_POST['birthday'];
+                // Creates a document that represents the person.
+                $user = new ArangoDocument();
+                $user->set("username"   , $username);
+                $user->set("email"      , $email);
+                $user->set("password"   , $password);
+                $user->set("name"       , $name);
+                $user->set("birthday"   , $birthday);
 
-                    // Creates a document that represents the person.
-                    $user = new ArangoDocument();
-                    $user->set("username", $username);
-                    $user->set("email", $email);
-                    $user->set("password", $password);
-                    $user->set("name", $name);
-                    $user->set("birthday", $birthday);
-
-                    // Insert him in the collection user.
-                    $newUser = $database->save("user", $user);
-                    $message = 'You have been successfully registered';
-                }
+                // Insert him in the collection user.
+                $newUser = $database->save("user", $user);
+                $message = 'You have been successfully registered';
             }
         }
         else{
