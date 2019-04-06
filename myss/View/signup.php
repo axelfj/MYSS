@@ -27,57 +27,45 @@ try {
         $document = new ArangoCollectionHandler(connect());
 
         // This function substitutes all the query and search for the username.
-        $cursor = $document->byExample('user', ['username' => $_POST['username']]);
+        $cursorUser = $document->byExample('user', ['username' => $_POST['username']]);
+        $cursorEmail = $document->byExample('user', ['email' => $_POST['email']]);
 
         // Count it, 0 = he's not in the database.
-        $valueFound = $cursor->getCount();
+        $valueFoundUser = $cursorUser->getCount();
+        $valueFoundEmail = $cursorEmail->getCount();
 
         // We can proceed to insert him in the database.
-        if ($valueFound == 0) {
-
-            // An array to iterate the cursor.
-            $resultingDocuments = array();
-
-            // And an auxiliary var to save the email of the user.
-            $emailOnDatabase = null;
-
-            // Iterates over the array to process him.
-            foreach ($cursor as $key => $value) {
-
-                // After it saves him in the $resultingDocuments, we get the attributes that we want.
-                $resultingDocuments[$key] = $value;
-
-                // We can get the email now.
-                $emailOnDatabase = $resultingDocuments[$key]->get('email');
-            }
-
-            // Checks if the format of the email is valid and that has not been taken.
-            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) && ($emailOnDatabase != $_POST['email'])) {
-                $message = 'The format of the email is invalid or has been taken.';
-            } else {
+        if ($valueFoundUser == 0) {
+            if($valueFoundEmail == 0){
 
                 // Gets all tha parameters to insert him.
-                $username   = $_POST['username'];
-                $email      = $_POST['email'];
-                $password   = password_hash($_POST['password'], PASSWORD_BCRYPT);
-                $name       = $_POST['name'];
-                $birthday   = $_POST['birthday'];
+                $username = $_POST['username'];
+                $email = $_POST['email'];
+                $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+                $name = $_POST['name'];
+                $birthday = $_POST['birthday'];
 
                 // Creates a document that represents the person.
                 $user = new ArangoDocument();
-                $user->set("username"   , $username);
-                $user->set("email"      , $email);
-                $user->set("password"   , $password);
-                $user->set("name"       , $name);
-                $user->set("birthday"   , $birthday);
+                $user->set("username", $username);
+                $user->set("email", $email);
+                $user->set("password", $password);
+                $user->set("name", $name);
+                $user->set("birthday", $birthday);
 
                 // Insert him in the collection user.
                 $newUser = $database->save("user", $user);
                 $message = 'You have been successfully registered';
+
+                // Redirect him to the login.
+                header('Location: ..\View\login.php');
+
+            } else{
+                $message = "Cannot register. The email has been taken";
             }
         }
         else{
-            $message = "Cannot register. The username/email had been taken.";
+            $message = "Cannot register. The username has been taken.";
         }
     }
 } catch (Exception $e){
