@@ -1,11 +1,14 @@
 <?php
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 use ArangoDBClient\Collection as ArangoCollection;
+use ArangoDBClient\EdgeHandler as ArangoEdgeHandler;
+use ArangoDBClient\Edge as ArangoEdge;
 
 require_once("connection.php");
 
 $connection = connect();
 $collectionHandler = new ArangoCollectionHandler($connection);
+$edgeHandler = new ArangoEdgeHandler($connection);
 
 if ($collectionHandler->has('user')) {
     $collectionHandler->drop('user');
@@ -16,18 +19,10 @@ if ($collectionHandler->has('posts')) {
 if ($collectionHandler->has('tag')) {
     $collectionHandler->drop('tag');
 }
-if ($collectionHandler->has('comment')) {
-    $collectionHandler->drop('comment');
+if ($collectionHandler->has('follows')) {
+    $collectionHandler->drop('follows');
 }
-if ($collectionHandler->has('friends')) {
-    $collectionHandler->drop('friends');
-}
-if ($collectionHandler->has('userXpost')) {
-    $collectionHandler->drop('userXpost');
-}
-if ($collectionHandler->has('postXtag')) {
-    $collectionHandler->drop('postXtag');
-}
+
 
 // create the User collection //
 $userCollection = new ArangoCollection();
@@ -45,24 +40,24 @@ $tagCollection->setName('tag');
 $id = $collectionHandler-> create($tagCollection);
 
 // create the Comment collection //
-$commentCollection = new ArangoCollection();
-$commentCollection->setName('comment');
-$id = $collectionHandler-> create($commentCollection);
+$commentEdge = new ArangoEdge();
+$commentEdge->setName('has_comment');
+$id = $edgeHandler->;
 
 // create the userXuser collection //
-$userXuserCollection = new ArangoCollection();
-$userXuserCollection->setName('userXuser');
-$id = $collectionHandler->create($userXuserCollection);
+$followsEdge = new ArangoEdge();
+$followsEdge->setName('follows');
+$id = $edgeHandler->create($followsEdge);
 
-// create the userXpost collection //
-$userXpostCollection = new ArangoCollection();
-$userXpostCollection->setName('userXpost');
-$id = $collectionHandler->create($userXpostCollection);
+// create the posted edge //
+$postedEdge = new ArangoEdge();
+$postedEdge->setName('posted');
+//$id = $edgeHandler->create($postedEdge);
 
 // create the postXtag collection //
-$postXtagCollection = new ArangoCollection();
-$postXtagCollection->setName('postXtag');
-$id = $collectionHandler->create($postXtagCollection);
+$has_tagEdge = new ArangoEdge();
+$has_tagEdge->setName('has_tags');
+//$id = $edgeHandler->create($has_tagEdge);
 
 
-echo 'Se han creado las colecciones correctamente.';
+echo 'Se han creado las colecciones y aristas correctamente.';
