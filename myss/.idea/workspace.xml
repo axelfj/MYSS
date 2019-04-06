@@ -14,8 +14,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/View/signup.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-117">
-              <caret line="41" column="36" selection-start-line="41" selection-start-column="36" selection-end-line="41" selection-end-column="36" />
+            <state relative-caret-position="427">
+              <caret line="78" column="47" selection-start-line="78" selection-start-column="47" selection-end-line="78" selection-end-column="47" />
               <folding>
                 <element signature="e#468#533#0#PHP" expanded="true" />
               </folding>
@@ -26,8 +26,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/View/login.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="74" column="94" lean-forward="true" selection-start-line="74" selection-start-column="54" selection-end-line="74" selection-end-column="94" />
+            <state relative-caret-position="382">
+              <caret line="88" column="54" lean-forward="true" selection-start-line="88" selection-start-column="16" selection-end-line="88" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -44,6 +44,9 @@
       </list>
     </option>
   </component>
+  <component name="PhpServers">
+    <servers />
+  </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="676" />
     <option name="width" value="697" />
@@ -55,6 +58,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -76,7 +80,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -101,12 +104,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="995000" />
+    <option name="totallyTimeSpent" value="1036000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1603631" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16263238" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -151,17 +155,56 @@
     </layout-to-restore>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/View/post.inc.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#855#861#0#HTML" expanded="true" />
+            <element signature="e#861#867#0#HTML" expanded="true" />
+            <element signature="e#867#873#0#HTML" expanded="true" />
+            <element signature="e#873#879#0#HTML" expanded="true" />
+            <element signature="e#879#885#0#HTML" expanded="true" />
+            <element signature="e#1413#1419#0#HTML" expanded="true" />
+            <element signature="e#1419#1425#0#HTML" expanded="true" />
+            <element signature="e#1425#1431#0#HTML" expanded="true" />
+            <element signature="e#1431#1437#0#HTML" expanded="true" />
+            <element signature="e#1437#1443#0#HTML" expanded="true" />
+            <element signature="e#1443#1449#0#HTML" expanded="true" />
+            <element signature="e#1540#1546#0#HTML" expanded="true" />
+            <element signature="e#1546#1552#0#HTML" expanded="true" />
+            <element signature="e#1552#1558#0#HTML" expanded="true" />
+            <element signature="e#1558#1564#0#HTML" expanded="true" />
+            <element signature="e#1564#1570#0#HTML" expanded="true" />
+            <element signature="e#1570#1576#0#HTML" expanded="true" />
+            <element signature="n#style#0;n#textarea#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Controller/Graph test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Controller/deleteDocument.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/View/login.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="74" column="94" lean-forward="true" selection-start-line="74" selection-start-column="54" selection-end-line="74" selection-end-column="94" />
+        <state relative-caret-position="382">
+          <caret line="88" column="54" lean-forward="true" selection-start-line="88" selection-start-column="16" selection-end-line="88" selection-end-column="54" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/View/signup.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-117">
-          <caret line="41" column="36" selection-start-line="41" selection-start-column="36" selection-end-line="41" selection-end-column="36" />
+        <state relative-caret-position="427">
+          <caret line="78" column="47" selection-start-line="78" selection-start-column="47" selection-end-line="78" selection-end-column="47" />
           <folding>
             <element signature="e#468#533#0#PHP" expanded="true" />
           </folding>
