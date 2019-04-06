@@ -1,5 +1,14 @@
 <?php
+require_once "../Controller/connection.php";
+require_once "../Controller/arangodb-php/lib/ArangoDBClient/CollectionHandler.php";
+require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
+require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
+session_start();
 // Gets the url and finds the comment button that was pressed.
+use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
+use ArangoDBClient\Document as ArangoDocument;
+use ArangoDBClient\DocumentHandler as ArangoDocumentHandler;
+
 $url          = $_SERVER['REQUEST_URI'];
 $pos          = strpos($url, 'commentbtn')+10;
 $len          = strlen($url);
@@ -7,10 +16,33 @@ $buttonNumber = substr($url, $pos, $len);
 
 if(isset($_POST['commentbtn'.$buttonNumber])){
     echo 'sss:' . $_POST['comment' . $buttonNumber];
+
+    try {
+        if (!empty($_POST['comment' . $buttonNumber])) {
+
+            $database = new ArangoDocumentHandler(connect());
+            $document = new ArangoCollectionHandler(connect());
+
+            $text       = $_POST['comment' . $buttonNumber];
+            $tagsPost   = $_POST['tagsComment' . $buttonNumber];
+            $owner      = $_SESSION['username'];
+            $time       = date('j-m-y H:i');
+
+            $post = new ArangoDocument();
+            $post->set("text", $text);
+            $post->set("tagsPost", $tagsPost);
+            $post->set("owner", $owner);
+            $post->set("time", $time);
+
+            $newPost = $database->save("posts", $post);
+        }
+    } catch (Exception $e) {
+        $message = $e->getMessage();
+    }
 }
-else{
-    echo 'nooo';
-}
+
+
+
 ?>
 <div class="col-md-12 commentsblock border-top">
     <div class="media">
