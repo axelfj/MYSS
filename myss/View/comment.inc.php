@@ -1,7 +1,7 @@
 <div class="col-md-12 commentsblock border-top">
     <div class="media">
         <div class="media-left"><a href="javascript:void(0)"> <img alt="64x64"
-                                                                   src="https://www.kwsme.com/wp-content/uploads/2016/06/login-user-icon.png"
+                                                                   src="img/user.png"
                                                                    class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <div class="media-body">
             <h4 class="media-heading">Astha Smith</h4>
