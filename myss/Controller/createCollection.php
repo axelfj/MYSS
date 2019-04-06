@@ -31,6 +31,9 @@ if ($collectionHandler->has('posted')) {
 if ($collectionHandler->has('has_tag')) {
     $collectionHandler->drop('has_tag');
 }
+if ($collectionHandler->has('has_comment')) {
+    $collectionHandler->drop('has_comment');
+}
 
 
 // create the User collection //
