@@ -63,7 +63,7 @@ if ($valueFound == 0) { ?>
                 <div class="col-md-12 container" style="background-color: white;">
                     <div class="media">
                         <div class="media-left"><a href="javascript:void(0)"><img
-                                        src="https://www.kwsme.com/wp-content/uploads/2016/06/login-user-icon.png"
+                                        src="img/user.png"
                                         alt=""
                                         class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="media-body">

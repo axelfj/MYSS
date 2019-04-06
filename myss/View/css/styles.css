@@ -202,7 +202,8 @@
 	border: 1px solid #d8d0c3;
 	padding: 3px;
 	position: relative;
-	overflow: hidden
+	overflow: hidden;
+	border-radius: 50%;
 }
 .memmbername {
 	position: absolute;
