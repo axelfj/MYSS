@@ -1,6 +1,6 @@
 <?php
-include_once "header.php";
-include_once "banner.php";
+//include_once "header.php";
+//include_once "banner.php";
 
 // Calls the connection and all the dependencies.
 require_once "../Controller/connection.php";
@@ -29,6 +29,8 @@ try {
         // This function substitutes all the query and search for the username.
         $cursor = $document->byExample('user', ['username' => $_POST['username']]);
 
+        $exists = false;
+
         // Count it, 0 = he's not in the database.
         $valueFound = $cursor->getCount();
 
@@ -49,13 +51,17 @@ try {
 
                 // We can get the email now.
                 $emailOnDatabase = $resultingDocuments[$key]->get('email');
+                if (($emailOnDatabase == $_POST['email'])) {
+
+                    $exists = true;
+                }
             }
 
             // Checks if the format of the email is valid and that has not been taken.
-            if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) && ($emailOnDatabase != $_POST['email'])) {
+            if ($exists) {
                 $message = 'The format of the email is invalid or has been taken.';
             } else {
-
+//                echo  $exists;
                 // Gets all tha parameters to insert him.
                 $username   = $_POST['username'];
                 $email      = $_POST['email'];
