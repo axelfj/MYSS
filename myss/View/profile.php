@@ -1,6 +1,42 @@
 <?php
 include_once "header.php";
 include_once "navbar.php";
+
+require_once "../Controller/connection.php";
+require_once "../Controller/arangodb-php/lib/ArangoDBClient/CollectionHandler.php";
+require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
+require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
+
+use ArangoDBCLient\DocumentHandler as ArangoDocumentHandler;
+use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
+use ArangoDBClient\Document as ArangoDocument;
+
+if (isset($_POST['postbtn'])){
+    try {
+        if (!empty($_POST['title']) &&
+            !empty($_POST['post'])) {
+
+            $database = new ArangoDocumentHandler(connect());
+            $document = new ArangoCollectionHandler(connect());
+
+            $title = $_POST['title'];
+            $text = $_POST['post'];
+            $tagsPost = $_POST['tagsPost'];
+            $visibility = $_POST['visibility'];
+
+            $post = new ArangoDocument();
+            $post->set("title", $title);
+            $post->set("text", $text);
+            $post->set("tagsPost", $tagsPost);
+            $post->set("visibility", $visibility);
+
+            $newPost = $database->save("posts", $post);
+            $message = 'You have been successfully registered';
+        }
+    } catch (Exception $e) {
+        $message = $e->getMessage();
+    }
+}
 ?>
 
 <!--<head><link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"></head>-->
@@ -31,7 +67,9 @@ include_once "navbar.php";
                             </h3>
                         </li>
                     </ul>
-                    <button id="followbtn" name="followbtn" class="btn btn-primary followbtn"><!--<i class="fas fa-cog"></i>-->Follow</button>
+                    <button id="followbtn" name="followbtn" class="btn btn-primary followbtn">
+                        <!--<i class="fas fa-cog"></i>-->Follow
+                    </button>
 
                 </div>
                 <div class="clearfix"></div>
@@ -43,7 +81,7 @@ include_once "navbar.php";
             <div class="container" style="background-color: white;"><br>
                 <div class="container" style="background-color: white;">
                     <div class="container" style="background-color: white;">
-                        <form>
+                        <form action="profile.php" method="post">
                             <h4>New post</h4>
                             <hr>
                             <input id="title" name="title" type="text" class="form-control" required
@@ -55,13 +93,15 @@ include_once "navbar.php";
                             <hr>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <select class="browser-default">
+                                    <select id="visibility" name="visibility" class="browser-default">
                                         <option value="Public">Public</option>
                                         <option value="Private">Private</option>
                                     </select>
                                 </div>
                                 <div class="col-md-10">
-                                    <button id="postbtn" name="postbtn" type="submit" class="btn btn-success pull-right"> Post</button>
+                                    <button id="postbtn" name="postbtn" type="submit"
+                                            class="btn btn-success pull-right"> Post
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -72,7 +112,7 @@ include_once "navbar.php";
             </div>
             <br>
             <h1 class="page-header small" style="color: grey;">Your posts</h1><br>
-            <?php include_once "post.inc.php";?>
+            <?php include_once "post.inc.php"; ?>
         </div>
         <div class="col-md-4 col-sm-12 pull-right">
             <div class="container" style="background-color: white;">
