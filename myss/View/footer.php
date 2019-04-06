@@ -20,14 +20,18 @@
 <script src="js/main.js"></script>
 <script src="js/tagsinput.js"></script>
 <script>
-    $( "#comment" ).keyup(function() {
+    $(document).on('keyup', '.classComment', function(){
+        var id = $(this).attr('id');
+        var len = id.lenght;
+        var num = id.slice(7, len);
+
         if($(this).val() != '') {
-             $("#commentbtn").removeAttr('disabled');
+            $("#commentbtn" + num).removeAttr('disabled');
         }
         else{
-            $('#commentbtn').attr("disabled", true);
+            $("#commentbtn" + num).attr("disabled", true);
         }
-    });
+    })
 </script>
 </body>
 </html>
