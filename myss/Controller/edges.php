@@ -55,7 +55,68 @@ function follow($fromUser, $toUser){
     $linkBetween = Edge::createFromArray($edgeInfo);
     $edgeHandler->saveEdge('follows', $idFromUser, $idToUser, $linkBetween);
 
+}
+
+function connectTag($idPost, $Tag){
+
+    $connection = connect();
+    $collectionHandler  = new ArangoCollectionHandler($connection);
+    $edgeHandler        = new EdgeHandler($connection);
+
+    $idTag = null;
+    $resultingDocument = null;
+
+    $cursorTag   = $collectionHandler->byExample('tag', ['name' => $Tag]);
+
+    if($cursorTag->getCount() == 0){
+        //crear el Tag nuevo
+    }
+
+    foreach ($cursorTag as $key => $value) {
+        $resultingDocument[$key] = $value;
+
+        // Gets the id of the FromUser.
+        $idTag = $resultingDocument[$key]->getHandle();
+    }
+
+    $edgeInfo   = [
+        // info in the edge
+    ];
+    $linkBetween = Edge::createFromArray($edgeInfo);
+    $edgeHandler->saveEdge('has', $idPost, $idTag, $linkBetween);
 
 }
 
-follow('axl1210', "azzefj");
+function userPosted($idUser, $idPost){
+    $connection         = connect();
+    $collectionHandler  = new ArangoCollectionHandler($connection);
+    $edgeHandler        = new EdgeHandler($connection);
+    $graphHandler       = new GraphHandler($connection);
+
+    $cursorFrom = $collectionHandler->byExample('user', ['username' => $idUser]);
+    $cursorTo   = $collectionHandler->byExample('post', ['title' => $idPost]);
+
+    // Now, we get the documents iterating over the cursors.
+    $idFromUser         = null;
+    $idToPost           = null;
+    $resultingDocument  = array();
+
+    foreach ($cursorFrom as $key => $value) {
+        $resultingDocument[$key] = $value;
+        $idFromUser = $resultingDocument[$key]->getHandle();
+    }
+
+    foreach ($cursorTo as $key => $value) {
+        $resultingDocument[$key] = $value;
+        $idToPost = $resultingDocument[$key]->getHandle();
+    }
+
+    $edgeInfo   = [
+        // info in the edge
+    ];
+    $linkBetween = Edge::createFromArray($edgeInfo);
+    $edgeHandler->saveEdge('posted', $idFromUser, $idToPost, $linkBetween);
+
+}
+
+userPosted('azzefj', "escroto");

@@ -13,8 +13,8 @@ $edgeHandler = new ArangoEdgeHandler($connection);
 if ($collectionHandler->has('user')) {
     $collectionHandler->drop('user');
 }
-if ($collectionHandler->has('posts')) {
-    $collectionHandler->drop('posts');
+if ($collectionHandler->has('post')) {
+    $collectionHandler->drop('post');
 }
 if ($collectionHandler->has('tag')) {
     $collectionHandler->drop('tag');
@@ -43,7 +43,7 @@ $id = $collectionHandler->create($userCollection);
 
 // create the Post collection //
 $postCollection = new ArangoCollection();
-$postCollection->setName('posts');
+$postCollection->setName('post');
 $id = $collectionHandler->create($postCollection);
 
 // create the Tag collection //
