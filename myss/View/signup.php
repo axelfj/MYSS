@@ -74,6 +74,9 @@ try {
                 // Insert him in the collection user.
                 $newUser = $database->save("user", $user);
                 $message = 'You have been successfully registered';
+
+                // Redirect him to the login.
+                header('Location: ..\View\login.php');
             }
         }
         else{
