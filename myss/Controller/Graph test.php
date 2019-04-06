@@ -1,66 +1,43 @@
 <?php
-use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
-use ArangoDBClient\DocumentHandler;
-use ArangoDBClient\Statement;
 
+// Requires the connection and all the dependencies.
 require_once("connection.php");
-require "../Controller/connection.php";
-require "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
-use ArangoDBClient\Document as ArangoDocument;
-use ArangoDBCLient\DocumentHandler as ArangoInsert;
+require_once "../Controller/connection.php";
+require_once "../Controller/arangodb-php/lib/ArangoDBClient/EdgeHandler.php";
 
-function followed(){
-    $connection = connect();
-    $collectionHandler = new ArangoCollectionHandler($connection);
-    $documentHandler = new DocumentHandler($connection);
-    $query = 'FOR u IN user FILTER u.username == @username UPDATE u WITH { followed: [@follow] } IN user';
-    try {
-        $statement = new Statement(
-            $connection,
-            array(
-                "query" => $query,
-                "count" => true,
-                "batchSize" => 1,
-                "sanitize" => true,
-                "bindVars" => array("doc" => $document)
-            )
-        );
-        $cursor = $statement->execute();
-        $resultingDocuments = array();
+// Uses the functions of ArangoDB.
+use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 
-        foreach ($cursor as $key => $value) {
-            $resultingDocuments[$key] = $value;
-        }
-        var_dump($resultingDocuments);
-    } catch (\ArangoDBClient\Exception $e) {
-        echo $e;
-    }
+// This function gets two parameters and associates them in an edge.
+// They must be their usernames.
+function follow($fromUser, $toUser){
+
+    // All the variables that we need to manage the function.
+    $connection         = connect();
+    $collectionHandler  = new ArangoCollectionHandler($connection);
+    $edgeHandler        = new EdgeHandler();
+
+    // We create two cursor to make the consults with the data.
+    $cursorFrom = $collectionHandler->byExample('user', ['username' => $fromUser]);
+    $cursorTo   = $collectionHandler->byExample('user', ['username' => $toUser]);
+
+    // Now, we get the documents iterating over the cursors.
+    $idFromUser         = null;
+    $idToUser           = null;
+    $resultingDocument  = array();
+
+     foreach ($cursorFrom as $key => $value) {
+        $resultingDocuments[$key] = $value;
+
+     }
+
+     var_dump($resultingDocuments);
+
+    // now insert a link between Marketing and Jane
+    $worksFor = Edge::createFromArray(['startDate' => '2009-06-23', 'endDate' => '2014-11-12']);
+    $edgeHandler->saveEdge('worksFor', $marketing->getHandle(), $jane->getHandle(), $worksFor);
+
+
 }
 
-function follower(){
-    $connection = connect();
-    $collectionHandler = new ArangoCollectionHandler($connection);
-    $documentHandler = new DocumentHandler($connection);
-    $query = 'FOR u IN user FILTER u.username == @username UPDATE u WITH { follower: [@follow] } IN user';
-    try {
-        $statement = new Statement(
-            $connection,
-            array(
-                "query" => $query,
-                "count" => true,
-                "batchSize" => 1,
-                "sanitize" => true,
-                "bindVars" => array("doc" => $document)
-            )
-        );
-        $cursor = $statement->execute();
-        $resultingDocuments = array();
-
-        foreach ($cursor as $key => $value) {
-            $resultingDocuments[$key] = $value;
-        }
-        var_dump($resultingDocuments);
-    } catch (\ArangoDBClient\Exception $e) {
-        echo $e;
-    }
-}
+follow
