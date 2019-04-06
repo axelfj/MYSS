@@ -37,8 +37,35 @@ function createGraph(){
     $graphHandler->createGraph($graph);
 }
 
+function createEdges(){
+    // All the variables that we need to manage the function.
+    $connection         = connect();
+    $collectionHandler  = new ArangoCollectionHandler($connection);
+    $edgeHandler        = new EdgeHandler($connection);
+    $graphHandler       = new GraphHandler($connection);
+    $graph              = new Graph();
+
+    $graph->get('MYSS');
+    //var_dump($graph->getEdgeDefinitions());
+    $userCollection = $collectionHandler->get('user');
+    $postsCollection = $collectionHandler->get('posts');
+    $tagCollection = $collectionHandler->get('tag');
+
+    try {
+        $graphHandler->saveVertex('MYSS', $userCollection);
+        $graphHandler->saveVertex('MYSS', $postsCollection);
+        $graphHandler->saveVertex('MYSS', $tagCollection);
+    } catch (\ArangoDBClient\Exception $e) {
+        echo $e->getMessage();
+    }
+
+    //$graph->addEdgeDefinition('comments', 'user', 'posts');
+
+}
+
 try{
     createGraph();
+    createEdges();
     echo 'Se ha creado el grafo.';
 } catch (Exception $e){
     // error handle
