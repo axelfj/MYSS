@@ -22,12 +22,16 @@
 <script>
     $( "#comment" ).keyup(function() {
         if($(this).val() != '') {
-             $("#commentbtn").removeAttr('disabled');
+             $(".btnComment").removeAttr('disabled');
         }
         else{
-            $('#commentbtn').attr("disabled", true);
+            $('.btnComment').attr("disabled", true);
         }
     });
+    $(document).on('click', '.btnComment', function(){
+        var id = $(this).attr('id');
+        alert(id);
+    })
 </script>
 </body>
 </html>

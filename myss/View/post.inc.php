@@ -1,7 +1,6 @@
 <?php
 
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
-use ArangoDBClient\DocumentHandler as ArangoDocumentHandler;
 use ArangoDBClient\Statement as ArangoStatement;
 
 $database = connect();
@@ -68,16 +67,20 @@ if ($valueFound == 0) { ?>
                                         class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="media-body">
                             <h4 class="media-heading"><?php echo $_SESSION['username']; ?><br>
-                                <small><i class="fa fa-clock-o" id="<?php echo 'time' . $postCounter;?>"></i> <?php echo $userPosts['time']; ?></small>
+                                <small><i class="fa fa-clock-o"
+                                          id="<?php echo 'time' . $postCounter; ?>"></i> <?php echo $userPosts['time']; ?>
+                                </small>
                             </h4>
                             <hr>
-                            <h5 id="<?php echo 'title' . $postCounter;?>"><?php echo $userPosts['title']; ?></h5><br>
-                            <p id="<?php echo 'text' . $postCounter;?>"><?php echo $userPosts['text']; ?></p>
+                            <h5 id="<?php echo 'title' . $postCounter; ?>"><?php echo $userPosts['title']; ?></h5><br>
+                            <p id="<?php echo 'text' . $postCounter; ?>"><?php echo $userPosts['text']; ?></p>
 
-                            <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter;?>">
+                            <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
                                 <li><a href="" title=""><i class="far fa-thumbs-up"></i> 2015</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <li><a href="" title=""><i class="far fa-comment-alt"></i> 25</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <li><a href="" title=""><i class="fas fa-tags"></i> <?php echo str_replace(',', ', ', $userPosts['tagsPost']); ?></a></li>
+                                <li><a href="" title=""><i
+                                                class="fas fa-tags"></i> <?php echo str_replace(',', ', ', $userPosts['tagsPost']); ?>
+                                    </a></li>
                             </ul>
                         </div>
                     </div>
@@ -85,13 +88,16 @@ if ($valueFound == 0) { ?>
                     <?php /*include "comment.inc.php"; */ ?>
 
                     <hr>
+                    <form action="profile.php" method="post">
                     <textarea id="comment" name="comment" type="text" class="form-control"
                               placeholder="Type a new comment..." style="resize: none;"></textarea><br>
-                    <input id="tagsComment" name="tagsComment" type="text" data-role="tagsinput" placeholder="Tags">
-                    <hr>
-                    <button id="commentbtn" name="commentbtn" class="btn btn-primary pull-right" disabled>
-                        <!--<i class="fas fa-cog"></i>-->Comment
-                    </button>
+                        <input id="tagsComment" name="tagsComment" type="text" data-role="tagsinput" placeholder="Tags">
+                        <hr>
+                        <button id="<?php echo 'commentbtn' . $postCounter; ?>"
+                                class="btn btn-primary pull-right btnComment" disabled>
+                            <!--<i class="fas fa-cog"></i>-->Comment
+                        </button>
+                    </form>
                     <br><br><br>
                 </div>
             </div>
