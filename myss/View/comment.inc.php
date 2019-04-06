@@ -31,7 +31,7 @@ if(isset($_POST['commentbtn'.$buttonNumber])){
             $post = new ArangoDocument();
             $post->set("text", $text);
             $post->set("tagsPost", $tagsPost);
-            $post->set("owner", $owner);
+            $post->set("commentOwner", $owner);
             $post->set("time", $time);
 
             $newPost = $database->save("posts", $post);

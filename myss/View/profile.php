@@ -91,7 +91,7 @@ if (isset($_POST['postbtn'])){
                             <input id="title" name="title" type="text" class="form-control" required
                                    placeholder="Title"><br>
                             <textarea id="post" name="post" type="text" class="form-control" required
-                                      placeholder="What are you doing right now?"></textarea>
+                                      placeholder="What are you doing right now?" style="resize: none;"></textarea>
                             <br>
                             <input id="tagsPost" name="tagsPost" type="text" data-role="tagsinput" placeholder="Tags">
                             <hr>
