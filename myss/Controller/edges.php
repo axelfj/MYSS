@@ -10,6 +10,8 @@ require_once "../Controller/arangodb-php/lib/ArangoDBClient/Edge.php";
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 use ArangoDBClient\EdgeHandler;
 use ArangoDBClient\Edge;
+use ArangoDBClient\GraphHandler;
+use ArangoDBClient\Vertex;
 
 // This function gets two parameters and associates them in an edge.
 // They must be their usernames.
@@ -19,6 +21,7 @@ function follow($fromUser, $toUser){
     $connection         = connect();
     $collectionHandler  = new ArangoCollectionHandler($connection);
     $edgeHandler        = new EdgeHandler($connection);
+    $graphHandler       = new GraphHandler($connection);
 
     // We create two cursor to make the consults with the data.
     $cursorFrom = $collectionHandler->byExample('user', ['username' => $fromUser]);
@@ -43,9 +46,16 @@ function follow($fromUser, $toUser){
         $idToUser = $resultingDocument[$key]->getHandle();
     }
 
-    // Now insert a link between them.
-    $linkBetween = Edge::createFromArray([]);
+    //$graphHandler->saveVertex("MYSS", ['12345','azzefj'], 'user');
+
+    // Now make an edge between them.
+    $edgeInfo   = [
+        // info in the edge
+    ];
+    $linkBetween = Edge::createFromArray($edgeInfo);
     $edgeHandler->saveEdge('follows', $idFromUser, $idToUser, $linkBetween);
+
+
 }
 
-// follow('Jorgebv02', "JuanEscobar066");
+follow('axl1210', "azzefj");
