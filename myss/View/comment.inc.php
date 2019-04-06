@@ -1,3 +1,17 @@
+<?php
+// Gets the url and finds the comment button that was pressed.
+$url          = $_SERVER['REQUEST_URI'];
+$pos          = strpos($url, 'commentbtn')+10;
+$len          = strlen($url);
+$buttonNumber = substr($url, $pos, $len);
+
+if(isset($_POST['commentbtn'.$buttonNumber])){
+    echo 'sss:' . $_POST['comment' . $buttonNumber];
+}
+else{
+    echo 'nooo';
+}
+?>
 <div class="col-md-12 commentsblock border-top">
     <div class="media">
         <div class="media-left"><a href="javascript:void(0)"> <img alt="64x64"

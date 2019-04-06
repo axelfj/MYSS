@@ -68,16 +68,20 @@ if ($valueFound == 0) { ?>
                                         class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <div class="media-body">
                             <h4 class="media-heading"><?php echo $_SESSION['username']; ?><br>
-                                <small><i class="fa fa-clock-o" id="<?php echo 'time' . $postCounter;?>"></i> <?php echo $userPosts['time']; ?></small>
+                                <small><i class="fa fa-clock-o"
+                                          id="<?php echo 'time' . $postCounter; ?>"></i> <?php echo $userPosts['time']; ?>
+                                </small>
                             </h4>
                             <hr>
-                            <h5 id="<?php echo 'title' . $postCounter;?>"><?php echo $userPosts['title']; ?></h5><br>
-                            <p id="<?php echo 'text' . $postCounter;?>"><?php echo $userPosts['text']; ?></p>
+                            <h5 id="<?php echo 'title' . $postCounter; ?>"><?php echo $userPosts['title']; ?></h5><br>
+                            <p id="<?php echo 'text' . $postCounter; ?>"><?php echo $userPosts['text']; ?></p>
 
-                            <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter;?>">
+                            <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
                                 <li><a href="" title=""><i class="far fa-thumbs-up"></i> 2015</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <li><a href="" title=""><i class="far fa-comment-alt"></i> 25</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <li><a href="" title=""><i class="fas fa-tags"></i> <?php echo str_replace(',', ', ', $userPosts['tagsPost']); ?></a></li>
+                                <li><a href="" title=""><i
+                                                class="fas fa-tags"></i> <?php echo str_replace(',', ', ', $userPosts['tagsPost']); ?>
+                                    </a></li>
                             </ul>
                         </div>
                     </div>
@@ -85,13 +89,20 @@ if ($valueFound == 0) { ?>
                     <?php /*include "comment.inc.php"; */ ?>
 
                     <hr>
-                    <textarea id="comment" name="comment" type="text" class="form-control"
+                    <form action="<?php echo 'comment.inc.php' . '?commentbtn' . $postCounter; ?>" method="post">
+                    <textarea id="<?php echo 'comment' . $postCounter; ?>"
+                              name="<?php echo 'comment' . $postCounter; ?>" type="text" class="form-control classComment"
                               placeholder="Type a new comment..." style="resize: none;"></textarea><br>
-                    <input id="tagsComment" name="tagsComment" type="text" data-role="tagsinput" placeholder="Tags">
-                    <hr>
-                    <button id="commentbtn" name="commentbtn" class="btn btn-primary pull-right" disabled>
-                        <!--<i class="fas fa-cog"></i>-->Comment
-                    </button>
+                        <input id="<?php echo 'tagsComment' . $postCounter; ?>"
+                               name="<?php echo 'tagsComment' . $postCounter; ?>" type="text" data-role="tagsinput"
+                               placeholder="Tags">
+                        <hr>
+                        <button id="<?php echo 'commentbtn' . $postCounter; ?>"
+                                name="<?php echo 'commentbtn' . $postCounter; ?>"
+                                class="btn btn-primary pull-right btnComment" disabled>  <!--disabled-->
+                            <!--<i class="fas fa-cog"></i>-->Comment
+                        </button>
+                    </form>
                     <br><br><br>
                 </div>
             </div>
