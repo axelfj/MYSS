@@ -4,9 +4,12 @@
 require_once("connection.php");
 require_once "../Controller/connection.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/EdgeHandler.php";
+require_once "../Controller/arangodb-php/lib/ArangoDBClient/Edge.php";
 
 // Uses the functions of ArangoDB.
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
+use ArangoDBClient\EdgeHandler;
+use ArangoDBClient\Edge;
 
 // This function gets two parameters and associates them in an edge.
 // They must be their usernames.
@@ -15,7 +18,7 @@ function follow($fromUser, $toUser){
     // All the variables that we need to manage the function.
     $connection         = connect();
     $collectionHandler  = new ArangoCollectionHandler($connection);
-    $edgeHandler        = new EdgeHandler();
+    $edgeHandler        = new EdgeHandler($connection);
 
     // We create two cursor to make the consults with the data.
     $cursorFrom = $collectionHandler->byExample('user', ['username' => $fromUser]);
@@ -26,18 +29,23 @@ function follow($fromUser, $toUser){
     $idToUser           = null;
     $resultingDocument  = array();
 
-     foreach ($cursorFrom as $key => $value) {
-        $resultingDocuments[$key] = $value;
+    foreach ($cursorFrom as $key => $value) {
+        $resultingDocument[$key] = $value;
 
-     }
+        // Gets the id of the FromUser.
+        $idFromUser = $resultingDocument[$key]->getHandle();
+    }
 
-     var_dump($resultingDocuments);
+    foreach ($cursorTo as $key => $value) {
+        $resultingDocument[$key] = $value;
 
-    // now insert a link between Marketing and Jane
-    $worksFor = Edge::createFromArray(['startDate' => '2009-06-23', 'endDate' => '2014-11-12']);
-    $edgeHandler->saveEdge('worksFor', $marketing->getHandle(), $jane->getHandle(), $worksFor);
+        // Gets the id of the ToUser.
+        $idToUser = $resultingDocument[$key]->getHandle();
+    }
 
-
+    // Now insert a link between them.
+    $linkBetween = Edge::createFromArray([]);
+    $edgeHandler->saveEdge('follows', $idFromUser, $idToUser, $linkBetween);
 }
 
-follow
+// follow('Jorgebv02', "JuanEscobar066");
