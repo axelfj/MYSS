@@ -51,15 +51,6 @@ if ($valueFound == 0) { ?>
             ?>
 
             <div class="panel container" style="background-color: white;">
-                <div class="btn-group pull-right postbtn">
-                    <button type="button" class="dotbtn dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
-                            style="padding-top: 10px;">
-                        <span class="dots"></span></button>
-                    <ul class="dropdown-menu pull-right" role="menu">
-                        <li><a href="javascript:void(0)">Hide this</a></li>
-                        <li><a href="javascript:void(0)">Report</a></li>
-                    </ul>
-                </div>
                 <div class="col-md-12 container" style="background-color: white;">
                     <div class="media">
                         <div class="media-left"><a href="javascript:void(0)"><img
