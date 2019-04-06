@@ -1,6 +1,6 @@
 <?php
-//include_once "header.php";
-//include_once "banner.php";
+include_once "header.php";
+include_once "banner.php";
 
 // Calls the connection and all the dependencies.
 require_once "../Controller/connection.php";
@@ -51,8 +51,7 @@ try {
 
                 // We can get the email now.
                 $emailOnDatabase = $resultingDocuments[$key]->get('email');
-                if (($emailOnDatabase == $_POST['email'])) {
-
+                if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) || ($emailOnDatabase == $_POST['email'])) {
                     $exists = true;
                 }
             }
@@ -61,7 +60,7 @@ try {
             if ($exists) {
                 $message = 'The format of the email is invalid or has been taken.';
             } else {
-//                echo  $exists;
+
                 // Gets all tha parameters to insert him.
                 $username   = $_POST['username'];
                 $email      = $_POST['email'];
