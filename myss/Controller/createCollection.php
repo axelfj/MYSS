@@ -22,6 +22,15 @@ if ($collectionHandler->has('tag')) {
 if ($collectionHandler->has('follows')) {
     $collectionHandler->drop('follows');
 }
+if ($collectionHandler->has('comments')) {
+    $collectionHandler->drop('comments');
+}
+if ($collectionHandler->has('posted')) {
+    $collectionHandler->drop('posted');
+}
+if ($collectionHandler->has('has_tag')) {
+    $collectionHandler->drop('has_tag');
+}
 
 
 // create the User collection //
@@ -39,25 +48,28 @@ $tagCollection = new ArangoCollection();
 $tagCollection->setName('tag');
 $id = $collectionHandler-> create($tagCollection);
 
-// create the Comment collection //
-$commentEdge = new ArangoEdge();
-$commentEdge->setName('has_comment');
-$id = $edgeHandler->;
+// create the Comment collection, relation between user and post //
+$commentEdge = new ArangoCollection();
+$commentEdge->setName('comments');
+$commentEdge->setType(3);
+$id = $collectionHandler->create($commentEdge);
 
-// create the userXuser collection //
-$followsEdge = new ArangoEdge();
+// create the friends edge //
+$followsEdge = new ArangoCollection();
 $followsEdge->setName('follows');
-$id = $edgeHandler->create($followsEdge);
+$followsEdge->setType(3);
+$id = $collectionHandler->create($followsEdge);
 
 // create the posted edge //
-$postedEdge = new ArangoEdge();
+$postedEdge = new ArangoCollection();
 $postedEdge->setName('posted');
-//$id = $edgeHandler->create($postedEdge);
+$postedEdge->setType(3);
+$id = $collectionHandler->create($postedEdge);
 
-// create the postXtag collection //
-$has_tagEdge = new ArangoEdge();
-$has_tagEdge->setName('has_tags');
-//$id = $edgeHandler->create($has_tagEdge);
-
+// create the has_tag edge //
+$has_tagEdge = new ArangoCollection();
+$has_tagEdge->setName('has_tag');
+$has_tagEdge->setType(3);
+$id = $collectionHandler-> create($has_tagEdge);
 
 echo 'Se han creado las colecciones y aristas correctamente.';
