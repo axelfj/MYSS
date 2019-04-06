@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <body style="background-color: #E7E7E9;" class="profile-page">
 <!--================ Start Header Area =================-->
 <header class="">
