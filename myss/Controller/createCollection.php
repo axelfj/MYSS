@@ -40,4 +40,4 @@ $commentCollection = new ArangoCollection();
 $commentCollection->setName('comment');
 $id = $collectionHandler-> create($commentCollection);
 
-
+echo 'Se han creado las colecciones correctamente.';
