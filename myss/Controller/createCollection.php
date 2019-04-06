@@ -17,7 +17,9 @@ if ($collectionHandler->has('posts')) {
 if ($collectionHandler->has('tag')) {
     $collectionHandler->drop('tag');
 }
-
+if ($collectionHandler->has('comment')) {
+    $collectionHandler->drop('comment');
+}
 // create the User collection //
 $userCollection = new ArangoCollection();
 $userCollection->setName('user');
@@ -32,5 +34,10 @@ $id = $collectionHandler->create($postCollection);
 $tagCollection = new ArangoCollection();
 $tagCollection->setName('tag');
 $id = $collectionHandler-> create($tagCollection);
+
+// create the Comment collection //
+$commentCollection = new ArangoCollection();
+$commentCollection->setName('comment');
+$id = $collectionHandler-> create($commentCollection);
 
 
