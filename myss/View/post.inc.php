@@ -86,7 +86,8 @@ if ($valueFound == 0) { ?>
                         </div>
                     </div>
 
-                    <?php /*include "comment.inc.php"; */ ?>
+                    <?php /*include "comment.inc.php"; */?>
+
 
                     <hr>
                     <form action="<?php echo 'comment.inc.php' . '?commentbtn' . $postCounter; ?>" method="post">
