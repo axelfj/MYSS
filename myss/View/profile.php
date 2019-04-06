@@ -51,8 +51,7 @@ if (isset($_POST['postbtn'])){
             <div class="panel panel-default container" style="background-color: white;padding-top: 13px;">
                 <div class="userprofile social container" style="background-color: white;">
                     <div class="userpic"><img src="img/hiena.png" alt="" class="userpicimg"></div>
-                    <h3 class="username">Hiena galáctica (new MYSS account jiji)</h3>
-                    <p>Me gusta hueler pegamento</p>
+                    <h3 class="username"><?php echo $_SESSION['username']?> </h3>
                 </div>
                 <div class="col-md-12 border-top border-bottom">
                     <ul class="nav nav-pills pull-left countlist" role="tablist">
