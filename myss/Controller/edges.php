@@ -83,7 +83,7 @@ function connectTag($idPost, $Tag){
         // info in the edge
     ];
     $linkBetween = Edge::createFromArray($edgeInfo);
-    $edgeHandler->saveEdge('has', $idPost, $idTag, $linkBetween);
+    $edgeHandler->saveEdge('has_tag', $idPost, $idTag, $linkBetween);
 
 }
 
@@ -147,7 +147,7 @@ function postHasComment($idPost, $idComment){
         // info in the edge
     ];
     $linkBetween = Edge::createFromArray($edgeInfo);
-    $edgeHandler->saveEdge('hasComment', $idFromPost, $idToPost, $linkBetween);
+    $edgeHandler->saveEdge('has_comment', $idFromPost, $idToPost, $linkBetween);
 }
 
 function userCommented($idUser, $idComment){
@@ -178,5 +178,5 @@ function userCommented($idUser, $idComment){
         // info in the edge
     ];
     $linkBetween = Edge::createFromArray($edgeInfo);
-    $edgeHandler->saveEdge('hasComment', $idFromUser, $idToPost, $linkBetween);
+    $edgeHandler->saveEdge('comments', $idFromUser, $idToPost, $linkBetween);
 }
