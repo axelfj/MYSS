@@ -120,9 +120,63 @@ function userPosted($idUser, $idPost){
 }
 
 function postHasComment($idPost, $idComment){
+    $connection         = connect();
+    $collectionHandler  = new ArangoCollectionHandler($connection);
+    $edgeHandler        = new EdgeHandler($connection);
+    $graphHandler       = new GraphHandler($connection);
 
+    $cursorFrom = $collectionHandler->byExample('post', ['_key' => $idPost]);
+    $cursorTo   = $collectionHandler->byExample('post', ['_key' => $idPost]);
+
+    // Now, we get the documents iterating over the cursors.
+    $idFromPost         = null;
+    $idToPost           = null;
+    $resultingDocument  = array();
+
+    foreach ($cursorFrom as $key => $value) {
+        $resultingDocument[$key] = $value;
+        $idFromPost = $resultingDocument[$key]->getHandle();
+    }
+
+    foreach ($cursorTo as $key => $value) {
+        $resultingDocument[$key] = $value;
+        $idToPost = $resultingDocument[$key]->getHandle();
+    }
+
+    $edgeInfo   = [
+        // info in the edge
+    ];
+    $linkBetween = Edge::createFromArray($edgeInfo);
+    $edgeHandler->saveEdge('hasComment', $idFromPost, $idToPost, $linkBetween);
 }
 
 function userCommented($idUser, $idComment){
+    $connection         = connect();
+    $collectionHandler  = new ArangoCollectionHandler($connection);
+    $edgeHandler        = new EdgeHandler($connection);
+    $graphHandler       = new GraphHandler($connection);
 
+    $cursorFrom = $collectionHandler->byExample('post', ['username' => $idUser]);
+    $cursorTo   = $collectionHandler->byExample('post', ['_key' => $idComment]);
+
+    // Now, we get the documents iterating over the cursors.
+    $idFromUser         = null;
+    $idToPost           = null;
+    $resultingDocument  = array();
+
+    foreach ($cursorFrom as $key => $value) {
+        $resultingDocument[$key] = $value;
+        $idFromUser = $resultingDocument[$key]->getHandle();
+    }
+
+    foreach ($cursorTo as $key => $value) {
+        $resultingDocument[$key] = $value;
+        $idToPost = $resultingDocument[$key]->getHandle();
+    }
+
+    $edgeInfo   = [
+        // info in the edge
+    ];
+    $linkBetween = Edge::createFromArray($edgeInfo);
+    $edgeHandler->saveEdge('hasComment', $idFromUser, $idToPost, $linkBetween);
 }
