@@ -62,6 +62,23 @@ try {
                     $userPosts['visibility'] = $resultingDocuments[$key]->get('visibility');
                     $userPosts['time'] = $resultingDocuments[$key]->get('time');
 
+                    $postKey = $resultingDocuments[$key]->get('key');
+                    $query = 'FOR x in has_comment FILTER x._from == "post/' . $postKey . '" RETURN {key: x._key,
+        from: x._from, to: x._to}';
+
+                    $statement = new ArangoStatement(
+                        $database,
+                        array(
+                            "query" => $query,
+                            "count" => true,
+                            "batchSize" => 1,
+                            "sanitize" => true
+                        )
+                    );
+
+                    $cursor = $statement->execute();
+                    $resultingComments = array();
+                    $numberOfComments = $cursor->getCount();
                     ?>
 
                     <div class="panel container" style="background-color: white;"
@@ -85,7 +102,7 @@ try {
 
                                     <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
                                         <li><a href="" title=""><i class="far fa-thumbs-up"></i> 2015</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <li><a href="" title=""><i class="far fa-comment-alt"></i> 25</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <li><a href="" title=""><i class="far fa-comment-alt"></i> <?php echo $numberOfComments; ?></a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="" title=""><i
                                                         class="fas fa-tags"></i> <?php echo str_replace(',', ', ', $userPosts['tagsPost']); ?>
                                             </a></li>
@@ -93,32 +110,16 @@ try {
                                 </div>
                             </div>
 
-                            <?php $database = connect();
-                            $document = new ArangoCollectionHandler(connect());
-                            $postKey = $resultingDocuments[$key]->get('key');
-                            $query = 'FOR x in has_comment FILTER x._from == "post/' . $postKey . '" RETURN {key: x._key,
-        from: x._from, to: x._to}';
+                            <?php
 
-                            $statement = new ArangoStatement(
-                                $database,
-                                array(
-                                    "query" => $query,
-                                    "count" => true,
-                                    "batchSize" => 1,
-                                    "sanitize" => true
-                                )
-                            );
 
-                            $cursor = $statement->execute();
-                            $resultingDocuments = array();
-
-                            if ($cursor->getCount() > 0) {
+                            if ($numberOfComments > 0) {
                                 $commentsKeys = array();
 
                                 foreach ($cursor as $key => $value) {
-                                    $resultingDocuments[$key] = $value;
-                                    $commentsKeys['postKey'] = $resultingDocuments[$key]->get('from');
-                                    $commentsKeys['commentKey'] = substr($resultingDocuments[$key]->get('to'), 8, strlen($resultingDocuments[$key]->get('to')));
+                                    $resultingComments[$key] = $value;
+                                    $commentsKeys['postKey'] = $resultingComments[$key]->get('from');
+                                    $commentsKeys['commentKey'] = substr($resultingComments[$key]->get('to'), 8, strlen($resultingComments[$key]->get('to')));
 
                                     $query = 'FOR x IN comment FILTER x._key == @commentKey RETURN {key: x._key,
         commentOwner: x.commentOwner, tagsComment: x.tagsComment, text: x.text, time: x.time}';
