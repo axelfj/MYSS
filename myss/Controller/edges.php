@@ -143,9 +143,6 @@ function postHasComment($idPost, $idComment){
         $idToPost = $resultingDocument[$key]->getHandle();
     }
 
-    var_dump($idFromPost);
-    var_dump($idToPost);
-
     $edgeInfo   = [
         // info in the edge
     ];
@@ -157,8 +154,6 @@ function postHasComment($idPost, $idComment){
         echo $e->getMessage();
     }
 }
-
-postHasComment("239096","243817");
 
 function userCommented($idUser, $idComment){
     $connection         = connect();
@@ -188,6 +183,6 @@ function userCommented($idUser, $idComment){
         // info in the edge
     ];
     $linkBetween = Edge::createFromArray($edgeInfo);
-    $edgeHandler->saveEdge('comments', $idFromUser, $idToPost, $linkBetween);
+    $edgeHandler->saveEdge('comment', $idFromUser, $idToPost, $linkBetween);
 }
 
