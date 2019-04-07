@@ -16,6 +16,9 @@ if ($collectionHandler->has('user')) {
 if ($collectionHandler->has('post')) {
     $collectionHandler->drop('post');
 }
+if ($collectionHandler->has('comment')) {
+    $collectionHandler->drop('comment');
+}
 if ($collectionHandler->has('tag')) {
     $collectionHandler->drop('tag');
 }
@@ -47,6 +50,11 @@ $postCollection->setName('post');
 $id = $collectionHandler->create($postCollection);
 
 // create the Tag collection //
+$commentCollection = new ArangoCollection();
+$commentCollection->setName('comment');
+$id = $collectionHandler-> create($commentCollection);
+
+// create the Tag collection //
 $tagCollection = new ArangoCollection();
 $tagCollection->setName('tag');
 $id = $collectionHandler-> create($tagCollection);
@@ -76,7 +84,7 @@ $has_commentEdge->setType(3);
 $id = $collectionHandler-> create($has_commentEdge);
 
 // create the has_tag edge //
-$has_tagEdge = new ArangoCollection();
+$has_tagEdge = new ArangoCollection();  
 $has_tagEdge->setName('has_tag');
 $has_tagEdge->setType(3);
 $id = $collectionHandler-> create($has_tagEdge);
