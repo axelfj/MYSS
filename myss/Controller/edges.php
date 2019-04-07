@@ -15,7 +15,7 @@ use ArangoDBClient\Vertex;
 
 // This function gets two parameters and associates them in an edge.
 // They must be their usernames.
-function follow($fromUser, $toUser){
+function userFollow($fromUser, $toUser){
 
     // All the variables that we need to manage the function.
     $connection         = connect();
@@ -119,4 +119,10 @@ function userPosted($idUser, $idPost){
 
 }
 
-userPosted('azzefj', "escroto");
+function postHasComment($idPost, $idComment){
+
+}
+
+function userCommented($idUser, $idComment){
+
+}
