@@ -167,7 +167,7 @@ function userCommented($idUser, $idComment){
     $graphHandler       = new GraphHandler($connection);
 
     $cursorFrom = $collectionHandler->byExample('post', ['username' => $idUser]);
-    $cursorTo   = $collectionHandler->byExample('post', ['_key' => $idComment]);
+    $cursorTo   = $collectionHandler->byExample('comment', ['_key' => $idComment]);
 
     // Now, we get the documents iterating over the cursors.
     $idFromUser         = null;
