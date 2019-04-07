@@ -110,7 +110,6 @@ try {
 
                             if ($cursor->getCount() > 0) {
                                 $commentsKeys = array();
-                                $postCounter = 0;
 
                                 foreach ($cursor as $key => $value) {
                                     $resultingDocuments[$key] = $value;
@@ -136,7 +135,6 @@ try {
 
                                     if ($cursor->getCount() > 0) {
                                         $userComments = array();
-                                        $postCounter = 0;
 
                                         foreach ($cursor as $key => $value) {
 
@@ -172,7 +170,6 @@ try {
                                     }
                                 }
                             } ?>
-
 
                             <hr>
                             <form action="<?php echo 'comment.inc.php?' . $postKey . '%commentbtn' . $postCounter; ?>"
