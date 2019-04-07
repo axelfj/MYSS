@@ -55,8 +55,16 @@ if (isset($_POST['commentbtn' . $buttonNumber])) {
         $message = $e->getMessage();
     }
 }
+echo $_SERVER['REQUEST_URI']. '<br>';
+$pos = strpos($url, 'profile.php');
+if($pos == false){
+    $pos = strpos($url, 'index.php');
+}
+$len = strlen($url);
+$fileName = substr($url, $pos, $len);
 
-header('Location: profile.php');
+echo $fileName;
+header('Location: ' . $fileName);
 
 
 
