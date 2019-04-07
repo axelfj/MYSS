@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="824678bc-02ad-435e-bbd6-34748ba86be3" name="Default Changelist" comment="" />
+    <list default="true" id="824678bc-02ad-435e-bbd6-34748ba86be3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/View/post.inc.php" beforeDir="false" afterPath="$PROJECT_DIR$/View/post.inc.php" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,57 +13,104 @@
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/arangodb-php/composer.json</pharConfigPath>
   </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="502845352">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="PHP" value="4" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.edit">
-        <counts>
-          <entry key="PHP" value="328" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Controller/edges.php">
+        <entry file="file://$PROJECT_DIR$/Controller/createCollection.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="68" column="15" lean-forward="true" selection-start-line="68" selection-start-column="15" selection-end-line="68" selection-end-column="15" />
+            <state relative-caret-position="527">
+              <caret line="34" column="40" lean-forward="true" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Controller/createGraph.php">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/View/login.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="72" column="92" lean-forward="true" selection-start-line="72" selection-start-column="92" selection-end-line="72" selection-end-column="92" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Controller/createCollection.php">
+        <entry file="file://$PROJECT_DIR$/View/post.inc.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="86" column="38" lean-forward="true" selection-start-line="86" selection-start-column="38" selection-end-line="86" selection-end-column="38" />
+            <state relative-caret-position="502">
+              <caret line="136" column="64" lean-forward="true" selection-start-line="136" selection-start-column="64" selection-end-line="136" selection-end-column="64" />
+              <folding>
+                <element signature="e#7#71#0#PHP" expanded="true" />
+                <element signature="e#1994#2026#0#HTML" expanded="true" />
+                <element signature="e#2286#2312#0#HTML" expanded="true" />
+                <element signature="e#2747#2779#0#HTML" expanded="true" />
+                <element signature="e#3121#3127#0#HTML" expanded="true" />
+                <element signature="e#3127#3133#0#HTML" expanded="true" />
+                <element signature="e#3133#3139#0#HTML" expanded="true" />
+                <element signature="e#3139#3145#0#HTML" expanded="true" />
+                <element signature="e#3145#3151#0#HTML" expanded="true" />
+                <element signature="e#4090#4096#0#HTML" expanded="true" />
+                <element signature="e#4096#4102#0#HTML" expanded="true" />
+                <element signature="e#4102#4108#0#HTML" expanded="true" />
+                <element signature="e#4108#4114#0#HTML" expanded="true" />
+                <element signature="e#4114#4120#0#HTML" expanded="true" />
+                <element signature="e#4120#4126#0#HTML" expanded="true" />
+                <element signature="e#4237#4243#0#HTML" expanded="true" />
+                <element signature="e#4243#4249#0#HTML" expanded="true" />
+                <element signature="e#4249#4255#0#HTML" expanded="true" />
+                <element signature="e#4255#4261#0#HTML" expanded="true" />
+                <element signature="e#4261#4267#0#HTML" expanded="true" />
+                <element signature="e#4267#4273#0#HTML" expanded="true" />
+                <element signature="e#5483#5504#0#HTML" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Controller/deleteDocument.php">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/View/footer.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="612">
+              <caret line="36" column="7" lean-forward="true" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/View/profile.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-51">
+              <caret line="32" column="32" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#textarea#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#h1#0;n#div#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/View/comment.inc.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="773">
+              <caret line="57" selection-start-line="57" selection-end-line="57" />
+              <folding>
+                <element signature="e#411#475#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>$postCounter</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -71,19 +120,9 @@
       <list>
         <option value="$PROJECT_DIR$/Controller/edges.php" />
         <option value="$PROJECT_DIR$/Controller/createCollection.php" />
+        <option value="$PROJECT_DIR$/View/post.inc.php" />
       </list>
     </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths>
-      <path value="$PROJECT_DIR$/View/tags/package.json" />
-    </packageJsonPaths>
   </component>
   <component name="PhpServers">
     <servers />
@@ -94,6 +133,7 @@
     <option name="width" value="697" />
     <option name="height" value="735" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -111,6 +151,11 @@
               <item name="myss" type="462c0819:PsiDirectoryNode" />
               <item name="Controller" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="myss" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myss" type="462c0819:PsiDirectoryNode" />
+              <item name="View" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -119,6 +164,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
   </component>
   <component name="RunDashboard">
@@ -148,13 +194,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2500000" />
+    <option name="totallyTimeSpent" value="2828000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13166311" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.10394456" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -174,12 +220,31 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16263238" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32939914" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32890365" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.3289689" />
+      <window_info anchor="bottom" id="PHP-CGI Server" order="12" weight="0.32939914" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Controller/deleteDocument.php">
@@ -197,8 +262,46 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Controller/createCollection.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="86" column="38" lean-forward="true" selection-start-line="86" selection-start-column="38" selection-end-line="86" selection-end-column="38" />
+        <state relative-caret-position="527">
+          <caret line="34" column="40" lean-forward="true" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/View/footer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="36" column="7" lean-forward="true" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/View/post.inc.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="136" column="64" lean-forward="true" selection-start-line="136" selection-start-column="64" selection-end-line="136" selection-end-column="64" />
+          <folding>
+            <element signature="e#7#71#0#PHP" expanded="true" />
+            <element signature="e#1994#2026#0#HTML" expanded="true" />
+            <element signature="e#2286#2312#0#HTML" expanded="true" />
+            <element signature="e#2747#2779#0#HTML" expanded="true" />
+            <element signature="e#3121#3127#0#HTML" expanded="true" />
+            <element signature="e#3127#3133#0#HTML" expanded="true" />
+            <element signature="e#3133#3139#0#HTML" expanded="true" />
+            <element signature="e#3139#3145#0#HTML" expanded="true" />
+            <element signature="e#3145#3151#0#HTML" expanded="true" />
+            <element signature="e#4090#4096#0#HTML" expanded="true" />
+            <element signature="e#4096#4102#0#HTML" expanded="true" />
+            <element signature="e#4102#4108#0#HTML" expanded="true" />
+            <element signature="e#4108#4114#0#HTML" expanded="true" />
+            <element signature="e#4114#4120#0#HTML" expanded="true" />
+            <element signature="e#4120#4126#0#HTML" expanded="true" />
+            <element signature="e#4237#4243#0#HTML" expanded="true" />
+            <element signature="e#4243#4249#0#HTML" expanded="true" />
+            <element signature="e#4249#4255#0#HTML" expanded="true" />
+            <element signature="e#4255#4261#0#HTML" expanded="true" />
+            <element signature="e#4261#4267#0#HTML" expanded="true" />
+            <element signature="e#4267#4273#0#HTML" expanded="true" />
+            <element signature="e#5483#5504#0#HTML" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

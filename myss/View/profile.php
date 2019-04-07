@@ -35,7 +35,7 @@ if (isset($_POST['postbtn'])){
             $post->set("owner", $owner);
             $post->set("time", $time);
 
-            $newPost = $database->save("posts", $post);
+            $newPost = $database->save("post", $post);
             $message = 'You have been successfully registered';
         }
     } catch (Exception $e) {
