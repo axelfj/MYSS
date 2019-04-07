@@ -15,14 +15,15 @@ use ArangoDBClient\Statement as ArangoStatement;
 
 // Gets the number of the button that was pressed.
 $url = $_SERVER['REQUEST_URI'];
-$pos = strpos($url, 'commentbtn') + 10;
-$len = strlen($url);
-$buttonNumber = substr($url, $pos, $len);
+$posStart = strpos($url, 'commentbtn') + 10;
+$posEnd   = strpos($url, '@');
+$buttonNumber = substr($url, $posStart, $posEnd - $posStart);
 
 // Gets the key of the post that is getting commented.
 $posStart = strpos($url, '?') + 1;
 $posEnd = strpos($url, '%');
 $postKey = substr($url, $posStart, $posEnd - $posStart);
+
 
 if (isset($_POST['commentbtn' . $buttonNumber])) {
     try {
@@ -55,7 +56,7 @@ if (isset($_POST['commentbtn' . $buttonNumber])) {
         $message = $e->getMessage();
     }
 }
-echo $_SERVER['REQUEST_URI']. '<br>';
+
 $pos = strpos($url, 'profile.php');
 if($pos == false){
     $pos = strpos($url, 'index.php');
@@ -63,7 +64,6 @@ if($pos == false){
 $len = strlen($url);
 $fileName = substr($url, $pos, $len);
 
-echo $fileName;
 header('Location: ' . $fileName);
 
 
