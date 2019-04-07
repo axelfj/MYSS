@@ -6,19 +6,32 @@ use ArangoDBClient\Statement as ArangoStatement;
 
 $database = connect();
 $document = new ArangoCollectionHandler(connect());
+$url = $_SERVER['REQUEST_URI'];
+$pos = strpos($url, 'View') + 5;
+$len = strlen($url);
+$fileName = substr($url, $pos, $len);
 
 try {
     if (isset($_SESSION['username'])) {
-        $cursor = $document->byExample('post', ['owner' => $_SESSION['username']]);
+        $cursor = $document->byExample('post', ['visibility' => "Public"], ['visibility' => "Private"]);
         $valueFound = $cursor->getCount();
 
         if ($valueFound == 0) { ?>
-            <h5>You don't have any posts yet.</h5><br><br><br><br>
+            <h5>Nothing to show yet.</h5><br><br><br><br>
             <?php
         } else {
-
-            $query = 'FOR x IN post FILTER x.owner == @username SORT x.time DESC RETURN {key: x._key,
-        title: x.title, text: x.text, tagsPost: x.tagsPost, visibility: x.visibility, time: x.time}';
+            $query = '';
+            $varToBind = '';
+            if ($fileName == 'profile.php') {
+                $query = 'FOR x IN post FILTER x.owner == @var SORT x.time DESC RETURN {key: x._key,
+        owner: x.owner, title: x.title, text: x.text, tagsPost: x.tagsPost, visibility: x.visibility, time: x.time}';
+                $varToBind = $_SESSION['username'];
+            }
+            else{
+                $query = 'FOR x IN post FILTER x.visibility == @var SORT x.time DESC RETURN {key: x._key,
+            owner: x.owner, title: x.title, text: x.text, tagsPost: x.tagsPost, visibility: x.visibility, time: x.time}';
+                $varToBind = "Public";
+            }
 
             $statement = new ArangoStatement(
                 $database,
@@ -27,7 +40,7 @@ try {
                     "count" => true,
                     "batchSize" => 1,   // It is suppose to only bring one.
                     "sanitize" => true,
-                    "bindVars" => array("username" => $_SESSION['username'])
+                    "bindVars" => array("var" => $varToBind)
                 )
             );
 
@@ -42,6 +55,7 @@ try {
                 foreach ($cursor as $key => $value) {
 
                     $resultingDocuments[$key] = $value;
+                    $userPosts['owner'] = $resultingDocuments[$key]->get('owner');
                     $userPosts['title'] = $resultingDocuments[$key]->get('title');
                     $userPosts['text'] = $resultingDocuments[$key]->get('text');
                     $userPosts['tagsPost'] = $resultingDocuments[$key]->get('tagsPost');
@@ -69,7 +83,7 @@ try {
                                                 alt=""
                                                 class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <div class="media-body">
-                                    <h4 class="media-heading"><?php echo $_SESSION['username']; ?><br>
+                                    <h4 class="media-heading"><?php echo $userPosts['owner']; ?><br>
                                         <small><i class="fa fa-clock-o"
                                                   id="<?php echo 'time' . $postCounter; ?>"></i> <?php echo $userPosts['time']; ?>
                                         </small>
@@ -155,7 +169,8 @@ try {
                                                             <small>
                                                                 <i class="fa fa-clock-o"></i> <?php echo $userComments['time']; ?>
                                                             </small>
-                                                        </h4><hr>
+                                                        </h4>
+                                                        <hr>
                                                         <p><?php echo $userComments['text']; ?></p>
 
                                                         <ul class="nav nav-pills pull-left">
@@ -172,7 +187,7 @@ try {
                             } ?>
 
                             <hr>
-                            <form action="<?php echo 'comment.inc.php?' . $postKey . '%commentbtn' . $postCounter; ?>"
+                            <form action="<?php echo 'comment.inc.php?' . $postKey . '%commentbtn' . $postCounter . '?' . $fileName; ?>"
                                   method="post">
                     <textarea id="<?php echo 'comment' . $postCounter; ?>"
                               name="<?php echo 'comment' . $postCounter; ?>" type="text"
