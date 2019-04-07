@@ -13,6 +13,7 @@ use ArangoDBClient\Document as ArangoDocument;
 use ArangoDBClient\DocumentHandler as ArangoDocumentHandler;
 use ArangoDBClient\Statement as ArangoStatement;
 
+date_default_timezone_set('America/Costa_Rica');
 // Gets the number of the button that was pressed.
 $url = $_SERVER['REQUEST_URI'];
 $posStart = strpos($url, 'commentbtn') + 10;
