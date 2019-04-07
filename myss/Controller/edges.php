@@ -126,7 +126,7 @@ function postHasComment($idPost, $idComment){
     $graphHandler       = new GraphHandler($connection);
 
     $cursorFrom = $collectionHandler->byExample('post', ['_key' => $idPost]);
-    $cursorTo   = $collectionHandler->byExample('post', ['_key' => $idPost]);
+    $cursorTo   = $collectionHandler->byExample('comment', ['_key' => $idComment]);
 
     // Now, we get the documents iterating over the cursors.
     $idFromPost         = null;
@@ -143,12 +143,22 @@ function postHasComment($idPost, $idComment){
         $idToPost = $resultingDocument[$key]->getHandle();
     }
 
+    var_dump($idFromPost);
+    var_dump($idToPost);
+
     $edgeInfo   = [
         // info in the edge
     ];
     $linkBetween = Edge::createFromArray($edgeInfo);
-    $edgeHandler->saveEdge('has_comment', $idFromPost, $idToPost, $linkBetween);
+    try{
+        $edgeHandler->saveEdge('has_comment', $idFromPost, $idToPost, $linkBetween);
+    }
+    catch (Exception $e){
+        echo $e->getMessage();
+    }
 }
+
+postHasComment("239096","243817");
 
 function userCommented($idUser, $idComment){
     $connection         = connect();
@@ -157,7 +167,7 @@ function userCommented($idUser, $idComment){
     $graphHandler       = new GraphHandler($connection);
 
     $cursorFrom = $collectionHandler->byExample('post', ['username' => $idUser]);
-    $cursorTo   = $collectionHandler->byExample('post', ['_key' => $idComment]);
+    $cursorTo   = $collectionHandler->byExample('comment', ['_key' => $idComment]);
 
     // Now, we get the documents iterating over the cursors.
     $idFromUser         = null;
@@ -180,3 +190,4 @@ function userCommented($idUser, $idComment){
     $linkBetween = Edge::createFromArray($edgeInfo);
     $edgeHandler->saveEdge('comments', $idFromUser, $idToPost, $linkBetween);
 }
+
