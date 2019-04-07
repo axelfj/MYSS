@@ -84,7 +84,7 @@ $has_commentEdge->setType(3);
 $id = $collectionHandler-> create($has_commentEdge);
 
 // create the has_tag edge //
-$has_tagEdge = new ArangoCollection();  
+$has_tagEdge = new ArangoCollection();
 $has_tagEdge->setName('has_tag');
 $has_tagEdge->setType(3);
 $id = $collectionHandler-> create($has_tagEdge);

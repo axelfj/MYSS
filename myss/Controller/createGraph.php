@@ -9,7 +9,7 @@ require_once "../Controller/arangodb-php/lib/ArangoDBClient/Edge.php";
 // Uses the functions of ArangoDB.
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 use ArangoDBClient\EdgeHandler;
-use ArangoDBClient\Edge;
+use ArangoDBClient\EdgeDefinition as EdgeDefinition;
 use ArangoDBClient\Graph;
 use ArangoDBClient\GraphHandler;
 
@@ -26,7 +26,6 @@ function createGraph(){
     $graph              = new Graph();
 
     $graph->set('_key', 'MYSS');
-    //$graph->addEdgeDefinition(EdgeDefinition::createDirectedRelation('follows', 'user'));
 
     try {
         $graphHandler->dropGraph($graph);
@@ -38,28 +37,44 @@ function createGraph(){
 }
 
 function createEdges(){
-    // All the variables that we need to manage the function.
-    $connection         = connect();
-    $collectionHandler  = new ArangoCollectionHandler($connection);
-    $edgeHandler        = new EdgeHandler($connection);
-    $graphHandler       = new GraphHandler($connection);
-    $graph              = new Graph();
+    $connection = connect();
+    $graphHandler = new GraphHandler($connection);
 
-    $graph->get('MYSS');
-    //var_dump($graph->getEdgeDefinitions());
-    $userCollection = $collectionHandler->get('user');
-    $postsCollection = $collectionHandler->get('posts');
-    $tagCollection = $collectionHandler->get('tag');
+    // user->follows->user //
+    $friendsEdge = new EdgeDefinition($connection);
+    $friendsEdge->addFromCollection("user");
+    $friendsEdge->addToCollection("user");
+    $friendsEdge->setRelation("friends");
 
-    try {
-        $graphHandler->saveVertex('MYSS', $userCollection);
-        $graphHandler->saveVertex('MYSS', $postsCollection);
-        $graphHandler->saveVertex('MYSS', $tagCollection);
-    } catch (\ArangoDBClient\Exception $e) {
-        echo $e->getMessage();
-    }
+    // user->posted->post//
+    $postedEdge = new EdgeDefinition($connection);
+    $postedEdge->addFromCollection("user");
+    $postedEdge->addToCollection("post");
+    $postedEdge->setRelation("posted");
 
-    //$graph->addEdgeDefinition('comments', 'user', 'posts');
+    // user->commented->post //
+    $comentedEdge = new EdgeDefinition($connection);
+    $comentedEdge->addFromCollection("user");
+    $comentedEdge->addToCollection("post");
+    $comentedEdge->setRelation("commented");
+
+    // post->has_comment //
+    $hasCommentEdge = new EdgeDefinition($connection);
+    $hasCommentEdge->addFromCollection("post");
+    $hasCommentEdge->addToCollection("comment");
+    $hasCommentEdge->setRelation("has_comment");
+
+    // post->has->tag //
+    $hasTagEdge = new EdgeDefinition($connection);
+    $hasTagEdge->addFromCollection("post");
+    $hasTagEdge->addToCollection("tag");
+    $hasTagEdge->setRelation("has_tag");
+
+    $graphHandler->addEdgeDefinition( 'MYSS', $friendsEdge);
+    $graphHandler->addEdgeDefinition( 'MYSS', $postedEdge);
+    $graphHandler->addEdgeDefinition( 'MYSS', $comentedEdge);
+    $graphHandler->addEdgeDefinition( 'MYSS', $hasCommentEdge);
+    $graphHandler->addEdgeDefinition( 'MYSS', $hasTagEdge);
 
 }
 

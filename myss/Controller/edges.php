@@ -158,8 +158,6 @@ function postHasComment($idPost, $idComment){
     }
 }
 
-postHasComment("239096","243817");
-
 function userCommented($idUser, $idComment){
     $connection         = connect();
     $collectionHandler  = new ArangoCollectionHandler($connection);
