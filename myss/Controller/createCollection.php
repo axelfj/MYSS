@@ -22,8 +22,8 @@ if ($collectionHandler->has('tag')) {
 if ($collectionHandler->has('follows')) {
     $collectionHandler->drop('follows');
 }
-if ($collectionHandler->has('comments')) {
-    $collectionHandler->drop('comments');
+if ($collectionHandler->has('comment')) {
+    $collectionHandler->drop('comment');
 }
 if ($collectionHandler->has('posted')) {
     $collectionHandler->drop('posted');
@@ -52,10 +52,10 @@ $tagCollection->setName('tag');
 $id = $collectionHandler-> create($tagCollection);
 
 // create the Comment collection, relation between user and post //
-$commentEdge = new ArangoCollection();
-$commentEdge->setName('comments');
+/*$commentEdge = new ArangoCollection();
+$commentEdge->setName('comment');
 $commentEdge->setType(3);
-$id = $collectionHandler->create($commentEdge);
+$id = $collectionHandler->create($commentEdge);*/
 
 // create the friends edge //
 $followsEdge = new ArangoCollection();
