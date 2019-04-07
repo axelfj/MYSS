@@ -7,7 +7,7 @@ use ArangoDBClient\Statement as ArangoStatement;
 $database = connect();
 $document = new ArangoCollectionHandler(connect());
 
-try{
+try {
     if (isset($_SESSION['username'])) {
         $cursor = $document->byExample('posts', ['owner' => $_SESSION['username']]);
         $valueFound = $cursor->getCount();
@@ -49,10 +49,12 @@ try{
                     $userPosts['time'] = $resultingDocuments[$key]->get('time');
 
                     ?>
-
-                    <div class="panel container" style="background-color: white;">
+                    <?php echo $resultingDocuments[$key]->get('key'); ?>
+                    <div class="panel container" style="background-color: white;"
+                         id="<?php echo $resultingDocuments[$key]->get('key'); ?>">
                         <div class="btn-group pull-right postbtn">
-                            <button type="button" class="dotbtn dropdown-toggle" data-toggle="dropdown" aria-expanded="false"
+                            <button type="button" class="dotbtn dropdown-toggle" data-toggle="dropdown"
+                                    aria-expanded="false"
                                     style="padding-top: 10px;">
                                 <span class="dots"></span></button>
                             <ul class="dropdown-menu pull-right" role="menu">
@@ -73,7 +75,8 @@ try{
                                         </small>
                                     </h4>
                                     <hr>
-                                    <h5 id="<?php echo 'title' . $postCounter; ?>"><?php echo $userPosts['title']; ?></h5><br>
+                                    <h5 id="<?php echo 'title' . $postCounter; ?>"><?php echo $userPosts['title']; ?></h5>
+                                    <br>
                                     <p id="<?php echo 'text' . $postCounter; ?>"><?php echo $userPosts['text']; ?></p>
 
                                     <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
@@ -86,16 +89,19 @@ try{
                                 </div>
                             </div>
 
-                            <?php /*include "comment.inc.php"; */?>
+                            <?php /*include "comment.inc.php"; */ ?>
 
 
                             <hr>
-                            <form action="<?php echo 'comment.inc.php' . '?commentbtn' . $postCounter; ?>" method="post">
+                            <form action="<?php echo 'comment.inc.php?' . $resultingDocuments[$key]->get('key') . '%commentbtn' . $postCounter; ?>"
+                                  method="post">
                     <textarea id="<?php echo 'comment' . $postCounter; ?>"
-                              name="<?php echo 'comment' . $postCounter; ?>" type="text" class="form-control classComment"
+                              name="<?php echo 'comment' . $postCounter; ?>" type="text"
+                              class="form-control classComment"
                               placeholder="Type a new comment..." style="resize: none;"></textarea><br>
                                 <input id="<?php echo 'tagsComment' . $postCounter; ?>"
-                                       name="<?php echo 'tagsComment' . $postCounter; ?>" type="text" data-role="tagsinput"
+                                       name="<?php echo 'tagsComment' . $postCounter; ?>" type="text"
+                                       data-role="tagsinput"
                                        placeholder="Tags">
                                 <hr>
                                 <button id="<?php echo 'commentbtn' . $postCounter; ?>"
@@ -112,12 +118,11 @@ try{
                 }
             }
         }
-    }
-    else{
+    } else {
         echo 'Register so you can see the posts!';
     }
 
-} catch (Exception $e){
+} catch (Exception $e) {
     $e->getMessage();
 }
 
