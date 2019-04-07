@@ -9,14 +9,23 @@ use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 use ArangoDBClient\Document as ArangoDocument;
 use ArangoDBClient\DocumentHandler as ArangoDocumentHandler;
 
+// Gets the number of the button that was pressed.
 $url          = $_SERVER['REQUEST_URI'];
 $pos          = strpos($url, 'commentbtn')+10;
 $len          = strlen($url);
 $buttonNumber = substr($url, $pos, $len);
 
-if(isset($_POST['commentbtn'.$buttonNumber])){
-    echo 'sss:' . $_POST['comment' . $buttonNumber];
+// Gets the key of the post that is getting commented.
+$posStart     = strpos($url, '?')+1;
+$posEnd       = strpos($url, '%');
+$key          = substr($url, $posStart, $posEnd - $posStart);
 
+
+
+
+if(isset($_POST['commentbtn'.$buttonNumber])){
+    echo 'text:' . $_POST['comment' . $buttonNumber];
+    echo "post: " . $key;
     try {
         if (!empty($_POST['comment' . $buttonNumber])) {
 
