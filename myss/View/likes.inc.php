@@ -4,7 +4,7 @@ require_once "../Controller/connection.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/CollectionHandler.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
-require_once "../Controller/edges.php";
+require_once "../Controller/createEdges.php";
 
 session_start();
 
