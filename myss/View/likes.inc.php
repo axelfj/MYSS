@@ -41,6 +41,7 @@ if ($valueFound != 0) {
     );
 
     $cursor = $statement->execute();
+    userLiked($_SESSION['username'], $postKey);
 }
 
 $pos = strpos($url, 'profile.php');
