@@ -23,9 +23,7 @@
 			href="https://fonts.googleapis.com/css?family=Open+Sans:400,600|Playfair+Display:700,700i"
 			rel="stylesheet"
 	/>
-	<!--
-            CSS
-            ============================================= -->
+	<!-- CSS ============================================= -->
 	<link rel="stylesheet" href="css/linearicons.css" />
 	<link rel="stylesheet" href="css/font-awesome.min.css" />
 	<link rel="stylesheet" href="css/magnific-popup.css" />
@@ -42,9 +40,7 @@
 <header class="header-area">
 	<div class="container">
 		<div class="header-wrap">
-			<div
-					class="header-top d-flex justify-content-between align-items-lg-center navbar-expand-lg"
-			>
+			<div class="header-top d-flex justify-content-between align-items-lg-center navbar-expand-lg">
 				<div class="col menu-left">
 					<a class="active" href="index.php">Home</a>
 					<a href="tag.php">Category</a>
