@@ -6,95 +6,31 @@ use ArangoDBClient\Edge as ArangoEdge;
 
 require_once("connection.php");
 
-$connection = connect();
-$collectionHandler = new ArangoCollectionHandler($connection);
-$edgeHandler = new ArangoEdgeHandler($connection);
-
-if ($collectionHandler->has('user')) {
-    $collectionHandler->drop('user');
-}
-if ($collectionHandler->has('post')) {
-    $collectionHandler->drop('post');
-}
-if ($collectionHandler->has('comment')) {
-    $collectionHandler->drop('comment');
-}
-if ($collectionHandler->has('tag')) {
-    $collectionHandler->drop('tag');
-}
-if ($collectionHandler->has('follows')) {
-    $collectionHandler->drop('follows');
-}
-if ($collectionHandler->has('commented')) {
-    $collectionHandler->drop('commented');
-}
-if ($collectionHandler->has('posted')) {
-    $collectionHandler->drop('posted');
-}
-if ($collectionHandler->has('has_tag')) {
-    $collectionHandler->drop('has_tag');
-}
-if ($collectionHandler->has('has_comment')) {
-    $collectionHandler->drop('has_comment');
-}
-if ($collectionHandler->has('liked')) {
-    $collectionHandler->drop('liked');
-}
-
 // User collection, will hold every user in the system //
-$userCollection = new ArangoCollection();
-$userCollection->setName('user');
-$id = $collectionHandler->create($userCollection);
+createCollection('user', 2);
+createCollection('post', 2);
+createCollection('comment', 2);
+createCollection('tag', 2);
+createCollection('follows', 3);
+createCollection('liked', 3);
+createCollection('has_comment', 3);
+createCollection('has_tag', 3);
+createCollection('posted', 3);
+createCollection('commented', 3);
 
-// Post collection, will hold every post in the system //
-$postCollection = new ArangoCollection();
-$postCollection->setName('post');
-$id = $collectionHandler->create($postCollection);
+function createCollection($collectionName, $collectionType){
+    $connection = connect();
+    $collectionHandler = new ArangoCollectionHandler($connection);
 
-// Tag collection, will hold every comment in the system //
-$commentCollection = new ArangoCollection();
-$commentCollection->setName('comment');
-$id = $collectionHandler-> create($commentCollection);
+    if ($collectionHandler->has($collectionName)){
+        $collectionHandler->drop($collectionName);
+    }
 
-// User collection, will hold every user in the system //
-$tagCollection = new ArangoCollection();
-$tagCollection->setName('tag');
-$id = $collectionHandler-> create($tagCollection);
+    $collection  = new ArangoCollection();
+    $collection->setName($collectionName);
+    $collection->setType($collectionType);
+    $collectionHandler-> create($collection);
+}
 
-// create the friends edge //
-$followsEdge = new ArangoCollection();
-$followsEdge->setName('follows');
-$followsEdge->setType(3);
-$id = $collectionHandler->create($followsEdge);
-
-// create the friends edge //
-$commentedEdge = new ArangoCollection();
-$commentedEdge->setName('commented');
-$commentedEdge->setType(3);
-$id = $collectionHandler->create($commentedEdge);
-
-// create the posted edge //
-$postedEdge = new ArangoCollection();
-$postedEdge->setName('posted');
-$postedEdge->setType(3);
-$id = $collectionHandler->create($postedEdge);
-
-// create the posted edge //
-$likedEdge = new ArangoCollection();
-$likedEdge->setName('liked');
-$likedEdge->setType(3);
-$id = $collectionHandler->create($likedEdge);
-
-// create the has_tag edge //
-$has_commentEdge = new ArangoCollection();
-$has_commentEdge->setName('has_comment');
-$has_commentEdge->setType(3);
-$id = $collectionHandler-> create($has_commentEdge);
-
-// create the has_tag edge //
-$has_tagEdge = new ArangoCollection();
-$has_tagEdge->setName('has_tag');
-$has_tagEdge->setType(3);
-$id = $collectionHandler-> create($has_tagEdge);
 
 echo 'Se han creado las colecciones y aristas correctamente.';
