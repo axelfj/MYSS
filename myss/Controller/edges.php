@@ -183,6 +183,37 @@ function userCommented($idUser, $idComment){
         // info in the edge
     ];
     $linkBetween = Edge::createFromArray($edgeInfo);
-    $edgeHandler->saveEdge('comment', $idFromUser, $idToPost, $linkBetween);
+    $edgeHandler->saveEdge('commented', $idFromUser, $idToPost, $linkBetween);
+}
+
+function userLiked($idUser, $idPost){
+    $connection         = connect();
+    $collectionHandler  = new ArangoCollectionHandler($connection);
+    $edgeHandler        = new EdgeHandler($connection);
+    $graphHandler       = new GraphHandler($connection);
+
+    $cursorFrom = $collectionHandler->byExample('user', ['username' => $idUser]);
+    $cursorTo   = $collectionHandler->byExample('post', ['_key' => $idPost]);
+
+    // Now, we get the documents iterating over the cursors.
+    $idFromUser         = null;
+    $idToPost           = null;
+    $resultingDocument  = array();
+
+    foreach ($cursorFrom as $key => $value) {
+        $resultingDocument[$key] = $value;
+        $idFromUser = $resultingDocument[$key]->getHandle();
+    }
+
+    foreach ($cursorTo as $key => $value) {
+        $resultingDocument[$key] = $value;
+        $idToPost = $resultingDocument[$key]->getHandle();
+    }
+
+    $edgeInfo   = [
+        // info in the edge
+    ];
+    $linkBetween = Edge::createFromArray($edgeInfo);
+    $edgeHandler->saveEdge('liked', $idFromUser, $idToPost, $linkBetween);
 }
 
