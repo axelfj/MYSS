@@ -39,43 +39,28 @@ function createGraph(){
 function createEdges(){
     $connection = connect();
     $graphHandler = new GraphHandler($connection);
-
-    // user->follows->user //
-    $friendsEdge = new EdgeDefinition($connection);
-    $friendsEdge->addFromCollection("user");
-    $friendsEdge->addToCollection("user");
-    $friendsEdge->setRelation("friends");
-
-    // user->posted->post//
-    $postedEdge = new EdgeDefinition($connection);
-    $postedEdge->addFromCollection("user");
-    $postedEdge->addToCollection("post");
-    $postedEdge->setRelation("posted");
-
-    // user->commented->post //
-    $comentedEdge = new EdgeDefinition($connection);
-    $comentedEdge->addFromCollection("user");
-    $comentedEdge->addToCollection("post");
-    $comentedEdge->setRelation("commented");
-
-    // post->has_comment //
-    $hasCommentEdge = new EdgeDefinition($connection);
-    $hasCommentEdge->addFromCollection("post");
-    $hasCommentEdge->addToCollection("comment");
-    $hasCommentEdge->setRelation("has_comment");
-
-    // post->has->tag //
-    $hasTagEdge = new EdgeDefinition($connection);
-    $hasTagEdge->addFromCollection("post");
-    $hasTagEdge->addToCollection("tag");
-    $hasTagEdge->setRelation("has_tag");
+    
+    $friendsEdge = createEdge('user','follows','user');
+    $postedEdge = createEdge('user','posted','post');
+    $commentedEdge = createEdge('user','commented','post');
+    $hasCommentEdge = createEdge('post','has_comment','comment');
+    $hasTagEdge = createEdge('post','has_tag','tag');
 
     $graphHandler->addEdgeDefinition( 'MYSS', $friendsEdge);
     $graphHandler->addEdgeDefinition( 'MYSS', $postedEdge);
-    $graphHandler->addEdgeDefinition( 'MYSS', $comentedEdge);
+    $graphHandler->addEdgeDefinition( 'MYSS', $commentedEdge);
     $graphHandler->addEdgeDefinition( 'MYSS', $hasCommentEdge);
     $graphHandler->addEdgeDefinition( 'MYSS', $hasTagEdge);
 
+}
+
+function createEdge($fromCollection, $relation, $toCollection){
+    $connection = connect();
+    $edge = new EdgeDefinition($connection);
+    $edge->addFromCollection($fromCollection);
+    $edge->setRelation($relation);
+    $edge->addToCollection($toCollection);
+    return $edge;
 }
 
 try{
