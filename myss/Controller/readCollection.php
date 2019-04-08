@@ -7,7 +7,8 @@ require_once("connection.php");
 /* set up some example statements */
 $statements = [
     //'FOR u IN user FILTER u.username == @username return u.username' => ['username'=>'azzefj'],
-    'FOR u IN post FILTER u.tagsPost == @tagsPost RETURN u._key' => ["tagsPost" => "Estoesuntag,tag,esto,es"]
+    //'FOR u IN post FILTER u.tagsPost == @tagsPost RETURN u._key' => ["tagsPost" => "Estoesuntag,tag,esto,es"]
+    // here goes the query//
 ];
 
 function readCollection($statements){
