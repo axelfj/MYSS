@@ -13,8 +13,6 @@ use ArangoDBClient\Edge;
 use ArangoDBClient\GraphHandler;
 use ArangoDBClient\Vertex;
 
-// This function gets two parameters and associates them in an edge.
-// They must be their usernames.
 function userFollow($fromUser, $toUser){
 
     // All the variables that we need to manage the function.
