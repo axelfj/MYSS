@@ -14,204 +14,56 @@ use ArangoDBClient\GraphHandler;
 use ArangoDBClient\Vertex;
 
 function userFollow($fromUser, $toUser){
-
-    // All the variables that we need to manage the function.
-    $connection         = connect();
-    $collectionHandler  = new ArangoCollectionHandler($connection);
-    $edgeHandler        = new EdgeHandler($connection);
-    $graphHandler       = new GraphHandler($connection);
-
-    // We create two cursor to make the consults with the data.
-    $cursorFrom = $collectionHandler->byExample('user', ['username' => $fromUser]);
-    $cursorTo   = $collectionHandler->byExample('user', ['username' => $toUser]);
-
-    // Now, we get the documents iterating over the cursors.
-    $idFromUser         = null;
-    $idToUser           = null;
-    $resultingDocument  = array();
-
-    foreach ($cursorFrom as $key => $value) {
-        $resultingDocument[$key] = $value;
-
-        // Gets the id of the FromUser.
-        $idFromUser = $resultingDocument[$key]->getHandle();
-    }
-
-    foreach ($cursorTo as $key => $value) {
-        $resultingDocument[$key] = $value;
-
-        // Gets the id of the ToUser.
-        $idToUser = $resultingDocument[$key]->getHandle();
-    }
-
-    //$graphHandler->saveVertex("MYSS", ['12345','azzefj'], 'user');
-
-    // Now make an edge between them.
-    $edgeInfo   = [
-        // info in the edge
-    ];
-    $linkBetween = Edge::createFromArray($edgeInfo);
-    $edgeHandler->saveEdge('follows', $idFromUser, $idToUser, $linkBetween);
-
+    createEdge('user', $fromUser, 'user', $toUser, 'follows');
 }
 
-function connectTag($idPost, $Tag){
-
-    $connection = connect();
-    $collectionHandler  = new ArangoCollectionHandler($connection);
-    $edgeHandler        = new EdgeHandler($connection);
-
-    $idTag = null;
-    $resultingDocument = null;
-
-    $cursorTag   = $collectionHandler->byExample('tag', ['name' => $Tag]);
-
-    if($cursorTag->getCount() == 0){
-        //crear el Tag nuevo
-    }
-
-    foreach ($cursorTag as $key => $value) {
-        $resultingDocument[$key] = $value;
-
-        // Gets the id of the FromUser.
-        $idTag = $resultingDocument[$key]->getHandle();
-    }
-
-    $edgeInfo   = [
-        // info in the edge
-    ];
-    $linkBetween = Edge::createFromArray($edgeInfo);
-    $edgeHandler->saveEdge('has_tag', $idPost, $idTag, $linkBetween);
-
+function connectTag($idPost, $idTag){
+    createEdge('post', $idPost, 'tag', $idTag, 'has_tag');
 }
 
 function userPosted($idUser, $idPost){
-    $connection         = connect();
-    $collectionHandler  = new ArangoCollectionHandler($connection);
-    $edgeHandler        = new EdgeHandler($connection);
-    $graphHandler       = new GraphHandler($connection);
-
-    $cursorFrom = $collectionHandler->byExample('user', ['username' => $idUser]);
-    $cursorTo   = $collectionHandler->byExample('post', ['title' => $idPost]);
-
-    // Now, we get the documents iterating over the cursors.
-    $idFromUser         = null;
-    $idToPost           = null;
-    $resultingDocument  = array();
-
-    foreach ($cursorFrom as $key => $value) {
-        $resultingDocument[$key] = $value;
-        $idFromUser = $resultingDocument[$key]->getHandle();
-    }
-
-    foreach ($cursorTo as $key => $value) {
-        $resultingDocument[$key] = $value;
-        $idToPost = $resultingDocument[$key]->getHandle();
-    }
-
-    $edgeInfo   = [
-        // info in the edge
-    ];
-    $linkBetween = Edge::createFromArray($edgeInfo);
-    $edgeHandler->saveEdge('posted', $idFromUser, $idToPost, $linkBetween);
-
+    createEdge('user', $idUser, 'post', $idPost, 'posted');
 }
 
 function postHasComment($idPost, $idComment){
-    $connection         = connect();
-    $collectionHandler  = new ArangoCollectionHandler($connection);
-    $edgeHandler        = new EdgeHandler($connection);
-    $graphHandler       = new GraphHandler($connection);
-
-    $cursorFrom = $collectionHandler->byExample('post', ['_key' => $idPost]);
-    $cursorTo   = $collectionHandler->byExample('comment', ['_key' => $idComment]);
-
-    // Now, we get the documents iterating over the cursors.
-    $idFromPost         = null;
-    $idToPost           = null;
-    $resultingDocument  = array();
-
-    foreach ($cursorFrom as $key => $value) {
-        $resultingDocument[$key] = $value;
-        $idFromPost = $resultingDocument[$key]->getHandle();
-    }
-
-    foreach ($cursorTo as $key => $value) {
-        $resultingDocument[$key] = $value;
-        $idToPost = $resultingDocument[$key]->getHandle();
-    }
-
-    $edgeInfo   = [
-        // info in the edge
-    ];
-    $linkBetween = Edge::createFromArray($edgeInfo);
-    try{
-        $edgeHandler->saveEdge('has_comment', $idFromPost, $idToPost, $linkBetween);
-    }
-    catch (Exception $e){
-        echo $e->getMessage();
-    }
+    createEdge('post', $idPost, 'comment', $idComment, 'has_comment');
 }
 
 function userCommented($idUser, $idComment){
-    $connection         = connect();
-    $collectionHandler  = new ArangoCollectionHandler($connection);
-    $edgeHandler        = new EdgeHandler($connection);
-    $graphHandler       = new GraphHandler($connection);
-
-    $cursorFrom = $collectionHandler->byExample('post', ['username' => $idUser]);
-    $cursorTo   = $collectionHandler->byExample('comment', ['_key' => $idComment]);
-
-    // Now, we get the documents iterating over the cursors.
-    $idFromUser         = null;
-    $idToPost           = null;
-    $resultingDocument  = array();
-
-    foreach ($cursorFrom as $key => $value) {
-        $resultingDocument[$key] = $value;
-        $idFromUser = $resultingDocument[$key]->getHandle();
-    }
-
-    foreach ($cursorTo as $key => $value) {
-        $resultingDocument[$key] = $value;
-        $idToPost = $resultingDocument[$key]->getHandle();
-    }
-
-    $edgeInfo   = [
-        // info in the edge
-    ];
-    $linkBetween = Edge::createFromArray($edgeInfo);
-    $edgeHandler->saveEdge('commented', $idFromUser, $idToPost, $linkBetween);
+    createEdge('user', $idUser, 'comment', $idComment, 'commented');
 }
 
 function userLiked($idUser, $idPost){
+    createEdge('user', $idUser, 'post', $idPost, 'liked');
+}
+
+function createEdge($fromCollection, $idFrom, $toCollection, $idTo, $relation){
     $connection         = connect();
     $collectionHandler  = new ArangoCollectionHandler($connection);
     $edgeHandler        = new EdgeHandler($connection);
     $graphHandler       = new GraphHandler($connection);
 
-    $cursorFrom = $collectionHandler->byExample('user', ['username' => $idUser]);
-    $cursorTo   = $collectionHandler->byExample('post', ['_key' => $idPost]);
+    $cursorFrom = $collectionHandler->byExample($fromCollection, ['_key' => $idFrom]);
+    $cursorTo   = $collectionHandler->byExample($toCollection, ['_key' => $idTo]);
 
     // Now, we get the documents iterating over the cursors.
-    $idFromUser         = null;
-    $idToPost           = null;
+    $from = null;
+    $to = null;
     $resultingDocument  = array();
 
     foreach ($cursorFrom as $key => $value) {
         $resultingDocument[$key] = $value;
-        $idFromUser = $resultingDocument[$key]->getHandle();
+        $from = $resultingDocument[$key]->getHandle();
     }
 
     foreach ($cursorTo as $key => $value) {
         $resultingDocument[$key] = $value;
-        $idToPost = $resultingDocument[$key]->getHandle();
+        $to = $resultingDocument[$key]->getHandle();
     }
 
     $edgeInfo   = [
         // info in the edge
     ];
     $linkBetween = Edge::createFromArray($edgeInfo);
-    $edgeHandler->saveEdge('liked', $idFromUser, $idToPost, $linkBetween);
+    $edgeHandler->saveEdge($relation, $from, $to, $linkBetween);
 }
-
