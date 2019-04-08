@@ -1,8 +1,9 @@
 <?php
 include_once "header.php";
 include_once "navbar.php";
-include_once "../Controller/tagtest.php";
+include_once "../Controller/createTags.php";
 require_once "../Controller/connection.php";
+require_once "../Controller/createEdges.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/CollectionHandler.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
@@ -39,11 +40,22 @@ if (isset($_POST['postbtn'])){
 
             $newPost = $database->save("post", $post);
             $postKey = substr($newPost, 5, 10);
-            echo $postKey;
             $tagsArray = explode(",", $tagsPost);
-
+            $idTag = null;
             foreach ($tagsArray as $tag){
-                connectTag($postKey, $tag);
+                $cursorTag = $collectionHandler->byExample('tag', ['name' => $tag]);
+                if ($cursorTag->getCount() == 0) {
+                    $newTag = createTag($tag);
+                    $cursorTag = $collectionHandler->byExample('tag', ['name' => $tag]);
+                }
+                foreach ($cursorTag as $key => $value) {
+                    $resultingDocument[$key] = $value;
+
+                    // Gets the id of the FromUser.
+                    $idTag = $resultingDocument[$key]->getHandle();
+                }
+
+                connectTag($postKey, $idTag);
             }
 
             $message = 'You have been successfully registered';

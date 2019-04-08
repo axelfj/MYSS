@@ -23,7 +23,7 @@ $collectionHandler = new ArangoCollectionHandler($connection);
 
 $edgeHandler = new EdgeHandler($connection);
 
-function connectTag($idPost, $Tag)
+/*function connectTag($idPost, $Tag)
 {
 
     global $collectionHandler;
@@ -31,9 +31,9 @@ function connectTag($idPost, $Tag)
 
     $idTag = null;
     $resultingDocument = null;
-
-    $cursorTag = $collectionHandler->byExample('tag', ['name' => $Tag]);
     $cursorPost   = $collectionHandler->byExample('post', ['_key' => $idPost]);
+    $cursorTag = $collectionHandler->byExample('tag', ['name' => $Tag]);
+
 
     if ($cursorTag->getCount() == 0) {
         createTag($Tag);
@@ -59,7 +59,7 @@ function connectTag($idPost, $Tag)
     ];
     $linkBetween = Edge::createFromArray($edgeInfo);
     $edgeHandler->saveEdge('has_tag', $idPost, $idTag, $linkBetween);
-}
+}*/
 
 function createTag($name){
 
@@ -69,6 +69,6 @@ function createTag($name){
     $tag->set("name", $name);
 
     $newTag = $database->save("tag", $tag);
-
+    return $newTag;
 }
 
