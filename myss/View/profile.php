@@ -34,6 +34,7 @@ if (isset($_POST['postbtn'])){
             $post->set("visibility", $visibility);
             $post->set("owner", $owner);
             $post->set("time", $time);
+            $post->set("likes", 0);
 
             $newPost = $database->save("post", $post);
             $message = 'You have been successfully registered';

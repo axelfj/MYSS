@@ -24,12 +24,12 @@ try {
             $varToBind = '';
             if ($fileName == 'profile.php') {
                 $query = 'FOR x IN post FILTER x.owner == @var SORT x.time DESC RETURN {key: x._key,
-        owner: x.owner, title: x.title, text: x.text, tagsPost: x.tagsPost, visibility: x.visibility, time: x.time}';
+        owner: x.owner, title: x.title, text: x.text, tagsPost: x.tagsPost, visibility: x.visibility, time: x.time, likes: x.likes}';
                 $varToBind = $_SESSION['username'];
             }
             else{
                 $query = 'FOR x IN post FILTER x.visibility == @var SORT x.time DESC RETURN {key: x._key,
-            owner: x.owner, title: x.title, text: x.text, tagsPost: x.tagsPost, visibility: x.visibility, time: x.time}';
+            owner: x.owner, title: x.title, text: x.text, tagsPost: x.tagsPost, visibility: x.visibility, time: x.time, likes: x.likes}';
                 $varToBind = "Public";
             }
 
@@ -61,6 +61,7 @@ try {
                     $userPosts['tagsPost'] = $resultingDocuments[$key]->get('tagsPost');
                     $userPosts['visibility'] = $resultingDocuments[$key]->get('visibility');
                     $userPosts['time'] = $resultingDocuments[$key]->get('time');
+                    $userPosts['likes'] = $resultingDocuments[$key]->get('likes');
 
                     $postKey = $resultingDocuments[$key]->get('key');
                     $query = 'FOR x in has_comment FILTER x._from == "post/' . $postKey . '" RETURN {key: x._key,
@@ -101,7 +102,7 @@ try {
                                     <p id="<?php echo 'text' . $postCounter; ?>"><?php echo $userPosts['text']; ?></p>
 
                                     <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
-                                        <li><a href="" title=""><i class="far fa-thumbs-up"></i> 2015</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <li><a href="<?php echo 'likes.inc.php?' . $fileName . '@'. $resultingDocuments[$key]->get('key');?>" title=""><i class="far fa-thumbs-up"></i> <?php echo $userPosts['likes']; ?></a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="" title=""><i class="far fa-comment-alt"></i> <?php echo $numberOfComments; ?></a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="" title=""><i
                                                         class="fas fa-tags"></i> <?php echo str_replace(',', ', ', $userPosts['tagsPost']); ?>
