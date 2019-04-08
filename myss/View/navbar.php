@@ -1,4 +1,5 @@
 <?php session_start(); ?>
+
 <body style="background-color: #E7E7E9;" class="profile-page">
 <!--================ Start Header Area =================-->
 <header class="">
@@ -28,14 +29,6 @@
 
         <div class="collapse navbar-collapse flex-grow-0 ml-auto" id="navbarSupportedContent">
             <ul class="navbar-nav text-right" style="padding-right:400px;">
-                <li class="nav-item">
-                    <a class="nav-link" href="#" onmouseover="this.style.color='rgb(56, 164, 255)'"
-                       onmouseout="this.style.color='';">
-                        <i class="fas fa-plus">
-
-                        </i>
-                        <span class="badge badge-notify"> </span> New post</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="profile.php" onmouseover="this.style.color='rgb(56, 164, 255)'"
                        onmouseout="this.style.color='';">
