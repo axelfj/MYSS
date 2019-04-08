@@ -2,9 +2,11 @@
 
 // Requires the connection and all the dependencies.
 require_once("connection.php");
+include_once "../Controller/createTags.php";
 require_once "../Controller/connection.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/EdgeHandler.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Edge.php";
+
 
 // Uses the functions of ArangoDB.
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
@@ -17,8 +19,24 @@ function userFollow($fromUser, $toUser){
     createEdge('user', $fromUser, 'user', $toUser, 'follows');
 }
 
-function connectTag($idPost, $idTag){
-    createEdge('post', $idPost, 'tag', $idTag, 'has_tag');
+function connectTags($idPost, $tagsArray){
+    $document = new ArangoCollectionHandler(connect());
+
+    foreach ($tagsArray as $tag){
+        $cursorTag = $document->byExample('tag', ['name' => $tag]);
+        if ($cursorTag->getCount() == 0) {
+            $idTag = createTag($tag);
+        }else {
+            foreach ($cursorTag as $key => $value) {
+                $resultingDocument[$key] = $value;
+
+                // Gets the id of the tag.
+                $idTag = $resultingDocument[$key]->getHandle();
+            }
+        }
+        $tagkey = substr($idTag, 4, 10);
+    }
+    createEdge('post', $idPost, 'tag', $tagkey, 'has_tag');
 }
 
 function userPosted($idUser, $idPost){
