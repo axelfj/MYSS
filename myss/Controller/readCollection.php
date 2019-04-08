@@ -1,32 +1,38 @@
 <?php
 
-use ArangoDBClient\Statement;
+namespace ArangoDBClient;
+
 require_once("connection.php");
 
-function readDocument($collection){
-    $connection = connect();
-    $query = 'FOR x IN '.$collection.' RETURN x';
-    try {
-        $statement = new Statement(
-            $connection,
-            array(
-                "query" => $query,
-                "count" => true,
-                "batchSize" => 1000,
-                "sanitize" => true
-            )
-        );
-        $cursor = $statement->execute();
-        $resultingDocuments = array();
+/* set up some example statements */
+$statements = [
+    //'FOR u IN user FILTER u.username == @username return u.username' => ['username'=>'azzefj'],
+    'FOR u IN post FILTER u.tagsPost == @tagsPost RETURN u._key' => ["tagsPost" => "Estoesuntag,tag,esto,es"]
+];
 
-        foreach ($cursor as $key => $value) {
-            $resultingDocuments[$key] = $value;
+function readCollection($statements){
+    try {
+        $connection = connect();
+        foreach ($statements as $query => $bindVars) {
+            $statement = new Statement($connection, [
+                    'query'     => $query,
+                    'count'     => true,
+                    'batchSize' => 1000,
+                    'bindVars'  => $bindVars,
+                    'sanitize'  => true,
+                ]
+            );
+
+            $cursor = $statement->execute();
+            var_dump($cursor->getAll());
         }
-        var_dump($resultingDocuments);
-    } catch (\ArangoDBClient\Exception $e) {
-        echo 'Error.';
+    } catch (ConnectException $e) {
+        print $e . PHP_EOL;
+    } catch (ServerException $e) {
+        print $e . PHP_EOL;
+    } catch (ClientException $e) {
+        print $e . PHP_EOL;
     }
 }
 
-
-
+//readCollection($statements);
