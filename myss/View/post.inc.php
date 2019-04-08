@@ -102,7 +102,7 @@ try {
                                     <p id="<?php echo 'text' . $postCounter; ?>"><?php echo $userPosts['text']; ?></p>
 
                                     <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
-                                        <li><a href="<?php echo 'likes.inc.php?' . $fileName . '@'. $resultingDocuments[$key]->get('key');?>" title=""><i class="far fa-thumbs-up"></i> <?php echo $userPosts['likes']; ?></a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <li><a id="like" href="<?php echo 'likes.inc.php?' . $fileName . '@'. $resultingDocuments[$key]->get('key');?>" title=""><i class="far fa-thumbs-up"></i> <?php echo $userPosts['likes']; ?></a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="" title=""><i class="far fa-comment-alt"></i> <?php echo $numberOfComments; ?></a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="" title=""><i
                                                         class="fas fa-tags"></i> <?php echo str_replace(',', ', ', $userPosts['tagsPost']); ?>
