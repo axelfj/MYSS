@@ -51,7 +51,7 @@ if (isset($_POST['commentbtn' . $buttonNumber])) {
             $pos = strpos($newPost, "/") + 1;
             $commentKey = substr($newPost, $pos, strlen($newPost));
 
-            postHasComment($postKey, $commentKey);
+            createEdge('post', $postKey, 'comment', $commentKey, 'has_comment');
         }
     } catch (Exception $e) {
         $message = $e->getMessage();
