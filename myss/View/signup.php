@@ -37,30 +37,34 @@ try {
         // We can proceed to insert him in the database.
         if ($valueFoundUser == 0) {
             if($valueFoundEmail == 0){
+                if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+                    // Gets all tha parameters to insert him.
+                    $username = $_POST['username'];
+                    $email = $_POST['email'];
+                    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+                    $name = $_POST['name'];
+                    $birthday = $_POST['birthday'];
 
-                // Gets all tha parameters to insert him.
-                $username = $_POST['username'];
-                $email = $_POST['email'];
-                $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-                $name = $_POST['name'];
-                $birthday = $_POST['birthday'];
+                    // Creates a document that represents the person.
+                    $user = new ArangoDocument();
+                    $user->set("username", $username);
+                    $user->set("email", $email);
+                    $user->set("password", $password);
+                    $user->set("name", $name);
+                    $user->set("birthday", $birthday);
 
-                // Creates a document that represents the person.
-                $user = new ArangoDocument();
-                $user->set("username", $username);
-                $user->set("email", $email);
-                $user->set("password", $password);
-                $user->set("name", $name);
-                $user->set("birthday", $birthday);
+                    // Insert him in the collection user.
+                    $newUser = $database->save("user", $user);
+                    $message = 'You have been successfully registered';
 
-                // Insert him in the collection user.
-                $newUser = $database->save("user", $user);
-                $message = 'You have been successfully registered';
-
-                // Redirect him to the login.
-                header('Location: ..\View\login.php');
-
-            } else{
+                    // Redirect him to the login.
+                    header('Location: ..\View\login.php');
+                }
+                else{
+                    $message = "Cannot register. The email is invalid.";
+                }
+            } 
+            else{
                 $message = "Cannot register. The email has been taken";
             }
         }
@@ -75,7 +79,7 @@ try {
 
 <section class="login">
     <?php if(!empty($message)): ?>
-        <p> <?= $message ?></p>
+        <p><center><?= $message ?></center></p>
     <?php endif; ?>
     <div class="container" style="padding-top: 150px;">
         <center>
@@ -98,7 +102,7 @@ try {
                     <div class="form-group">
                         <input id="birthday" name="birthday" type="date" parsley-trigger="change" required class="form-control">
                     </div>
-                    <button id="signinbtn" name="signinbtn" class="genric-btn info circle" type="submit" data-toggle="modal" data-target="#textModal">Sign up</button><br>
+                    <button id="signinbtn" name="signinbtn" class="genric-btn info circle" type="submit">Sign up</button><br>
                     <a class="btn" href="login.php" role="button">Already have an account? Log in here.</a>
                 </form>
             </div>
@@ -106,17 +110,6 @@ try {
     </div>
 </section>
 
-<div class="modal fade" id="textModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <h2 class="modal-title" id="exampleModalLabel">
-                    <?php if(!empty($message)): echo $message; endif; ?>
-                </h2>
-            </div>
-        </div>
-    </div>
-</div>
 
 <?php
 include_once "footer.php";
