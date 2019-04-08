@@ -39,16 +39,18 @@ function createGraph(){
 function createEdges(){
     $connection = connect();
     $graphHandler = new GraphHandler($connection);
-    
+
     $friendsEdge = createEdge('user','follows','user');
     $postedEdge = createEdge('user','posted','post');
     $commentedEdge = createEdge('user','commented','post');
+    $likedEdge = createEdge('user','liked','post');
     $hasCommentEdge = createEdge('post','has_comment','comment');
     $hasTagEdge = createEdge('post','has_tag','tag');
 
     $graphHandler->addEdgeDefinition( 'MYSS', $friendsEdge);
     $graphHandler->addEdgeDefinition( 'MYSS', $postedEdge);
     $graphHandler->addEdgeDefinition( 'MYSS', $commentedEdge);
+    $graphHandler->addEdgeDefinition( 'MYSS', $likedEdge);
     $graphHandler->addEdgeDefinition( 'MYSS', $hasCommentEdge);
     $graphHandler->addEdgeDefinition( 'MYSS', $hasTagEdge);
 
