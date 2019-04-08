@@ -7,22 +7,18 @@ require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
 
 // Calls the functions of Arango to manage Collections, Documents, Etc.
-use ArangoDBCLient\DocumentHandler      as ArangoDocumentHandler;
-use ArangoDBClient\CollectionHandler    as ArangoCollectionHandler;
-use ArangoDBClient\Document             as ArangoDocument;
-use ArangoDBClient\Statement            as ArangoStatement;
+use ArangoDBClient\Statement as ArangoStatement;
 
 // Creates a connection to the database.
 $database = connect();
 
-// Global function save the search var.
-$search = '';
-if (isset($_POST['search'])){
-    $search = $_POST['search'] . '%';
-    echo $search;
-}
-
 try{
+
+    // Var that saves the input.
+    $search = '';
+    if ($_POST['search'] != ''){
+        $search = $_POST['search'] . '%';
+    }
 
     // Makes an AQL query to look for the posts with the tags.
     $query = 'FOR x IN post FILTER x.tagsPost LIKE @tags RETURN x._id';
@@ -36,7 +32,7 @@ try{
             "count" => true,
             "batchSize" => 1,   // It is suppose to only bring one.
             "sanitize" => true,
-            "bindVars" => array("tags" => $$search)
+            "bindVars" => array("tags" => $search)
         )
     );
 
@@ -46,7 +42,10 @@ try{
     // And saves the result in an array.
     $resultingDocuments = array();
 
-    echo $cursor->getCount();
+    var_dump($cursor->getCount());
+    var_dump($search);
+
+
 
 } catch (Exception $e){
     echo 'Algo falló.';
@@ -70,7 +69,7 @@ try{
                     <div class="input-group md-form form-sm form-2 pl-0">
                         <form class="search-form" action="#">
                             <input class="form-control my-0 py-1 blue-border" type="text" placeholder="Search"
-                                   aria-label="Search" namme="search">
+                                   aria-label="Search" namme="search" id="search">
                         </form>
                         <div class="input-group-append">
                             <i class="fas fa-search" aria-hidden="true" style="padding-top: 15px; padding-left: 5px;"></i>
