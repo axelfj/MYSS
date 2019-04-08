@@ -68,6 +68,8 @@ function createTag($name){
     $tag = new ArangoDocument();
     $tag->set("name", $name);
 
+
+
     $newTag = $database->save("tag", $tag);
     return $newTag;
 }
