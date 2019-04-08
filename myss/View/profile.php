@@ -1,7 +1,7 @@
 <?php
 include_once "header.php";
 include_once "navbar.php";
-
+include_once "../Controller/tagtest.php";
 require_once "../Controller/connection.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/CollectionHandler.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
@@ -27,6 +27,7 @@ if (isset($_POST['postbtn'])){
             $owner      = $_SESSION['username'];
             $time       = date('j-m-y H:i');
 
+
             $post = new ArangoDocument();
             $post->set("title", $title);
             $post->set("text", $text);
@@ -37,6 +38,14 @@ if (isset($_POST['postbtn'])){
             $post->set("likes", 0);
 
             $newPost = $database->save("post", $post);
+            $postKey = substr($newPost, 5, 10);
+            echo $postKey;
+            $tagsArray = explode(",", $tagsPost);
+
+            foreach ($tagsArray as $tag){
+                connectTag($postKey, $tag);
+            }
+
             $message = 'You have been successfully registered';
         }
     } catch (Exception $e) {
