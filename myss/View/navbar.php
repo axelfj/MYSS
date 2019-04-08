@@ -67,9 +67,9 @@ try{
             <ul class="navbar-nav text-left">
                 <li class="nav-item">
                     <div class="input-group md-form form-sm form-2 pl-0">
-                        <form class="search-form" action="#">
+                        <form class="search-form" action="index.php">
                             <input class="form-control my-0 py-1 blue-border" type="text" placeholder="Search"
-                                   aria-label="Search" namme="search" id="search">
+                                   aria-label="Search" name="search" id="search">
                         </form>
                         <div class="input-group-append">
                             <i class="fas fa-search" aria-hidden="true" style="padding-top: 15px; padding-left: 5px;"></i>
