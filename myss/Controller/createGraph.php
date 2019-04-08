@@ -13,15 +13,8 @@ use ArangoDBClient\EdgeDefinition as EdgeDefinition;
 use ArangoDBClient\Graph;
 use ArangoDBClient\GraphHandler;
 
-
-// This function gets two parameters and associates them in an edge.
-// They must be their usernames.
 function createGraph(){
-
-    // All the variables that we need to manage the function.
     $connection         = connect();
-    $collectionHandler  = new ArangoCollectionHandler($connection);
-    $edgeHandler        = new EdgeHandler($connection);
     $graphHandler       = new GraphHandler($connection);
     $graph              = new Graph();
 
