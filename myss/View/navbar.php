@@ -1,5 +1,57 @@
-<?php session_start(); ?>
+<?php session_start();
 
+// The connection to the database and dependencies.
+require_once "../Controller/connection.php";
+require_once "../Controller/arangodb-php/lib/ArangoDBClient/Statement.php";
+require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
+require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
+
+// Calls the functions of Arango to manage Collections, Documents, Etc.
+use ArangoDBCLient\DocumentHandler      as ArangoDocumentHandler;
+use ArangoDBClient\CollectionHandler    as ArangoCollectionHandler;
+use ArangoDBClient\Document             as ArangoDocument;
+use ArangoDBClient\Statement            as ArangoStatement;
+
+// Creates a connection to the database.
+$database = connect();
+
+// Global function save the search var.
+$search = '';
+if (isset($_POST['search'])){
+    $search = $_POST['search'] . '%';
+    echo $search;
+}
+
+try{
+
+    // Makes an AQL query to look for the posts with the tags.
+    $query = 'FOR x IN post FILTER x.tagsPost LIKE @tags RETURN x._id';
+
+    // Creates an Statement so we can bind the vars.
+    // He will look for the tags in the collection user with the tags that we put in the input.
+    $statement = new ArangoStatement(
+        $database,
+        array(
+            "query" => $query,
+            "count" => true,
+            "batchSize" => 1,   // It is suppose to only bring one.
+            "sanitize" => true,
+            "bindVars" => array("tags" => $$search)
+        )
+    );
+
+    // Executes the query.
+    $cursor = $statement->execute();
+
+    // And saves the result in an array.
+    $resultingDocuments = array();
+
+    echo $cursor->getCount();
+
+} catch (Exception $e){
+    echo 'Algo falló.';
+}
+?>
 <body style="background-color: #E7E7E9;" class="profile-page">
 <!--================ Start Header Area =================-->
 <header class="">
