@@ -4,9 +4,9 @@ use ArangoDBClient\DocumentHandler;
 
 // First, the connection to the database. 
 require_once("connection.php");
-$connection = connect();
 
 function updateDocument($collection, $idDocument){
+    $connection = connect();
     $documentHandler = new DocumentHandler($connection);
     try{
         $document = $documentHandler->get($collection, $idDocument);
