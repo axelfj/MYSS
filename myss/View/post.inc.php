@@ -2,7 +2,10 @@
 
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 use ArangoDBClient\DocumentHandler as ArangoDocumentHandler;
+use function ArangoDBClient\readCollection;
 use ArangoDBClient\Statement as ArangoStatement;
+
+require_once "../Controller/readCollection.php";
 
 $database = connect();
 $document = new ArangoCollectionHandler(connect());
@@ -20,31 +23,26 @@ try {
             <h5>Nothing to show yet.</h5><br><br><br><br>
             <?php
         } else {
-            $query = '';
-            $varToBind = '';
+            $statements = '';
             if ($fileName == 'profile.php') {
-                $query = 'FOR x IN post FILTER x.owner == @var SORT x.time DESC RETURN {key: x._key,
-        owner: x.owner, title: x.title, text: x.text, tagsPost: x.tagsPost, visibility: x.visibility, time: x.time, likes: x.likes}';
-                $varToBind = $_SESSION['username'];
-            }
-            else{
-                $query = 'FOR x IN post FILTER x.visibility == @var SORT x.time DESC RETURN {key: x._key,
-            owner: x.owner, title: x.title, text: x.text, tagsPost: x.tagsPost, visibility: x.visibility, time: x.time, likes: x.likes}';
-                $varToBind = "Public";
+                $statements = [
+                    'FOR u IN post 
+                        FILTER u.owner == @username 
+                        SORT u.time DESC 
+                        RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, 
+                        tagsPost: u.tagsPost, visibility: u.visibility, time: u.time, likes: u.likes}'
+                    => ['username' => $_SESSION['username']]];
+            } else {
+                $statements = [
+                    'FOR u IN post 
+                        FILTER u.visibility == @visibility 
+                        SORT u.time DESC 
+                        RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, 
+                        tagsPost: u.tagsPost, visibility: u.visibility, time: u.time, likes: u.likes}'
+                    => ['visibility' => 'Public']];
             }
 
-            $statement = new ArangoStatement(
-                $database,
-                array(
-                    "query" => $query,
-                    "count" => true,
-                    "batchSize" => 1,   // It is suppose to only bring one.
-                    "sanitize" => true,
-                    "bindVars" => array("var" => $varToBind)
-                )
-            );
-
-            $cursor = $statement->execute();
+            $cursor = readCollection($statements);
             $resultingDocuments = array();
 
             if ($cursor->getCount() > 0) {
@@ -102,8 +100,14 @@ try {
                                     <p id="<?php echo 'text' . $postCounter; ?>"><?php echo $userPosts['text']; ?></p>
 
                                     <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
-                                        <li><a id="like" href="<?php echo 'likes.inc.php?' . $fileName . '@'. $resultingDocuments[$key]->get('key');?>" title=""><i class="far fa-thumbs-up"></i> <?php echo $userPosts['likes']; ?></a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <li><a href="" title=""><i class="far fa-comment-alt"></i> <?php echo $numberOfComments; ?></a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <li><a id="like"
+                                               href="<?php echo 'likes.inc.php?' . $fileName . '@' . $resultingDocuments[$key]->get('key'); ?>"
+                                               title=""><i
+                                                        class="far fa-thumbs-up"></i> <?php echo $userPosts['likes']; ?>
+                                            </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <li><a href="" title=""><i
+                                                        class="far fa-comment-alt"></i> <?php echo $numberOfComments; ?>
+                                            </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="" title=""><i class="fas fa-tags"></i>
                                                 <?php echo str_replace(',', ', ', $userPosts['tagsPost']); ?>
                                             </a></li>
@@ -194,9 +198,9 @@ try {
                                 <button id="<?php //echo 'commentbtn' . $postCounter; ?>"
                                         name="<?php //echo 'commentbtn' . $postCounter; ?>"
                                         class="btn btn-primary pull-right btnComment" disabled>  <!--disabled-->
-                                    <!--<i class="fas fa-cog"></i>Comment
-                                </button>
-                            </form>-->
+                            <!--<i class="fas fa-cog"></i>Comment
+                        </button>
+                    </form>-->
 
                         </div>
                     </div>
