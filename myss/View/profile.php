@@ -3,6 +3,8 @@ include_once "header.php";
 include_once "navbar.php";
 
 require_once "../Controller/connection.php";
+require_once "../Controller/createEdges.php";
+require_once "../Controller/readCollection.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/CollectionHandler.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
@@ -10,6 +12,8 @@ require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php"
 use ArangoDBCLient\DocumentHandler as ArangoDocumentHandler;
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 use ArangoDBClient\Document as ArangoDocument;
+use function ArangoDBClient\readCollection;
+
 date_default_timezone_set('America/Costa_Rica');
 
 if (isset($_POST['postbtn'])){
@@ -27,6 +31,7 @@ if (isset($_POST['postbtn'])){
             $owner      = $_SESSION['username'];
             $time       = date('j-m-y H:i');
 
+
             $post = new ArangoDocument();
             $post->set("title", $title);
             $post->set("text", $text);
@@ -37,8 +42,15 @@ if (isset($_POST['postbtn'])){
             $post->set("likes", 0);
 
             $newPost = $database->save("post", $post);
-            $message = 'You have been successfully registered';
+            $postKey = substr($newPost, 5, 10);
+            $tagsArray = explode(",", $tagsPost);
+
+            connectTags($postKey, $tagsArray);
+
+            $userKey = $_SESSION['userKey'];
+            userPosted($userKey, $postKey);
         }
+
     } catch (Exception $e) {
         $message = $e->getMessage();
     }
