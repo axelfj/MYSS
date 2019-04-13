@@ -4,7 +4,7 @@ include_once "navbar.php";
 
 require_once "../Controller/connection.php";
 require_once "../Controller/createEdges.php";
-require_once "../Controller/readCollection.php";
+//require_once "../Controller/readCollection.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/CollectionHandler.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
