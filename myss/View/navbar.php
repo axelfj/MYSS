@@ -67,7 +67,7 @@ try{
             <ul class="navbar-nav text-left">
                 <li class="nav-item">
                     <div class="input-group md-form form-sm form-2 pl-0">
-                        <form class="search-form" action="index.php">
+                        <form class="search-form" action="#">
                             <input class="form-control my-0 py-1 blue-border" type="text" placeholder="Search"
                                    aria-label="Search" name="search" id="search">
                         </form>
