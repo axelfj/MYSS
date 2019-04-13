@@ -62,20 +62,14 @@ try {
                     $userPosts['likes'] = $resultingDocuments[$key]->get('likes');
 
                     $postKey = $resultingDocuments[$key]->get('key');
-                    $query = 'FOR x in has_comment FILTER x._from == "post/' . $postKey . '" RETURN {key: x._key,
-        from: x._from, to: x._to}';
 
-                    $statement = new ArangoStatement(
-                        $database,
-                        array(
-                            "query" => $query,
-                            "count" => true,
-                            "batchSize" => 1,
-                            "sanitize" => true
-                        )
-                    );
-
-                    $cursor = $statement->execute();
+                    $statements = [
+                        'FOR u IN has_comment 
+                        FILTER u.from == @from 
+                        SORT u.time DESC 
+                        RETURN {key: u._key, from: u._from, to: u._to}'
+                        => ['from' => 'post/'.$postKey]];
+                    $cursor = readCollection($statements);
                     $resultingComments = array();
                     $numberOfComments = $cursor->getCount();
                     ?>
@@ -116,8 +110,6 @@ try {
                             </div>
 
                             <?php
-
-
                             if ($numberOfComments > 0) {
                                 $commentsKeys = array();
 
@@ -184,23 +176,23 @@ try {
 
                             <hr>
 
-                            <!--<form action="<?php //echo 'comment.inc.php?' . $postKey . '%commentbtn' . $postCounter . '@' . $fileName; ?>"
+                            <form action="<?php echo 'comment.inc.php?' . $postKey . '%commentbtn' . $postCounter . '@' . $fileName; ?>"
                                   method="post">
-                    <textarea id="<?php //echo 'comment' . $postCounter; ?>"
-                              name="<?php //echo 'comment' . $postCounter; ?>" type="text"
+                    <textarea id="<?php echo 'comment' . $postCounter; ?>"
+                              name="<?php echo 'comment' . $postCounter; ?>" type="text"
                               class="form-control classComment"
                               placeholder="Type a new comment..." style="resize: none;"></textarea><br>
-                                <input id="<?php //echo 'tagsComment' . $postCounter; ?>"
-                                       name="<?php //echo 'tagsComment' . $postCounter; ?>" type="text"
+                                <input id="<?php echo 'tagsComment' . $postCounter; ?>"
+                                       name="<?php echo 'tagsComment' . $postCounter; ?>" type="text"
                                        data-role="tagsinput"
                                        placeholder="Tags">
                                 <hr>
-                                <button id="<?php //echo 'commentbtn' . $postCounter; ?>"
-                                        name="<?php //echo 'commentbtn' . $postCounter; ?>"
+                                <button id="<?php echo 'commentbtn' . $postCounter; ?>"
+                                        name="<?php echo 'commentbtn' . $postCounter; ?>"
                                         class="btn btn-primary pull-right btnComment" disabled>  <!--disabled-->
-                            <!--<i class="fas fa-cog"></i>Comment
+                            <!--<i class="fas fa-cog"></i>-->Comment
                         </button>
-                    </form>-->
+                    </form>
 
                         </div>
                     </div>
