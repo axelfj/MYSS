@@ -104,8 +104,8 @@ try {
                                     <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
                                         <li><a id="like" href="<?php echo 'likes.inc.php?' . $fileName . '@'. $resultingDocuments[$key]->get('key');?>" title=""><i class="far fa-thumbs-up"></i> <?php echo $userPosts['likes']; ?></a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="" title=""><i class="far fa-comment-alt"></i> <?php echo $numberOfComments; ?></a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <li><a href="" title=""><i
-                                                        class="fas fa-tags"></i> <?php echo str_replace(',', ', ', $userPosts['tagsPost']); ?>
+                                        <li><a href="" title=""><i class="fas fa-tags"></i>
+                                                <?php echo str_replace(',', ', ', $userPosts['tagsPost']); ?>
                                             </a></li>
                                     </ul>
                                 </div>
@@ -179,24 +179,25 @@ try {
                             } ?>
 
                             <hr>
-                            <form action="<?php echo 'comment.inc.php?' . $postKey . '%commentbtn' . $postCounter . '@' . $fileName; ?>"
+
+                            <!--<form action="<?php //echo 'comment.inc.php?' . $postKey . '%commentbtn' . $postCounter . '@' . $fileName; ?>"
                                   method="post">
-                    <textarea id="<?php echo 'comment' . $postCounter; ?>"
-                              name="<?php echo 'comment' . $postCounter; ?>" type="text"
+                    <textarea id="<?php //echo 'comment' . $postCounter; ?>"
+                              name="<?php //echo 'comment' . $postCounter; ?>" type="text"
                               class="form-control classComment"
                               placeholder="Type a new comment..." style="resize: none;"></textarea><br>
-                                <input id="<?php echo 'tagsComment' . $postCounter; ?>"
-                                       name="<?php echo 'tagsComment' . $postCounter; ?>" type="text"
+                                <input id="<?php //echo 'tagsComment' . $postCounter; ?>"
+                                       name="<?php //echo 'tagsComment' . $postCounter; ?>" type="text"
                                        data-role="tagsinput"
                                        placeholder="Tags">
                                 <hr>
-                                <button id="<?php echo 'commentbtn' . $postCounter; ?>"
-                                        name="<?php echo 'commentbtn' . $postCounter; ?>"
+                                <button id="<?php //echo 'commentbtn' . $postCounter; ?>"
+                                        name="<?php //echo 'commentbtn' . $postCounter; ?>"
                                         class="btn btn-primary pull-right btnComment" disabled>  <!--disabled-->
-                                    <!--<i class="fas fa-cog"></i>-->Comment
+                                    <!--<i class="fas fa-cog"></i>Comment
                                 </button>
-                            </form>
-                            <br><br><br>
+                            </form>-->
+
                         </div>
                     </div>
                     <?php
