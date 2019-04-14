@@ -10,22 +10,22 @@ require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
 
 $controller = new Controller();
-$dtoPost    = new DTOPost_Comment_Tag();
+$dtoPost = new DTOPost_Comment_Tag();
 
 date_default_timezone_set('America/Costa_Rica');
 
-if (isset($_POST['postbtn'])){
+if (isset($_POST['postbtn'])) {
     try {
         if (!empty($_POST['title']) &&
             !empty($_POST['post'])) {
 
             $post = array();
-            $post['title']      = $_POST['title'];
-            $post['post']       = $_POST['post'];
-            $post['tagsPost']   = $_POST['tagsPost'];
+            $post['title'] = $_POST['title'];
+            $post['post'] = $_POST['post'];
+            $post['tagsPost'] = $_POST['tagsPost'];
             $post['visibility'] = $_POST['visibility'];
-            $post['username']   = $_SESSION['username'];
-            $post['time']       = date('j-m-y H:i');
+            $post['username'] = $_SESSION['username'];
+            $post['time'] = date('j-m-y H:i');
 
             $dtoPost->setPosts($post);
             $controller->createNewPost($dtoPost);
@@ -45,18 +45,16 @@ if (isset($_POST['postbtn'])){
                     <div class="userpic"><img src="img/user.png" alt="" class="userpicimg"></div>
                     <h3 class="username" style="font-size: 18px;">
                         <?php
-                        if (isset($_SESSION['name'])){
+                        if (isset($_SESSION['name'])) {
                             echo $_SESSION['name'];
-                        }
-                        else{
+                        } else {
                             echo 'Name Last-Name';
                         }
                         ?></h3>
                     <p><?php
-                        if (isset($_SESSION['username'])){
-                            echo '@'.$_SESSION['username'];
-                        }
-                        else{
+                        if (isset($_SESSION['username'])) {
+                            echo '@' . $_SESSION['username'];
+                        } else {
                             echo '@username';
                         }
                         ?></p>
