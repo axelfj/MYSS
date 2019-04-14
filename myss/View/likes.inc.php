@@ -32,24 +32,17 @@ try {
 
     if ($cursor->getCount() != 0) {
         $statements = [
-            'FOR u in liked 
+            'FOR u IN liked 
             FILTER u._to == @postKey && u._from == @userKey 
             RETURN u._from'
             => ['postKey' => $postKey, 'userKey' => $_SESSION['userKey']]];
         $liked = readCollection($statements);
-        $userId = substr($liked->current(), 5, 11);
 
-        if ($liked->getCount() == 0 && $userId != $_SESSION['userKey']) {
-            createEdge('user', $_SESSION['userKey'], 'post', $postKey, 'liked');
-            $statements = [$query =
-                'FOR x IN post 
-                FILTER x._key == @postKey 
-                UPDATE { _key: x._key, likes: x.likes+1} 
-                IN post' => ['postKey' => $postKey]];
-            readCollection($statements);
+        if ($_SESSION['userKey'] != $liked->current()){
+            userLiked($_SESSION['userKey'], $postKey);
         }
         else{
-            // delete the edge //
+            // user already liked //
         }
     }
 
