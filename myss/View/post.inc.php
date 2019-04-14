@@ -1,12 +1,10 @@
 <?php
 
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
-use function ArangoDBClient\readCollection;
 
 require_once "../Controller/readCollection.php";
 require_once "../Controller/Controller.php";
 require_once "../Controller/DTOPost_Comment_Tag.php";
-require_once "../Model/PostQuery.php";
 
 $database = connect();
 $document = new ArangoCollectionHandler(connect());

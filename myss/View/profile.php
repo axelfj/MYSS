@@ -3,16 +3,14 @@ include_once "header.php";
 include_once "navbar.php";
 
 require_once "../Controller/connection.php";
-require_once "../Controller/createEdges.php";
-//require_once "../Controller/readCollection.php";
+require_once "../Controller/Controller.php";
+require_once "../Controller/DTOPost_Comment_Tag.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/CollectionHandler.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
 
-use ArangoDBCLient\DocumentHandler as ArangoDocumentHandler;
-use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
-use ArangoDBClient\Document as ArangoDocument;
-use function ArangoDBClient\readCollection;
+$controller = new Controller();
+$dtoPost    = new DTOPost_Comment_Tag();
 
 date_default_timezone_set('America/Costa_Rica');
 
@@ -21,34 +19,16 @@ if (isset($_POST['postbtn'])){
         if (!empty($_POST['title']) &&
             !empty($_POST['post'])) {
 
-            $database = new ArangoDocumentHandler(connect());
-            $document = new ArangoCollectionHandler(connect());
+            $post = array();
+            $post['title']      = $_POST['title'];
+            $post['post']       = $_POST['post'];
+            $post['tagsPost']   = $_POST['tagsPost'];
+            $post['visibility'] = $_POST['visibility'];
+            $post['username']   = $_SESSION['username'];
+            $post['time']       = date('j-m-y H:i');
 
-            $title      = $_POST['title'];
-            $text       = $_POST['post'];
-            $tagsPost   = $_POST['tagsPost'];
-            $visibility = $_POST['visibility'];
-            $owner      = $_SESSION['username'];
-            $time       = date('j-m-y H:i');
-
-
-            $post = new ArangoDocument();
-            $post->set("title", $title);
-            $post->set("text", $text);
-            $post->set("tagsPost", $tagsPost);
-            $post->set("visibility", $visibility);
-            $post->set("owner", $owner);
-            $post->set("time", $time);
-            $post->set("likes", 0);
-
-            $newPost = $database->save("post", $post);
-            $postKey = substr($newPost, 5, 10);
-            $tagsArray = explode(",", $tagsPost);
-
-            connectTags($postKey, $tagsArray);
-
-            $userKey = $_SESSION['userKey'];
-            userPosted($userKey, $postKey);
+            $dtoPost->setPosts($post);
+            $controller->createNewPost($dtoPost);
         }
 
     } catch (Exception $e) {
