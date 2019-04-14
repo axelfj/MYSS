@@ -56,18 +56,10 @@ try{
                                     <p id="<?php echo 'text' . $postCounter; ?>"><?php echo $singlePost['text']; ?></p>
 
                                     <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
-                                        <?php
-                                        $statements = [
-                                            'FOR u in liked 
-                                        FILTER u._to == @postKey 
-                                        RETURN u'
-                                            => ['postKey' => 'post/'.$singlePost['key']]];
-                                        $liked = readCollection($statements); ?>
-
                                         <li><a id="like"
                                                href="<?php echo 'likes.inc.php?' . $fileName . '@' . $singlePost['key']; ?>"
                                                title=""><i
-                                                        class="far fa-thumbs-up"></i> <?php echo $liked->getCount(); ?>
+                                                        class="far fa-thumbs-up"></i> <?php echo PostQuery::getLikes($singlePost['key']); ?>
                                             </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="" title=""><i
                                                         class="far fa-comment-alt"></i> <?php echo $numberOfComments; ?>
