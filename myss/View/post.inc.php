@@ -57,11 +57,9 @@ try {
                                     <p id="<?php echo 'text' . $postCounter; ?>"><?php echo $singlePost['text']; ?></p>
 
                                     <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
-                                        <?php
-                                        $user = $controller->verifyIfUserLiked($singlePost['key'], $_SESSION['userKey']);
-                                        ?>
                                         <li><a id="like"
                                                href="<?php
+                                               $user = $controller->verifyIfUserLiked($singlePost['key'], $_SESSION['userKey']);
                                                if ($user->getCount() == 0) {
                                                    echo 'likes.inc.php?' . $fileName . '@' . $singlePost['key'];
                                                } else {
