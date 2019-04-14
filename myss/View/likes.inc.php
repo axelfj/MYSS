@@ -31,19 +31,8 @@ try {
     $cursor = $document->byExample('post', ['visibility' => "Public"], ['visibility' => "Private"]);
 
     if ($cursor->getCount() != 0) {
-        $statements = [
-            'FOR u IN liked 
-            FILTER u._to == @postKey && u._from == @userKey 
-            RETURN u._from'
-            => ['postKey' => $postKey, 'userKey' => $_SESSION['userKey']]];
-        $liked = readCollection($statements);
+        userLiked($_SESSION['userKey'], $postKey);
 
-        if ($_SESSION['userKey'] != $liked->current()){
-            userLiked($_SESSION['userKey'], $postKey);
-        }
-        else{
-            // user already liked //
-        }
     }
 
 } catch (Exception $e) {

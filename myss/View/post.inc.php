@@ -15,26 +15,24 @@ $fileName = substr($url, $pos, $len);
 
 $controller = new Controller();
 
-try{
-    if(isset($_SESSION['username'])){
+try {
+    if (isset($_SESSION['username'])) {
         $cursor = $document->byExample('post', ['visibility' => "Public"], ['visibility' => "Private"]);
         $valueFound = $cursor->getCount();
 
-        if($valueFound == 0){ ?>
+        if ($valueFound == 0) { ?>
             <h5>Nothing to show yet.</h5><br><br><br><br>
             <?php
-        }
-        else{
-            if($fileName == 'profile.php'){
+        } else {
+            if ($fileName == 'profile.php') {
                 $dtoPost_Comment_Tag = $controller->getPosts($_SESSION['username']);
-            }
-            else{
+            } else {
                 $dtoPost_Comment_Tag = $controller->getPosts(null);
             }
             $postCounter = 0;
-            if(isset($dtoPost_Comment_Tag)){
+            if (isset($dtoPost_Comment_Tag)) {
 
-                foreach($dtoPost_Comment_Tag as $singlePost){
+                foreach ($dtoPost_Comment_Tag as $singlePost) {
                     $comments = $controller->getComments($singlePost['key']);
                     $numberOfComments = ($comments != null) ? sizeof($comments) : 0;
                     ?>
@@ -59,13 +57,28 @@ try{
                                     <p id="<?php echo 'text' . $postCounter; ?>"><?php echo $singlePost['text']; ?></p>
 
                                     <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
-                                        <li><a id="like"
-                                               href="<?php echo 'likes.inc.php?' . $fileName . '@' . $singlePost['key']; ?>"
-                                               title=""><i
-                                                        class="far fa-thumbs-up"></i> <?php echo PostQuery::getLikes($singlePost['key']); ?>
-                                            </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <li><a href="" title=""><i
-                                                        class="far fa-comment-alt"></i> <?php echo $numberOfComments; ?>
+                                        <?php
+                                        $statements = [
+                                                'FOR u IN liked 
+                                                FILTER u._to == @postKey && u._from == @userKey 
+                                                RETURN u._from'
+                                        => ['postKey' => 'post/'.$singlePost['key'], 'userKey' => 'user/'.$_SESSION['userKey']]];
+                                        $user = readCollection($statements);
+                                            ?>
+                                            <li><a id="like"
+                                                   href="<?php
+                                                   if ($user->getCount() == 0){
+                                                       echo 'likes.inc.php?' . $fileName . '@' . $singlePost['key'];
+                                                   }
+                                                   else{
+                                                       echo '#';
+                                                   }
+                                                        ?>"
+                                                    ><i class="far fa-thumbs-up"></i>
+                                                    <?php echo PostQuery::getLikesCount($singlePost['key']); ?>
+                                                </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <li><a href="" title=""><i class="far fa-comment-alt"></i>
+                                                <?php echo $numberOfComments; ?>
                                             </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="" title=""><i class="fas fa-tags"></i>
                                                 <?php echo str_replace(',', ', ', $singlePost['tagsPost']); ?>
@@ -75,8 +88,8 @@ try{
                             </div>
 
                             <?php
-                            if(isset($comments)){
-                                foreach($comments as $singleComment){ ?>
+                            if (isset($comments)) {
+                                foreach ($comments as $singleComment) { ?>
                                     <div class="col-md-12 commentsblock border-top">
                                         <div class="media">
                                             <div class="media-left"><a href="javascript:void(0)"> <img
@@ -122,7 +135,8 @@ try{
                                         name="<?php echo 'commentbtn' . $postCounter; ?>"
                                         class="btn btn-primary pull-right btnComment" disabled>  <!--disabled-->
                                     <!--<i class="fas fa-cog"></i>-->Comment
-                                </button><br><br>
+                                </button>
+                                <br><br>
                             </form>
 
                         </div>
@@ -132,13 +146,12 @@ try{
                 }
             }
         }
-    }
-    else{
+    } else {
         echo 'Register so you can see the posts!';
     }
 
-}
-catch(Exception $e){
+} catch
+(Exception $e) {
     $e->getMessage();
 }
 
