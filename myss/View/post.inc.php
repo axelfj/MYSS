@@ -4,6 +4,8 @@ use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 use function ArangoDBClient\readCollection;
 
 require_once "../Controller/readCollection.php";
+require_once "../Controller/Controller.php";
+require_once "../Controller/DTOPost_Comment_Tag.php";
 require_once "../Model/PostQuery.php";
 
 $database = connect();
@@ -12,6 +14,8 @@ $url = $_SERVER['REQUEST_URI'];
 $pos = strpos($url, 'View') + 5;
 $len = strlen($url);
 $fileName = substr($url, $pos, $len);
+
+$controller = new Controller();
 
 try{
     if(isset($_SESSION['username'])){
@@ -24,16 +28,17 @@ try{
         }
         else{
             if($fileName == 'profile.php'){
-                $posts = PostQuery::getMyPosts($_SESSION['username']);
+                $dtoPost_Comment_Tag = $controller->getPosts($_SESSION['username']);
             }
             else{
-                $posts = PostQuery::getAllPublicPosts();
+                $dtoPost_Comment_Tag = $controller->getPosts(null);
             }
             $postCounter = 0;
-            if(isset($posts)){
+            if(isset($dtoPost_Comment_Tag)){
 
-                foreach($posts as $singlePost){
-                    $numberOfComments = PostQuery::getCommentsKeys($singlePost['key'])->getCount();
+                foreach($dtoPost_Comment_Tag as $singlePost){
+                    $comments = $controller->getComments($singlePost['key']);
+                    $numberOfComments = ($comments != null) ? sizeof($comments) : 0;
                     ?>
 
                     <div class="panel container" style="background-color: white;"
@@ -72,8 +77,6 @@ try{
                             </div>
 
                             <?php
-                            $comments = PostQuery::getPostComments($singlePost['key']);
-
                             if(isset($comments)){
                                 foreach($comments as $singleComment){ ?>
                                     <div class="col-md-12 commentsblock border-top">
