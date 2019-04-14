@@ -25,8 +25,9 @@ function readCollection($statements){
             );
 
             $cursor = $statement->execute();
-            var_dump($cursor->getAll());
+            //var_dump($cursor->getAll());
         }
+        return $cursor;
     } catch (ConnectException $e) {
         print $e . PHP_EOL;
     } catch (ServerException $e) {

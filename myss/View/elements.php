@@ -105,7 +105,7 @@
 								<a class="nav-link" href="elements.php">Elements</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="blog-single.php">Blog Detail</a>
+								<a class="nav-link" href="post-single.php">Blog Detail</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="settings.php">Contact</a>
