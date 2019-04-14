@@ -15,6 +15,11 @@ class DAOPost_Comment_Tag
         PostQuery::createNewPost($dtoPost);
     }
 
+    public function createNewComment($dtoComment, $postKey)
+    {
+        PostQuery::createNewComment($dtoComment, $postKey);
+    }
+
     public function verifyIfUserLiked($postKey, $userKey)
     {
         return PostQuery::verifyIfUserLiked($postKey, $userKey);
