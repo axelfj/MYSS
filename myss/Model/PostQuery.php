@@ -164,4 +164,16 @@ class PostQuery
         }
         return null;
     }
+
+    public static function getLikes($idPost)
+    {
+        try {
+            $statements = [
+                'FOR u in liked FILTER u._to == @postKey RETURN u' => ['postKey' => 'post/'.$idPost]];
+            $liked = readCollection($statements);
+            return $liked->getCount();
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+    }
 }
