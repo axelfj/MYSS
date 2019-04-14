@@ -66,7 +66,6 @@ try {
                                                 RETURN u._from'
                                         => ['postKey' => 'post/'.$singlePost['key'], 'userKey' => 'user/'.$_SESSION['userKey']]];
                                         $user = readCollection($statements);
-                                        var_dump($user->getCount());
                                             ?>
                                             <li><a id="like"
                                                    href="<?php
