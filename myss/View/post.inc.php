@@ -1,6 +1,7 @@
 <?php
 
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
+use function ArangoDBClient\readCollection;
 
 require_once "../Controller/readCollection.php";
 require_once "../Model/PostQuery.php";
@@ -55,10 +56,18 @@ try{
                                     <p id="<?php echo 'text' . $postCounter; ?>"><?php echo $singlePost['text']; ?></p>
 
                                     <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
+                                        <?php
+                                        $statements = [
+                                            'FOR u in liked 
+                                        FILTER u._to == @postKey 
+                                        RETURN u'
+                                            => ['postKey' => 'post/'.$singlePost['key']]];
+                                        $liked = readCollection($statements); ?>
+
                                         <li><a id="like"
                                                href="<?php echo 'likes.inc.php?' . $fileName . '@' . $singlePost['key']; ?>"
                                                title=""><i
-                                                        class="far fa-thumbs-up"></i> <?php echo $singlePost['likes']; ?>
+                                                        class="far fa-thumbs-up"></i> <?php echo $liked->getCount(); ?>
                                             </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="" title=""><i
                                                         class="far fa-comment-alt"></i> <?php echo $numberOfComments; ?>
