@@ -58,25 +58,19 @@ try {
 
                                     <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
                                         <?php
-                                        $statements = [
-                                                'FOR u IN liked 
-                                                FILTER u._to == @postKey && u._from == @userKey 
-                                                RETURN u._from'
-                                        => ['postKey' => 'post/'.$singlePost['key'], 'userKey' => 'user/'.$_SESSION['userKey']]];
-                                        $user = readCollection($statements);
-                                            ?>
-                                            <li><a id="like"
-                                                   href="<?php
-                                                   if ($user->getCount() == 0){
-                                                       echo 'likes.inc.php?' . $fileName . '@' . $singlePost['key'];
-                                                   }
-                                                   else{
-                                                       echo '#';
-                                                   }
-                                                        ?>"
-                                                    ><i class="far fa-thumbs-up"></i>
-                                                    <?php echo PostQuery::getLikesCount($singlePost['key']); ?>
-                                                </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        $user = $controller->verifyIfUserLiked($singlePost['key'], $_SESSION['userKey']);
+                                        ?>
+                                        <li><a id="like"
+                                               href="<?php
+                                               if ($user->getCount() == 0) {
+                                                   echo 'likes.inc.php?' . $fileName . '@' . $singlePost['key'];
+                                               } else {
+                                                   echo '#';
+                                               }
+                                               ?>"
+                                            ><i class="far fa-thumbs-up"></i>
+                                                <?php echo PostQuery::getLikesCount($singlePost['key']); ?>
+                                            </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="" title=""><i class="far fa-comment-alt"></i>
                                                 <?php echo $numberOfComments; ?>
                                             </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

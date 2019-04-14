@@ -13,17 +13,18 @@ $database = connect();
 
 class PostQuery
 {
-    public static function createNewPost($dtoPost){
-        try{
+    public static function createNewPost($dtoPost)
+    {
+        try {
             $database = new ArangoDocumentHandler(connect());
             $infoPost = $dtoPost->getPosts();
 
-            $title      = $infoPost['title'];
-            $text       = $infoPost['post'];
-            $tagsPost   = $infoPost['tagsPost'];
+            $title = $infoPost['title'];
+            $text = $infoPost['post'];
+            $tagsPost = $infoPost['tagsPost'];
             $visibility = $infoPost['visibility'];
-            $owner      = $infoPost['username'];
-            $time       = date('j-m-y H:i');
+            $owner = $infoPost['username'];
+            $time = date('j-m-y H:i');
 
             $post = new ArangoDocument();
             $post->set("title", $title);
@@ -42,8 +43,7 @@ class PostQuery
 
             $userKey = $_SESSION['userKey'];
             userPosted($userKey, $postKey);
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             $e->getMessage();
         }
     }
@@ -206,11 +206,22 @@ class PostQuery
     {
         try {
             $statements = [
-                'FOR u in liked FILTER u._to == @postKey RETURN u' => ['postKey' => 'post/'.$idPost]];
+                'FOR u in liked FILTER u._to == @postKey RETURN u' => ['postKey' => 'post/' . $idPost]];
             $liked = readCollection($statements);
             return $liked->getCount();
         } catch (Exception $e) {
             $e->getMessage();
         }
+    }
+
+    // Verifies if an user already liked a specific post.
+    public static function verifyIfUserLiked($postKey, $userKey)
+    {
+        $statements = [
+            'FOR u IN liked 
+            FILTER u._to == @postKey && u._from == @userKey 
+            RETURN u._from' => ['postKey' => 'post/' . $postKey, 'userKey' => 'user/' . $userKey]];
+
+        return readCollection($statements);
     }
 }
