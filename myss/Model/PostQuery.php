@@ -33,7 +33,6 @@ class PostQuery
             $post->set("visibility", $visibility);
             $post->set("owner", $owner);
             $post->set("time", $time);
-            $post->set("likes", 0);
 
             $newPost = $database->save("post", $post);
             $postKey = substr($newPost, 5, 10);
@@ -46,6 +45,32 @@ class PostQuery
         } catch (Exception $e) {
             $e->getMessage();
         }
+    }
+
+    public static function createNewComment($dtoComment, $postKey)
+    {
+        $database = new ArangoDocumentHandler(connect());
+        $infoComment = $dtoComment->getComments();
+
+        $text = $infoComment['text'];
+        $tagsComment = $infoComment['tagsComment'];
+        $commentOwner = $infoComment['commentOwner'];
+        $time = date('j-m-y H:i');
+
+        $comment = new ArangoDocument();
+        $comment->set("text", $text);
+        $comment->set("tagsComment", $tagsComment);
+        $comment->set("commentOwner", $commentOwner);
+        $comment->set("time", $time);
+
+        $newComment = $database->save("comment", $comment);
+
+        // Gets just the number of key, because "$newPost" stores something like "post/83126"
+        // and we just need that number.
+        $pos = strpos($newComment, "/") + 1;
+        $commentKey = substr($newComment, $pos, strlen($newComment));
+
+        createEdge('post', $postKey, 'comment', $commentKey, 'has_comment');
     }
 
     public static function getMyPosts($username)
@@ -91,8 +116,7 @@ class PostQuery
         try {
             $query = [
                 'FOR u IN has_comment 
-                 FILTER u._from == @from         
-                 SORT u._key DESC                                     
+                 FILTER u._from == @from                                                         
                  RETURN {key: u._key, from: u._from, to: u._to}' => ['from' => 'post/' . $postKey]];
 
             $cursor = readCollection($query);

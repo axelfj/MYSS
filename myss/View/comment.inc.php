@@ -3,7 +3,8 @@ require_once "../Controller/connection.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/CollectionHandler.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
-require_once "../Controller/createEdges.php";
+require_once "../Controller/Controller.php";
+require_once "../Controller/DTOPost_Comment_Tag.php";
 
 session_start();
 
@@ -25,33 +26,19 @@ $posStart = strpos($url, '?') + 1;
 $posEnd = strpos($url, '%');
 $postKey = substr($url, $posStart, $posEnd - $posStart);
 
+$controller = new Controller();
+$dtoComment = new DTOPost_Comment_Tag();
 
 if (isset($_POST['commentbtn' . $buttonNumber])) {
     try {
         if (!empty($_POST['comment' . $buttonNumber])) {
+            $comment = array();
+            $comment['text'] = $_POST['comment' . $buttonNumber];
+            $comment['tagsComment'] = $_POST['tagsComment' . $buttonNumber];
+            $comment['commentOwner'] = $_SESSION['username'];
 
-            $database = new ArangoDocumentHandler(connect());
-            $document = new ArangoCollectionHandler(connect());
-
-            $text = $_POST['comment' . $buttonNumber];
-            $tagsPost = $_POST['tagsComment' . $buttonNumber];
-            $owner = $_SESSION['username'];
-            $time = date('j-m-y H:i');
-
-            $comment = new ArangoDocument();
-            $comment->set("text", $text);
-            $comment->set("tagsComment", $tagsPost);
-            $comment->set("commentOwner", $owner);
-            $comment->set("time", $time);
-
-            $newPost = $database->save("comment", $comment);
-
-            // Gets just the number of key, because "$newPost" stores something like "post/83126"
-            // and we just need that number.
-            $pos = strpos($newPost, "/") + 1;
-            $commentKey = substr($newPost, $pos, strlen($newPost));
-
-            createEdge('post', $postKey, 'comment', $commentKey, 'has_comment');
+            $dtoComment->setComments($comment);
+            $controller->createNewComment($dtoComment, $postKey);
         }
     } catch (Exception $e) {
         $message = $e->getMessage();

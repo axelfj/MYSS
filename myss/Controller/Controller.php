@@ -15,6 +15,11 @@ class Controller
         $this->daoPost_Comment_Tag->createNewPost($dtoPost);
     }
 
+    public function createNewComment($dtoComment, $postKey)
+    {
+        $this->daoPost_Comment_Tag->createNewComment($dtoComment, $postKey);
+    }
+
     public function verifyIfUserLiked($postKey, $userKey)
     {
         return $this->daoPost_Comment_Tag->verifyIfUserLiked($postKey, $userKey);
