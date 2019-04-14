@@ -1,8 +1,12 @@
 <?php
 
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
-use ArangoDBClient\DocumentHandler as ArangoDocumentHandler;
-use ArangoDBClient\Statement as ArangoStatement;
+use function ArangoDBClient\readCollection;
+
+require_once "../Controller/readCollection.php";
+require_once "../Controller/Controller.php";
+require_once "../Controller/DTOPost_Comment_Tag.php";
+require_once "../Model/PostQuery.php";
 
 $database = connect();
 $document = new ArangoCollectionHandler(connect());
@@ -10,6 +14,8 @@ $url = $_SERVER['REQUEST_URI'];
 $pos = strpos($url, 'View') + 5;
 $len = strlen($url);
 $fileName = substr($url, $pos, $len);
+
+$controller = new Controller();
 
 try {
     if (isset($_SESSION['username'])) {
@@ -20,70 +26,21 @@ try {
             <h5>Nothing to show yet.</h5><br><br><br><br>
             <?php
         } else {
-            $query = '';
-            $varToBind = '';
             if ($fileName == 'profile.php') {
-                $query = 'FOR x IN post FILTER x.owner == @var SORT x.time DESC RETURN {key: x._key,
-        owner: x.owner, title: x.title, text: x.text, tagsPost: x.tagsPost, visibility: x.visibility, time: x.time, likes: x.likes}';
-                $varToBind = $_SESSION['username'];
+                $dtoPost_Comment_Tag = $controller->getPosts($_SESSION['username']);
+            } else {
+                $dtoPost_Comment_Tag = $controller->getPosts(null);
             }
-            else{
-                $query = 'FOR x IN post FILTER x.visibility == @var SORT x.time DESC RETURN {key: x._key,
-            owner: x.owner, title: x.title, text: x.text, tagsPost: x.tagsPost, visibility: x.visibility, time: x.time, likes: x.likes}';
-                $varToBind = "Public";
-            }
+            $postCounter = 0;
+            if (isset($dtoPost_Comment_Tag)) {
 
-            $statement = new ArangoStatement(
-                $database,
-                array(
-                    "query" => $query,
-                    "count" => true,
-                    "batchSize" => 1,   // It is suppose to only bring one.
-                    "sanitize" => true,
-                    "bindVars" => array("var" => $varToBind)
-                )
-            );
-
-            $cursor = $statement->execute();
-            $resultingDocuments = array();
-
-            if ($cursor->getCount() > 0) {
-
-                $userPosts = array();
-                $postCounter = 0;
-
-                foreach ($cursor as $key => $value) {
-
-                    $resultingDocuments[$key] = $value;
-                    $userPosts['owner'] = $resultingDocuments[$key]->get('owner');
-                    $userPosts['title'] = $resultingDocuments[$key]->get('title');
-                    $userPosts['text'] = $resultingDocuments[$key]->get('text');
-                    $userPosts['tagsPost'] = $resultingDocuments[$key]->get('tagsPost');
-                    $userPosts['visibility'] = $resultingDocuments[$key]->get('visibility');
-                    $userPosts['time'] = $resultingDocuments[$key]->get('time');
-                    $userPosts['likes'] = $resultingDocuments[$key]->get('likes');
-
-                    $postKey = $resultingDocuments[$key]->get('key');
-                    $query = 'FOR x in has_comment FILTER x._from == "post/' . $postKey . '" RETURN {key: x._key,
-        from: x._from, to: x._to}';
-
-                    $statement = new ArangoStatement(
-                        $database,
-                        array(
-                            "query" => $query,
-                            "count" => true,
-                            "batchSize" => 1,
-                            "sanitize" => true
-                        )
-                    );
-
-                    $cursor = $statement->execute();
-                    $resultingComments = array();
-                    $numberOfComments = $cursor->getCount();
+                foreach ($dtoPost_Comment_Tag as $singlePost) {
+                    $comments = $controller->getComments($singlePost['key']);
+                    $numberOfComments = ($comments != null) ? sizeof($comments) : 0;
                     ?>
 
                     <div class="panel container" style="background-color: white;"
-                         id="<?php echo $resultingDocuments[$key]->get('key'); ?>">
+                         id="<?php echo $singlePost['key']; ?>">
                         <div class="col-md-12 container" style="background-color: white;">
                             <div class="media">
                                 <div class="media-left"><a href="javascript:void(0)"><img
@@ -91,95 +48,82 @@ try {
                                                 alt=""
                                                 class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <div class="media-body">
-                                    <h4 class="media-heading"><?php echo $userPosts['owner']; ?><br>
+                                    <h4 class="media-heading"><?php echo $singlePost['owner']; ?><br>
                                         <small><i class="fa fa-clock-o"
-                                                  id="<?php echo 'time' . $postCounter; ?>"></i> <?php echo $userPosts['time']; ?>
+                                                  id="<?php echo 'time' . $postCounter; ?>"></i> <?php echo $singlePost['time']; ?>
                                         </small>
                                     </h4>
                                     <hr>
-                                    <h5 id="<?php echo 'title' . $postCounter; ?>"><?php echo $userPosts['title']; ?></h5>
+                                    <h5 id="<?php echo 'title' . $postCounter; ?>"><?php echo $singlePost['title']; ?></h5>
                                     <br>
-                                    <p id="<?php echo 'text' . $postCounter; ?>"><?php echo $userPosts['text']; ?></p>
+                                    <p id="<?php echo 'text' . $postCounter; ?>"><?php echo $singlePost['text']; ?></p>
 
                                     <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
-                                        <li><a id="like" href="<?php echo 'likes.inc.php?' . $fileName . '@'. $resultingDocuments[$key]->get('key');?>" title=""><i class="far fa-thumbs-up"></i> <?php echo $userPosts['likes']; ?></a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <li><a href="" title=""><i class="far fa-comment-alt"></i> <?php echo $numberOfComments; ?></a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <li><a href="" title=""><i
-                                                        class="fas fa-tags"></i> <?php echo str_replace(',', ', ', $userPosts['tagsPost']); ?>
+                                        <?php
+                                        $statements = [
+                                                'FOR u IN liked 
+                                                FILTER u._to == @postKey && u._from == @userKey 
+                                                RETURN u._from'
+                                        => ['postKey' => 'post/'.$singlePost['key'], 'userKey' => 'user/'.$_SESSION['userKey']]];
+                                        $user = readCollection($statements);
+                                        var_dump($user->getCount());
+                                            ?>
+                                            <li><a id="like"
+                                                   href="<?php
+                                                   if ($user->getCount() == 0){
+                                                       echo 'likes.inc.php?' . $fileName . '@' . $singlePost['key'];
+                                                   }
+                                                   else{
+                                                       echo '#';
+                                                   }
+                                                        ?>"
+                                                    ><i class="far fa-thumbs-up"></i>
+                                                    <?php echo PostQuery::getLikesCount($singlePost['key']); ?>
+                                                </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <li><a href="" title=""><i class="far fa-comment-alt"></i>
+                                                <?php echo $numberOfComments; ?>
+                                            </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <li><a href="" title=""><i class="fas fa-tags"></i>
+                                                <?php echo str_replace(',', ', ', $singlePost['tagsPost']); ?>
                                             </a></li>
                                     </ul>
                                 </div>
                             </div>
 
                             <?php
+                            if (isset($comments)) {
+                                foreach ($comments as $singleComment) { ?>
+                                    <div class="col-md-12 commentsblock border-top">
+                                        <div class="media">
+                                            <div class="media-left"><a href="javascript:void(0)"> <img
+                                                            alt="64x64"
+                                                            src="img/user.png"
+                                                            class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <div class="media-body">
+                                                <h4 class="media-heading"><?php echo $singleComment['commentOwner']; ?>
+                                                    <br>
+                                                    <small>
+                                                        <i class="fa fa-clock-o"></i> <?php echo $singleComment['time']; ?>
+                                                    </small>
+                                                </h4>
+                                                <hr>
+                                                <p><?php echo $singleComment['text']; ?></p>
 
-
-                            if ($numberOfComments > 0) {
-                                $commentsKeys = array();
-
-                                foreach ($cursor as $key => $value) {
-                                    $resultingComments[$key] = $value;
-                                    $commentsKeys['postKey'] = $resultingComments[$key]->get('from');
-                                    $commentsKeys['commentKey'] = substr($resultingComments[$key]->get('to'), 8, strlen($resultingComments[$key]->get('to')));
-
-                                    $query = 'FOR x IN comment FILTER x._key == @commentKey RETURN {key: x._key,
-        commentOwner: x.commentOwner, tagsComment: x.tagsComment, text: x.text, time: x.time}';
-
-                                    $statement = new ArangoStatement(
-                                        $database,
-                                        array(
-                                            "query" => $query,
-                                            "count" => true,
-                                            "batchSize" => 1,   // It is suppose to only bring one.
-                                            "sanitize" => true,
-                                            "bindVars" => array("commentKey" => $commentsKeys['commentKey'])
-                                        )
-                                    );
-
-                                    $cursor = $statement->execute();
-                                    $resultingDocuments2 = array();
-
-                                    if ($cursor->getCount() > 0) {
-                                        $userComments = array();
-
-                                        foreach ($cursor as $key => $value) {
-
-                                            $resultingDocuments2[$key] = $value;
-                                            $userComments['commentOwner'] = $resultingDocuments2[$key]->get('commentOwner');
-                                            $userComments['tagsComment'] = $resultingDocuments2[$key]->get('tagsComment');
-                                            $userComments['text'] = $resultingDocuments2[$key]->get('text');
-                                            $userComments['time'] = $resultingDocuments2[$key]->get('time'); ?>
-                                            <div class="col-md-12 commentsblock border-top">
-                                                <div class="media">
-                                                    <div class="media-left"><a href="javascript:void(0)"> <img
-                                                                    alt="64x64"
-                                                                    src="img/user.png"
-                                                                    class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <div class="media-body">
-                                                        <h4 class="media-heading"><?php echo $userComments['commentOwner']; ?>
-                                                            <br>
-                                                            <small>
-                                                                <i class="fa fa-clock-o"></i> <?php echo $userComments['time']; ?>
-                                                            </small>
-                                                        </h4>
-                                                        <hr>
-                                                        <p><?php echo $userComments['text']; ?></p>
-
-                                                        <ul class="nav nav-pills pull-left">
-                                                            <li><a href="" title=""><i
-                                                                            class="fas fa-tags"></i> <?php echo str_replace(',', ', ', $userComments['tagsComment']); ?>
-                                                                </a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div> <?php
-                                        }
-                                    }
+                                                <ul class="nav nav-pills pull-left">
+                                                    <li><a href="" title=""><i
+                                                                    class="fas fa-tags"></i> <?php echo str_replace(',', ', ', $singleComment['tagsComment']); ?>
+                                                        </a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div> <?php
                                 }
-                            } ?>
+                            }
+                            ?>
 
                             <hr>
-                            <form action="<?php echo 'comment.inc.php?' . $postKey . '%commentbtn' . $postCounter . '@' . $fileName; ?>"
+
+                            <form action="<?php echo 'comment.inc.php?' . $singlePost['key'] . '%commentbtn' . $postCounter . '@' . $fileName; ?>"
                                   method="post">
                     <textarea id="<?php echo 'comment' . $postCounter; ?>"
                               name="<?php echo 'comment' . $postCounter; ?>" type="text"
@@ -195,8 +139,9 @@ try {
                                         class="btn btn-primary pull-right btnComment" disabled>  <!--disabled-->
                                     <!--<i class="fas fa-cog"></i>-->Comment
                                 </button>
+                                <br><br>
                             </form>
-                            <br><br><br>
+
                         </div>
                     </div>
                     <?php
@@ -208,7 +153,8 @@ try {
         echo 'Register so you can see the posts!';
     }
 
-} catch (Exception $e) {
+} catch
+(Exception $e) {
     $e->getMessage();
 }
 

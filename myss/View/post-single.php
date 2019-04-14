@@ -96,7 +96,7 @@
 								<a class="nav-link" href="elements.php">Elements</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" href="blog-single.php">Blog Detail</a>
+								<a class="nav-link" href="post-single.php">Blog Detail</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link" href="settings.php">Contact</a>
@@ -110,34 +110,28 @@
 </header>
 <!--================ End Header Area =================-->
 
-<!--================ Start banner Area =================-->
-<section class="banner-area relative">
-	<div class="overlay overlay-bg"></div>
-	<div class="banner-content text-center">
-		<h1>Blog Details</h1>
-		<p>Elementum libero hac leo integer. Risus hac parturient feugiat litora <br /> cursus hendrerit bibendum per </p>
-	</div>
-</section>
-<!--================ End banner Area =================-->
-
 <!--================Blog Area =================-->
 <section class="blog_area section-gap single-post-area">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8">
 				<div class="main_blog_details">
-					<img class="img-fluid" src="img/blog/news-blog.jpg" alt="">
-					<a href="#"><h4>Cartridge Is Better Than Ever <br /> A Discount Toner</h4></a>
+                    <img class="img-fluid" src="img/blog/news-blog.jpg" alt="">
+					<a href="#">
+                        <h4>
+                            Title Post
+                        </h4>
+                    </a>
 					<div class="user_details">
 						<div class="float-left">
-							<a href="#">Lifestyle</a>
-							<a href="#">Gadget</a>
+							<a href="#">Tag #1</a>
+							<a href="#">Tag #2</a>
 						</div>
 						<div class="float-right mt-sm-0 mt-3">
 							<div class="media">
 								<div class="media-body">
-									<h5>Mark wiens</h5>
-									<p>12 Dec, 2017 11:21 am</p>
+									<h5>Username</h5>
+									<p>Datetime</p>
 								</div>
 								<div class="d-flex">
 									<img src="img/blog/user-img.jpg" alt="">
@@ -145,26 +139,14 @@
 							</div>
 						</div>
 					</div>
-					<p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower</p>
-					<p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training. who has the willpower to actually sit through a self-imposed MCSE training.</p>
-					<blockquote class="blockquote">
-						<p class="mb-0">MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to actually sit through a self-imposed MCSE training.</p>
-					</blockquote>
-					<p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower</p>
-					<p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower</p>
+					<p>Post Description</p>
+
 					<div class="news_d_footer flex-column flex-sm-row">
-						<a href="#"><i class="lnr lnr lnr-heart"></i>Lily and 4 people like this</a>
-						<a class="justify-content-sm-center ml-sm-auto mt-sm-0 mt-2" href="#"><i class="lnr lnr lnr-bubble"></i>06 Comments</a>
-						<div class="news_socail ml-sm-auto mt-sm-0 mt-2">
-							<a href="#"><i class="fa fa-facebook"></i></a>
-							<a href="#"><i class="fa fa-twitter"></i></a>
-							<a href="#"><i class="fa fa-youtube-play"></i></a>
-							<a href="#"><i class="fa fa-pinterest"></i></a>
-							<a href="#"><i class="fa fa-rss"></i></a>
-						</div>
+						<a href="#"><i class="lnr lnr lnr-heart"></i>Here goes the likes</a>
+						<!--<a class="justify-content-sm-center ml-sm-auto mt-sm-0 mt-2" href="#"><i class="lnr lnr lnr-bubble"></i># COMMENTS </a>-->
 					</div>
 				</div>
-				<div class="navigation-area">
+				<!--<div class="navigation-area">
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
 							<div class="thumb">
@@ -191,7 +173,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>-->
 				<div class="comments-area">
 					<h4>05 Comments</h4>
 					<div class="comment-list">
@@ -377,7 +359,7 @@
 									<img class="img-fluid" src="img/blog/pp1.jpg" alt="">
 								</div>
 								<div class="details mt-20">
-									<a href="blog-single.php">
+									<a href="post-single.php">
 										<h6>Retro-electric 1967 Ford Mustang
 											revealed in Russia</h6>
 									</a>
@@ -389,7 +371,7 @@
 									<img class="img-fluid" src="img/blog/pp2.jpg" alt="">
 								</div>
 								<div class="details mt-20">
-									<a href="blog-single.php">
+									<a href="post-single.php">
 										<h6>Unsettling trend of food safety at
 											sports stadiums uncovered</h6>
 									</a>
@@ -401,7 +383,7 @@
 									<img class="img-fluid" src="img/blog/pp3.jpg" alt="">
 								</div>
 								<div class="details mt-20">
-									<a href="blog-single.php">
+									<a href="post-single.php">
 										<h6>Christmas cottage from the Holiday
 											flick selling for people</h6>
 									</a>
@@ -413,7 +395,7 @@
 									<img class="img-fluid" src="img/blog/pp4.jpg" alt="">
 								</div>
 								<div class="details mt-20">
-									<a href="blog-single.php">
+									<a href="post-single.php">
 										<h6>Home improvement advice every
 											homeowner needs to know</h6>
 									</a>

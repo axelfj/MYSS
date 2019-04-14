@@ -100,7 +100,7 @@
                 <a class="nav-link" href="elements.php">Elements</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="blog-single.php">Blog Detail</a>
+                <a class="nav-link" href="post-single.php">Blog Detail</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="settings.php">Contact</a>
@@ -570,7 +570,7 @@
                   <img class="img-fluid" src="img/blog/pp1.jpg" alt="">
                 </div>
                 <div class="details mt-20">
-                  <a href="blog-single.php">
+                  <a href="post-single.php">
                     <h6>Retro-electric 1967 Ford Mustang
                       revealed in Russia</h6>
                   </a>
@@ -582,7 +582,7 @@
                   <img class="img-fluid" src="img/blog/pp2.jpg" alt="">
                 </div>
                 <div class="details mt-20">
-                  <a href="blog-single.php">
+                  <a href="post-single.php">
                     <h6>Unsettling trend of food safety at
                       sports stadiums uncovered</h6>
                   </a>
@@ -594,7 +594,7 @@
                   <img class="img-fluid" src="img/blog/pp3.jpg" alt="">
                 </div>
                 <div class="details mt-20">
-                  <a href="blog-single.php">
+                  <a href="post-single.php">
                     <h6>Christmas cottage from the Holiday
                       flick selling for people</h6>
                   </a>
@@ -606,7 +606,7 @@
                   <img class="img-fluid" src="img/blog/pp4.jpg" alt="">
                 </div>
                 <div class="details mt-20">
-                  <a href="blog-single.php">
+                  <a href="post-single.php">
                     <h6>Home improvement advice every
                       homeowner needs to know</h6>
                   </a>
