@@ -165,7 +165,7 @@ class PostQuery
         return null;
     }
 
-    public static function getLikes($idPost)
+    public static function getLikesCount($idPost)
     {
         try {
             $statements = [
