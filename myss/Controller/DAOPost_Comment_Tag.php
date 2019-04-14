@@ -8,6 +8,10 @@ class DAOPost_Comment_Tag{
         $this->dtoPost_Comment_Tag = new DTOPost_Comment_Tag();
     }
 
+    public function createNewPost($dtoPost){
+        PostQuery::createNewPost($dtoPost);
+    }
+
     public function getPosts($username){
         // If there's an username, it means that we need the posts from the current user.
         if(isset($username)){

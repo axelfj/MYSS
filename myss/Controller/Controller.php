@@ -7,6 +7,10 @@ class Controller{
         $this->daoPost_Comment_Tag = new DAOPost_Comment_Tag();
     }
 
+    public function createNewPost($dtoPost){
+        $this->daoPost_Comment_Tag->createNewPost($dtoPost);
+    }
+
     public function getPosts($username){
         $dtoPost_Comment_Tag = $this->daoPost_Comment_Tag->getPosts($username);
         return $dtoPost_Comment_Tag->getPosts();

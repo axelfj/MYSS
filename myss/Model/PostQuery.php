@@ -1,15 +1,52 @@
 <?php
 
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
+use ArangoDBClient\Document as ArangoDocument;
+use ArangoDBClient\DocumentHandler as ArangoDocumentHandler;
 use function ArangoDBClient\readCollection;
 use ArangoDBClient\Statement as ArangoStatement;
 
 require_once "../Controller/readCollection.php";
+require_once "../Controller/createEdges.php";
 
 $database = connect();
 
 class PostQuery
 {
+    public static function createNewPost($dtoPost){
+        try{
+            $database = new ArangoDocumentHandler(connect());
+            $infoPost = $dtoPost->getPosts();
+
+            $title      = $infoPost['title'];
+            $text       = $infoPost['post'];
+            $tagsPost   = $infoPost['tagsPost'];
+            $visibility = $infoPost['visibility'];
+            $owner      = $infoPost['username'];
+            $time       = date('j-m-y H:i');
+
+            $post = new ArangoDocument();
+            $post->set("title", $title);
+            $post->set("text", $text);
+            $post->set("tagsPost", $tagsPost);
+            $post->set("visibility", $visibility);
+            $post->set("owner", $owner);
+            $post->set("time", $time);
+            $post->set("likes", 0);
+
+            $newPost = $database->save("post", $post);
+            $postKey = substr($newPost, 5, 10);
+            $tagsArray = explode(",", $tagsPost);
+
+            connectTags($postKey, $tagsArray);
+
+            $userKey = $_SESSION['userKey'];
+            userPosted($userKey, $postKey);
+        }
+        catch (Exception $e) {
+            $e->getMessage();
+        }
+    }
 
     public static function getMyPosts($username)
     {
