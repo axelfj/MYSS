@@ -27,7 +27,7 @@ if (isset($_POST['postbtn'])) {
 
             $correctPost = verifyImageUpload($post);
 
-            if(isset($correctImageUpload)){
+            if(isset($correctPost)){
                 $dtoPost->setPosts($correctPost);
                 $controller->createNewPost($dtoPost);
                 unset($post);
