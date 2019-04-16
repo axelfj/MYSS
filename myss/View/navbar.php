@@ -20,7 +20,8 @@
                                    aria-label="Search">
                         </form>
                         <div class="input-group-append">
-                            <i class="fas fa-search" aria-hidden="true" style="padding-top: 15px; padding-left: 5px;"></i>
+                            <i class="fas fa-search" aria-hidden="true"
+                               style="padding-top: 15px; padding-left: 5px;"></i>
                         </div>
                     </div>
                 </li>
