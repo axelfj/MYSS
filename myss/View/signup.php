@@ -12,18 +12,18 @@ try {
         (!empty($_POST['name'])) &&
         (!empty($_POST['birthday']))) {
 
-        if (User::isUsernameTaken($_POST['username']) == false) {
-            if (User::isEmailTaken($_POST['email']) == false) {
+        if (UserQuery::isUsernameTaken($_POST['username']) == false) {
+            if (UserQuery::isEmailTaken($_POST['email']) == false) {
                 if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 
                     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-                    User::register(
-                            $_POST['username'],
-                            $_POST['email'],
-                            $password,
-                            $_POST['name'],
-                            $_POST['birthday']);
+                    UserQuery::register(
+                        $_POST['username'],
+                        $_POST['email'],
+                        $password,
+                        $_POST['name'],
+                        $_POST['birthday']);
                     header('Location: ..\View\login.php');
                 } else {
                     $message = "Cannot register. The email is invalid.";

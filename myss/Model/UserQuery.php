@@ -3,6 +3,8 @@
 use ArangoDBCLient\DocumentHandler as ArangoDocumentHandler;
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 use ArangoDBClient\Document as ArangoDocument;
+use function ArangoDBClient\readCollection;
+
 
 require_once "../Controller/readCollection.php";
 require_once "../Controller/createEdges.php";
@@ -12,10 +14,10 @@ require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
 
 
-
-class User
+class UserQuery
 {
-    function register($username, $email, $password, $name, $birthday){
+    function register($username, $email, $password, $name, $birthday)
+    {
         $database = new ArangoDocumentHandler(connect());
         $user = new ArangoDocument();
         $user->set("username", $username);
@@ -29,21 +31,37 @@ class User
         return 'You have been successfully registered';
     }
 
-    function isUsernameTaken($username){
+    function isUsernameTaken($username)
+    {
         $document = new ArangoCollectionHandler(connect());
-        $cursorUser = $document->byExample('user', ['username' => $_POST['username']]);
+        $cursorUser = $document->byExample('user', ['username' => $username]);
         if ($cursorUser->getCount() == 0) {
             return false;
         }
         return true;
     }
 
-    function isEmailTaken($email){
+    function isEmailTaken($email)
+    {
         $document = new ArangoCollectionHandler(connect());
-        $cursorEmail = $document->byExample('user', ['email' => $_POST['email']]);
-        if ($cursorEmail->getCount() == 0){
+        $cursorEmail = $document->byExample('user', ['email' => $email]);
+        if ($cursorEmail->getCount() == 0) {
             return false;
         }
         return true;
     }
+
+    function getInformation($email)
+    {
+        $query = ['
+        FOR x IN user 
+        FILTER x.email == @email 
+        RETURN {password: x.password, key: x._key, username: x.username, name: x.name, email: x.email}' => ['email' => $email]];
+        $cursor = readCollection($query);
+        if ($cursor->getCount() != 0) {
+            return $cursor;
+        }
+        return null;
+    }
+
 }
