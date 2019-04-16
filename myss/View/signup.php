@@ -2,17 +2,8 @@
 include_once "header.php";
 include_once "banner.php";
 
-// Calls the connection and all the dependencies.
 require_once "../Controller/connection.php";
 require_once "../Model/UserQuery.php";
-require_once "../Controller/arangodb-php/lib/ArangoDBClient/CollectionHandler.php";
-require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
-require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
-
-// Calls the functions of Arango to manage Collections, Documents, Etc.
-use ArangoDBCLient\DocumentHandler as ArangoDocumentHandler;
-use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
-use ArangoDBClient\Document as ArangoDocument;
 
 try {
     if ((!empty($_POST['username'])) &&
