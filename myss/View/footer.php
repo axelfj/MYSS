@@ -3,7 +3,7 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
         integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
         crossorigin="anonymous"
-        ></script>
+></script>
 <script src="js/vendor/bootstrap.min.js"></script>
 <script src="js/owl.carousel.min.js"></script>
 <script src="js/jquery.sticky.js"></script>
@@ -15,20 +15,20 @@
 <script
         type="text/javascript"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"
-        ></script>
+></script>
 <script src="js/bootstrap-datepicker.js"></script>
 <script src="js/main.js"></script>
 <script src="js/tagsinput.js"></script>
 <script>
-    $(document).on('keyup', '.classComment', function(){
+    $(document).on('keyup', '.classComment', function () {
         var id = $(this).attr('id');
         var len = id.lenght;
         var num = id.slice(7, len);
 
-        if($(this).val() != '') {
+        if ($(this).val() != '') {
             $("#commentbtn" + num).removeAttr('disabled');
         }
-        else{
+        else {
             $("#commentbtn" + num).attr("disabled", true);
         }
     })
