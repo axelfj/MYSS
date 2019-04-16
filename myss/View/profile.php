@@ -44,7 +44,7 @@ function verifyImageUpload($post) {
     $imageName = $_FILES['postImage']['name'];
     $imageTempName = $_FILES['postImage']['tmp_name'];
 
-    if (isset($imageName)) {
+    if ($imageName != "") {
         $type = explode('.', $imageName);
         $type = strtolower($type[count($type) - 1]);
 
