@@ -11,18 +11,6 @@ use PHPUnit\Framework\TestCase;
 class signuptests extends TestCase
 {
 
-    public function testGuapo()
-    {
-        $axel = $this->nameAxel();
-
-        $this->assertEquals(
-            "Guapo",
-            $axel
-        );
-    }
-
-    public function nameAxel(){
-        return "gay";
-    }
+    
 
 }
