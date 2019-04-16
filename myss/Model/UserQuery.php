@@ -16,7 +16,7 @@ require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php"
 
 class UserQuery
 {
-    function register($username, $email, $password, $name, $birthday)
+    static function register($username, $email, $password, $name, $birthday)
     {
         $database = new ArangoDocumentHandler(connect());
         $user = new ArangoDocument();
@@ -31,7 +31,7 @@ class UserQuery
         return 'You have been successfully registered';
     }
 
-    function isUsernameTaken($username)
+    static function isUsernameTaken($username)
     {
         $document = new ArangoCollectionHandler(connect());
         $cursorUser = $document->byExample('user', ['username' => $username]);
@@ -41,7 +41,7 @@ class UserQuery
         return true;
     }
 
-    function isEmailTaken($email)
+    static function isEmailTaken($email)
     {
         $document = new ArangoCollectionHandler(connect());
         $cursorEmail = $document->byExample('user', ['email' => $email]);
@@ -51,7 +51,7 @@ class UserQuery
         return true;
     }
 
-    function getInformation($email)
+    static function getInformation($email)
     {
 
         $query = ['
