@@ -41,19 +41,27 @@ try {
                          id="<?php echo $singlePost['key']; ?>">
                         <div class="col-md-12 container" style="background-color: white;">
                             <div class="media">
-                                <div class="media-left"><a href="javascript:void(0)"><img
-                                                src="img/user.png"
-                                                alt=""
-                                                class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
                                 <div class="media-body">
+                                    <div class="row">
+                                        <a href="javascript:void(0)">
+                                            <img src="img/user.png" alt="" class="media-object">
+                                        </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <h4 class="media-heading"><?php echo $singlePost['owner']; ?><br>
                                         <small><i class="fa fa-clock-o"
                                                   id="<?php echo 'time' . $postCounter; ?>"></i> <?php echo $singlePost['time']; ?>
                                         </small>
                                     </h4>
+                                    </div>
                                     <hr>
-                                    <h5 id="<?php echo 'title' . $postCounter; ?>"><?php echo $singlePost['title']; ?></h5>
+                                    <h4 id="<?php echo 'title' . $postCounter; ?>"><?php echo $singlePost['title']; ?></h4>
                                     <br>
+                                    <?php
+                                    if($singlePost['destination'] != ''){ ?>
+                                        <img style="max-width:100%;max-height:100%;" src="<?php echo $singlePost['destination'];?>">
+                                        <br><br>
+                                    <?php
+                                    }?>
                                     <p id="<?php echo 'text' . $postCounter; ?>"><?php echo $singlePost['text']; ?></p>
 
                                     <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
