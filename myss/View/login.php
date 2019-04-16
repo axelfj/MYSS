@@ -3,6 +3,7 @@ include_once "header.php";
 include_once "banner.php";
 
 require_once "../Controller/connection.php";
+require_once "../Controller/Controller.php";
 require_once "../Model/UserQuery.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Statement.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
@@ -20,36 +21,42 @@ $database = connect();
 
 function login()
 {
+
     try {
-        if (empty($_POST['email']) || empty($_POST['password'])) {
-            return '';
-        }
-        $cursor = UserQuery::getInformation($_POST['email'], $_POST['password']);
-        if ($cursor->getCount() != 0) {
+        if (!empty($_POST['email']) &&
+            !empty($_POST['password'])) {
+            $controller = new Controller();
+            $cursor = $controller->getUser($_POST['email']);
 
-            $personalInformation = array();
-            $resultingDocuments = array();
+            if ($cursor->getCount() != 0) {
 
-            foreach ($cursor as $key => $value) {
-                $resultingDocuments [$key] = $value;
-                $personalInformation['username'] = $resultingDocuments [$key]->get('username');
-                $personalInformation['userKey'] = $resultingDocuments [$key]->get('key');
-                $personalInformation['name'] = $resultingDocuments [$key]->get('name');
-                $personalInformation['email'] = $resultingDocuments [$key]->get('email');
-                $personalInformation['password'] = $resultingDocuments [$key]->get('password');
-            }
+                $personalInformation = array();
+                $resultingDocuments = array();
 
-            if (password_verify($_POST['password'], $personalInformation['password'])) {
-                $_SESSION['username'] = $personalInformation['username'];
-                $_SESSION['userKey'] = $personalInformation['userKey'];
-                $_SESSION['name'] = $personalInformation['name'];
-                $_SESSION['email'] = $personalInformation['email'];
-                header('Location: ..\View\index.php');
+                foreach ($cursor as $key => $value) {
+                    $resultingDocuments [$key] = $value;
+                    $personalInformation['username'] = $resultingDocuments [$key]->get('username');
+                    $personalInformation['userKey'] = $resultingDocuments [$key]->get('key');
+                    $personalInformation['name'] = $resultingDocuments [$key]->get('name');
+                    $personalInformation['email'] = $resultingDocuments [$key]->get('email');
+                    $personalInformation['password'] = $resultingDocuments [$key]->get('password');
+                }
+
+                if (password_verify($_POST['password'], $personalInformation['password'])) {
+                    $_SESSION['username'] = $personalInformation['username'];
+                    $_SESSION['userKey'] = $personalInformation['userKey'];
+                    $_SESSION['name'] = $personalInformation['name'];
+                    $_SESSION['email'] = $personalInformation['email'];
+                    header('Location: ..\View\index.php');
+                } else {
+                    return 'Incorrect password.';
+                }
             } else {
-                return 'Incorrect password.';
+                return 'The user is not registered.';
             }
-        } else {
-            return 'The user is not registered.';
+        }
+        else{
+            return '';
         }
     } catch (Exception $e) {
         return $e->getMessage();
