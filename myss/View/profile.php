@@ -80,7 +80,6 @@ if (isset($_POST['postbtn'])) {
                     <button id="followbtn" name="followbtn" class="btn btn-primary followbtn">
                         <!--<i class="fas fa-cog"></i>-->Follow
                     </button>
-
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -99,6 +98,17 @@ if (isset($_POST['postbtn'])) {
                             <textarea id="post" name="post" type="text" class="form-control" required
                                       placeholder="What are you doing right now?" style="resize: none;"></textarea>
                             <br>
+                            <div class="row" style="">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4 imgUp">
+                                    <div class="imagePreview"></div>
+                                    <label class="btn btn-primary">
+                                        Upload<input type="file" accept='image/*' class="uploadFile img" value="Upload Photo"
+                                                     style="width: 0px;height: 0px;overflow: hidden;">
+                                    </label>
+                                </div><!-- col-2 -->
+                                <div class="col-md-4"></div>
+                            </div><!-- row -->
                             <input id="tagsPost" name="tagsPost" type="text" data-role="tagsinput" placeholder="Tags">
                             <hr>
                             <div class="row">
