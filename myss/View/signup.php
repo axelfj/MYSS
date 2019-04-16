@@ -5,43 +5,49 @@ include_once "banner.php";
 require_once "../Controller/connection.php";
 require_once "../Model/UserQuery.php";
 
-try {
-    if ((!empty($_POST['username'])) &&
-        (!empty($_POST['email'])) &&
-        (!empty($_POST['password'])) &&
-        (!empty($_POST['name'])) &&
-        (!empty($_POST['birthday']))) {
+function register()
+{
+    try {
+        if ((!empty($_POST['username'])) &&
+            (!empty($_POST['email'])) &&
+            (!empty($_POST['password'])) &&
+            (!empty($_POST['name'])) &&
+            (!empty($_POST['birthday']))) {
 
-        if (UserQuery::isUsernameTaken($_POST['username']) == false) {
-            if (UserQuery::isEmailTaken($_POST['email']) == false) {
-                if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+            if (UserQuery::isUsernameTaken($_POST['username']) == false) {
+                if (UserQuery::isEmailTaken($_POST['email']) == false) {
+                    if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 
-                    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+                        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-                    UserQuery::register(
-                        $_POST['username'],
-                        $_POST['email'],
-                        $password,
-                        $_POST['name'],
-                        $_POST['birthday']);
-                    header('Location: ..\View\login.php');
+                        UserQuery::register(
+                            $_POST['username'],
+                            $_POST['email'],
+                            $password,
+                            $_POST['name'],
+                            $_POST['birthday']);
+                        header('Location: ..\View\login.php');
+                    } else {
+                        return "Cannot register. The email is invalid.";
+                    }
                 } else {
-                    $message = "Cannot register. The email is invalid.";
+                    return "Cannot register. The email has been taken";
                 }
             } else {
-                $message = "Cannot register. The email has been taken";
+                return "Cannot register. The username has been taken.";
             }
-        } else {
-            $message = "Cannot register. The username has been taken.";
         }
+    } catch (Exception $e) {
+        return $e->getMessage();
     }
-} catch (Exception $e) {
-    $message = $e->getMessage();
 }
+
 ?>
 
 <section class="login">
-    <?php if (!empty($message)): ?>
+    <?php
+    $message = register();
+    if (!empty($message)): ?>
         <p>
         <center><?= $message ?></center></p>
     <?php endif; ?>
@@ -71,7 +77,8 @@ try {
                         <input id="birthday" name="birthday" type="date" parsley-trigger="change" required
                                class="form-control">
                     </div>
-                    <button id="signinbtn" name="signinbtn" class="genric-btn info circle" type="submit">Sign up
+                    <button id="signinbtn" name="signinbtn" class="genric-btn info circle" type="submit"
+                            value="register" onclick="register()">Sign up
                     </button>
                     <br>
                     <a class="btn" href="login.php" role="button">Already have an account? Log in here.</a>
