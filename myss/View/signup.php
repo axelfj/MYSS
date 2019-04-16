@@ -25,13 +25,14 @@ try {
             if (User::isEmailTaken($_POST['email']) == false) {
                 if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 
-                    $username = $_POST['username'];
-                    $email = $_POST['email'];
                     $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-                    $name = $_POST['name'];
-                    $birthday = $_POST['birthday'];
 
-                    User::register($username, $email, $password, $name, $birthday);
+                    User::register(
+                            $_POST['username'],
+                            $_POST['email'],
+                            $password,
+                            $_POST['name'],
+                            $_POST['birthday']);
                     header('Location: ..\View\login.php');
                 } else {
                     $message = "Cannot register. The email is invalid.";
