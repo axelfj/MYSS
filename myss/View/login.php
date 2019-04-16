@@ -21,7 +21,6 @@ $database = connect();
 
 function login()
 {
-
     try {
         if (!empty($_POST['email']) &&
             !empty($_POST['password'])) {
@@ -54,8 +53,7 @@ function login()
             } else {
                 return 'The user is not registered.';
             }
-        }
-        else{
+        } else {
             return '';
         }
     } catch (Exception $e) {

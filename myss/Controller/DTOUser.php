@@ -1,15 +1,18 @@
 <?php
 
-class DTOUser{
+class DTOUser
+{
     private $user;
 
     // Setters.
-    public function setUser($user){
+    public function setUser($user)
+    {
         $this->user = $user;
     }
 
     // Getters.
-    public function getUser(){
+    public function getUser()
+    {
         return $this->user;
     }
 }
