@@ -1,12 +1,10 @@
 <?php
 
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
-use function ArangoDBClient\readCollection;
 
 require_once "../Controller/readCollection.php";
 require_once "../Controller/Controller.php";
 require_once "../Controller/DTOPost_Comment_Tag.php";
-require_once "../Model/PostQuery.php";
 
 $database = connect();
 $document = new ArangoCollectionHandler(connect());
@@ -59,27 +57,18 @@ try {
                                     <p id="<?php echo 'text' . $postCounter; ?>"><?php echo $singlePost['text']; ?></p>
 
                                     <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
-                                        <?php
-                                        $statements = [
-                                                'FOR u IN liked 
-                                                FILTER u._to == @postKey && u._from == @userKey 
-                                                RETURN u._from'
-                                        => ['postKey' => 'post/'.$singlePost['key'], 'userKey' => 'user/'.$_SESSION['userKey']]];
-                                        $user = readCollection($statements);
-                                        var_dump($user->getCount());
-                                            ?>
-                                            <li><a id="like"
-                                                   href="<?php
-                                                   if ($user->getCount() == 0){
-                                                       echo 'likes.inc.php?' . $fileName . '@' . $singlePost['key'];
-                                                   }
-                                                   else{
-                                                       echo '#';
-                                                   }
-                                                        ?>"
-                                                    ><i class="far fa-thumbs-up"></i>
-                                                    <?php echo PostQuery::getLikesCount($singlePost['key']); ?>
-                                                </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <li><a id="like"
+                                               href="<?php
+                                               $user = $controller->verifyIfUserLiked($singlePost['key'], $_SESSION['userKey']);
+                                               if ($user->getCount() == 0) {
+                                                   echo 'likes.inc.php?' . $fileName . '@' . $singlePost['key'];
+                                               } else {
+                                                   echo '#';
+                                               }
+                                               ?>"
+                                            ><i class="far fa-thumbs-up"></i>
+                                                <?php echo PostQuery::getLikesCount($singlePost['key']); ?>
+                                            </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="" title=""><i class="far fa-comment-alt"></i>
                                                 <?php echo $numberOfComments; ?>
                                             </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
