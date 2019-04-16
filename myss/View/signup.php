@@ -3,6 +3,7 @@ include_once "header.php";
 include_once "banner.php";
 
 require_once "../Controller/connection.php";
+require_once "../Controller/Controller.php";
 require_once "../Model/UserQuery.php";
 
 function register()
@@ -14,18 +15,20 @@ function register()
             (!empty($_POST['name'])) &&
             (!empty($_POST['birthday']))) {
 
-            if (UserQuery::isUsernameTaken($_POST['username']) == false) {
-                if (UserQuery::isEmailTaken($_POST['email']) == false) {
+            $controller = new Controller();
+
+            if ($controller->isUsernameTaken($_POST['username']) == false) {
+                if ($controller->isEmailTaken($_POST['email']) == false) {
                     if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 
                         $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-                        UserQuery::register(
-                            $_POST['username'],
+                        $controller->registerNewUser($_POST['username'],
                             $_POST['email'],
                             $password,
                             $_POST['name'],
                             $_POST['birthday']);
+
                         header('Location: ..\View\login.php');
                     } else {
                         return "Cannot register. The email is invalid.";

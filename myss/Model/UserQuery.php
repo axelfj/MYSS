@@ -26,7 +26,6 @@ class UserQuery
         $user->set("name", $name);
         $user->set("birthday", $birthday);
 
-        // Insert him in the collection user.
         $database->save("user", $user);
         return 'You have been successfully registered';
     }
@@ -53,7 +52,6 @@ class UserQuery
 
     static function getInformation($email)
     {
-
         $query = ['
         FOR x IN user 
         FILTER x.email == @email 

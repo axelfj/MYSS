@@ -1,5 +1,6 @@
 <?php
 require_once "../Model/PostQuery.php";
+require_once "../Controller/DTOPost_Comment_Tag.php";
 
 class DAOPost_Comment_Tag
 {
