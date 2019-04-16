@@ -1,15 +1,77 @@
 <?php
 
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
+use ArangoDBClient\Document as ArangoDocument;
+use ArangoDBClient\DocumentHandler as ArangoDocumentHandler;
 use function ArangoDBClient\readCollection;
 use ArangoDBClient\Statement as ArangoStatement;
 
 require_once "../Controller/readCollection.php";
+require_once "../Controller/createEdges.php";
 
 $database = connect();
 
 class PostQuery
 {
+    public static function createNewPost($dtoPost)
+    {
+        try {
+            $database = new ArangoDocumentHandler(connect());
+            $infoPost = $dtoPost->getPosts();
+
+            $title = $infoPost['title'];
+            $text = $infoPost['post'];
+            $tagsPost = $infoPost['tagsPost'];
+            $visibility = $infoPost['visibility'];
+            $owner = $infoPost['username'];
+            $time = date('j-m-y H:i');
+
+            $post = new ArangoDocument();
+            $post->set("title", $title);
+            $post->set("text", $text);
+            $post->set("tagsPost", $tagsPost);
+            $post->set("visibility", $visibility);
+            $post->set("owner", $owner);
+            $post->set("time", $time);
+
+            $newPost = $database->save("post", $post);
+            $postKey = substr($newPost, 5, 10);
+            $tagsArray = explode(",", $tagsPost);
+
+            connectTags($postKey, $tagsArray);
+
+            $userKey = $_SESSION['userKey'];
+            userPosted($userKey, $postKey);
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+    }
+
+    public static function createNewComment($dtoComment, $postKey)
+    {
+        $database = new ArangoDocumentHandler(connect());
+        $infoComment = $dtoComment->getComments();
+
+        $text = $infoComment['text'];
+        $tagsComment = $infoComment['tagsComment'];
+        $commentOwner = $infoComment['commentOwner'];
+        $time = date('j-m-y H:i');
+
+        $comment = new ArangoDocument();
+        $comment->set("text", $text);
+        $comment->set("tagsComment", $tagsComment);
+        $comment->set("commentOwner", $commentOwner);
+        $comment->set("time", $time);
+
+        $newComment = $database->save("comment", $comment);
+
+        // Gets just the number of key, because "$newPost" stores something like "post/83126"
+        // and we just need that number.
+        $pos = strpos($newComment, "/") + 1;
+        $commentKey = substr($newComment, $pos, strlen($newComment));
+
+        createEdge('post', $postKey, 'comment', $commentKey, 'has_comment');
+    }
 
     public static function getMyPosts($username)
     {
@@ -54,8 +116,7 @@ class PostQuery
         try {
             $query = [
                 'FOR u IN has_comment 
-                 FILTER u._from == @from         
-                 SORT u._key DESC                                     
+                 FILTER u._from == @from                                                         
                  RETURN {key: u._key, from: u._from, to: u._to}' => ['from' => 'post/' . $postKey]];
 
             $cursor = readCollection($query);
@@ -169,11 +230,22 @@ class PostQuery
     {
         try {
             $statements = [
-                'FOR u in liked FILTER u._to == @postKey RETURN u' => ['postKey' => 'post/'.$idPost]];
+                'FOR u in liked FILTER u._to == @postKey RETURN u' => ['postKey' => 'post/' . $idPost]];
             $liked = readCollection($statements);
             return $liked->getCount();
         } catch (Exception $e) {
             $e->getMessage();
         }
+    }
+
+    // Verifies if an user already liked a specific post.
+    public static function verifyIfUserLiked($postKey, $userKey)
+    {
+        $statements = [
+            'FOR u IN liked 
+            FILTER u._to == @postKey && u._from == @userKey 
+            RETURN u._from' => ['postKey' => 'post/' . $postKey, 'userKey' => 'user/' . $userKey]];
+
+        return readCollection($statements);
     }
 }
