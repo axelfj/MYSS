@@ -8,14 +8,9 @@ require_once "../Controller/arangodb-php/lib/ArangoDBClient/Statement.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
 
-// So we can cast it in the Statement.
-use ArangoDBClient\Statement as ArangoStatement;
-
 // Start the session.
 session_start();
 
-// Verifies that the User has already logged-in.
-// If he's in, we must redirect him.
 if (isset($_SESSION['userId'])) {
     header('Location: ..\View\index.php');
 }
@@ -23,69 +18,30 @@ if (isset($_SESSION['userId'])) {
 // Creates a connection to the database.
 $database = connect();
 
-function register(){
-
-}
-
 try {
     if ((!empty($_POST['email'])) &&
         (!empty($_POST['password']))) {
 
+        $cursor = UserQuery::getInformation($_POST['email'], $_POST['password']);
+        if ($cursor->getCount() != 0) {
 
-        $emailOnInput = $_POST['email'];
-        $passwordOnInput = $_POST['password'];
-
-        $query = 'FOR x IN user FILTER x.email == @email RETURN {password: x.password, key: x._key, 
-        username: x.username, name: x.name, email: x.email}';
-
-        $statement = new ArangoStatement(
-            $database,
-            array(
-                "query" => $query,
-                "count" => true,
-                "batchSize" => 1,   // It is suppose to only bring one.
-                "sanitize" => true,
-                "bindVars" => array("email" => $emailOnInput)
-            )
-        );
-
-        // Executes the query.
-        $cursor = $statement->execute();
-
-        // And saves the result in an array.
-        $resultingDocuments = array();
-
-        // He will count how many fetches are in the cursor, if the cursor says 0, it means that he's not in the
-        // database.
-        // Checks if the User exists.
-        if ($cursor->getCount() > 0) {
-
-            // Creates an another array to save the information of the person without saving it in the session without
-            // knowing if he's writing the right information.
             $personalInformation = array();
+            $resultingDocuments = array();
 
-            // Iterates over the array to process him.
             foreach ($cursor as $key => $value) {
-
-                // After it saves him in the $resultingDocuments, we get the attributes that we want.
-                $resultingDocuments[$key] = $value;
-                $personalInformation['username'] = $resultingDocuments[$key]->get('username');
-                $personalInformation['userKey'] = $resultingDocuments[$key]->get('key');
-                $personalInformation['name'] = $resultingDocuments[$key]->get('name');
-                $personalInformation['email'] = $resultingDocuments[$key]->get('email');
-                $personalInformation['password'] = $resultingDocuments[$key]->get('password');
+                $resultingDocuments [$key] = $value;
+                $personalInformation['username'] = $resultingDocuments [$key]->get('username');
+                $personalInformation['userKey'] = $resultingDocuments [$key]->get('key');
+                $personalInformation['name'] = $resultingDocuments [$key]->get('name');
+                $personalInformation['email'] = $resultingDocuments [$key]->get('email');
+                $personalInformation['password'] = $resultingDocuments [$key]->get('password');
             }
 
-            // Now, we must compare his password with the one that is in the form.
-            if (password_verify($passwordOnInput, $personalInformation['password'])) {
-
-                // Save his information in the session and redirect him.
+            if (password_verify($_POST['password'], $personalInformation['password'])) {
                 $_SESSION['username'] = $personalInformation['username'];
                 $_SESSION['userKey'] = $personalInformation['userKey'];
                 $_SESSION['name'] = $personalInformation['name'];
                 $_SESSION['email'] = $personalInformation['email'];
-
-                // Finally, redirect him to the index.
                 header('Location: ..\View\index.php');
             } else {
                 $message = 'Incorrect password.';
