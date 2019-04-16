@@ -23,7 +23,7 @@ $document = new ArangoCollectionHandler(connect());
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-12">
-                            <?php include_once "post.inc.php"; ?>
+                        <?php include_once "post.inc.php"; ?>
                     </div>
                 </div>
             </div>
@@ -36,27 +36,32 @@ $document = new ArangoCollectionHandler(connect());
                         <ul class="cat-list mt-20">
                             <li>
                                 <a href="#" class="d-flex justify-content-between">
-                                    <p>Fashion</p><p>59</p>
+                                    <p>Fashion</p>
+                                    <p>59</p>
                                 </a>
                             </li>
                             <li>
                                 <a href="#" class="d-flex justify-content-between">
-                                    <p>Travel</p><p>09</p>
+                                    <p>Travel</p>
+                                    <p>09</p>
                                 </a>
                             </li>
                             <li>
                                 <a href="#" class="d-flex justify-content-between">
-                                    <p>Lifestyle</p><p>24</p>
+                                    <p>Lifestyle</p>
+                                    <p>24</p>
                                 </a>
                             </li>
                             <li>
                                 <a href="#" class="d-flex justify-content-between">
-                                    <p>Shopping</p><p>44</p>
+                                    <p>Shopping</p>
+                                    <p>44</p>
                                 </a>
                             </li>
                             <li>
                                 <a href="#" class="d-flex justify-content-between">
-                                    <p>Food</p><p>15</p>
+                                    <p>Food</p>
+                                    <p>15</p>
                                 </a>
                             </li>
                         </ul>
