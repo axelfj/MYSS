@@ -1,6 +1,5 @@
 <?php
 
-use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 use ArangoDBClient\Document as ArangoDocument;
 use ArangoDBClient\DocumentHandler as ArangoDocumentHandler;
 use function ArangoDBClient\readCollection;
@@ -21,6 +20,7 @@ class PostQuery
 
             $title = $infoPost['title'];
             $text = $infoPost['post'];
+            $imagePath = $infoPost['destination'];
             $tagsPost = $infoPost['tagsPost'];
             $visibility = $infoPost['visibility'];
             $owner = $infoPost['username'];
@@ -29,6 +29,7 @@ class PostQuery
             $post = new ArangoDocument();
             $post->set("title", $title);
             $post->set("text", $text);
+            $post->set("destination", $imagePath);
             $post->set("tagsPost", $tagsPost);
             $post->set("visibility", $visibility);
             $post->set("owner", $owner);
