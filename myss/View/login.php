@@ -18,10 +18,12 @@ if (isset($_SESSION['userId'])) {
 // Creates a connection to the database.
 $database = connect();
 
-try {
-    if ((!empty($_POST['email'])) &&
-        (!empty($_POST['password']))) {
-
+function login()
+{
+    try {
+        if (empty($_POST['email']) || empty($_POST['password'])) {
+            return '';
+        }
         $cursor = UserQuery::getInformation($_POST['email'], $_POST['password']);
         if ($cursor->getCount() != 0) {
 
@@ -44,21 +46,23 @@ try {
                 $_SESSION['email'] = $personalInformation['email'];
                 header('Location: ..\View\index.php');
             } else {
-                $message = 'Incorrect password.';
+                return 'Incorrect password.';
             }
         } else {
-            $message = 'The user is not registered.';
+            return 'The user is not registered.';
         }
+    } catch (Exception $e) {
+        return $e->getMessage();
     }
-} catch (Exception $e) {
-    $message = $e->getMessage();
 }
 
 ?>
 <center>
     <section class="">
-        <?php if (!empty($message)): ?>
-            <p> <?= $message ?></p>
+        <?php
+        $message = login();
+        if (!empty($message)): ?>
+            <p> <?= $message; ?></p>
         <?php endif; ?>
         <div class="container" style="padding-top: 150px;">
             <center>
@@ -74,7 +78,8 @@ try {
                         <div class="form-group">
                             <input type="password" class="form-control" name="password" required placeholder="Password">
                         </div>
-                        <button id="loginbtn" name="loginbtn" class="genric-btn info circle" type="submit">Log In
+                        <button id="loginbtn" name="loginbtn" class="genric-btn info circle" type="submit" value="login"
+                                onclick="login()">Log In
                         </button>
                         <br>
                         <a class="btn" href="signup.php" role="button">Don't have an account yet? Register here.</a><br>
