@@ -11,16 +11,17 @@ $statements = [
     // here goes the query//
 ];
 
-function readCollection($statements){
+function readCollection($statements)
+{
     try {
         $connection = connect();
         foreach ($statements as $query => $bindVars) {
             $statement = new Statement($connection, [
-                    'query'     => $query,
-                    'count'     => true,
+                    'query' => $query,
+                    'count' => true,
                     'batchSize' => 1000,
-                    'bindVars'  => $bindVars,
-                    'sanitize'  => true,
+                    'bindVars' => $bindVars,
+                    'sanitize' => true,
                 ]
             );
 
