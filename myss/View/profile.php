@@ -29,6 +29,17 @@ if (isset($_POST['postbtn'])) {
 
             $dtoPost->setPosts($post);
             $controller->createNewPost($dtoPost);
+
+            $name       = $_FILES['postImage']['name'];
+            $temp_name  = $_FILES['postImage']['tmp_name'];
+            echo $name;
+            /*if(isset($name)) {
+                $type = explode('.', $_FILES['postImage']['name']);
+                $type = $type[count($type) - 1];
+                $url = '../uploads/' . uniqid(rand()) . '.' . $type;
+                echo $type . ' ' . $url;
+            }*/
+
         }
 
     } catch (Exception $e) {
@@ -77,7 +88,7 @@ if (isset($_POST['postbtn'])) {
                             </h3>
                         </li>
                     </ul>
-                    <button id="followbtn" name="followbtn" class="btn btn-primary followbtn">
+                    <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" style="margin-top: 25px;">
                         <!--<i class="fas fa-cog"></i>-->Follow
                     </button>
                 </div>
@@ -90,7 +101,7 @@ if (isset($_POST['postbtn'])) {
             <div class="container" style="background-color: white;"><br>
                 <div class="container" style="background-color: white;">
                     <div class="container" style="background-color: white;">
-                        <form action="profile.php" method="post">
+                        <form action="profile.php" method="post" enctype="multipart/form-data">
                             <h4>New post</h4>
                             <hr>
                             <input id="title" name="title" type="text" class="form-control" required
@@ -103,7 +114,7 @@ if (isset($_POST['postbtn'])) {
                                 <div class="col-md-4 imgUp">
                                     <div class="imagePreview"></div>
                                     <label class="btn btn-primary">
-                                        Upload<input type="file" accept='image/*' class="uploadFile img" value="Upload Photo"
+                                        Upload<input id="postImage" name="postImage" type="file" accept='image/*' class="uploadFile img" value="Upload Photo"
                                                      style="width: 0px;height: 0px;overflow: hidden;">
                                     </label>
                                 </div><!-- col-2 -->
