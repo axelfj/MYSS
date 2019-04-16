@@ -3,12 +3,14 @@
 // To use the AQL statements.
 use ArangoDBClient\Statement;
 use ArangoDBClient\Exception as ArangoException;
+
 // The connection to the data base.
 require_once("connection.php");
 
-function deleteDocument($collection, $idDocument){
+function deleteDocument($collection, $idDocument)
+{
     $connection = connect();
-    $query = "FOR u IN @@".$collection." FILTER u._key == @".$idDocument." REMOVE u IN @@".$collection;
+    $query = "FOR u IN @@" . $collection . " FILTER u._key == @" . $idDocument . " REMOVE u IN @@" . $collection;
     var_dump($query);
     try {
         $statement = new Statement(
@@ -18,7 +20,7 @@ function deleteDocument($collection, $idDocument){
                 "count" => true,
                 "batchSize" => 1,
                 "sanitize" => true,
-                "bindVars"  => array("collection" => "@".$collection)
+                "bindVars" => array("collection" => "@" . $collection)
             )
         );
         $statement->execute();
@@ -28,4 +30,4 @@ function deleteDocument($collection, $idDocument){
     }
 }
 
-deleteDocument('USER',271687);
+deleteDocument('USER', 271687);
