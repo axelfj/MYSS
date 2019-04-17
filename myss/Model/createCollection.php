@@ -4,7 +4,7 @@ use ArangoDBClient\Collection as ArangoCollection;
 use ArangoDBClient\EdgeHandler as ArangoEdgeHandler;
 use ArangoDBClient\Edge as ArangoEdge;
 
-require_once("connection.php");
+require_once("../Controller/connection.php");
 
 // User collection, will hold every user in the system //
 createCollection('user', 2);

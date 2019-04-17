@@ -3,7 +3,7 @@
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 use ArangoDBClient\Collection as ArangoCollection;
 
-require_once("connection.php");
+require_once("../Controller/connection.php");
 
 function deleteCollection($collectionName)
 {
