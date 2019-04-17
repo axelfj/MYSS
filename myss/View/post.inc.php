@@ -8,7 +8,11 @@ require_once "../Controller/DTOPost_Comment_Tag.php";
 
 $database = connect();
 $document = new ArangoCollectionHandler(connect());
+
+// Contains the URL where we are.
 $url = $_SERVER['REQUEST_URI'];
+
+// Applies string functions to get only the name that we want.
 $pos = strpos($url, 'View') + 5;
 $len = strlen($url);
 $fileName = substr($url, $pos, $len);
@@ -17,13 +21,18 @@ $controller = new Controller();
 
 try {
     if (isset($_SESSION['username'])) {
+
+        // Looks for the posts.
         $cursor = $document->byExample('post', ['visibility' => "Public"], ['visibility' => "Private"]);
         $valueFound = $cursor->getCount();
 
+        // We got no posts.
         if ($valueFound == 0) { ?>
             <h5>Nothing to show yet.</h5><br><br><br><br>
             <?php
         } else {
+
+            // If we're in the profile, then we must look for his posts.
             if ($fileName == 'profile.php') {
                 $dtoPost_Comment_Tag = $controller->getPosts($_SESSION['username']);
             } else {
