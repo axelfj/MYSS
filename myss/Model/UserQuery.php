@@ -6,8 +6,8 @@ use ArangoDBClient\Document as ArangoDocument;
 use function ArangoDBClient\readCollection;
 
 
-require_once "../Controller/readCollection.php";
-require_once "../Controller/createEdges.php";
+require_once "../Model/executeQuery.php";
+require_once "../Model/createEdges.php";
 require_once "../Controller/connection.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/CollectionHandler.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";

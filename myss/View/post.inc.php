@@ -2,13 +2,16 @@
 
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 
-require_once "../Controller/readCollection.php";
 require_once "../Controller/Controller.php";
 require_once "../Controller/DTOPost_Comment_Tag.php";
 
 $database = connect();
 $document = new ArangoCollectionHandler(connect());
+
+// Contains the URL where we are.
 $url = $_SERVER['REQUEST_URI'];
+
+// Applies string functions to get only the name that we want.
 $pos = strpos($url, 'View') + 5;
 $len = strlen($url);
 $fileName = substr($url, $pos, $len);
@@ -17,13 +20,18 @@ $controller = new Controller();
 
 try {
     if (isset($_SESSION['username'])) {
+
+        // Looks for the posts.
         $cursor = $document->byExample('post', ['visibility' => "Public"], ['visibility' => "Private"]);
         $valueFound = $cursor->getCount();
 
+        // We got no posts.
         if ($valueFound == 0) { ?>
             <h5>Nothing to show yet.</h5><br><br><br><br>
             <?php
         } else {
+
+            // If we're in the profile, then we must look for his posts.
             if ($fileName == 'profile.php') {
                 $dtoPost_Comment_Tag = $controller->getPosts($_SESSION['username']);
             } else {
@@ -77,10 +85,10 @@ try {
                                             ><i class="far fa-thumbs-up"></i>
                                                 <?php echo PostQuery::getLikesCount($singlePost['key']); ?>
                                             </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <li><a href="" title=""><i class="far fa-comment-alt"></i>
-                                                <?php echo $numberOfComments; ?>
+                                        <li><a href="#" title="" class="prevent" onclick="toggleDivAnswer('commentDiv');"><i class="far fa-comment-alt"></i>
+                                                <?php echo 'View comments (' . $numberOfComments . ')'; ?>
                                             </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <li><a href="" title=""><i class="fas fa-tags"></i>
+                                        <li><a href="#" title="" class="prevent"><i class="fas fa-tags"></i>
                                                 <?php echo str_replace(',', ', ', $singlePost['tagsPost']); ?>
                                             </a></li>
                                     </ul>
@@ -90,7 +98,7 @@ try {
                             <?php
                             if (isset($comments)) {
                                 foreach ($comments as $singleComment) { ?>
-                                    <div class="col-md-12 commentsblock border-top">
+                                    <div class="col-md-12 commentsblock border-top commentDiv">
                                         <div class="media">
                                             <div class="media-left"><a href="javascript:void(0)"> <img
                                                             alt="64x64"
@@ -105,15 +113,27 @@ try {
                                                 </h4>
                                                 <hr>
                                                 <p><?php echo $singleComment['text']; ?></p>
-
-                                                <ul class="nav nav-pills pull-left">
-                                                    <li><a href="" title=""><i
-                                                                    class="fas fa-tags"></i> <?php echo str_replace(',', ', ', $singleComment['tagsComment']); ?>
+                                                <ul class="nav nav-pills pull-left" id="<?php echo 'commentTags' . $postCounter; ?>">
+                                                    <li><a id="commentLike"
+                                                           href="#"
+                                                        ><i class="far fa-thumbs-up"></i>
+                                                            0
+                                                        </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <li><a href="#" title="" onclick="toggleDivAnswer('answerDiv');" class="prevent"><i class="far fa-comment-alt"></i>
+                                                            <?php echo 'View comments ('  . ')'; ?>
+                                                        </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <li><a href="#" title="" class="prevent"><i class="fas fa-tags"></i>
+                                                            <?php echo str_replace(',', ', ', $singleComment['tagsComment']); ?>
                                                         </a></li>
                                                 </ul>
+                                                <br>
+                                                <hr>
+
                                             </div>
                                         </div>
-                                    </div> <?php
+
+                                    </div>
+                                    <?php
                                 }
                             }
                             ?>

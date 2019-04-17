@@ -52,11 +52,29 @@
                 reader.onloadend = function(){ // set image data as background of div
                     //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
                     uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url("+this.result+")");
+                    uploadFile.closest(".imgUp").find('.imagePreview').css("display", "block");
                 }
             }
 
         });
     });
+    $('.prevent').click(function (event) {
+        event.preventDefault();
+    });
+    function toggleDivAnswer(id) {
+        var divElements = document.getElementsByClassName(id);
+
+        Array.prototype.forEach.call(divElements, function(element) {
+            if(element.style.display == 'none'){
+                element.style.display = 'block';
+            }
+            else{
+                element.style.display = 'none';
+            }
+        });
+
+    }
+
 </script>
 </body>
 </html>
