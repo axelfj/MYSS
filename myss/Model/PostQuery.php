@@ -1,6 +1,5 @@
 <?php
 
-use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 use ArangoDBClient\Document as ArangoDocument;
 use ArangoDBClient\DocumentHandler as ArangoDocumentHandler;
 use function ArangoDBClient\readCollection;
@@ -21,6 +20,7 @@ class PostQuery
 
             $title = $infoPost['title'];
             $text = $infoPost['post'];
+            $imagePath = $infoPost['destination'];
             $tagsPost = $infoPost['tagsPost'];
             $visibility = $infoPost['visibility'];
             $owner = $infoPost['username'];
@@ -29,6 +29,7 @@ class PostQuery
             $post = new ArangoDocument();
             $post->set("title", $title);
             $post->set("text", $text);
+            $post->set("destination", $imagePath);
             $post->set("tagsPost", $tagsPost);
             $post->set("visibility", $visibility);
             $post->set("owner", $owner);
@@ -80,8 +81,9 @@ class PostQuery
                 'FOR u IN post 
                  FILTER u.owner == @username 
                  SORT u.time DESC 
-                 RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, tagsPost: u.tagsPost, 
-                         visibility: u.visibility, time: u.time, likes: u.likes}' => ['username' => $username]];
+                 RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, destination: u.destination, 
+                          tagsPost: u.tagsPost, visibility: u.visibility, time: u.time, likes: u.likes}'
+                => ['username' => $username]];
 
             $publicPosts = PostQuery::postsIntoArray($query);
 
@@ -98,7 +100,7 @@ class PostQuery
                 'FOR u IN post 
                         FILTER u.visibility == @visibility 
                         SORT u.time DESC 
-                        RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, 
+                        RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, destination: u.destination,
                         tagsPost: u.tagsPost, visibility: u.visibility, time: u.time, likes: u.likes}'
                 => ['visibility' => 'Public']];
 
@@ -213,6 +215,7 @@ class PostQuery
                 $post['owner'] = $resultingDocuments[$key]->get('owner');
                 $post['title'] = $resultingDocuments[$key]->get('title');
                 $post['text'] = $resultingDocuments[$key]->get('text');
+                $post['destination'] = $resultingDocuments[$key]->get('destination');
                 $post['tagsPost'] = $resultingDocuments[$key]->get('tagsPost');
                 $post['visibility'] = $resultingDocuments[$key]->get('visibility');
                 $post['time'] = $resultingDocuments[$key]->get('time');

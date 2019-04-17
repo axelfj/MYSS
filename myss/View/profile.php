@@ -16,9 +16,7 @@ date_default_timezone_set('America/Costa_Rica');
 
 if (isset($_POST['postbtn'])) {
     try {
-        if (!empty($_POST['title']) &&
-            !empty($_POST['post'])) {
-
+        if (!empty($_POST['title']) && !empty($_POST['post'])) {
             $post = array();
             $post['title'] = $_POST['title'];
             $post['post'] = $_POST['post'];
@@ -27,14 +25,47 @@ if (isset($_POST['postbtn'])) {
             $post['username'] = $_SESSION['username'];
             $post['time'] = date('j-m-y H:i');
 
-            $dtoPost->setPosts($post);
-            $controller->createNewPost($dtoPost);
-        }
+            $correctPost = verifyImageUpload($post);
 
+            if(isset($correctPost)){
+                $dtoPost->setPosts($correctPost);
+                $controller->createNewPost($dtoPost);
+                unset($post);
+            }
+        }
     } catch (Exception $e) {
         $message = $e->getMessage();
     }
 }
+
+// This function verifies if just an image is going to be uploaded. If that's true,
+// the destination path to the image will be set to $post array.
+function verifyImageUpload($post) {
+    $imageName = $_FILES['postImage']['name'];
+    $imageTempName = $_FILES['postImage']['tmp_name'];
+
+    if ($imageName != "") {
+        $type = explode('.', $imageName);
+        $type = strtolower($type[count($type) - 1]);
+
+        // If there's an image to upload, the destination is set and the image is moved to
+        // that destination.
+        if (in_array($type, array('gif', 'jpg', 'jpeg', 'png'))) {
+            $destination = 'userImages/' . uniqid(rand()) . '.' . $type;
+            $post['destination'] = $destination;
+            move_uploaded_file($imageTempName, $destination);
+        } else {
+            // If the user tries to upload anything else that is not an image, an
+            // error message appears and the function returns null.
+            echo '<div class="alert alert-danger" role="alert">You just can upload ".gif", ".jpg", ".jpeg" and ".png" files</div>';
+            return null;
+        }
+    } else { // If there's not an image to upload, the destination is empty.
+        $post['destination'] = '';
+    }
+    return $post;
+}
+
 ?>
 
 <div class="container">
@@ -77,10 +108,9 @@ if (isset($_POST['postbtn'])) {
                             </h3>
                         </li>
                     </ul>
-                    <button id="followbtn" name="followbtn" class="btn btn-primary followbtn">
+                    <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" style="margin-top: 25px;">
                         <!--<i class="fas fa-cog"></i>-->Follow
                     </button>
-
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -91,15 +121,27 @@ if (isset($_POST['postbtn'])) {
             <div class="container" style="background-color: white;"><br>
                 <div class="container" style="background-color: white;">
                     <div class="container" style="background-color: white;">
-                        <form action="profile.php" method="post">
+                        <form action="profile.php" method="post" enctype="multipart/form-data">
                             <h4>New post</h4>
                             <hr>
                             <input id="title" name="title" type="text" class="form-control" required
-                                   placeholder="Title"><br>
+                                   placeholder="Title" value="<?php if(isset($post)){echo $post['title'];}?>"><br>
                             <textarea id="post" name="post" type="text" class="form-control" required
-                                      placeholder="What are you doing right now?" style="resize: none;"></textarea>
+                                      placeholder="What are you doing right now?" style="resize: none;"><?php if(isset($post)){echo $post['post'];}?></textarea>
                             <br>
-                            <input id="tagsPost" name="tagsPost" type="text" data-role="tagsinput" placeholder="Tags">
+                            <div class="row" style="">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4 imgUp">
+                                    <div class="imagePreview"></div>
+                                    <label class="btn btn-primary">
+                                        Upload<input id="postImage" name="postImage" type="file" accept='image/*'
+                                                     class="uploadFile img" value="Upload Photo"
+                                                     style="width: 0px;height: 0px;overflow: hidden;">
+                                    </label>
+                                </div><!-- col-2 -->
+                                <div class="col-md-4"></div>
+                            </div><!-- row -->
+                            <input id="tagsPost" name="tagsPost" type="text" data-role="tagsinput" placeholder="Tags" value="<?php if(isset($post)){echo $post['tagsPost'];}?>">
                             <hr>
                             <div class="row">
                                 <div class="col-md-2">
