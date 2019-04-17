@@ -63,43 +63,4 @@ class Controller
         $this->daoUser->createNewUser($username, $email, $password, $name, $birthday);
     }
 
-    function register($Data)
-    {
-        try {
-            if ((!empty($Data['username'])) &&
-                (!empty($Data['email'])) &&
-                (!empty($Data['password'])) &&
-                (!empty($Data['name'])) &&
-                (!empty($Data['birthday']))) {
-
-
-
-                if ($this->isUsernameTaken($Data['username']) == false) {
-                    if ($this->isEmailTaken($Data['email']) == false) {
-                        if (filter_var($Data['email'], FILTER_VALIDATE_EMAIL)) {
-
-                            $password = password_hash($Data['password'], PASSWORD_BCRYPT);
-
-                            $this->registerNewUser($Data['username'],
-                                $Data['email'],
-                                $password,
-                                $Data['name'],
-                                $Data['birthday']);
-
-                            header('Location: ..\View\login.php');
-                        } else {
-                            return "Cannot register. The email is invalid.";
-                        }
-                    } else {
-                        return "Cannot register. The email has been taken";
-                    }
-                } else {
-                    return "Cannot register. The username has been taken.";
-                }
-            }
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
-    }
-
 }
