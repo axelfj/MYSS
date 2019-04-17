@@ -6,54 +6,21 @@ require_once "../Controller/connection.php";
 require_once "../Controller/Controller.php";
 require_once "../Model/UserQuery.php";
 
-function register()
-{
-    try {
-        if ((!empty($_POST['username'])) &&
-            (!empty($_POST['email'])) &&
-            (!empty($_POST['password'])) &&
-            (!empty($_POST['name'])) &&
-            (!empty($_POST['birthday']))) {
-
-            $controller = new Controller();
-
-            if ($controller->isUsernameTaken($_POST['username']) == false) {
-                if ($controller->isEmailTaken($_POST['email']) == false) {
-                    if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
-
-                        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
-
-                        $controller->registerNewUser($_POST['username'],
-                            $_POST['email'],
-                            $password,
-                            $_POST['name'],
-                            $_POST['birthday']);
-
-                        header('Location: ..\View\login.php');
-                    } else {
-                        return "Cannot register. The email is invalid.";
-                    }
-                } else {
-                    return "Cannot register. The email has been taken";
-                }
-            } else {
-                return "Cannot register. The username has been taken.";
-            }
-        }
-    } catch (Exception $e) {
-        return $e->getMessage();
-    }
-}
+$controller = new Controller();
 
 ?>
 
 <section class="login">
     <?php
-    $message = register();
+    $message = $controller->register($_POST);
+    if(empty($message)){
+        header('Location: ..\View\login.php');
+    }
     if (!empty($message)): ?>
         <p>
         <center><?= $message ?></center></p>
-    <?php endif; ?>
+    <?php endif;
+    ?>
     <div class="container" style="padding-top: 150px;">
         <center>
             <div class="col-md-6"
