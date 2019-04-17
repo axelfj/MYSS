@@ -13,7 +13,7 @@ $controller = new Controller();
 <section class="login">
     <?php
     $message = $controller->register($_POST);
-    if(empty($message)){
+    if($message == "Register successful."){
         header('Location: ..\View\login.php');
     }
     if (!empty($message)): ?>
