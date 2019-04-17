@@ -126,21 +126,21 @@ function verifyImageUpload($post) {
                             <hr>
                             <input id="title" name="title" type="text" class="form-control" required
                                    placeholder="Title" value="<?php if(isset($post)){echo $post['title'];}?>"><br>
-                            <textarea id="post" name="post" type="text" class="form-control" required
-                                      placeholder="What are you doing right now?" style="resize: none;"><?php if(isset($post)){echo $post['post'];}?></textarea>
-                            <br>
                             <div class="row" style="">
                                 <div class="col-md-4"></div>
                                 <div class="col-md-4 imgUp">
                                     <div class="imagePreview"></div>
-                                    <label class="btn btn-primary">
-                                        Upload<input id="postImage" name="postImage" type="file" accept='image/*'
-                                                     class="uploadFile img" value="Upload Photo"
-                                                     style="width: 0px;height: 0px;overflow: hidden;">
+                                    <label class="btn btn-primary"><i class="fas fa-upload"></i>
+                                        Upload photo<input id="postImage" name="postImage" type="file" accept='image/*'
+                                                           class="uploadFile img" value="Upload Photo"
+                                                           style="width: 0px;height: 0px;overflow: hidden;">
                                     </label>
                                 </div><!-- col-2 -->
                                 <div class="col-md-4"></div>
                             </div><!-- row -->
+                            <textarea id="post" name="post" type="text" class="form-control" required
+                                      placeholder="What are you doing right now?" style="resize: none;"><?php if(isset($post)){echo $post['post'];}?></textarea>
+                            <br>
                             <input id="tagsPost" name="tagsPost" type="text" data-role="tagsinput" placeholder="Tags" value="<?php if(isset($post)){echo $post['tagsPost'];}?>">
                             <hr>
                             <div class="row">

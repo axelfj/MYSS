@@ -76,10 +76,10 @@ try {
                                             ><i class="far fa-thumbs-up"></i>
                                                 <?php echo PostQuery::getLikesCount($singlePost['key']); ?>
                                             </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <li><a href="" title=""><i class="far fa-comment-alt"></i>
-                                                <?php echo $numberOfComments; ?>
+                                        <li><a href="#" title="" class="prevent" onclick="toggleDivAnswer('commentDiv');"><i class="far fa-comment-alt"></i>
+                                                <?php echo 'View comments (' . $numberOfComments . ')'; ?>
                                             </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <li><a href="" title=""><i class="fas fa-tags"></i>
+                                        <li><a href="#" title="" class="prevent"><i class="fas fa-tags"></i>
                                                 <?php echo str_replace(',', ', ', $singlePost['tagsPost']); ?>
                                             </a></li>
                                     </ul>
@@ -89,7 +89,7 @@ try {
                             <?php
                             if (isset($comments)) {
                                 foreach ($comments as $singleComment) { ?>
-                                    <div class="col-md-12 commentsblock border-top">
+                                    <div class="col-md-12 commentsblock border-top" id="commentDiv" style="display: none;">
                                         <div class="media">
                                             <div class="media-left"><a href="javascript:void(0)"> <img
                                                             alt="64x64"
@@ -104,15 +104,93 @@ try {
                                                 </h4>
                                                 <hr>
                                                 <p><?php echo $singleComment['text']; ?></p>
-
-                                                <ul class="nav nav-pills pull-left">
-                                                    <li><a href="" title=""><i
-                                                                    class="fas fa-tags"></i> <?php echo str_replace(',', ', ', $singleComment['tagsComment']); ?>
+                                                <ul class="nav nav-pills pull-left" id="<?php echo 'commentTags' . $postCounter; ?>">
+                                                    <li><a id="commentLike"
+                                                           href="#"
+                                                        ><i class="far fa-thumbs-up"></i>
+                                                            0
+                                                        </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <li><a href="#" title="" onclick="toggleDivAnswer('answerDiv');" class="prevent"><i class="far fa-comment-alt"></i>
+                                                            <?php echo 'View comments ('  . ')'; ?>
+                                                        </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <li><a href="#" title="" class="prevent"><i class="fas fa-tags"></i>
+                                                            <?php echo str_replace(',', ', ', $singleComment['tagsComment']); ?>
                                                         </a></li>
                                                 </ul>
+                                                <br>
+                                                <hr>
+
                                             </div>
                                         </div>
-                                    </div> <?php
+                                        <!--Comment's answers-->
+                                        <div class="col-md-12" id="answerDiv" style="display: none;">
+                                            <div class="media" style="margin-left: 20px;">
+                                                <div class="media-left"><a href="javascript:void(0)"> <img
+                                                                alt="64x64"
+                                                                src="img/user.png"
+                                                                class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                <div class="media-body">
+                                                    <h4 class="media-heading"><?php echo $singleComment['commentOwner']; ?>
+                                                        <br>
+                                                        <small>
+                                                            <i class="fa fa-clock-o"></i> <?php echo $singleComment['time']; ?>
+                                                        </small>
+                                                    </h4>
+                                                    <hr>
+                                                    <p><?php echo $singleComment['text']; ?></p>
+                                                    <ul class="nav nav-pills pull-left" id="<?php echo 'commentTags' . $postCounter; ?>">
+                                                        <li><a id="commentLike"
+                                                               href="#"
+                                                            ><i class="far fa-thumbs-up"></i>
+                                                                0
+                                                            </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <li><a href="#" title=""><i class="far fa-comment-alt"></i>
+                                                                <?php echo 'View comments ('  . ')'; ?>
+                                                            </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <li><a href="#" title=""><i class="fas fa-tags"></i>
+                                                                <?php echo str_replace(',', ', ', $singleComment['tagsComment']); ?>
+                                                            </a></li>
+                                                    </ul>
+                                                    <br>
+                                                    <hr>
+
+                                                </div>
+                                            </div>
+
+                                        <!--Answer a comment-->
+                                        <form action="<?php echo 'comment.inc.php?' . $singlePost['key'] . '%answerbtn' . $postCounter . '@' . $fileName; ?>"
+                                              method="post">
+                    <textarea id="<?php echo 'commentAnswer' . $postCounter; ?>"
+                              name="<?php echo 'commentAnswer' . $postCounter; ?>" type="text"
+                              class="form-control classComment"
+                              placeholder="Answer this comment..." style="resize: none;"></textarea><br>
+                                            <input id="<?php echo 'tagsCommentAnswer' . $postCounter; ?>"
+                                                   name="<?php echo 'tagsCommentAnswer' . $postCounter; ?>" type="text"
+                                                   data-role="tagsinput"
+                                                   placeholder="Tags"><br><br>
+                                            <div class="row" style="">
+                                                <div class="col-md-4"></div>
+                                                <div class="col-md-4 imgUp">
+                                                    <div class="imagePreview"></div>
+                                                    <label class="btn btn-primary"><i class="fas fa-upload"></i>
+                                                        Upload photo<input id="postImage" name="postImage" type="file" accept='image/*'
+                                                                           class="uploadFile img" value="Upload Photo"
+                                                                           style="width: 0px;height: 0px;overflow: hidden;">
+                                                    </label>
+                                                </div><!-- col-2 -->
+                                                <div class="col-md-4"></div>
+                                            </div><!-- row -->
+                                            <hr>
+                                            <button id="<?php echo 'answerbtn' . $postCounter; ?>"
+                                                    name="<?php echo 'answerbtn' . $postCounter; ?>"
+                                                    class="btn btn-primary pull-right btnComment" disabled>  <!--disabled-->
+                                                <!--<i class="fas fa-cog"></i>-->Comment
+                                            </button>
+                                            <br><br>
+                                        </form><!--/Answer a comment-->
+                                        </div><!--/Comment's answers-->
+                                    </div>
+                                    <?php
                                 }
                             }
                             ?>
