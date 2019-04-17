@@ -86,7 +86,7 @@ class Controller
                                 $data['name'],
                                 $data['birthday']);
 
-                            return "";
+                            return "Register successful.";
 
                         } else {
                             return "Cannot register. The email is invalid.";
