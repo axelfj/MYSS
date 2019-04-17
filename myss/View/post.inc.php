@@ -47,7 +47,7 @@ try {
                                         <a href="javascript:void(0)">
                                             <img src="img/user.png" alt="" class="media-object">
                                         </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <h4 class="media-heading"><?php echo $singlePost['owner']; ?><br>
+                                    <h4 class=""><a href="#"><?php echo $singlePost['owner']; ?></a><br>
                                         <small><i class="fa fa-clock-o"
                                                   id="<?php echo 'time' . $postCounter; ?>"></i> <?php echo $singlePost['time']; ?>
                                         </small>
@@ -97,7 +97,7 @@ try {
                                                             src="img/user.png"
                                                             class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <div class="media-body">
-                                                <h4 class="media-heading"><?php echo $singleComment['commentOwner']; ?>
+                                                <h4 class="media-heading"><a href="#"><?php echo $singleComment['commentOwner']; ?></a>
                                                     <br>
                                                     <small>
                                                         <i class="fa fa-clock-o"></i> <?php echo $singleComment['time']; ?>
@@ -120,10 +120,8 @@ try {
                                                 </ul>
                                                 <br>
                                                 <hr>
-
                                             </div>
                                         </div>
-
                                     </div>
                                     <?php
                                 }
