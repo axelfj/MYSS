@@ -4,7 +4,7 @@ include_once "banner.php";
 
 require_once "../Controller/connection.php";
 require_once "../Controller/Controller.php";
-require_once "../Model/UserQuery.php";
+//require_once "../Model/UserQuery.php";
 
 $controller = new Controller();
 
