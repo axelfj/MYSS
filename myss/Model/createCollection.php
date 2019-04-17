@@ -32,8 +32,10 @@ function createCollection($collectionName, $collectionType){
         $collection->setName($collectionName);
         $collection->setType($collectionType);
         $collectionHandler-> create($collection);
-        echo 'Se han creado las colecciones y aristas correctamente.';
+        echo 'Se han creado '.$collectionName.' correctamente.';
+        echo "<br>";
     } catch (Exception $e){
         throwException($e);
     }
+
 }
