@@ -2,7 +2,6 @@
 
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 
-require_once "../Controller/readCollection.php";
 require_once "../Controller/Controller.php";
 require_once "../Controller/DTOPost_Comment_Tag.php";
 

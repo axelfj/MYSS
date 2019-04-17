@@ -1,8 +1,7 @@
 <?php
 
 // Requires the connection and all the dependencies.
-require_once("connection.php");
-include_once "../Controller/createTags.php";
+include_once "../Model/createTags.php";
 require_once "../Controller/connection.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/EdgeHandler.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Edge.php";

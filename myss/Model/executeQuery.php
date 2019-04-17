@@ -2,7 +2,7 @@
 
 namespace ArangoDBClient;
 
-require_once("connection.php");
+require_once("../Controller/connection.php");
 
 /* set up some example statements */
 $statements = [
