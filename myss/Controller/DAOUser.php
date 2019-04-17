@@ -1,6 +1,7 @@
 <?php
 require_once "../Model/PostQuery.php";
 require_once "../Controller/DTOUser.php";
+require_once "../Model/UserQuery.php";
 
 class DAOUser
 {
