@@ -31,5 +31,33 @@ class controllerTests extends TestCase
     }
 
 
-    
+
+    /*
+     * @dataProvider userDataProvider
+     * */
+    public function testRegisterNewUser($data){
+//        $array = array();
+//        $array ['username'] = 'YValle';
+//        $array ['email'] = 'yvalle@gmail.com';
+//        $array ['password'] = '1234';
+//        $array ['name'] = 'Yocasta Valle';
+//        $array ['birthday'] = "23-08-1998";
+
+        $message = $this->controller->register($data);
+
+        $this->assertEquals("", $message);
+    }
+
+    public function userDataProvider(){
+        $array = array();
+        $array ['username'] = 'YValle';
+        $array ['email'] = 'yvalle@gmail.com';
+        $array ['password'] = '1234';
+        $array ['name'] = 'Yocasta Valle';
+        $array ['birthday'] = "23-08-1998";
+
+        return [
+            [$array]
+        ];
+    }
 }
