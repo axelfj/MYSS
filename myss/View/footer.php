@@ -60,17 +60,19 @@
     });
     $('.prevent').click(function (event) {
         event.preventDefault();
-        // or use return false;
     });
     function toggleDivAnswer(id) {
-        var divElement = document.getElementById(id);
+        var divElements = document.getElementsByClassName(id);
 
-        if(divElement.style.display == 'none'){
-            divElement.style.display = 'block';
-        }
-        else{
-            divElement.style.display = 'none';
-        }
+        Array.prototype.forEach.call(divElements, function(element) {
+            if(element.style.display == 'none'){
+                element.style.display = 'block';
+            }
+            else{
+                element.style.display = 'none';
+            }
+        });
+
     }
 
 </script>
