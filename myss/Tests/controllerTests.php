@@ -45,7 +45,7 @@ class controllerTests extends TestCase
 
         $message = $this->controller->register($data);
 
-        $this->assertEquals("", $message);
+        $this->assertEquals("Register successful.", $message);
     }
 
     public function userDataProvider(){
@@ -55,6 +55,7 @@ class controllerTests extends TestCase
         $array ['password'] = '1234';
         $array ['name'] = 'Yocasta Valle';
         $array ['birthday'] = "23-08-1998";
+        
 
         return [
             [$array]
