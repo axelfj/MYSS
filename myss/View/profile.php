@@ -14,6 +14,8 @@ $dtoPost = new DTOPost_Comment_Tag();
 
 date_default_timezone_set('America/Costa_Rica');
 
+$usernameVisited = getUserName();
+
 if (isset($_POST['postbtn'])) {
     try {
         if (!empty($_POST['title']) && !empty($_POST['post'])) {
@@ -36,6 +38,22 @@ if (isset($_POST['postbtn'])) {
     } catch (Exception $e) {
         $message = $e->getMessage();
     }
+}
+
+// Verifies if an user is trying to visit another user's profile.
+// If that occurs, then this function will return the username of the
+// user that is getting visited. If not, then it will return false.
+function getUserName()
+{
+    $url = $_SERVER['REQUEST_URI']; // This url has the username after a '?' character.
+    $posStart = strpos($url, '?');
+    $posEnd = strlen($url);
+
+    if ($posStart != false) {
+        $username = substr($url, $posStart + 1, $posEnd - $posStart);
+        return $username;
+    }
+    return false;
 }
 
 // This function verifies if just an image is going to be uploaded. If that's true,
@@ -78,16 +96,52 @@ function verifyImageUpload($post)
                     <h3 class="username" style="font-size: 18px;">
                         <?php
                         if (isset($_SESSION['name'])) {
-                            echo $_SESSION['name'];
+                            switch ($usernameVisited) {
+                                case $_SESSION['username']:
+                                    echo $_SESSION['name'];
+                                    break;
+                                case false:
+                                    echo $_SESSION['name'];
+                                    break;
+                                case !false:
+                                    $dtoUser = $controller->getProfile($usernameVisited);
+                                    echo $dtoUser['name'];
+                                    break;
+                                default:
+                                    echo $_SESSION['name'];
+                                    break;
+                            }
                         } else {
-                            echo 'Name Last-Name';
+                            switch ($usernameVisited) {
+                                case !false:
+                                    echo $usernameVisited;
+                                    break;
+                                default:
+                                    echo 'Name Last-Name';
+                            }
                         }
                         ?></h3>
                     <p><?php
                         if (isset($_SESSION['username'])) {
-                            echo '@' . $_SESSION['username'];
+                            switch ($usernameVisited) {
+                                case false:
+                                    echo '@' . $_SESSION['username'];
+                                    break;
+                                case !false:
+                                    echo '@' . $usernameVisited;
+                                    break;
+                                default:
+                                    echo $_SESSION['username'];
+                                    break;
+                            }
                         } else {
-                            echo '@username';
+                            switch ($usernameVisited) {
+                                case !false:
+                                    echo $usernameVisited;
+                                    break;
+                                default:
+                                    echo '@username';
+                            }
                         }
                         ?></p>
                 </div>
@@ -119,6 +173,7 @@ function verifyImageUpload($post)
         <!-- /.col-md-12 -->
 
         <div class="col-md-8 col-sm-12 pull-left posttimeline">
+            <?php if ($usernameVisited == false || $usernameVisited == $_SESSION['username']) { ?>
             <div class="container" style="background-color: white;"><br>
                 <div class="container" style="background-color: white;">
                     <div class="container" style="background-color: white;">
@@ -172,8 +227,10 @@ function verifyImageUpload($post)
                     <!-- Status Upload  -->
                 </div>
             </div>
-            <br>
-            <h1 class="page-header small" style="color: grey;">Your posts</h1><br>
+                <br>
+                <h1 class="page-header small" style="color: grey;">Your posts</h1><br>
+            <?php }?>
+
             <?php include_once "post.inc.php"; ?>
         </div>
         <div class="col-md-4 col-sm-12 pull-right">

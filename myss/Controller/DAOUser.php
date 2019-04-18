@@ -18,6 +18,12 @@ class DAOUser
         return $this->dtoUser;
     }
 
+    public function getProfile($username)
+    {
+        $this->dtoUser->setUser(UserQuery::getProfile($username));
+        return $this->dtoUser;
+    }
+
     public function isEmailTaken($email)
     {
         $this->dtoUser->setUser(UserQuery::isEmailTaken($email));

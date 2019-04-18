@@ -61,4 +61,29 @@ class UserQuery
         return $cursor;
     }
 
+    static function getProfile($username)
+    {
+        $query = ['
+        FOR x IN user 
+        FILTER x.username == @username
+        RETURN {key: x._key, username: x.username, name: x.name, email: x.email}' => ['username' => $username]];
+        
+        $cursor = readCollection($query);
+        $resultingDocuments = array();
+
+        if ($cursor->getCount() > 0) {
+            $profile = array();
+
+            foreach ($cursor as $key => $value) {
+                $resultingDocuments[$key] = $value;
+                $profile['username'] = $resultingDocuments[$key]->get('username');
+                $profile['name'] = $resultingDocuments[$key]->get('name');
+                $profile['email'] = $resultingDocuments[$key]->get('email');
+                $profile['key'] = $resultingDocuments[$key]->get('key');
+            }
+            return $profile;
+        }
+        return null;
+    }
+
 }
