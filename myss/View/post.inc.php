@@ -13,8 +13,13 @@ $url = $_SERVER['REQUEST_URI'];
 
 // Applies string functions to get only the name that we want.
 $pos = strpos($url, 'View') + 5;
-$len = strlen($url);
-$fileName = substr($url, $pos, $len - $pos);
+if(strpos($url, '?') == false){
+    $len = strlen($url);
+    $fileName = substr($url, $pos, $len);
+}else{
+    $len = strpos($url, '?');
+    $fileName = substr($url, $pos, $len-$pos);
+}
 
 $controller = new Controller();
 
@@ -33,7 +38,7 @@ try {
 
             // If we're in the profile, then we must look for his posts.
             if ($fileName == 'profile.php') {
-                if($usernameVisited!= false){
+                if($usernameVisited != false && $usernameVisited != $_SESSION['username']){
                     $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, 'Public');
                 }
                 else{

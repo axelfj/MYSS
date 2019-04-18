@@ -173,7 +173,7 @@ function verifyImageUpload($post)
         <!-- /.col-md-12 -->
 
         <div class="col-md-8 col-sm-12 pull-left posttimeline">
-            <?php if ($usernameVisited == false) { ?>
+            <?php if ($usernameVisited == false || $usernameVisited == $_SESSION['username']) { ?>
             <div class="container" style="background-color: white;"><br>
                 <div class="container" style="background-color: white;">
                     <div class="container" style="background-color: white;">
