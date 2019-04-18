@@ -96,7 +96,7 @@ class UserQuery
     {
         $query = ['
         FOR x IN follows 
-        FILTER x._from == @fromUser AND x._to == @toUser
+        FILTER x._from == @fromUser && x._to == @toUser
         RETURN x ' => ['fromUser' => 'user/' . $fromUser, 'toUser' => 'user/' . $toUser]];
         $cursor = readCollection($query);
 
