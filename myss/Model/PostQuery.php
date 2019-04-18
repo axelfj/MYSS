@@ -74,16 +74,26 @@ class PostQuery
         createEdge('post', $postKey, 'comment', $commentKey, 'has_comment');
     }
 
-    public static function getMyPosts($username)
+    public static function getMyPosts($username, $visibility)
     {
         try {
-            $query = [
-                'FOR u IN post 
+            if ($visibility == 'Public') {
+                $query = [
+                    'FOR u IN post 
+                 FILTER u.owner == @username and u.visibility == "Public"
+                 SORT u.time DESC 
+                 RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, destination: u.destination, 
+                          tagsPost: u.tagsPost, visibility: u.visibility, time: u.time, likes: u.likes}'
+                    => ['username' => $username]];
+            } else {
+                $query = [
+                    'FOR u IN post 
                  FILTER u.owner == @username 
                  SORT u.time DESC 
                  RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, destination: u.destination, 
                           tagsPost: u.tagsPost, visibility: u.visibility, time: u.time, likes: u.likes}'
-                => ['username' => $username]];
+                    => ['username' => $username]];
+            }
 
             $publicPosts = PostQuery::postsIntoArray($query);
 
