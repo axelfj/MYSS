@@ -41,4 +41,9 @@ class DAOUser
         UserQuery::register($username, $email, $password, $name, $birthday, $userImage);
     }
 
+    public function followUser($fromUser, $toUser)
+    {
+        UserQuery::followUser($fromUser, $toUser);
+    }
+
 }

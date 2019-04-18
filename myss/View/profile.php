@@ -15,6 +15,11 @@ $dtoPost = new DTOPost_Comment_Tag();
 date_default_timezone_set('America/Costa_Rica');
 
 $usernameVisited = getUserName();
+$dtoUser = $controller->getProfile($usernameVisited);
+
+if (isset($_POST['followbtn'])) {
+    $controller->followUser($_SESSION['userKey'], $dtoUser['key']);
+}
 
 if (isset($_POST['postbtn'])) {
     try {
@@ -104,7 +109,6 @@ function verifyImageUpload($post)
                                     echo $_SESSION['name'];
                                     break;
                                 case !false:
-                                    $dtoUser = $controller->getProfile($usernameVisited);
                                     echo $dtoUser['name'];
                                     break;
                                 default:
@@ -163,9 +167,17 @@ function verifyImageUpload($post)
                             </h3>
                         </li>
                     </ul>
+                    <?php if ($usernameVisited == false || $usernameVisited == $_SESSION['username']) { ?>
                     <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" style="margin-top: 25px;">
-                        <!--<i class="fas fa-cog"></i>-->Follow
+                        <i class="fas fa-cog"></i>
                     </button>
+                    <?php } else {?>
+                    <form method="post">
+                        <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick="prueba()" style="margin-top: 25px;">
+                            <i class="fas fa-user-plus"></i> Follow
+                        </button>
+                    </form>
+                    <?php }?>
                 </div>
                 <div class="clearfix"></div>
             </div>

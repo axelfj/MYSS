@@ -70,6 +70,11 @@ class Controller
         $this->daoUser->createNewUser($username, $email, $password, $name, $birthday, $userImage);
     }
 
+    public function followUser($fromUser, $toUser)
+    {
+        $this->daoUser->followUser($fromUser, $toUser);
+    }
+
     function register($data)
     {
         try {
