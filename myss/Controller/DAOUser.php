@@ -1,5 +1,5 @@
 <?php
-require_once "../Model/PostQuery.php";
+require_once "../Model/UserQuery.php";
 require_once "../Controller/DTOUser.php";
 
 class DAOUser
@@ -14,6 +14,12 @@ class DAOUser
     public function getUser($email)
     {
         $this->dtoUser->setUser(UserQuery::getInformation($email));
+        return $this->dtoUser;
+    }
+
+    public function getProfile($username)
+    {
+        $this->dtoUser->setUser(UserQuery::getProfile($username));
         return $this->dtoUser;
     }
 

@@ -11,7 +11,7 @@ $document = new ArangoCollectionHandler(connect());
 $url = $_SERVER['REQUEST_URI'];
 $pos = strpos($url, 'View') + 5;
 $len = strlen($url);
-$fileName = substr($url, $pos, $len);
+$fileName = substr($url, $pos, $len - $pos);
 
 $controller = new Controller();
 
@@ -25,9 +25,14 @@ try {
             <?php
         } else {
             if ($fileName == 'profile.php') {
-                $dtoPost_Comment_Tag = $controller->getPosts($_SESSION['username']);
+                if($usernameVisited!= false){
+                    $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, 'Public');
+                }
+                else{
+                    $dtoPost_Comment_Tag = $controller->getPosts($_SESSION['username'], '');
+                }
             } else {
-                $dtoPost_Comment_Tag = $controller->getPosts(null);
+                $dtoPost_Comment_Tag = $controller->getPosts(null, '');
             }
             $postCounter = 0;
             if (isset($dtoPost_Comment_Tag)) {
@@ -47,7 +52,7 @@ try {
                                         <a href="javascript:void(0)">
                                             <img src="img/user.png" alt="" class="media-object">
                                         </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <h4 class=""><a href="#"><?php echo $singlePost['owner']; ?></a><br>
+                                    <h4 class=""><a href="<?php echo 'profile.php?' . $singlePost['owner']; ?>"><?php echo $singlePost['owner']; ?></a><br>
                                         <small><i class="fa fa-clock-o"
                                                   id="<?php echo 'time' . $postCounter; ?>"></i> <?php echo $singlePost['time']; ?>
                                         </small>

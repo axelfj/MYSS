@@ -26,11 +26,11 @@ class DAOPost_Comment_Tag
         return PostQuery::verifyIfUserLiked($postKey, $userKey);
     }
 
-    public function getPosts($username)
+    public function getPosts($username, $visibility)
     {
         // If there's an username, it means that we need the posts from the current user.
         if (isset($username)) {
-            $this->dtoPost_Comment_Tag->setPosts(PostQuery::getMyPosts($username));
+            $this->dtoPost_Comment_Tag->setPosts(PostQuery::getMyPosts($username, $visibility));
         }
         // If there's not an username, it means that we need all the posts to show them
         // in the index.
