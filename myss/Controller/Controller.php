@@ -112,25 +112,25 @@ class Controller
                             return "Cannot register. The email is invalid.";
                         }
                     } else {
-                        return "Cannot register. The email has been taken";
+                        return "Cannot register. The email has been taken.";
                     }
                 } else {
                     return "Cannot register. The username has been taken.";
                 }
             } else {
-                return "Missing data";
+                return "Missing data.";
             }
         } catch (Exception $e) {
             return $e->getMessage();
         }
     }
 
-    function login(){
+    function login($data){
         try {
-            if (!empty($_POST['email']) &&
-                !empty($_POST['password'])) {
-                $controller = new Controller();
-                $cursor = $controller->getUser($_POST['email']);
+            if (!empty($data['email']) &&
+                !empty($data['password'])) {
+
+                $cursor = $this->getUser($data['email']);
 
                 if ($cursor->getCount() != 0) {
 
@@ -146,12 +146,14 @@ class Controller
                         $personalInformation['password'] = $resultingDocuments [$key]->get('password');
                     }
 
-                    if (password_verify($_POST['password'], $personalInformation['password'])) {
+                    if (password_verify($data['password'], $personalInformation['password'])) {
                         $_SESSION['username'] = $personalInformation['username'];
                         $_SESSION['userKey'] = $personalInformation['userKey'];
                         $_SESSION['name'] = $personalInformation['name'];
                         $_SESSION['email'] = $personalInformation['email'];
-                        header('Location: ..\View\index.php');
+
+                        return "Login succesful.";
+
                     } else {
                         return 'Incorrect password.';
                     }
@@ -159,7 +161,7 @@ class Controller
                     return 'The user is not registered.';
                 }
             } else {
-                return '';
+                return 'Missing data.';
             }
         } catch (Exception $e) {
             return $e->getMessage();

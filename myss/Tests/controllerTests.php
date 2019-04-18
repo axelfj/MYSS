@@ -33,7 +33,7 @@ class controllerTests extends TestCase
         if($complete) {
             $this->assertEquals("Register successful.", $message);
         } else{
-            $this->assertEquals("Missing data", $message);
+            $this->assertEquals("Missing data.", $message);
         }
     }
 
@@ -45,6 +45,7 @@ class controllerTests extends TestCase
         $array ['password'] = '1234';
         $array ['name'] = 'Yocasta Valle';
         $array ['birthday'] = "23-08-1998";
+        $array['userImage'] = "image.png";
 
 
         return [
@@ -59,6 +60,7 @@ class controllerTests extends TestCase
         $array ['password'] = '1234';
         $array ['name'] = 'Yocasta Valle';
         $array ['birthday'] = "23-08-1998";
+        $array['userImage'] = "image.png";
 
 
         return [
@@ -73,6 +75,7 @@ class controllerTests extends TestCase
         $array ['password'] = '1234';
         $array ['name'] = 'Yocasta Valle';
         $array ['birthday'] = "23-08-1998";
+        $array['userImage'] = "image.png";
 
 
         return [
@@ -87,6 +90,7 @@ class controllerTests extends TestCase
         $array ['password'] = '';
         $array ['name'] = 'Yocasta Valle';
         $array ['birthday'] = "23-08-1998";
+        $array['userImage'] = "image.png";
 
 
         return [
@@ -101,6 +105,7 @@ class controllerTests extends TestCase
         $array ['password'] = '1234';
         $array ['name'] = '';
         $array ['birthday'] = "23-08-1998";
+        $array['userImage'] = "image.png";
 
 
         return [
@@ -115,6 +120,7 @@ class controllerTests extends TestCase
         $array ['password'] = '1234';
         $array ['name'] = 'Yocasta Valle';
         $array ['birthday'] = "";
+        $array['userImage'] = "image.png";
 
 
         return [
@@ -129,6 +135,7 @@ class controllerTests extends TestCase
         $array ['password'] = '1234';
         $array ['name'] = 'Yocasta Valle';
         $array ['birthday'] = "23-08-1998";
+        $array['userImage'] = "image.png";
 
 
         return [
@@ -161,7 +168,7 @@ class controllerTests extends TestCase
     public function testNonRepetitiveEmail($data){
         $message = $this->controller->register($data);
 
-        $this->assertEquals("Cannot register. The email has been taken", $message);
+        $this->assertEquals("Cannot register. The email has been taken.", $message);
     }
 
     /**
@@ -172,4 +179,81 @@ class controllerTests extends TestCase
     }
 
 
+    /**
+     * @depends testRegisterNewUser
+     * @dataProvider loginDataProviderCorrectPassword
+     * @dataProvider loginDataProviderIncorrectEmail
+     * @dataProvider loginDataProviderIncorrectPassword
+     * @dataProvider loginDataProviderWithoutEmail
+     * @dataProvider loginDataProviderWithoutPassword
+     * */
+    public function testLoginAllData($data, $correct){
+        $message = $this->controller->login($data);
+
+        switch($correct){
+            case("Correct"):
+                $this->assertEquals("Login succesful.", $message);
+                break;
+            case("Incorrect Email"):
+                $this->assertEquals("The user is not registered.", $message);
+                break;
+            case("Incorrect Password"):
+                $this->assertEquals("Incorrect password.", $message);
+                break;
+            case("Missing"):
+                $this->assertEquals("Missing data.", $message);
+                break;
+
+        }
+    }
+
+    public function loginDataProviderCorrectPassword(){
+        $array = array();
+        $array ['email'] = 'yvalle@gmail.com';
+        $array ['password'] = '1234';
+
+        return[
+            [$array, "Correct"]
+        ];
+    }
+
+    public function loginDataProviderIncorrectEmail(){
+        $array = array();
+        $array ['email'] = 'yvalle@gmai.com';
+        $array ['password'] = '1234';
+
+        return[
+            [$array, "Incorrect Email"]
+        ];
+    }
+
+    public function loginDataProviderIncorrectPassword(){
+        $array = array();
+        $array ['email'] = 'yvalle@gmail.com';
+        $array ['password'] = '12345';
+
+        return[
+            [$array, "Incorrect Password"]
+        ];
+    }
+
+    public function loginDataProviderWithoutEmail(){
+        $array = array();
+        $array ['email'] = '';
+        $array ['password'] = '1234';
+
+        return[
+            [$array, "Missing"]
+        ];
+    }
+
+    public function loginDataProviderWithoutPassword(){
+        $array = array();
+        $array ['email'] = 'yvalle@gmail.com';
+        $array ['password'] = '';
+
+        return[
+            [$array, "Missing"]
+        ];
+    }
 }
