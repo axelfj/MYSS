@@ -75,6 +75,11 @@ class Controller
         $this->daoUser->followUser($fromUser, $toUser);
     }
 
+    public function ifFollowing($fromUser, $toUser)
+    {
+        $this->daoUser->ifFollowing($fromUser, $toUser);
+    }
+
     function register($data)
     {
         try {
