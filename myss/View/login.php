@@ -86,8 +86,8 @@ function login()
                         <button id="loginbtn" name="loginbtn" class="genric-btn info circle" type="submit" value="login"
                                 onclick="login()">Log In
                         </button>
-                        <br>
-                        <a class="btn" href="signup.php" role="button">Don't have an account yet? Register here.</a><br>
+                        <br><br>
+                        <a class="genric-btn info-border circle arrow" href="signup.php" role="button">Don't have an account yet? Register here.</a><br>
                     </form>
                 </div><!-- /.col -->
             </center>

@@ -30,9 +30,9 @@ class DAOUser
         return $this->dtoUser;
     }
 
-    public function createNewUser($username, $email, $password, $name, $birthday)
+    public function createNewUser($username, $email, $password, $name, $birthday, $userImage)
     {
-        UserQuery::register($username, $email, $password, $name, $birthday);
+        UserQuery::register($username, $email, $password, $name, $birthday, $userImage);
     }
 
 }
