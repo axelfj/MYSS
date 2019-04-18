@@ -59,9 +59,9 @@ class Controller
         return $dtoUser->getUser();
     }
 
-    public function registerNewUser($username, $email, $password, $name, $birthday)
+    public function registerNewUser($username, $email, $password, $name, $birthday, $userImage)
     {
-        $this->daoUser->createNewUser($username, $email, $password, $name, $birthday);
+        $this->daoUser->createNewUser($username, $email, $password, $name, $birthday, $userImage);
     }
 
     function register($data)
@@ -72,7 +72,9 @@ class Controller
                 (!empty($data['password'])) &&
                 (!empty($data['name'])) &&
                 (!empty($data['birthday']))) {
-
+                if (empty($data['userImage'])){
+                    return 'Please upload an imagen for your profile.';
+                }
 
                 if ($this->isUsernameTaken($data['username']) == false) {
                     if ($this->isEmailTaken($data['email']) == false) {
@@ -80,11 +82,13 @@ class Controller
 
                             $password = password_hash($data['password'], PASSWORD_BCRYPT);
 
-                            $this->registerNewUser($data['username'],
+                            $this->registerNewUser(
+                                $data['username'],
                                 $data['email'],
                                 $password,
                                 $data['name'],
-                                $data['birthday']);
+                                $data['birthday'],
+                                $data['userImage']);
 
                             return "Register successful.";
 

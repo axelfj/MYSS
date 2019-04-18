@@ -16,7 +16,7 @@ require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php"
 
 class UserQuery
 {
-    static function register($username, $email, $password, $name, $birthday)
+    static function register($username, $email, $password, $name, $birthday, $userImage)
     {
         $database = new ArangoDocumentHandler(connect());
         $user = new ArangoDocument();
@@ -25,6 +25,7 @@ class UserQuery
         $user->set("password", $password);
         $user->set("name", $name);
         $user->set("birthday", $birthday);
+        $user->set("userImage", $userImage);
 
         $database->save("user", $user);
         return 'You have been successfully registered';
