@@ -6,8 +6,8 @@ use ArangoDBClient\Document as ArangoDocument;
 use function ArangoDBClient\readCollection;
 
 
-require_once "../Controller/readCollection.php";
-require_once "../Controller/createEdges.php";
+require_once "../Model/executeQuery.php";
+require_once "../Model/createEdges.php";
 require_once "../Controller/connection.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/CollectionHandler.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
@@ -16,7 +16,7 @@ require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php"
 
 class UserQuery
 {
-    static function register($username, $email, $password, $name, $birthday)
+    static function register($username, $email, $password, $name, $birthday, $userImage)
     {
         $database = new ArangoDocumentHandler(connect());
         $user = new ArangoDocument();
@@ -25,6 +25,7 @@ class UserQuery
         $user->set("password", $password);
         $user->set("name", $name);
         $user->set("birthday", $birthday);
+        $user->set("userImage", $userImage);
 
         $database->save("user", $user);
         return 'You have been successfully registered';

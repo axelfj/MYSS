@@ -2,6 +2,7 @@
 require_once "../Controller/DAOPost_Comment_Tag.php";
 require_once "../Controller/DAOUser.php";
 
+
 class Controller
 {
     private $daoPost_Comment_Tag;
@@ -64,9 +65,52 @@ class Controller
         return $dtoUser->getUser();
     }
 
-    public function registerNewUser($username, $email, $password, $name, $birthday)
+    public function registerNewUser($username, $email, $password, $name, $birthday, $userImage)
     {
-        $this->daoUser->createNewUser($username, $email, $password, $name, $birthday);
+        $this->daoUser->createNewUser($username, $email, $password, $name, $birthday, $userImage);
+    }
+
+    function register($data)
+    {
+        try {
+            if ((!empty($data['username'])) &&
+                (!empty($data['email'])) &&
+                (!empty($data['password'])) &&
+                (!empty($data['name'])) &&
+                (!empty($data['birthday']))) {
+                if (empty($data['userImage'])){
+                    return 'Please upload an imagen for your profile.';
+                }
+
+                if ($this->isUsernameTaken($data['username']) == false) {
+                    if ($this->isEmailTaken($data['email']) == false) {
+                        if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+
+                            $password = password_hash($data['password'], PASSWORD_BCRYPT);
+
+                            $this->registerNewUser(
+                                $data['username'],
+                                $data['email'],
+                                $password,
+                                $data['name'],
+                                $data['birthday'],
+                                $data['userImage']);
+
+                            return "Register successful.";
+
+                        } else {
+                            return "Cannot register. The email is invalid.";
+                        }
+                    } else {
+                        return "Cannot register. The email has been taken";
+                    }
+                } else {
+                    return "Cannot register. The username has been taken.";
+                }
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
     }
 
 }
