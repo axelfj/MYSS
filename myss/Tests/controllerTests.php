@@ -80,7 +80,7 @@ class controllerTests extends TestCase
         ];
     }
 
-    public function userDataProviderwithoutPassword(){
+    public function userDataProviderWithoutPassword(){
         $array = array();
         $array ['username'] = 'YValle';
         $array ['email'] = 'yvalle@gmail.com';
@@ -122,6 +122,20 @@ class controllerTests extends TestCase
         ];
     }
 
+    public function userDataProviderRepeatedEmail(){
+        $array = array();
+        $array ['username'] = 'YValle1';
+        $array ['email'] = 'yvalle@gmail.com';
+        $array ['password'] = '1234';
+        $array ['name'] = 'Yocasta Valle';
+        $array ['birthday'] = "23-08-1998";
+
+
+        return [
+            [$array, False]
+        ];
+    }
+
     /**
      * @depends testRegisterNewUser
      * */
@@ -132,9 +146,30 @@ class controllerTests extends TestCase
 
     /**
      * @depends testRegisterNewUser
-     * */
+     * @dataProvider userDataProviderComplete
+     */
+    public function testNonRepetitiveUsername($data){
+        $message = $this->controller->register($data);
 
+        $this->assertEquals("Cannot register. The username has been taken.", $message);
+    }
+
+    /**
+     * @depends testRegisterNewUser
+     * @dataProvider userDataProviderRepeatedEmail
+     */
+    public function testNonRepetitiveEmail($data){
+        $message = $this->controller->register($data);
+
+        $this->assertEquals("Cannot register. The email has been taken", $message);
+    }
+
+    /**
+     * @depends testRegisterNewUser
+     * */
     public function testIsEmailTaken(){
         $this->assertTrue($this->controller->isEmailTaken("yvalle@gmail.com"));
     }
+
+
 }
