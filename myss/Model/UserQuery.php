@@ -100,7 +100,7 @@ class UserQuery
         RETURN x ' => ['fromUser' => 'user/' . $fromUser], ['toUser' => 'user/' . $toUser]];
         $cursor = readCollection($query);
 
-        // Checks if we got the graph.
+        // Checks if we got the graph. If the graph exists, he will return true. 
         $dataFound = $cursor->getCount();
         if ($dataFound > 0) {
             return true;
