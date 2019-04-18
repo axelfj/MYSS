@@ -16,7 +16,7 @@ require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php"
 
 class UserQuery
 {
-    static function register($username, $email, $password, $name, $birthday, $userImage)
+    public static function register($username, $email, $password, $name, $birthday, $userImage)
     {
         $database = new ArangoDocumentHandler(connect());
         $user = new ArangoDocument();
@@ -31,7 +31,7 @@ class UserQuery
         return 'You have been successfully registered';
     }
 
-    static function isUsernameTaken($username)
+    public static function isUsernameTaken($username)
     {
         $document = new ArangoCollectionHandler(connect());
         $cursorUser = $document->byExample('user', ['username' => $username]);
@@ -41,7 +41,7 @@ class UserQuery
         return true;
     }
 
-    static function isEmailTaken($email)
+    public static function isEmailTaken($email)
     {
         $document = new ArangoCollectionHandler(connect());
         $cursorEmail = $document->byExample('user', ['email' => $email]);
@@ -51,7 +51,7 @@ class UserQuery
         return true;
     }
 
-    static function getInformation($email)
+    public static function getInformation($email)
     {
         $query = ['
         FOR x IN user 
@@ -61,13 +61,13 @@ class UserQuery
         return $cursor;
     }
 
-    static function getProfile($username)
+    public static function getProfile($username)
     {
         $query = ['
         FOR x IN user 
         FILTER x.username == @username
         RETURN {key: x._key, username: x.username, name: x.name, email: x.email}' => ['username' => $username]];
-        
+
         $cursor = readCollection($query);
         $resultingDocuments = array();
 
@@ -84,6 +84,11 @@ class UserQuery
             return $profile;
         }
         return null;
+    }
+
+    public static function followUser($fromUser, $toUser)
+    {
+        userFollow($fromUser, $toUser);
     }
 
 }
