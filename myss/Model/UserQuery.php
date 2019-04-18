@@ -25,7 +25,7 @@ class UserQuery
         $user->set("password", $password);
         $user->set("name", $name);
         $user->set("birthday", $birthday);
-        if ($userImage == ''){
+        if ($userImage == '') {
             $userImage = "img/user.jpg";
         }
         $user->set("userImage", $userImage);
