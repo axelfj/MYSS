@@ -95,12 +95,18 @@ function verifyImageUpload($post)
 <div class="container">
 
     <div class="row">
-        <?php echo "src = ".$dtoUser['userImage']; ?>
+        <?php echo "src = " . $_SESSION['userImage']; ?>
         <div class="col-md-12 text-center ">
             <div class="panel panel-default container" style="background-color: white;padding-top: 13px;">
                 <div class="userprofile social container" style="background-color: white;">
                     <div class="userpic">
-                        <img <?php echo "src = ".$dtoUser['userImage']; ?> alt="" class="userpicimg"></div>
+                        <img <?php
+                        if (isset($dtoUser)) {
+                            echo "src = " . $dtoUser['userImage'];
+                        } else {
+                            echo "src = " . $_SESSION['userImage'];
+                        }
+                        ?> alt="" class="userpicimg"></div>
                     <h3 class="username" style="font-size: 18px;">
                         <?php
                         if (isset($_SESSION['name'])) {
@@ -174,20 +180,23 @@ function verifyImageUpload($post)
                     $userFollowingUser = $controller->ifFollowing($_SESSION['userKey'], $dtoUser['key']);
 
                     if ($usernameVisited == false || $usernameVisited == $_SESSION['username']) { ?>
-                    <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" style="margin-top: 25px;">
-                        <i class="fas fa-cog"></i>
-                    </button>
-                    <?php } else if(!$userFollowingUser){?>
-                    <form method="post">
-                        <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick="prueba()" style="margin-top: 25px;">
-                            <i class="fas fa-user-plus"></i> Follow
+                        <button id="followbtn" name="followbtn" class="btn btn-primary followbtn"
+                                style="margin-top: 25px;">
+                            <i class="fas fa-cog"></i>
                         </button>
-                    </form>
-                    <?php } else {?>
-                        <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick="prueba()" style="margin-top: 25px;">
+                    <?php } else if (!$userFollowingUser) { ?>
+                        <form method="post">
+                            <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick="prueba()"
+                                    style="margin-top: 25px;">
+                                <i class="fas fa-user-plus"></i> Follow
+                            </button>
+                        </form>
+                    <?php } else { ?>
+                        <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick="prueba()"
+                                style="margin-top: 25px;">
                             <i class="fas fa-user-check"></i> Following
                         </button>
-                    <?php
+                        <?php
                     }
                     ?>
                 </div>
@@ -198,62 +207,64 @@ function verifyImageUpload($post)
 
         <div class="col-md-8 col-sm-12 pull-left posttimeline">
             <?php if ($usernameVisited == false || $usernameVisited == $_SESSION['username']) { ?>
-            <div class="container" style="background-color: white;"><br>
-                <div class="container" style="background-color: white;">
+                <div class="container" style="background-color: white;"><br>
                     <div class="container" style="background-color: white;">
-                        <form action="profile.php" method="post" enctype="multipart/form-data">
-                            <h4>New post</h4>
-                            <hr>
-                            <input id="title" name="title" type="text" class="form-control" required placeholder="Title"
-                                   value="<?php if (isset($post)) {
-                                       echo $post['title'];
-                                   } ?>"><br>
-                            <div class="row" style="">
-                                <div class="col-md-4"></div>
-                                <div class="col-md-4 imgUp">
-                                    <div class="imagePreview"></div>
-                                    <label class="btn btn-primary"><i class="fas fa-upload"></i>
-                                        Upload photo
-                                        <input id="postImage" name="postImage" type="file" accept='image/*'
-                                               class="uploadFile img" value="Upload Photo"
-                                               style="width: 0px;height: 0px;overflow: hidden;">
-                                    </label>
-                                </div><!-- col-2 -->
-                                <div class="col-md-4"></div>
-                            </div><!-- row -->
-                            <textarea id="post" name="post" type="text" class="form-control" required
-                                      placeholder="What are you doing right now?"
-                                      style="resize: none;"><?php if (isset($post)) {
-                                    echo $post['post'];
-                                } ?></textarea>
-                            <br>
-                            <input id="tagsPost" name="tagsPost" type="text" data-role="tagsinput" placeholder="Tags"
-                                   value="<?php if (isset($post)) {
-                                       echo $post['tagsPost'];
-                                   } ?>">
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <select id="visibility" name="visibility" class="browser-default">
-                                        <option value="Public">Public</option>
-                                        <option value="Private">Private</option>
-                                    </select>
+                        <div class="container" style="background-color: white;">
+                            <form action="profile.php" method="post" enctype="multipart/form-data">
+                                <h4>New post</h4>
+                                <hr>
+                                <input id="title" name="title" type="text" class="form-control" required
+                                       placeholder="Title"
+                                       value="<?php if (isset($post)) {
+                                           echo $post['title'];
+                                       } ?>"><br>
+                                <div class="row" style="">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4 imgUp">
+                                        <div class="imagePreview"></div>
+                                        <label class="btn btn-primary"><i class="fas fa-upload"></i>
+                                            Upload photo
+                                            <input id="postImage" name="postImage" type="file" accept='image/*'
+                                                   class="uploadFile img" value="Upload Photo"
+                                                   style="width: 0px;height: 0px;overflow: hidden;">
+                                        </label>
+                                    </div><!-- col-2 -->
+                                    <div class="col-md-4"></div>
+                                </div><!-- row -->
+                                <textarea id="post" name="post" type="text" class="form-control" required
+                                          placeholder="What are you doing right now?"
+                                          style="resize: none;"><?php if (isset($post)) {
+                                        echo $post['post'];
+                                    } ?></textarea>
+                                <br>
+                                <input id="tagsPost" name="tagsPost" type="text" data-role="tagsinput"
+                                       placeholder="Tags"
+                                       value="<?php if (isset($post)) {
+                                           echo $post['tagsPost'];
+                                       } ?>">
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <select id="visibility" name="visibility" class="browser-default">
+                                            <option value="Public">Public</option>
+                                            <option value="Private">Private</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <button id="postbtn" name="postbtn" type="submit"
+                                                class="btn btn-success pull-right"> Post
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="col-md-10">
-                                    <button id="postbtn" name="postbtn" type="submit"
-                                            class="btn btn-success pull-right"> Post
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                        <br><br>
+                            </form>
+                            <br><br>
+                        </div>
+                        <!-- Status Upload  -->
                     </div>
-                    <!-- Status Upload  -->
                 </div>
-            </div>
                 <br>
                 <h1 class="page-header small" style="color: grey;">Your posts</h1><br>
-            <?php }?>
+            <?php } ?>
 
             <?php include_once "post.inc.php"; ?>
         </div>
