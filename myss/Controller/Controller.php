@@ -35,9 +35,15 @@ class Controller
         return $dtoUser->getUser();
     }
 
-    public function getPosts($username)
+    public function getProfile($username)
     {
-        $dtoPost_Comment_Tag = $this->daoPost_Comment_Tag->getPosts($username);
+        $dtoUser = $this->daoUser->getProfile($username);
+        return $dtoUser->getUser();
+    }
+
+    public function getPosts($username, $visibility)
+    {
+        $dtoPost_Comment_Tag = $this->daoPost_Comment_Tag->getPosts($username, $visibility);
         return $dtoPost_Comment_Tag->getPosts();
     }
 
