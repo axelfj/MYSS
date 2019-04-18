@@ -169,6 +169,7 @@ function verifyImageUpload($post)
                     </ul>
                     <?php
                     $userFollowingUser = $controller->ifFollowing($_SESSION['userKey'], $dtoUser['key']);
+
                     if ($usernameVisited == false || $usernameVisited == $_SESSION['username']) { ?>
                     <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" style="margin-top: 25px;">
                         <i class="fas fa-cog"></i>
@@ -181,7 +182,7 @@ function verifyImageUpload($post)
                     </form>
                     <?php } else {?>
                         <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick="prueba()" style="margin-top: 25px;">
-                            <!--<i class="fas fa-user-plus"></i>--> Following
+                            <i class="fas fa-user-check"></i> Following
                         </button>
                     <?php
                     }
