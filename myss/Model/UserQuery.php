@@ -97,8 +97,10 @@ class UserQuery
         $query = ['
         FOR x IN follows 
         FILTER x._from == @fromUser && x._to == @toUser
-        RETURN x ' => ['fromUser' => 'user/' . $fromUser, 'toUser' => 'user/' . $toUser]];
+        RETURN x_key' => ['fromUser' => 'user/' . $fromUser, 'toUser' => 'user/' . $toUser]];
         $cursor = readCollection($query);
+
+
 
         // Checks if we got the graph. If the graph exists, he will return true.
         $dataFound = $cursor->getCount();
