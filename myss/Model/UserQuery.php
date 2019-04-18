@@ -59,7 +59,7 @@ class UserQuery
         $query = ['
         FOR x IN user 
         FILTER x.email == @email 
-        RETURN {password: x.password, key: x._key, username: x.username, name: x.name, email: x.email}' => ['email' => $email]];
+        RETURN {password: x.password, key: x._key, username: x.username, name: x.name, email: x.email, userImage: x.userImage}' => ['email' => $email]];
         $cursor = readCollection($query);
         return $cursor;
     }

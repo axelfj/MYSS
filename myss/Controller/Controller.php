@@ -142,6 +142,7 @@ class Controller
                         $personalInformation['name'] = $resultingDocuments [$key]->get('name');
                         $personalInformation['email'] = $resultingDocuments [$key]->get('email');
                         $personalInformation['password'] = $resultingDocuments [$key]->get('password');
+                        $personalInformation['userImage'] = $resultingDocuments [$key]->get('userImage');
                     }
 
                     if (password_verify($_POST['password'], $personalInformation['password'])) {
@@ -149,6 +150,7 @@ class Controller
                         $_SESSION['userKey'] = $personalInformation['userKey'];
                         $_SESSION['name'] = $personalInformation['name'];
                         $_SESSION['email'] = $personalInformation['email'];
+                        $_SESSION['userImage'] = $personalInformation['userImage'];
                         header('Location: ..\View\index.php');
                     } else {
                         return 'Incorrect password.';
