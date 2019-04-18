@@ -107,4 +107,45 @@ class Controller
         }
     }
 
+    function login(){
+        try {
+            if (!empty($_POST['email']) &&
+                !empty($_POST['password'])) {
+                $controller = new Controller();
+                $cursor = $controller->getUser($_POST['email']);
+
+                if ($cursor->getCount() != 0) {
+
+                    $personalInformation = array();
+                    $resultingDocuments = array();
+
+                    foreach ($cursor as $key => $value) {
+                        $resultingDocuments [$key] = $value;
+                        $personalInformation['username'] = $resultingDocuments [$key]->get('username');
+                        $personalInformation['userKey'] = $resultingDocuments [$key]->get('key');
+                        $personalInformation['name'] = $resultingDocuments [$key]->get('name');
+                        $personalInformation['email'] = $resultingDocuments [$key]->get('email');
+                        $personalInformation['password'] = $resultingDocuments [$key]->get('password');
+                    }
+
+                    if (password_verify($_POST['password'], $personalInformation['password'])) {
+                        $_SESSION['username'] = $personalInformation['username'];
+                        $_SESSION['userKey'] = $personalInformation['userKey'];
+                        $_SESSION['name'] = $personalInformation['name'];
+                        $_SESSION['email'] = $personalInformation['email'];
+                        header('Location: ..\View\index.php');
+                    } else {
+                        return 'Incorrect password.';
+                    }
+                } else {
+                    return 'The user is not registered.';
+                }
+            } else {
+                return '';
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
 }
