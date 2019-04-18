@@ -12,7 +12,7 @@ use ArangoDBClient\Edge;
 use ArangoDBClient\GraphHandler;
 use ArangoDBClient\Vertex;
 
-// Can make an user to follow another.
+// Can make an user to follow another. One must send the key from the username.
 function userFollow($fromUser, $toUser){
     createEdge('user', $fromUser, 'user', $toUser, 'follows');
 }

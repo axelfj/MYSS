@@ -91,4 +91,24 @@ class UserQuery
         userFollow($fromUser, $toUser);
     }
 
+    // Checks if an user is following another one.
+    public static function ifFolowing($fromUser, $toUser)
+    {
+        $query = ['
+        FOR x IN follows 
+        FILTER x._from == @fromUser AND x._to == @toUser
+        RETURN x ' => ['fromUser' => 'user/' . $fromUser], ['toUser' => 'user/' . $toUser]];
+        $cursor = readCollection($query);
+
+        // Checks if we got the graph.
+        $dataFound = $cursor->getCount();
+        if ($dataFound > 0) {
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
 }
