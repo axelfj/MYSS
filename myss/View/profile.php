@@ -93,9 +93,7 @@ function verifyImageUpload($post)
 ?>
 
 <div class="container">
-
     <div class="row">
-        <?php echo "src = " . $_SESSION['userImage']; ?>
         <div class="col-md-12 text-center ">
             <div class="panel panel-default container" style="background-color: white;padding-top: 13px;">
                 <div class="userprofile social container" style="background-color: white;">
