@@ -5,8 +5,8 @@ use ArangoDBClient\DocumentHandler as ArangoDocumentHandler;
 use function ArangoDBClient\readCollection;
 use ArangoDBClient\Statement as ArangoStatement;
 
-require_once "../Controller/readCollection.php";
-require_once "../Controller/createEdges.php";
+require_once "../Model/executeQuery.php";
+require_once "../Model/createEdges.php";
 
 $database = connect();
 
