@@ -61,8 +61,8 @@
     $('.prevent').click(function (event) {
         event.preventDefault();
     });
-    function toggleDivAnswer(id) {
-        var divElements = document.getElementsByClassName(id);
+    function toggleDivAnswer(className) {
+        var divElements = document.getElementsByClassName(className);
 
         Array.prototype.forEach.call(divElements, function(element) {
             if(element.style.display == 'none'){

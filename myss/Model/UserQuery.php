@@ -16,7 +16,7 @@ require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php"
 
 class UserQuery
 {
-    static function register($username, $email, $password, $name, $birthday)
+    public static function register($username, $email, $password, $name, $birthday, $userImage)
     {
         $database = new ArangoDocumentHandler(connect());
         $user = new ArangoDocument();
@@ -25,12 +25,13 @@ class UserQuery
         $user->set("password", $password);
         $user->set("name", $name);
         $user->set("birthday", $birthday);
+        $user->set("userImage", $userImage);
 
         $database->save("user", $user);
         return 'You have been successfully registered';
     }
 
-    static function isUsernameTaken($username)
+    public static function isUsernameTaken($username)
     {
         $document = new ArangoCollectionHandler(connect());
         $cursorUser = $document->byExample('user', ['username' => $username]);
@@ -40,7 +41,7 @@ class UserQuery
         return true;
     }
 
-    static function isEmailTaken($email)
+    public static function isEmailTaken($email)
     {
         $document = new ArangoCollectionHandler(connect());
         $cursorEmail = $document->byExample('user', ['email' => $email]);
@@ -50,7 +51,7 @@ class UserQuery
         return true;
     }
 
-    static function getInformation($email)
+    public static function getInformation($email)
     {
         $query = ['
         FOR x IN user 
@@ -58,6 +59,56 @@ class UserQuery
         RETURN {password: x.password, key: x._key, username: x.username, name: x.name, email: x.email}' => ['email' => $email]];
         $cursor = readCollection($query);
         return $cursor;
+    }
+
+    public static function getProfile($username)
+    {
+        $query = ['
+        FOR x IN user 
+        FILTER x.username == @username
+        RETURN {key: x._key, username: x.username, name: x.name, email: x.email}' => ['username' => $username]];
+
+        $cursor = readCollection($query);
+        $resultingDocuments = array();
+
+        if ($cursor->getCount() > 0) {
+            $profile = array();
+
+            foreach ($cursor as $key => $value) {
+                $resultingDocuments[$key] = $value;
+                $profile['username'] = $resultingDocuments[$key]->get('username');
+                $profile['name'] = $resultingDocuments[$key]->get('name');
+                $profile['email'] = $resultingDocuments[$key]->get('email');
+                $profile['key'] = $resultingDocuments[$key]->get('key');
+            }
+            return $profile;
+        }
+        return null;
+    }
+
+    public static function followUser($fromUser, $toUser)
+    {
+        userFollow($fromUser, $toUser);
+    }
+
+    // Checks if an user is following another one.
+    public static function ifFolowing($fromUser, $toUser)
+    {
+        $query = ['
+        FOR x IN follows 
+        FILTER x._from == @fromUser && x._to == @toUser
+        RETURN x ' => ['fromUser' => 'user/' . $fromUser, 'toUser' => 'user/' . $toUser]];
+        $cursor = readCollection($query);
+
+        // Checks if we got the graph. If the graph exists, he will return true.
+        $dataFound = $cursor->getCount();
+        if ($dataFound > 0) {
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 
 }
