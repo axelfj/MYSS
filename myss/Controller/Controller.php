@@ -168,4 +168,10 @@ class Controller
         }
     }
 
+    public function filterPostsByTag($tag)
+    {
+        $dtoPost_Comment_Tag = $this->daoPost_Comment_Tag->filterPostsByTag($tag);
+        return $dtoPost_Comment_Tag->getPosts();
+    }
+
 }
