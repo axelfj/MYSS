@@ -23,7 +23,11 @@ $database = connect();
     <section class="">
         <?php
         $controller = new Controller();
-        $message = $controller->login();
+        $message = $controller->login($_POST);
+
+        if($message == "Login succesful."){
+            header('Location: ..\View\index.php');
+        }
         if (!empty($message)): ?>
             <p> <?= $message; ?></p>
         <?php endif; ?>

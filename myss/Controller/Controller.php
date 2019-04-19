@@ -16,7 +16,7 @@ class Controller
 
     public function createNewPost($dtoPost)
     {
-        $this->daoPost_Comment_Tag->createNewPost($dtoPost);
+        return $this->daoPost_Comment_Tag->createNewPost($dtoPost);
     }
 
     public function createNewComment($dtoComment, $postKey)
@@ -112,23 +112,25 @@ class Controller
                             return "Cannot register. The email is invalid.";
                         }
                     } else {
-                        return "Cannot register. The email has been taken";
+                        return "Cannot register. The email has been taken.";
                     }
                 } else {
                     return "Cannot register. The username has been taken.";
                 }
+            } else {
+                return "";
             }
         } catch (Exception $e) {
             return $e->getMessage();
         }
     }
 
-    function login(){
+    function login($data){
         try {
-            if (!empty($_POST['email']) &&
-                !empty($_POST['password'])) {
-                $controller = new Controller();
-                $cursor = $controller->getUser($_POST['email']);
+            if (!empty($data['email']) &&
+                !empty($data['password'])) {
+
+                $cursor = $this->getUser($data['email']);
 
                 if ($cursor->getCount() != 0) {
 
@@ -145,13 +147,13 @@ class Controller
                         $personalInformation['userImage'] = $resultingDocuments [$key]->get('userImage');
                     }
 
-                    if (password_verify($_POST['password'], $personalInformation['password'])) {
+                    if (password_verify($data['password'], $personalInformation['password'])) {
                         $_SESSION['username'] = $personalInformation['username'];
                         $_SESSION['userKey'] = $personalInformation['userKey'];
                         $_SESSION['name'] = $personalInformation['name'];
                         $_SESSION['email'] = $personalInformation['email'];
                         $_SESSION['userImage'] = $personalInformation['userImage'];
-                        header('Location: ..\View\index.php');
+
                     } else {
                         return 'Incorrect password.';
                     }

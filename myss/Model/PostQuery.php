@@ -17,34 +17,39 @@ class PostQuery
         try {
             $database = new ArangoDocumentHandler(connect());
             $infoPost = $dtoPost->getPosts();
+            if(!empty($infoPost['title']) && !empty($infoPost['post']) && !empty($infoPost['username'])) {
 
-            $title = $infoPost['title'];
-            $text = $infoPost['post'];
-            $imagePath = $infoPost['destination'];
-            $tagsPost = $infoPost['tagsPost'];
-            $visibility = $infoPost['visibility'];
-            $owner = $infoPost['username'];
-            $time = date('j-m-y H:i');
+                $title = $infoPost['title'];
+                $text = $infoPost['post'];
+                $imagePath = $infoPost['destination'];
+                $tagsPost = $infoPost['tagsPost'];
+                $visibility = $infoPost['visibility'];
+                $owner = $infoPost['username'];
+                $time = date('j-m-y H:i');
 
-            $post = new ArangoDocument();
-            $post->set("title", $title);
-            $post->set("text", $text);
-            $post->set("destination", $imagePath);
-            $post->set("tagsPost", $tagsPost);
-            $post->set("visibility", $visibility);
-            $post->set("owner", $owner);
-            $post->set("time", $time);
+                $post = new ArangoDocument();
+                $post->set("title", $title);
+                $post->set("text", $text);
+                $post->set("destination", $imagePath);
+                $post->set("tagsPost", $tagsPost);
+                $post->set("visibility", $visibility);
+                $post->set("owner", $owner);
+                $post->set("time", $time);
 
-            $newPost = $database->save("post", $post);
-            $postKey = substr($newPost, 5, 10);
-            $tagsArray = explode(",", $tagsPost);
+                $newPost = $database->save("post", $post);
+                $postKey = substr($newPost, 5, 10);
+                $tagsArray = explode(",", $tagsPost);
 
-            connectTags($postKey, $tagsArray);
+                connectTags($postKey, $tagsArray);
 
-            $userKey = $_SESSION['userKey'];
-            userPosted($userKey, $postKey);
+                $userKey = $_SESSION['userKey'];
+                userPosted($userKey, $postKey);
+                return True;
+            }
+            return False;
         } catch (Exception $e) {
             $e->getMessage();
+            return False;
         }
     }
 
