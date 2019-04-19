@@ -8,11 +8,13 @@
 
 use PHPUnit\Framework\TestCase;
 include_once "../Controller/Controller.php";
+include_once "../Controller/DTOPost_Comment_Tag.php";
 
 class controllerTests extends TestCase
 {
 
     private $controller;
+
 
     public function __construct($name = NULL, array $data = array(), $dataName = '')
     {
@@ -33,7 +35,7 @@ class controllerTests extends TestCase
         if($complete) {
             $this->assertEquals("Register successful.", $message);
         } else{
-            $this->assertEquals("Missing data.", $message);
+            $this->assertEquals("", $message);
         }
     }
 
@@ -201,7 +203,7 @@ class controllerTests extends TestCase
                 $this->assertEquals("Incorrect password.", $message);
                 break;
             case("Missing"):
-                $this->assertEquals("Missing data.", $message);
+                $this->assertEquals("", $message);
                 break;
 
         }
@@ -256,4 +258,93 @@ class controllerTests extends TestCase
             [$array, "Missing"]
         ];
     }
+
+    /**
+     * @dataProvider dtoPostDataProviderCorrectData
+     * @dataProvider dtoPostDataProviderMissingBody
+     * @dataProvider dtoPostDataProviderMissingTitle
+     * @dataProvider dtoPostDataProviderMissingUser
+     * @depends testLoginAllData
+     */
+    public function testCreatePost($dtoPost, $correct){
+        $test = $this->controller->createNewPost($dtoPost);
+        if($correct) {
+            $this->assertTrue($test);
+        } else{
+            $this->assertFalse($test);
+        }
+    }
+
+    public function dtoPostDataProviderCorrectData(){
+        $post = array();
+        $post['title'] = "Título de prueba";
+        $post['post'] = "Este será un post de prueba";
+        $post['tagsPost'] = "Prueba";
+        $post['visibility'] = "Public";
+        $post['username'] = "YValle";
+        $post['time'] = date('j-m-y H:i');
+        $post['destination'] = "";
+
+        $dtoPosts = new DTOPost_Comment_Tag();
+        $dtoPosts->setPosts($post);
+
+        return[
+            [$dtoPosts, True]
+        ];
+    }
+
+    public function dtoPostDataProviderMissingBody(){
+        $post = array();
+        $post['title'] = "Título de prueba";
+        $post['post'] = "";
+        $post['tagsPost'] = "Prueba";
+        $post['visibility'] = "Public";
+        $post['username'] = "YValle";
+        $post['time'] = date('j-m-y H:i');
+        $post['destination'] = "";
+
+        $dtoPosts = new DTOPost_Comment_Tag();
+        $dtoPosts->setPosts($post);
+
+        return[
+            [$dtoPosts, False]
+        ];
+    }
+
+    public function dtoPostDataProviderMissingTitle(){
+        $post = array();
+        $post['title'] = "";
+        $post['post'] = "Este será un post de prueba";
+        $post['tagsPost'] = "Prueba";
+        $post['visibility'] = "Public";
+        $post['username'] = "YValle";
+        $post['time'] = date('j-m-y H:i');
+        $post['destination'] = "";
+
+        $dtoPosts = new DTOPost_Comment_Tag();
+        $dtoPosts->setPosts($post);
+
+        return[
+            [$dtoPosts, False]
+        ];
+    }
+
+    public function dtoPostDataProviderMissingUser(){
+        $post = array();
+        $post['title'] = "Título de prueba";
+        $post['post'] = "Este será un post de prueba";
+        $post['tagsPost'] = "Prueba";
+        $post['visibility'] = "Public";
+        $post['username'] = "";
+        $post['time'] = date('j-m-y H:i');
+        $post['destination'] = "";
+
+        $dtoPosts = new DTOPost_Comment_Tag();
+        $dtoPosts->setPosts($post);
+
+        return[
+            [$dtoPosts, False]
+        ];
+    }
+
 }

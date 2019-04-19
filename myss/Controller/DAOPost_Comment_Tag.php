@@ -13,7 +13,7 @@ class DAOPost_Comment_Tag
 
     public function createNewPost($dtoPost)
     {
-        PostQuery::createNewPost($dtoPost);
+        return PostQuery::createNewPost($dtoPost);
     }
 
     public function createNewComment($dtoComment, $postKey)

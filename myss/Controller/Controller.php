@@ -16,7 +16,7 @@ class Controller
 
     public function createNewPost($dtoPost)
     {
-        $this->daoPost_Comment_Tag->createNewPost($dtoPost);
+        return $this->daoPost_Comment_Tag->createNewPost($dtoPost);
     }
 
     public function createNewComment($dtoComment, $postKey)
@@ -118,7 +118,7 @@ class Controller
                     return "Cannot register. The username has been taken.";
                 }
             } else {
-                return "Missing data.";
+                return "";
             }
         } catch (Exception $e) {
             return $e->getMessage();
@@ -161,7 +161,7 @@ class Controller
                     return 'The user is not registered.';
                 }
             } else {
-                return 'Missing data.';
+                return '';
             }
         } catch (Exception $e) {
             return $e->getMessage();
