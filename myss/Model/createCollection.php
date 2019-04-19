@@ -32,7 +32,7 @@ function createCollection($collectionName, $collectionType){
         $collection->setName($collectionName);
         $collection->setType($collectionType);
         $collectionHandler-> create($collection);
-        echo 'Se han creado '.$collectionName.' correctamente.';
+        echo 'You\'ve build '.$collectionName.' correctly.';
         echo "<br>";
     } catch (Exception $e){
         throwException($e);

@@ -18,6 +18,12 @@ class DAOUser
         return $this->dtoUser;
     }
 
+    public function getProfile($username)
+    {
+        $this->dtoUser->setUser(UserQuery::getProfile($username));
+        return $this->dtoUser;
+    }
+
     public function isEmailTaken($email)
     {
         $this->dtoUser->setUser(UserQuery::isEmailTaken($email));
@@ -30,9 +36,19 @@ class DAOUser
         return $this->dtoUser;
     }
 
-    public function createNewUser($username, $email, $password, $name, $birthday)
+    public function createNewUser($username, $email, $password, $name, $birthday, $userImage)
     {
-        UserQuery::register($username, $email, $password, $name, $birthday);
+        UserQuery::register($username, $email, $password, $name, $birthday, $userImage);
+    }
+
+    public function followUser($fromUser, $toUser)
+    {
+        UserQuery::followUser($fromUser, $toUser);
+    }
+
+    public function ifFollowing($fromUser, $toUser)
+    {
+        return UserQuery::ifFolowing($fromUser, $toUser);
     }
 
 }
