@@ -45,4 +45,10 @@ class DAOPost_Comment_Tag
         $this->dtoPost_Comment_Tag->setComments(PostQuery::getPostComments($postKey));
         return $this->dtoPost_Comment_Tag;
     }
+
+    public function getPostsByTag($tag)
+    {
+        $this->dtoPost_Comment_Tag->setComments(TagQuery::getPostsByTag($tag));
+        return $this->dtoPost_Comment_Tag;
+    }
 }
