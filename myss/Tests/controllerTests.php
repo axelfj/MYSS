@@ -33,7 +33,7 @@ class controllerTests extends TestCase
         if($complete) {
             $this->assertEquals("Register successful.", $message);
         } else{
-            $this->assertEquals("Missing data.", $message);
+            $this->assertEquals("", $message);
         }
     }
 
