@@ -13,8 +13,13 @@ $url = $_SERVER['REQUEST_URI'];
 
 // Applies string functions to get only the name that we want.
 $pos = strpos($url, 'View') + 5;
-$len = strlen($url);
-$fileName = substr($url, $pos, $len);
+if(strpos($url, '?') == false){
+    $len = strlen($url);
+    $fileName = substr($url, $pos, $len);
+}else{
+    $len = strpos($url, '?');
+    $fileName = substr($url, $pos, $len-$pos);
+}
 
 $controller = new Controller();
 
@@ -33,9 +38,14 @@ try {
 
             // If we're in the profile, then we must look for his posts.
             if ($fileName == 'profile.php') {
-                $dtoPost_Comment_Tag = $controller->getPosts($_SESSION['username']);
+                if($usernameVisited != false && $usernameVisited != $_SESSION['username']){
+                    $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, 'Public');
+                }
+                else{
+                    $dtoPost_Comment_Tag = $controller->getPosts($_SESSION['username'], '');
+                }
             } else {
-                $dtoPost_Comment_Tag = $controller->getPosts(null);
+                $dtoPost_Comment_Tag = $controller->getPosts(null, '');
             }
             $postCounter = 0;
             if (isset($dtoPost_Comment_Tag)) {
@@ -55,7 +65,7 @@ try {
                                         <a href="javascript:void(0)">
                                             <img src="img/user.png" alt="" class="media-object">
                                         </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <h4 class="media-heading"><?php echo $singlePost['owner']; ?><br>
+                                    <h4 class=""><a href="<?php echo 'profile.php?' . $singlePost['owner']; ?>"><?php echo $singlePost['owner']; ?></a><br>
                                         <small><i class="fa fa-clock-o"
                                                   id="<?php echo 'time' . $postCounter; ?>"></i> <?php echo $singlePost['time']; ?>
                                         </small>
@@ -105,7 +115,7 @@ try {
                                                             src="img/user.png"
                                                             class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <div class="media-body">
-                                                <h4 class="media-heading"><?php echo $singleComment['commentOwner']; ?>
+                                                <h4 class="media-heading"><a href="#"><?php echo $singleComment['commentOwner']; ?></a>
                                                     <br>
                                                     <small>
                                                         <i class="fa fa-clock-o"></i> <?php echo $singleComment['time']; ?>
@@ -128,10 +138,8 @@ try {
                                                 </ul>
                                                 <br>
                                                 <hr>
-
                                             </div>
                                         </div>
-
                                     </div>
                                     <?php
                                 }

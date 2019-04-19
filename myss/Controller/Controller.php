@@ -35,9 +35,15 @@ class Controller
         return $dtoUser->getUser();
     }
 
-    public function getPosts($username)
+    public function getProfile($username)
     {
-        $dtoPost_Comment_Tag = $this->daoPost_Comment_Tag->getPosts($username);
+        $dtoUser = $this->daoUser->getProfile($username);
+        return $dtoUser->getUser();
+    }
+
+    public function getPosts($username, $visibility)
+    {
+        $dtoPost_Comment_Tag = $this->daoPost_Comment_Tag->getPosts($username, $visibility);
         return $dtoPost_Comment_Tag->getPosts();
     }
 
@@ -59,9 +65,19 @@ class Controller
         return $dtoUser->getUser();
     }
 
-    public function registerNewUser($username, $email, $password, $name, $birthday)
+    public function registerNewUser($username, $email, $password, $name, $birthday, $userImage)
     {
-        $this->daoUser->createNewUser($username, $email, $password, $name, $birthday);
+        $this->daoUser->createNewUser($username, $email, $password, $name, $birthday, $userImage);
+    }
+
+    public function followUser($fromUser, $toUser)
+    {
+        $this->daoUser->followUser($fromUser, $toUser);
+    }
+
+    public function ifFollowing($fromUser, $toUser)
+    {
+        return $this->daoUser->ifFollowing($fromUser, $toUser);
     }
 
     function register($data)
@@ -72,7 +88,9 @@ class Controller
                 (!empty($data['password'])) &&
                 (!empty($data['name'])) &&
                 (!empty($data['birthday']))) {
-
+                if (empty($data['userImage'])){
+                    return 'Please upload an imagen for your profile.';
+                }
 
                 if ($this->isUsernameTaken($data['username']) == false) {
                     if ($this->isEmailTaken($data['email']) == false) {
@@ -80,11 +98,13 @@ class Controller
 
                             $password = password_hash($data['password'], PASSWORD_BCRYPT);
 
-                            $this->registerNewUser($data['username'],
+                            $this->registerNewUser(
+                                $data['username'],
                                 $data['email'],
                                 $password,
                                 $data['name'],
-                                $data['birthday']);
+                                $data['birthday'],
+                                $data['userImage']);
 
                             return "Register successful.";
 
@@ -92,11 +112,56 @@ class Controller
                             return "Cannot register. The email is invalid.";
                         }
                     } else {
-                        return "Cannot register. The email has been taken";
+                        return "Cannot register. The email has been taken.";
                     }
                 } else {
                     return "Cannot register. The username has been taken.";
                 }
+            } else {
+                return "Missing data.";
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    function login($data){
+        try {
+            if (!empty($data['email']) &&
+                !empty($data['password'])) {
+
+                $cursor = $this->getUser($data['email']);
+
+                if ($cursor->getCount() != 0) {
+
+                    $personalInformation = array();
+                    $resultingDocuments = array();
+
+                    foreach ($cursor as $key => $value) {
+                        $resultingDocuments [$key] = $value;
+                        $personalInformation['username'] = $resultingDocuments [$key]->get('username');
+                        $personalInformation['userKey'] = $resultingDocuments [$key]->get('key');
+                        $personalInformation['name'] = $resultingDocuments [$key]->get('name');
+                        $personalInformation['email'] = $resultingDocuments [$key]->get('email');
+                        $personalInformation['password'] = $resultingDocuments [$key]->get('password');
+                    }
+
+                    if (password_verify($data['password'], $personalInformation['password'])) {
+                        $_SESSION['username'] = $personalInformation['username'];
+                        $_SESSION['userKey'] = $personalInformation['userKey'];
+                        $_SESSION['name'] = $personalInformation['name'];
+                        $_SESSION['email'] = $personalInformation['email'];
+
+                        return "Login succesful.";
+
+                    } else {
+                        return 'Incorrect password.';
+                    }
+                } else {
+                    return 'The user is not registered.';
+                }
+            } else {
+                return 'Missing data.';
             }
         } catch (Exception $e) {
             return $e->getMessage();

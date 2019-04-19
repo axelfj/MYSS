@@ -2,23 +2,23 @@
     overflow: hidden;
     background-color: #333;
     position: fixed;
-    z-index:1;
+    z-index: 1;
     top: 0;
-    width: 100%;    
+    width: 100%;
     border-bottom: 1px solid #DDDEDE;
     -webkit-box-shadow: 4px 4px 4px rgba(0, 35, 71, 0.1);
-    -moz-box-shadow:    4px 4px 4px rgba(0, 35, 71, 0.1);
-    box-shadow:         4px 4px 4px rgba(0, 35, 71, 0.1);
+    -moz-box-shadow: 4px 4px 4px rgba(0, 35, 71, 0.1);
+    box-shadow: 4px 4px 4px rgba(0, 35, 71, 0.1);
 }
 
 .static-navbar a:hover {
-  color: rgb(56, 164, 255);
+    color: rgb(56, 164, 255);
 }
 
 .form-container {
     box-shadow: 0px 20px 30px rgba(0, 35, 71, 0.1);
     background: #ffffff;
-    height:480px;
+    height: 480px;
 }
 
 /*==============================*/
@@ -27,211 +27,241 @@
 
 .userprofile {
     width: 100%;
-	float: left;
-	clear: both;
-	margin: 40px auto;    
+    float: left;
+    clear: both;
+    margin: 40px auto;
 }
+
 .userprofile .userpic {
-	height: 100px;
-	width: 100px;
-	clear: both;
-	margin: 0 auto;
-	display: block;
-	border-radius: 100%;
-	box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-	-moz-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-	-webkit-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-	-ms-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-	position: relative; 
+    height: 100px;
+    width: 100px;
+    clear: both;
+    margin: 0 auto;
+    display: block;
+    border-radius: 100%;
+    box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
+    -ms-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
+    position: relative;
 }
+
 .userprofile .userpic .userpicimg {
-	height: auto;
-	width: 100%;
-	border-radius: 100%;
+    height: auto;
+    width: 100%;
+    border-radius: 100%;
 }
+
 .username {
-	font-weight: 400;
-	font-size: 20px;
-	line-height: 20px;
-	color: #000000;
-	margin-top: 20px;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 20px;
+    color: #000000;
+    margin-top: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-.username+p {
-	color: #607d8b;
-	font-size: 13px;
-	line-height: 15px;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
+
+.username + p {
+    color: #607d8b;
+    font-size: 13px;
+    line-height: 15px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
+
 .settingbtn {
-	height: 30px;
-	width: 30px;
-	border-radius: 30px;
-	display: block;
-	position: absolute;
-	bottom: 0px;
-	right: 0px;
-	line-height: 30px;
-	vertical-align: middle;
-	text-align: center;
-	padding: 0;
-	box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
-	-moz-box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
-	-webkit-box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
-	-ms-box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    line-height: 30px;
+    vertical-align: middle;
+    text-align: center;
+    padding: 0;
+    box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
+    -ms-box-shadow: 0px 2px 5px 0 rgba(0, 0, 0, 0.15);
 }
+
 .userprofile.small {
-	width: auto;
-	clear: both;
-	margin: 0px auto;
+    width: auto;
+    clear: both;
+    margin: 0px auto;
 }
+
 .userprofile.small .userpic {
-	height: 40px;
-	width: 40px;
-	margin: 0 10px 0 0;
-	display: block;
-	border-radius: 100%;
-	box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-	-moz-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-	-webkit-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-	-ms-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
-	position: relative;
-	float: left;
+    height: 40px;
+    width: 40px;
+    margin: 0 10px 0 0;
+    display: block;
+    border-radius: 100%;
+    box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
+    -ms-box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.15);
+    position: relative;
+    float: left;
 }
+
 .userprofile.small .textcontainer {
-	float: left;
-	max-width: 100px;
-	padding: 0
+    float: left;
+    max-width: 100px;
+    padding: 0
 }
+
 .userprofile.small .userpic .userpicimg {
-	min-height: 100%;
-	width: 100%;
-	border-radius: 100%;
+    min-height: 100%;
+    width: 100%;
+    border-radius: 100%;
 }
+
 .userprofile.small .username {
-	font-weight: 400;
-	font-size: 16px;
-	line-height: 21px;
-	color: #000000;
-	margin: 0px;
-	float: left;
-	width: 100%;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+    color: #000000;
+    margin: 0px;
+    float: left;
+    width: 100%;
 }
-.userprofile.small .username+p {
-	color: #607d8b;
-	font-size: 13px;
-	float: left;
-	width: 100%;
-	margin: 0;
+
+.userprofile.small .username + p {
+    color: #607d8b;
+    font-size: 13px;
+    float: left;
+    width: 100%;
+    margin: 0;
 }
+
 /*==============================*/
 /*====== Social Profile css =====*/
 /*==============================*/
 .countlist h3 {
-	margin: 0;
-	font-weight: 400;
-	line-height: 28px;
+    margin: 0;
+    font-weight: 400;
+    line-height: 28px;
 }
+
 .countlist {
-	text-transform: uppercase
+    text-transform: uppercase
 }
+
 .countlist li {
-	padding: 15px 30px 15px 0;
-	font-size: 14px;
-	text-align: left;
+    padding: 15px 30px 15px 0;
+    font-size: 14px;
+    text-align: left;
 }
+
 .countlist li small {
-	font-size: 12px;
-	margin: 0
+    font-size: 12px;
+    margin: 0
 }
+
 .followbtn {
-	float: right;
-	margin: 22px;
+    float: right;
+    margin: 22px;
 }
+
 .userprofile.social {
-	background: url(https://png.pngtree.com/thumb_back/fw800/back_pic/04/07/00/225810c9316cc30.jpg) no-repeat top center;
-	background-size: 100%;
-	padding: 50px 0;
-	margin: 0
+    background: url(https://png.pngtree.com/thumb_back/fw800/back_pic/04/07/00/225810c9316cc30.jpg) no-repeat top center;
+    background-size: 100%;
+    padding: 50px 0;
+    margin: 0
 }
+
 .userprofile.social .username {
-	color: #ffffff
+    color: #ffffff
 }
-.userprofile.social .username+p {
-	color: #ffffff;
-	opacity: 0.8
+
+.userprofile.social .username + p {
+    color: #ffffff;
+    opacity: 0.8
 }
+
 .postbtn {
-	position: absolute;
-	right: 5px;
-	top: 5px;
-	z-index: 9
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 9
 }
+
 .status-upload {
-	width: 100%;
-	float: left;
-	margin-bottom: 15px
+    width: 100%;
+    float: left;
+    margin-bottom: 15px
 }
+
 .posttimeline .panel {
-	margin-bottom: 15px
+    margin-bottom: 15px
 }
+
 .commentsblock {
-	background: #f8f9fb;
+    background: #f8f9fb;
 }
+
 .nopaddingbtm {
-	margin-bottom: 0
+    margin-bottom: 0
 }
+
 /*==============================*/
 /*====== Recently connected  heading =====*/
 /*==============================*/
 .memberblock {
-	width: 100%;
-	float: left;
-	clear: both;
-	margin-bottom: 15px
-}
-.member {
-	width: 24%;
-	float: left;
-	margin: 2px 1% 2px 0;
-	background: #ffffff;
-	border: 1px solid #d8d0c3;
-	padding: 3px;
-	position: relative;
-	overflow: hidden;
-	border-radius: 50%;
-}
-.memmbername {
-	position: absolute;
-	bottom: -30px;
-	background: rgba(0, 0, 0, 0.8);
-	color: #ffffff;
-	line-height: 30px;
-	padding: 0 5px;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	width: 100%;
-	font-size: 11px;
-	transition: 0.5s ease all;
-}
-.member:hover .memmbername {
-	bottom: 0
-}
-.member img {
-	width: 100%;
-	transition: 0.5s ease all;
-}
-.member:hover img {
-	opacity: 0.8;
-	transform: scale(1.2)
+    width: 100%;
+    float: left;
+    clear: both;
+    margin-bottom: 15px
 }
 
-.panel-default>.panel-heading {
+.member {
+    width: 24%;
+    float: left;
+    margin: 2px 1% 2px 0;
+    background: #ffffff;
+    border: 1px solid #d8d0c3;
+    padding: 3px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+.memmbername {
+    position: absolute;
+    bottom: -30px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+    line-height: 30px;
+    padding: 0 5px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    font-size: 11px;
+    transition: 0.5s ease all;
+}
+
+.member:hover .memmbername {
+    bottom: 0
+}
+
+.member img {
+    width: 100%;
+    transition: 0.5s ease all;
+}
+
+.member:hover img {
+    opacity: 0.8;
+    transform: scale(1.2)
+}
+
+.panel-default > .panel-heading {
     color: #607D8B;
     background-color: #ffffff;
     font-weight: 400;
@@ -239,8 +269,6 @@
     border-radius: 0;
     border-color: #e1eaef;
 }
-
-
 
 .btn-circle {
     width: 30px;
@@ -358,7 +386,7 @@
     width: 4px;
     position: relative;
     display: block;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     border-radius: 2px;
     margin: 0 auto;
 }
@@ -369,7 +397,7 @@
     width: 4px;
     position: absolute;
     display: inline-block;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     border-radius: 2px;
     top: -7px;
     left: 0;
@@ -411,73 +439,72 @@
 /*==============================*/
 /*======    Search bar     =====*/
 /*==============================*/
-.blue{
-	background-color: rgb(56, 164, 255);
+.blue {
+    background-color: rgb(56, 164, 255);
 }
 
-.input-group.md-form.form-sm.form-2 input.blue-border  {
-	border-left: 0px;
-	border-right: 0px;
-	border-top: 0px;
-	border-bottom: 2px solid rgb(56, 164, 255);
-	border-radius: 0px;
-	background-color: rgb(248, 249, 250);
+.input-group.md-form.form-sm.form-2 input.blue-border {
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-bottom: 2px solid rgb(56, 164, 255);
+    border-radius: 0px;
+    background-color: rgb(248, 249, 250);
 }
 
 .input-group.md-form.form-sm.form-2 input.blue-border:focus {
-	border-bottom: 2px solid rgb(0, 138, 255);
+    border-bottom: 2px solid rgb(0, 138, 255);
 }
 
 .imagePreview {
-	width: 100%;
-	height: 180px;
-	background-position: center center;
-	background:url(http://cliquecities.com/assets/no-image-e3699ae23f866f6cbdf8ba2443ee5c4e.jpg);
-	background-color:#fff;
-	background-size: cover;
-	background-repeat:no-repeat;
-	display: none;
-	box-shadow:0px -3px 6px 2px rgba(0,0,0,0.2);
-}
-.btn-primary
-{
-	display:block;
-	border-radius:0px;
-	box-shadow:0px 4px 6px 2px rgba(0,0,0,0.2);
-	margin-top:-5px;
-}
-.imgUp
-{
-	margin-bottom:15px;
-}
-.del
-{
-	position:absolute;
-	top:0px;
-	right:15px;
-	width:30px;
-	height:30px;
-	text-align:center;
-	line-height:30px;
-	background-color:rgba(255,255,255,0.6);
-	cursor:pointer;
-}
-.imgAdd
-{
-	width:30px;
-	height:30px;
-	border-radius:50%;
-	background-color:#4bd7ef;
-	color:#fff;
-	box-shadow:0px 0px 2px 1px rgba(0,0,0,0.2);
-	text-align:center;
-	line-height:30px;
-	margin-top:0px;
-	cursor:pointer;
-	font-size:15px;
+    width: 100%;
+    height: 180px;
+    background-position: center center;
+    background: url(http://cliquecities.com/assets/no-image-e3699ae23f866f6cbdf8ba2443ee5c4e.jpg);
+    background-color: #fff;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: none;
+    box-shadow: 0px -3px 6px 2px rgba(0, 0, 0, 0.2);
 }
 
-.commentDiv
-{
-	display: none;
+.btn-primary {
+    display: block;
+    border-radius: 0px;
+    box-shadow: 0px 4px 6px 2px rgba(0, 0, 0, 0.2);
+    margin-top: -5px;
+}
+
+.imgUp {
+    margin: 15px;
+}
+
+.del {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+}
+
+.imgAdd {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #4bd7ef;
+    color: #fff;
+    box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    line-height: 30px;
+    margin-top: 0px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.commentDiv {
+    display: none;
 }

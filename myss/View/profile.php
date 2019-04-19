@@ -14,6 +14,13 @@ $dtoPost = new DTOPost_Comment_Tag();
 
 date_default_timezone_set('America/Costa_Rica');
 
+$usernameVisited = getUserName();
+$dtoUser = $controller->getProfile($usernameVisited);
+
+if (isset($_POST['followbtn'])) {
+    $controller->followUser($_SESSION['userKey'], $dtoUser['key']);
+}
+
 if (isset($_POST['postbtn'])) {
     try {
         if (!empty($_POST['title']) && !empty($_POST['post'])) {
@@ -27,7 +34,7 @@ if (isset($_POST['postbtn'])) {
 
             $correctPost = verifyImageUpload($post);
 
-            if(isset($correctPost)){
+            if (isset($correctPost)) {
                 $dtoPost->setPosts($correctPost);
                 $controller->createNewPost($dtoPost);
                 unset($post);
@@ -38,9 +45,26 @@ if (isset($_POST['postbtn'])) {
     }
 }
 
+// Verifies if an user is trying to visit another user's profile.
+// If that occurs, then this function will return the username of the
+// user that is getting visited. If not, then it will return false.
+function getUserName()
+{
+    $url = $_SERVER['REQUEST_URI']; // This url has the username after a '?' character.
+    $posStart = strpos($url, '?');
+    $posEnd = strlen($url);
+
+    if ($posStart != false) {
+        $username = substr($url, $posStart + 1, $posEnd - $posStart);
+        return $username;
+    }
+    return false;
+}
+
 // This function verifies if just an image is going to be uploaded. If that's true,
 // the destination path to the image will be set to $post array.
-function verifyImageUpload($post) {
+function verifyImageUpload($post)
+{
     $imageName = $_FILES['postImage']['name'];
     $imageTempName = $_FILES['postImage']['tmp_name'];
 
@@ -77,16 +101,51 @@ function verifyImageUpload($post) {
                     <h3 class="username" style="font-size: 18px;">
                         <?php
                         if (isset($_SESSION['name'])) {
-                            echo $_SESSION['name'];
+                            switch ($usernameVisited) {
+                                case $_SESSION['username']:
+                                    echo $_SESSION['name'];
+                                    break;
+                                case false:
+                                    echo $_SESSION['name'];
+                                    break;
+                                case !false:
+                                    echo $dtoUser['name'];
+                                    break;
+                                default:
+                                    echo $_SESSION['name'];
+                                    break;
+                            }
                         } else {
-                            echo 'Name Last-Name';
+                            switch ($usernameVisited) {
+                                case !false:
+                                    echo $usernameVisited;
+                                    break;
+                                default:
+                                    echo 'Name Last-Name';
+                            }
                         }
                         ?></h3>
                     <p><?php
                         if (isset($_SESSION['username'])) {
-                            echo '@' . $_SESSION['username'];
+                            switch ($usernameVisited) {
+                                case false:
+                                    echo '@' . $_SESSION['username'];
+                                    break;
+                                case !false:
+                                    echo '@' . $usernameVisited;
+                                    break;
+                                default:
+                                    echo $_SESSION['username'];
+                                    break;
+                            }
                         } else {
-                            echo '@username';
+                            switch ($usernameVisited) {
+                                case !false:
+                                    echo $usernameVisited;
+                                    break;
+                                default:
+                                    echo '@username';
+                            }
                         }
                         ?></p>
                 </div>
@@ -108,9 +167,26 @@ function verifyImageUpload($post) {
                             </h3>
                         </li>
                     </ul>
+                    <?php
+                    $userFollowingUser = $controller->ifFollowing($_SESSION['userKey'], $dtoUser['key']);
+
+                    if ($usernameVisited == false || $usernameVisited == $_SESSION['username']) { ?>
                     <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" style="margin-top: 25px;">
-                        <!--<i class="fas fa-cog"></i>-->Follow
+                        <i class="fas fa-cog"></i>
                     </button>
+                    <?php } else if(!$userFollowingUser){?>
+                    <form method="post">
+                        <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick="prueba()" style="margin-top: 25px;">
+                            <i class="fas fa-user-plus"></i> Follow
+                        </button>
+                    </form>
+                    <?php } else {?>
+                        <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick="prueba()" style="margin-top: 25px;">
+                            <i class="fas fa-user-check"></i> Following
+                        </button>
+                    <?php
+                    }
+                    ?>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -118,30 +194,40 @@ function verifyImageUpload($post) {
         <!-- /.col-md-12 -->
 
         <div class="col-md-8 col-sm-12 pull-left posttimeline">
+            <?php if ($usernameVisited == false || $usernameVisited == $_SESSION['username']) { ?>
             <div class="container" style="background-color: white;"><br>
                 <div class="container" style="background-color: white;">
                     <div class="container" style="background-color: white;">
                         <form action="profile.php" method="post" enctype="multipart/form-data">
                             <h4>New post</h4>
                             <hr>
-                            <input id="title" name="title" type="text" class="form-control" required
-                                   placeholder="Title" value="<?php if(isset($post)){echo $post['title'];}?>"><br>
+                            <input id="title" name="title" type="text" class="form-control" required placeholder="Title"
+                                   value="<?php if (isset($post)) {
+                                       echo $post['title'];
+                                   } ?>"><br>
                             <div class="row" style="">
                                 <div class="col-md-4"></div>
                                 <div class="col-md-4 imgUp">
                                     <div class="imagePreview"></div>
                                     <label class="btn btn-primary"><i class="fas fa-upload"></i>
-                                        Upload photo<input id="postImage" name="postImage" type="file" accept='image/*'
-                                                           class="uploadFile img" value="Upload Photo"
-                                                           style="width: 0px;height: 0px;overflow: hidden;">
+                                        Upload photo
+                                        <input id="postImage" name="postImage" type="file" accept='image/*'
+                                               class="uploadFile img" value="Upload Photo"
+                                               style="width: 0px;height: 0px;overflow: hidden;">
                                     </label>
                                 </div><!-- col-2 -->
                                 <div class="col-md-4"></div>
                             </div><!-- row -->
                             <textarea id="post" name="post" type="text" class="form-control" required
-                                      placeholder="What are you doing right now?" style="resize: none;"><?php if(isset($post)){echo $post['post'];}?></textarea>
+                                      placeholder="What are you doing right now?"
+                                      style="resize: none;"><?php if (isset($post)) {
+                                    echo $post['post'];
+                                } ?></textarea>
                             <br>
-                            <input id="tagsPost" name="tagsPost" type="text" data-role="tagsinput" placeholder="Tags" value="<?php if(isset($post)){echo $post['tagsPost'];}?>">
+                            <input id="tagsPost" name="tagsPost" type="text" data-role="tagsinput" placeholder="Tags"
+                                   value="<?php if (isset($post)) {
+                                       echo $post['tagsPost'];
+                                   } ?>">
                             <hr>
                             <div class="row">
                                 <div class="col-md-2">
@@ -162,8 +248,10 @@ function verifyImageUpload($post) {
                     <!-- Status Upload  -->
                 </div>
             </div>
-            <br>
-            <h1 class="page-header small" style="color: grey;">Your posts</h1><br>
+                <br>
+                <h1 class="page-header small" style="color: grey;">Your posts</h1><br>
+            <?php }?>
+
             <?php include_once "post.inc.php"; ?>
         </div>
         <div class="col-md-4 col-sm-12 pull-right">
