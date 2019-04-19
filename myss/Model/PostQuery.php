@@ -271,7 +271,7 @@ class PostQuery
                 RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, destination: u.destination, tagsPost: u.tagsPost, 
                 visibility: u.visibility, time: u.time, likes: u.likes}'
                 => ['tagsPosts' => "%".$tag]];
-            
+            return readCollection($query);
         } catch (Exception $e) {
             $e->getMessage();
         }
