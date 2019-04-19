@@ -38,13 +38,26 @@ try {
 
             // If we're in the profile, then we must look for his posts.
             if ($fileName == 'profile.php') {
+
+                // This checks if he's not visiting himself.
+                // The var $usernameVisited is declared in profile.php.
                 if($usernameVisited != false && $usernameVisited != $_SESSION['username']){
-                    $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, 'Public');
+
+                    // Checks if the user logged in is following
+                    if($controller->ifFollowing($_SESSION['username'], $usernameVisited)){
+                        $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, '');
+                    }
+                    else{
+                        $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, 'Public');
+                    }
                 }
                 else{
                     $dtoPost_Comment_Tag = $controller->getPosts($_SESSION['username'], '');
                 }
-            } else {
+            }
+
+            // So, he's at the index.
+            else {
                 $dtoPost_Comment_Tag = $controller->getPosts(null, '');
             }
             $postCounter = 0;
