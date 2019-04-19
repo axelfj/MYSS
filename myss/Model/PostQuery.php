@@ -265,12 +265,13 @@ class PostQuery
     public static function filterPostByTag($tag)
     {
         try {
+            $tag .= '%';
             $query = [
                 'FOR u IN post 
                 FILTER u.tagsPosts LIKE @tag
-                RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, destination: u.destination, tagsPost: u.tagsPost, 
-                visibility: u.visibility, time: u.time, likes: u.likes}'
-                => ['tag' => $tag . "%"]];
+                RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, destination: u.destination, 
+                tagsPost: u.tagsPost, visibility: u.visibility, time: u.time, likes: u.likes}'
+                => ['tag' => $tag]];
             $publicPosts = PostQuery::postsIntoArray($query);
             return $publicPosts;
         } catch (Exception $e) {
