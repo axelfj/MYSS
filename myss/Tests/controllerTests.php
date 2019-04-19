@@ -201,7 +201,7 @@ class controllerTests extends TestCase
                 $this->assertEquals("Incorrect password.", $message);
                 break;
             case("Missing"):
-                $this->assertEquals("Missing data.", $message);
+                $this->assertEquals("", $message);
                 break;
 
         }

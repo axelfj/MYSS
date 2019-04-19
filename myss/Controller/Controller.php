@@ -161,7 +161,7 @@ class Controller
                     return 'The user is not registered.';
                 }
             } else {
-                return 'Missing data.';
+                return '';
             }
         } catch (Exception $e) {
             return $e->getMessage();
