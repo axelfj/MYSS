@@ -14,36 +14,8 @@ $database = connect();
 
 try{
 
-    // Var that saves the input.
-    $search = '';
-    if ($_POST['search'] != ''){
-        $search = $_POST['search'] . '%';
-    }
-
-    // Makes an AQL query to look for the posts with the tags.
-    $query = 'FOR x IN post FILTER x.tagsPost LIKE @tags RETURN x._id';
-
-    // Creates an Statement so we can bind the vars.
-    // He will look for the tags in the collection user with the tags that we put in the input.
-    $statement = new ArangoStatement(
-        $database,
-        array(
-            "query" => $query,
-            "count" => true,
-            "batchSize" => 1,   // It is suppose to only bring one.
-            "sanitize" => true,
-            "bindVars" => array("tags" => $search)
-        )
-    );
-
-    // Executes the query.
-    $cursor = $statement->execute();
-
-    // And saves the result in an array.
-    $resultingDocuments = array();
-
-    var_dump($cursor->getCount());
-    var_dump($search);
+    $controller = new Controller();
+    $controller
 
 
 
