@@ -1,19 +1,19 @@
-<?php session_start();
+<?php
 
-// The connection to the database and dependencies.
-require_once "../Controller/connection.php";
+session_start();
+
 require_once "../Controller/Controller.php";
-require_once "../Controller/arangodb-php/lib/ArangoDBClient/Statement.php";
-require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
-require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
 
-try{
+try {
     $controller = new Controller();
     $cursor = $controller->filterPostsByTag($_POST['search']);
+    var_dump($cursor);
 
-} catch (Exception $e){
+
+} catch (Exception $e) {
     throwException($e);
 }
+
 ?>
 
 <body style="background-color: #E7E7E9;" class="profile-page">
@@ -30,7 +30,7 @@ try{
             <ul class="navbar-nav text-left">
                 <li class="nav-item">
                     <div class="input-group md-form form-sm form-2 pl-0">
-                        <form class="search-form" action="#">
+                        <form class="search-form" action="">
                             <input class="form-control my-0 py-1 blue-border" type="text" placeholder="Search"
                                    aria-label="Search" name="search" id="search">
                         </form>
@@ -42,7 +42,6 @@ try{
                 </li>
             </ul>
         </div>
-
         <div class="collapse navbar-collapse flex-grow-0 ml-auto" id="navbarSupportedContent">
             <ul class="navbar-nav text-right" style="padding-right:400px;">
                 <li class="nav-item">
@@ -57,7 +56,6 @@ try{
 </header>
 
 <br><br><br><br>
-<?php var_dump($cursor);?>
 <!--================ End Header Area =================-->
 
 
