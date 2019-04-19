@@ -58,12 +58,14 @@ try {
                         $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, 'Public');
                     }
                 }
+
+
                 else{
                     $dtoPost_Comment_Tag = $controller->getPosts($_SESSION['username'], '');
                 }
             }
 
-            // So, he's at the index.
+            // This is the query that means that he's at the index.
             else {
                 $dtoPost_Comment_Tag = $controller->getPosts(null, '');
             }
