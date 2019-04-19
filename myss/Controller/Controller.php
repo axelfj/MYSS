@@ -118,7 +118,7 @@ class Controller
                     return "Cannot register. The username has been taken.";
                 }
             } else {
-                return "Missing data.";
+                return "";
             }
         } catch (Exception $e) {
             return $e->getMessage();
