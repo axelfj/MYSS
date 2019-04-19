@@ -48,7 +48,7 @@ class DAOUser
 
     public function ifFollowing($fromUser, $toUser)
     {
-        return UserQuery::ifFolowing($fromUser, $toUser);
+        return UserQuery::ifFollowing($fromUser, $toUser);
     }
 
 }

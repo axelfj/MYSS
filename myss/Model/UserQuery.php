@@ -96,7 +96,8 @@ class UserQuery
     }
 
     // Checks if an user is following another one.
-    public static function ifFolowing($fromUser, $toUser)
+    // We must send the keys.
+    public static function ifFollowing($fromUser, $toUser)
     {
         $query = ['
         FOR x IN follows 
