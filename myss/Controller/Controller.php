@@ -16,7 +16,7 @@ class Controller
 
     public function createNewPost($dtoPost)
     {
-        $this->daoPost_Comment_Tag->createNewPost($dtoPost);
+        return $this->daoPost_Comment_Tag->createNewPost($dtoPost);
     }
 
     public function createNewComment($dtoComment, $postKey)
