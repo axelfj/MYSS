@@ -2,25 +2,17 @@
 
 // The connection to the database and dependencies.
 require_once "../Controller/connection.php";
+require_once "../Controller/Controller.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Statement.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
 
-// Calls the functions of Arango to manage Collections, Documents, Etc.
-use ArangoDBClient\Statement as ArangoStatement;
-
-// Creates a connection to the database.
-$database = connect();
-
 try{
-
     $controller = new Controller();
-    $controller
-
-
+    $cursor = $controller->filterPostsByTag($_POST['search']);
 
 } catch (Exception $e){
-    echo 'Algo falló.';
+    throwException($e);
 }
 ?>
 
@@ -34,7 +26,6 @@ try{
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse flex-grow-0 ml-auto" id="navbarSupportedContent">
             <ul class="navbar-nav text-left">
                 <li class="nav-item">
@@ -63,20 +54,10 @@ try{
             </ul>
         </div>
     </nav>
-
 </header>
-<br><br><br><br>
-<!--================ End Header Area =================-->
 
-<!--================ Pop-Up Post Area =================-->
-<div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-            </div>
-        </div>
-    </div>
-</div>
+<br><br><br><br>
+<?php var_dump($cursor);?>
+<!--================ End Header Area =================-->
 
 
