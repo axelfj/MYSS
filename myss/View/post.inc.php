@@ -43,8 +43,15 @@ try {
                 // The var $usernameVisited is declared in profile.php.
                 if($usernameVisited != false && $usernameVisited != $_SESSION['username']){
 
-                    // Checks if the user logged in is following
-                    if($controller->ifFollowing($_SESSION['username'], $usernameVisited)){
+                    // Checks if they're friends.
+                    // We must obtain his key to check with the function "ifFollowing".
+                    $informationUsernameVisited = $controller->getProfile($usernameVisited);
+                    $idUsernameVisited          = $informationUsernameVisited['key'];
+
+                    // We proceed to see if they're friends.
+                    if($controller->ifFollowing($_SESSION['userKey'], $idUsernameVisited)){
+
+                        // This brings all the posts of that user, but only in the profile of the person.
                         $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, '');
                     }
                     else{
