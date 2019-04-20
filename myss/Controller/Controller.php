@@ -163,6 +163,7 @@ class Controller
                         $personalInformation['name'] = $resultingDocuments [$key]->get('name');
                         $personalInformation['email'] = $resultingDocuments [$key]->get('email');
                         $personalInformation['password'] = $resultingDocuments [$key]->get('password');
+                        $personalInformation['userImage'] = $resultingDocuments [$key]->get('userImage');
                     }
 
                     if (password_verify($data['password'], $personalInformation['password'])) {
@@ -173,7 +174,6 @@ class Controller
                         $_SESSION['userImage'] = $personalInformation['userImage'];
 
                         return "Login successful.";
-
                     } else {
                         return 'Incorrect password.';
                     }
