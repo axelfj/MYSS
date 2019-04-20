@@ -170,8 +170,9 @@ class Controller
                         $_SESSION['userKey'] = $personalInformation['userKey'];
                         $_SESSION['name'] = $personalInformation['name'];
                         $_SESSION['email'] = $personalInformation['email'];
+                        $_SESSION['userImage'] = $personalInformation['userImage'];
 
-                        return "Login succesful.";
+                        return "Login successful.";
 
                     } else {
                         return 'Incorrect password.';
