@@ -111,15 +111,20 @@ try {
 
                             <?php
                             if (isset($comments)) {
-                                foreach ($comments as $singleComment) { ?>
+                                foreach ($comments as $singleComment) {
+                                    $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
+                                    ?>
                                     <div class="col-md-12 commentsblock border-top commentDiv">
                                         <div class="media">
-                                            <div class="media-left"><a href="javascript:void(0)"> <img
-                                                            alt="64x64"
-                                                            src="img/user.png"
-                                                            class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <div class="media-left"><a href="javascript:void(0)">
+                                                    <img <?php
+                                                    echo "src= " . $imageCommentOwner['userImage'];
+                                                    ?> alt="" class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <div class="media-body">
-                                                <h4 class="media-heading"><a href="#"><?php echo $singleComment['commentOwner']; ?></a>
+                                                <h4 class="media-heading"><a href="#">
+                                                        <a href="<?php echo 'profile.php?' . $singleComment['commentOwner']; ?>">
+                                                            <?php echo $singleComment['commentOwner']; ?>
+                                                        </a>
                                                     <br>
                                                     <small>
                                                         <i class="fa fa-clock-o"></i> <?php echo $singleComment['time']; ?>
@@ -134,7 +139,7 @@ try {
                                                             0
                                                         </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <li><a href="#" title="" onclick="toggleDivAnswer('answerDiv');" class="prevent"><i class="far fa-comment-alt"></i>
-                                                            <?php echo 'View comments ('  . ')'; ?>
+                                                            <?php echo 'View comments (' . ')'; ?>
                                                         </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <li><a href="#" title="" class="prevent"><i class="fas fa-tags"></i>
                                                             <?php echo str_replace(',', ', ', $singleComment['tagsComment']); ?>
