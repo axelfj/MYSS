@@ -56,7 +56,7 @@ class UserQuery
         $query = ['
         FOR x IN user 
         FILTER x.email == @email 
-        RETURN {password: x.password, key: x._key, username: x.username, name: x.name, email: x.email}' => ['email' => $email]];
+        RETURN {password: x.password, key: x._key, username: x.username, name: x.name, email: x.email, userImage: x.userImage}' => ['email' => $email]];
         $cursor = readCollection($query);
         return $cursor;
     }
@@ -66,7 +66,7 @@ class UserQuery
         $query = ['
         FOR x IN user 
         FILTER x.username == @username
-        RETURN {key: x._key, username: x.username, name: x.name, email: x.email}' => ['username' => $username]];
+        RETURN {key: x._key, username: x.username, name: x.name, email: x.email, userImage: x.userImage}' => ['username' => $username]];
 
         $cursor = readCollection($query);
         $resultingDocuments = array();
@@ -80,6 +80,7 @@ class UserQuery
                 $profile['name'] = $resultingDocuments[$key]->get('name');
                 $profile['email'] = $resultingDocuments[$key]->get('email');
                 $profile['key'] = $resultingDocuments[$key]->get('key');
+                $profile['userImage'] = $resultingDocuments[$key]->get('userImage');
             }
             return $profile;
         }

@@ -88,8 +88,26 @@ class Controller
                 (!empty($data['password'])) &&
                 (!empty($data['name'])) &&
                 (!empty($data['birthday']))) {
-                if (empty($data['userImage'])){
-                    return 'Please upload an imagen for your profile.';
+
+                $imageName = $_FILES['userImage']['name'];
+                $imageTempName = $_FILES['userImage']['tmp_name'];
+
+                if ($imageName != "") {
+
+                    $type = explode('.', $imageName);
+                    $type = strtolower($type[count($type) - 1]);
+
+                    if (in_array($type, array('gif', 'jpg', 'jpeg', 'png'))) {
+
+                        $userImage = 'profilePictures/' . uniqid(rand()) . '.' . $type;
+                        $data['userImage'] = $userImage;
+                        move_uploaded_file($imageTempName, $userImage);
+                    } else {
+                        return '<div class="alert alert-danger" role="alert">You just can upload ".gif", ".jpg", ".jpeg" and ".png" files</div>';
+                    }
+                    
+                } else {
+                    $data['userImage'] = 'img/user.png';
                 }
 
                 if ($this->isUsernameTaken($data['username']) == false) {
@@ -125,7 +143,8 @@ class Controller
         }
     }
 
-    function login($data){
+    function login($data)
+    {
         try {
             if (!empty($data['email']) &&
                 !empty($data['password'])) {
@@ -144,6 +163,7 @@ class Controller
                         $personalInformation['name'] = $resultingDocuments [$key]->get('name');
                         $personalInformation['email'] = $resultingDocuments [$key]->get('email');
                         $personalInformation['password'] = $resultingDocuments [$key]->get('password');
+                        $personalInformation['userImage'] = $resultingDocuments [$key]->get('userImage');
                     }
 
                     if (password_verify($data['password'], $personalInformation['password'])) {
@@ -151,9 +171,9 @@ class Controller
                         $_SESSION['userKey'] = $personalInformation['userKey'];
                         $_SESSION['name'] = $personalInformation['name'];
                         $_SESSION['email'] = $personalInformation['email'];
+                        $_SESSION['userImage'] = $personalInformation['userImage'];
 
-                        return "Login succesful.";
-
+                        return "Login successful.";
                     } else {
                         return 'Incorrect password.';
                     }
