@@ -334,12 +334,40 @@ class PostQuery
                     array_push($userPosts, $post);
                 }
 
-                return $userPosts;
+                $findedPosts = array();
+
+                foreach ($userPosts as $key => $value){
+                    $postKey = $userPosts[$key]["from"];
+
+                    $postKey = substr($postKey,5);
+                    $post = self::getPostFromKey($postKey);
+
+                    array_push($findedPosts, $post);
+                }
+                return $findedPosts;
 
 
             }
         }catch (Exception $exception){
             $exception->getMessage();
+        }
+    }
+
+    public static function getPostFromKey($key){
+        try{
+            $query = [
+                '
+                FOR u IN post 
+                FILTER u._key == @key 
+                SORT u.time DESC 
+                RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, destination: u.destination,
+                tagsPost: u.tagsPost, visibility: u.visibility, time: u.time, likes: u.likes}'
+            => ['key' => $key]];
+            $posts = PostQuery::postsIntoArray($query);
+
+            return $posts;
+        }catch (Exception $e){
+            $e->getMessage();
         }
     }
 }
