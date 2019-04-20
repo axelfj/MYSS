@@ -6,6 +6,8 @@ require_once "../Controller/Controller.php";
 
 try {
     $controller = new Controller();
+    $cursor= 12345;
+    if(!empty($_POST['search']))
     $cursor = $controller->filterPostsByTag($_POST['search']);
     var_dump($cursor);
 
