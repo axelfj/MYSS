@@ -91,7 +91,6 @@ function verifyImageUpload($post)
 }
 
 ?>
-
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center ">
@@ -99,12 +98,16 @@ function verifyImageUpload($post)
                 <div class="userprofile social container" style="background-color: white;">
                     <div class="userpic">
                         <img <?php
-                        if (isset($dtoUser)) {
-                            echo "src = " . $dtoUser['userImage'];
-                        } else {
-                            echo "src = " . $_SESSION['userImage'];
+                        if ($usernameVisited != false) {
+                            echo "src= " . $dtoUser['userImage'];
                         }
-                        ?> alt="" class="userpicimg"></div>
+                        else{
+                            echo "src= " . $_SESSION['userImage'];
+                        }
+
+                        ?>
+                                alt="" class="userpicimg">
+                    </div>
                     <h3 class="username" style="font-size: 18px;">
                         <?php
                         if (isset($_SESSION['name'])) {
