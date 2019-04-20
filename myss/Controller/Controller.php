@@ -88,26 +88,25 @@ class Controller
                 (!empty($data['password'])) &&
                 (!empty($data['name'])) &&
                 (!empty($data['birthday']))) {
-                if (!empty($data['userImage'])) {
 
-                    $imageName = $data['userImage'];
-                    $imageTempName = $data['userImage'];
+                $imageName = $_FILES['userImage']['name'];
+                $imageTempName = $_FILES['userImage']['tmp_name'];
 
-                    if ($imageName != "") {
+                if ($imageName != "") {
 
-                        $type = explode('.', $imageName);
-                        $type = strtolower($type[count($type) - 1]);
+                    $type = explode('.', $imageName);
+                    $type = strtolower($type[count($type) - 1]);
 
-                        if (in_array($type, array('gif', 'jpg', 'jpeg', 'png'))) {
+                    if (in_array($type, array('gif', 'jpg', 'jpeg', 'png'))) {
 
-                            $userImage = '../profilePictures/' . uniqid(rand()) . '.' . $type;
-                            $data['userImage'] = $userImage;
-                            move_uploaded_file($imageTempName, $userImage);
-                        } else {
-                            return '<div class="alert alert-danger" role="alert">You just can upload ".gif", ".jpg", ".jpeg" and ".png" files</div>';
-                        }
+                        $userImage = 'profilePictures/' . uniqid(rand()) . '.' . $type;
+                        $data['userImage'] = $userImage;
+                        move_uploaded_file($imageTempName, $userImage);
+                    } else {
+                        return '<div class="alert alert-danger" role="alert">You just can upload ".gif", ".jpg", ".jpeg" and ".png" files</div>';
                     }
-                } else{
+                    
+                } else {
                     $data['userImage'] = 'img/user.png';
                 }
 
