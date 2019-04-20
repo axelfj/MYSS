@@ -53,6 +53,8 @@ try {
                 foreach ($dtoPost_Comment_Tag as $singlePost) {
                     $comments = $controller->getComments($singlePost['key']);
                     $numberOfComments = ($comments != null) ? sizeof($comments) : 0;
+
+                    $image = $controller->getProfile($singlePost['owner']);
                     ?>
 
                     <div class="panel container" style="background-color: white;"
@@ -63,7 +65,9 @@ try {
                                 <div class="media-body">
                                     <div class="row">
                                         <a href="javascript:void(0)">
-                                            <img src="img/user.png" alt="" class="media-object">
+                                            <img <?php
+                                            echo "src= " . $image['userImage'];
+                                             ?> alt="" class="media-object">
                                         </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <h4 class=""><a href="<?php echo 'profile.php?' . $singlePost['owner']; ?>"><?php echo $singlePost['owner']; ?></a><br>
                                         <small><i class="fa fa-clock-o"
