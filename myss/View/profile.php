@@ -97,7 +97,7 @@ function verifyImageUpload($post)
         <div class="col-md-12 text-center ">
             <div class="panel panel-default container" style="background-color: white;padding-top: 13px;">
                 <div class="userprofile social container" style="background-color: white;">
-                    <div class="userpic"><img src="img/user.png" alt="" class="userpicimg"></div>
+                    <div class="userpic"><img <?php echo $usernameVisited['userImage'];?> alt="" class="userpicimg"></div>
                     <h3 class="username" style="font-size: 18px;">
                         <?php
                         if (isset($_SESSION['name'])) {

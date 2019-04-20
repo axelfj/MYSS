@@ -88,8 +88,27 @@ class Controller
                 (!empty($data['password'])) &&
                 (!empty($data['name'])) &&
                 (!empty($data['birthday']))) {
-                if (empty($data['userImage'])){
-                    return 'Please upload an imagen for your profile.';
+                if (!empty($data['userImage'])) {
+
+                    $imageName = $data['userImage'];
+                    $imageTempName = $data['userImage'];
+
+                    if ($imageName != "") {
+
+                        $type = explode('.', $imageName);
+                        $type = strtolower($type[count($type) - 1]);
+
+                        if (in_array($type, array('gif', 'jpg', 'jpeg', 'png'))) {
+
+                            $userImage = '../profilePictures/' . uniqid(rand()) . '.' . $type;
+                            $data['userImage'] = $userImage;
+                            move_uploaded_file($imageTempName, $userImage);
+                        } else {
+                            return '<div class="alert alert-danger" role="alert">You just can upload ".gif", ".jpg", ".jpeg" and ".png" files</div>';
+                        }
+                    }
+                } else{
+                    $data['userImage'] = 'img/user.png';
                 }
 
                 if ($this->isUsernameTaken($data['username']) == false) {
@@ -125,7 +144,8 @@ class Controller
         }
     }
 
-    function login($data){
+    function login($data)
+    {
         try {
             if (!empty($data['email']) &&
                 !empty($data['password'])) {
