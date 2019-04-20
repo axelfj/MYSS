@@ -25,7 +25,7 @@ $controller = new Controller();
                  style="box-shadow: 0px 20px 30px rgba(0, 35, 71, 0.1);background: #ffffff;height: 650px;">
                 <br>
                 <h1 class="logo">MYSS</h1>
-                <form action="signup.php" method="post" class="form-signin">
+                <form action="signup.php" method="post" class="form-signin"  enctype="multipart/form-data">
                     <h3 class="form-signin-heading">Register</h3><br>
                     <div class="form-group">
                         <input id="username" name="username" type="text" class="form-control" required
@@ -49,7 +49,7 @@ $controller = new Controller();
                         <label class="genric-btn info-border circle">
                             <i class="fas fa-upload"></i>Upload photo
                             <input id="userImage" name="userImage" type="file" accept='image/*'
-                                   class="uploadFile img" value="Upload Photo" onclick="verifyImageUpload()"
+                                   class="uploadFile img" value="Upload Photo"
                                    style="width: 0px;height: 0px;overflow: hidden;">
                         </label>
                     </div>
