@@ -111,71 +111,28 @@ try {
 
                             <?php
                             if (isset($comments)) {
+                                $commentCounter = 0;
                                 foreach ($comments as $singleComment) {
                                     $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
-                                    ?>
-                                    <div class="col-md-12 commentsblock border-top commentDiv">
-                                        <div class="media">
-                                            <div class="media-left"><a href="javascript:void(0)">
-                                                    <img <?php
-                                                    echo "src= " . $imageCommentOwner['userImage'];
-                                                    ?> alt="" class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <div class="media-body">
-                                                <h4 class="media-heading"><a href="#">
-                                                        <a href="<?php echo 'profile.php?' . $singleComment['commentOwner']; ?>">
-                                                            <?php echo $singleComment['commentOwner']; ?>
-                                                        </a>
-                                                    <br>
-                                                    <small>
-                                                        <i class="fa fa-clock-o"></i> <?php echo $singleComment['time']; ?>
-                                                    </small>
-                                                </h4>
-                                                <hr>
-                                                <p><?php echo $singleComment['text']; ?></p>
-                                                <ul class="nav nav-pills pull-left" id="<?php echo 'commentTags' . $postCounter; ?>">
-                                                    <li><a id="commentLike"
-                                                           href="#"
-                                                        ><i class="far fa-thumbs-up"></i>
-                                                            0
-                                                        </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <li><a href="#" title="" onclick="toggleDivAnswer('answerDiv');" class="prevent"><i class="far fa-comment-alt"></i>
-                                                            <?php echo 'View comments (' . ')'; ?>
-                                                        </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <li><a href="#" title="" class="prevent"><i class="fas fa-tags"></i>
-                                                            <?php echo str_replace(',', ', ', $singleComment['tagsComment']); ?>
-                                                        </a></li>
-                                                </ul>
-                                                <br>
-                                                <hr>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php
+                                    include 'single-comment.inc.php';
+
+                                    $answers = $controller->getComments($singleComment['key']);
+                                    $numberOfAnswers = ($answers != null) ? sizeof($answers) : 0;
+
+                                    // The comment has answers.
+                                    if(isset($answers)){
+                                        foreach ($answers as $singleComment){
+
+                                        }
+                                    }
+
+                                    $commentCounter++;
                                 }
                             }
                             ?>
 
                             <hr>
-
-                            <form action="<?php echo 'comment.inc.php?' . $singlePost['key'] . '%commentbtn' . $postCounter . '@' . $fileName; ?>"
-                                  method="post">
-                    <textarea id="<?php echo 'comment' . $postCounter; ?>"
-                              name="<?php echo 'comment' . $postCounter; ?>" type="text"
-                              class="form-control classComment"
-                              placeholder="Type a new comment..." style="resize: none;"></textarea><br>
-                                <input id="<?php echo 'tagsComment' . $postCounter; ?>"
-                                       name="<?php echo 'tagsComment' . $postCounter; ?>" type="text"
-                                       data-role="tagsinput"
-                                       placeholder="Tags">
-                                <hr>
-                                <button id="<?php echo 'commentbtn' . $postCounter; ?>"
-                                        name="<?php echo 'commentbtn' . $postCounter; ?>"
-                                        class="btn btn-primary pull-right btnComment" disabled>  <!--disabled-->
-                                    <!--<i class="fas fa-cog"></i>-->Comment
-                                </button>
-                                <br><br>
-                            </form>
-
+                            <?php include 'form-single-comment.inc.php';?>
                         </div>
                     </div>
                     <?php

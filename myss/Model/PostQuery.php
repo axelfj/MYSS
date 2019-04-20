@@ -207,6 +207,7 @@ class PostQuery
                 $comment['tagsComment'] = $resultingDocuments[$key]->get('tagsComment');
                 $comment['text'] = $resultingDocuments[$key]->get('text');
                 $comment['time'] = $resultingDocuments[$key]->get('time');
+                $comment['key'] = $resultingDocuments[$key]->get('key');
 
                 $userComments += $comment;
             }
