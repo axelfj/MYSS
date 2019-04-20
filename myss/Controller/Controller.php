@@ -80,7 +80,7 @@ class Controller
         return $this->daoUser->ifFollowing($fromUser, $toUser);
     }
 
-    function register($data)
+    public function register($data)
     {
         try {
             if ((!empty($data['username'])) &&
@@ -143,7 +143,7 @@ class Controller
         }
     }
 
-    function login($data)
+    public function login($data)
     {
         try {
             if (!empty($data['email']) &&
@@ -186,6 +186,50 @@ class Controller
         } catch (Exception $e) {
             return $e->getMessage();
         }
+    }
+
+    // Verifies if an user is trying to visit another user's profile.
+    // If that occurs, then this function will return the username of the
+    // user that is getting visited. If not, then it will return false.
+    public function getUserName($url)
+    {
+        $posStart = strpos($url, '?');
+        $posEnd = strlen($url);
+
+        if ($posStart != false) {
+            $username = substr($url, $posStart + 1, $posEnd - $posStart);
+            return $username;
+        }
+        return false;
+    }
+
+    // This function verifies if just an image is going to be uploaded. If that's true,
+    // the destination path to the image will be set to $post array.
+    public function verifyImageUpload($post)
+    {
+        $imageName = $_FILES['postImage']['name'];
+        $imageTempName = $_FILES['postImage']['tmp_name'];
+
+        if ($imageName != "") {
+            $type = explode('.', $imageName);
+            $type = strtolower($type[count($type) - 1]);
+
+            // If there's an image to upload, the destination is set and the image is moved to
+            // that destination.
+            if (in_array($type, array('gif', 'jpg', 'jpeg', 'png'))) {
+                $destination = 'userImages/' . uniqid(rand()) . '.' . $type;
+                $post['destination'] = $destination;
+                move_uploaded_file($imageTempName, $destination);
+            } else {
+                // If the user tries to upload anything else that is not an image, an
+                // error message appears and the function returns null.
+                echo '<div class="alert alert-danger" role="alert">You just can upload ".gif", ".jpg", ".jpeg" and ".png" files</div>';
+                return null;
+            }
+        } else { // If there's not an image to upload, the destination is empty.
+            $post['destination'] = '';
+        }
+        return $post;
     }
 
 }
