@@ -91,14 +91,22 @@ function verifyImageUpload($post)
 }
 
 ?>
-<?php echo "src= '" . $usernameVisited['userImage'] . "'"; ?>
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center ">
             <div class="panel panel-default container" style="background-color: white;padding-top: 13px;">
                 <div class="userprofile social container" style="background-color: white;">
-                    <div class="userpic"><img <?php echo "src= '" . $usernameVisited['userImage'] . "'"; ?> alt=""
-                                                                                                     class="userpicimg">
+                    <div class="userpic">
+                        <img <?php
+                        if ($usernameVisited != false) {
+                            echo "src= " . $dtoUser['userImage'];
+                        }
+                        else{
+                            echo "src= " . $_SESSION['userImage'];
+                        }
+
+                        ?>
+                                alt="" class="userpicimg">
                     </div>
                     <h3 class="username" style="font-size: 18px;">
                         <?php
