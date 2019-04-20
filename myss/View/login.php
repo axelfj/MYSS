@@ -25,7 +25,7 @@ $database = connect();
         $controller = new Controller();
         $message = $controller->login($_POST);
 
-        if($message == "Login succesful."){
+        if($message == "Login successful."){
             header('Location: ..\View\index.php');
         }
         if (!empty($message)): ?>
