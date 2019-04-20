@@ -6,6 +6,30 @@ require_once "../Controller/connection.php";
 require_once "../Controller/Controller.php";
 
 $controller = new Controller();
+
+function verifyImageUpload($user)
+{
+    $imageName = $_FILES['userImage']['name'];
+    $imageTempName = $_FILES['userImage']['tmp_name'];
+
+    if ($imageName != "") {
+        $type = explode('.', $imageName);
+        $type = strtolower($type[count($type) - 1]);
+
+        if (in_array($type, array('gif', 'jpg', 'jpeg', 'png'))) {
+            $userImage = 'userImages/' . uniqid(rand()) . '.' . $type;
+            $user['userImage'] = $userImage;
+            move_uploaded_file($imageTempName, $userImage);
+        } else {
+            echo '<div class="alert alert-danger" role="alert">You just can upload ".gif", ".jpg", ".jpeg" and ".png" files</div>';
+            return null;
+        }
+    } else {
+        $user['destination'] = '';
+    }
+    return $user;
+}
+
 ?>
 
 <section class="login">
