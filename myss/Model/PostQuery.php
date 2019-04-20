@@ -283,4 +283,63 @@ class PostQuery
             $e->getMessage();
         }
     }
+
+
+    public static function getTagKey($tag){
+        try{
+            if(!empty($tag)) {
+                $query = [
+                    'FOR u IN tag 
+                 FILTER u.name == @tagName                                                         
+                 RETURN {key: u._key}' => ['tagName' => $tag]];
+
+                $cursor = readCollection($query);
+
+                return $cursor;
+            }
+
+        }catch (Exception $exception){
+            $exception->getMessage();
+        }
+    }
+
+    public static function filterPostByTag2($tag){
+        try{
+            $cursor = PostQuery::getTagKey($tag);
+            if(!empty($cursor)) {
+                $resultingTags = array();
+                $tag =array();
+
+                foreach ($cursor as $key => $value) {
+                    $resultingTags[$key] = $value;
+                    $tag["key"] = $resultingTags[$key]->get("key");
+                }
+//                return $tag["key"];
+
+                $query2 = [
+                    'FOR u IN has_tag
+                     FILTER u._to == @to
+                     RETURN {key: u._key, from: u._from, to: u._to}' => ['to' => 'tag/' . $tag["key"]]];
+
+                $cursor2 = readCollection($query2);
+                $post = array();
+                $userPosts = array();
+                foreach ($cursor2 as $key => $value) {
+                    $resultingDocuments[$key] = $value;
+                    $post['to'] = $resultingDocuments[$key]->get('to');
+                    $post['from'] = $resultingDocuments[$key]->get('from');
+                    $post['key'] = $resultingDocuments[$key]->get('key');
+
+
+                    array_push($userPosts, $post);
+                }
+
+                return $userPosts;
+
+
+            }
+        }catch (Exception $exception){
+            $exception->getMessage();
+        }
+    }
 }

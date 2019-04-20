@@ -48,7 +48,7 @@ class DAOPost_Comment_Tag
 
     public function filterPostsByTag($tag)
     {
-        $this->dtoPost_Comment_Tag->setPosts(PostQuery::filterPostByTag($tag));
+        $this->dtoPost_Comment_Tag->setPosts(PostQuery::filterPostByTag2($tag));
         return $this->dtoPost_Comment_Tag;
     }
 }
