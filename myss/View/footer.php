@@ -32,6 +32,18 @@
             $("#commentbtn" + num).attr("disabled", true);
         }
     });
+    $(document).on('keyup', '.answerComment', function () {
+        var id = $(this).attr('id');
+        var len = id.lenght;
+        var num = id.slice(13, len);
+
+        if ($(this).val() != '') {
+            $("#answerbtn" + num).removeAttr('disabled');
+        }
+        else {
+            $("#answerbtn" + num).attr("disabled", true);
+        }
+    });
     $(".imgAdd").click(function(){
         $(this).closest(".row").find('.imgAdd').before('<div class="col-sm-2 imgUp"><div class="imagePreview"></div><label class="btn btn-primary">Upload<input type="file" class="uploadFile img" value="Upload Photo" style="width:0px;height:0px;overflow:hidden;"></label><i class="fa fa-times del"></i></div>');
     });
