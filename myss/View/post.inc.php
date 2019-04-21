@@ -93,7 +93,7 @@ try {
                                                }
                                                ?>"
                                             ><i class="far fa-thumbs-up"></i>
-                                                <?php echo PostQuery::getLikesCount($singlePost['key']); ?>
+                                                <?php echo PostQuery::getPostLikeCount($singlePost['key']); ?>
                                             </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="#" title="" class="prevent" onclick="toggleDivAnswer('commentDiv');"><i class="far fa-comment-alt"></i>
                                                 <?php echo 'View comments (' . $numberOfComments . ')'; ?>
@@ -132,7 +132,7 @@ try {
                                                            }
                                                            ?>"
                                                         ><i class="far fa-thumbs-up"></i>
-                                                            0
+                                                            <?php echo PostQuery::getCommentLikeCount($singleComment['commentKey']); ?>
                                                         </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                     <li><a href="#" title="" onclick="toggleDivAnswer('answerDiv');" class="prevent"><i class="far fa-comment-alt"></i>
                                                             <?php echo 'View comments ('  . ')'; ?>
