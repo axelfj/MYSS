@@ -31,7 +31,7 @@ try {
     $cursor = $document->byExample('post', ['visibility' => "Public"], ['visibility' => "Private"]);
 
     if ($cursor->getCount() != 0) {
-        userLiked($_SESSION['userKey'], $postKey);
+        userLikedPost($_SESSION['userKey'], $postKey);
 
     }
 

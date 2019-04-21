@@ -110,10 +110,8 @@ try {
                                 foreach ($comments as $singleComment) { ?>
                                     <div class="col-md-12 commentsblock border-top commentDiv">
                                         <div class="media">
-                                            <div class="media-left"><a href="javascript:void(0)"> <img
-                                                            alt="64x64"
-                                                            src="img/user.png"
-                                                            class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <div class="media-left">
+                                                <a href="javascript:void(0)"> <img alt="64x64" src="img/user.png" class="media-object"> </a></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <div class="media-body">
                                                 <h4 class="media-heading"><a href="#"><?php echo $singleComment['commentOwner']; ?></a>
                                                     <br>
@@ -125,7 +123,14 @@ try {
                                                 <p><?php echo $singleComment['text']; ?></p>
                                                 <ul class="nav nav-pills pull-left" id="<?php echo 'commentTags' . $postCounter; ?>">
                                                     <li><a id="commentLike"
-                                                           href="#"
+                                                           href="<?php
+                                                           $user = $controller->verifyIfUserLiked($singleComment['commentKey'], $_SESSION['userKey']);
+                                                           if ($user->getCount() == 0) {
+                                                               echo 'commentLikes.inc.php?' . $fileName . '@' . $singleComment['commentKey'];
+                                                           } else {
+                                                               echo '#';
+                                                           }
+                                                           ?>"
                                                         ><i class="far fa-thumbs-up"></i>
                                                             0
                                                         </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
