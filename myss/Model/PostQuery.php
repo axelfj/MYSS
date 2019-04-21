@@ -17,7 +17,7 @@ class PostQuery
         try {
             $database = new ArangoDocumentHandler(connect());
             $infoPost = $dtoPost->getPosts();
-            if(!empty($infoPost['title']) && !empty($infoPost['post']) && !empty($infoPost['username'])) {
+            if (!empty($infoPost['title']) && !empty($infoPost['post']) && !empty($infoPost['username'])) {
 
                 $title = $infoPost['title'];
                 $text = $infoPost['post'];
@@ -269,13 +269,22 @@ class PostQuery
         }
     }
 
-    // Verifies if an user already liked a specific post.
-    public static function verifyIfUserLiked($postKey, $userKey)
+    public static function verifyIfUserLikedPost($postKey, $userKey)
     {
         $statements = [
             'FOR u IN liked 
             FILTER u._to == @postKey && u._from == @userKey 
             RETURN u._from' => ['postKey' => 'post/' . $postKey, 'userKey' => 'user/' . $userKey]];
+
+        return readCollection($statements);
+    }
+
+    public static function verifyIfUserLikedComment($commentKey, $userKey)
+    {
+        $statements = [
+            'FOR u IN liked 
+            FILTER u._to == @commentKey && u._from == @userKey 
+            RETURN u._from' => ['commentKey' => 'comment/' . $commentKey, 'userKey' => 'user/' . $userKey]];
 
         return readCollection($statements);
     }
