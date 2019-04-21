@@ -245,11 +245,23 @@ class PostQuery
         return null;
     }
 
-    public static function getLikesCount($idPost)
+    public static function getPostLikeCount($idPost)
     {
         try {
             $statements = [
                 'FOR u in liked FILTER u._to == @postKey RETURN u' => ['postKey' => 'post/' . $idPost]];
+            $liked = readCollection($statements);
+            return $liked->getCount();
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+    }
+
+    public static function getCommentLikeCount($idPost)
+    {
+        try {
+            $statements = [
+                'FOR u in liked FILTER u._to == @commentKey RETURN u' => ['commentKey' => 'comment/' . $idPost]];
             $liked = readCollection($statements);
             return $liked->getCount();
         } catch (Exception $e) {
