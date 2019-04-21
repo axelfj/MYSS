@@ -67,6 +67,25 @@ try {
 
             // This is the query that means that he's at the index.
             else {
+
+                // We must bring the posts that are public and also the privates of the "friends".
+                // A query to bring all the users from the collections.
+                $usersQuery = "FOR x in user 
+                               RETURN {key: x._key, username: x.username}";
+
+                $usersCursor = \ArangoDBClient\readCollectionWithoutBinding($usersQuery);
+
+                // We fetch all the usernames and their keys into an array.
+                $resultingDocuments = array();
+                $attributesArray    = array();
+                foreach ($usersCursor as $key => $value) {
+                    $resultingDocuments[$key] = $value;
+                    $attributesArray['key']         = $resultingDocuments[$key]->get('key');
+                    $attributesArray['username']    = $resultingDocuments[$key]->get('username');
+                }
+
+
+                // For each of them, we will check with the function ifFollowing if they're friends.
                 $dtoPost_Comment_Tag = $controller->getPosts(null, '');
             }
             $postCounter = 0;
