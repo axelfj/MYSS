@@ -22,12 +22,10 @@ $posStart = strpos($url, 'commentbtn');
 if($posStart != false){
     $posStart += 10;
     $buttonName = 'commentbtn';
-    $textAreaName = 'comment';
 }
 else{
     $posStart = strpos($url, 'answerbtn') + 9;
     $buttonName = 'answerbtn';
-    $textAreaName = 'answer';
 }
 
 $posEnd   = strpos($url, '@');
@@ -44,14 +42,14 @@ echo 'pos: ' . $posStart . ' name: ' .$buttonName . ' numb: ' .$buttonNumber;
 
 if (isset($_POST[$buttonName . $buttonNumber])) {
     try {
-        if (!empty($_POST['comment' . $buttonNumber])) {
+        if (!empty($_POST[substr($buttonName, 0, -3) . $buttonNumber])) {
             $comment = array();
             $comment['text'] = $_POST[substr($buttonName, 0, -3) . $buttonNumber];
-            $comment['tagsComment'] = $_POST['tagsComment' . $buttonNumber];
+            $comment['tagsComment'] = $_POST['tags_' . substr($buttonName, 0, -3) . $buttonNumber];
             $comment['commentOwner'] = $_SESSION['username'];
-            echo 'aqui voy ak7 mi rico';
-            /*$dtoComment->setComments($comment);
-            $controller->createNewComment($dtoComment, $postKey, 'comment');*/
+
+            $dtoComment->setComments($comment);
+            $controller->createNewComment($dtoComment, $postKey, substr($buttonName, 0, -3));
         }
     } catch (Exception $e) {
         $message = $e->getMessage();
@@ -65,7 +63,7 @@ if($pos == false){
 $len = strlen($url);
 $fileName = substr($url, $pos, $len);
 
-/*header('Location: ' . $fileName);*/
+header('Location: ' . $fileName);
 
 
 
