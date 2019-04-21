@@ -203,6 +203,7 @@ class PostQuery
             foreach ($cursor as $key => $value) {
 
                 $resultingDocuments[$key] = $value;
+                $comment['commentKey'] = $resultingDocuments[$key]->get('key');
                 $comment['commentOwner'] = $resultingDocuments[$key]->get('commentOwner');
                 $comment['tagsComment'] = $resultingDocuments[$key]->get('tagsComment');
                 $comment['text'] = $resultingDocuments[$key]->get('text');
