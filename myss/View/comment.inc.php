@@ -17,7 +17,19 @@ use ArangoDBClient\Statement as ArangoStatement;
 date_default_timezone_set('America/Costa_Rica');
 // Gets the number of the button that was pressed.
 $url = $_SERVER['REQUEST_URI'];
-$posStart = strpos($url, 'commentbtn') + 10;
+$posStart = strpos($url, 'commentbtn');
+
+if($posStart != false){
+    $posStart += 10;
+    $buttonName = 'commentbtn';
+    $textAreaName = 'comment';
+}
+else{
+    $posStart = strpos($url, 'answerbtn') + 9;
+    $buttonName = 'answerbtn';
+    $textAreaName = 'answer';
+}
+
 $posEnd   = strpos($url, '@');
 $buttonNumber = substr($url, $posStart, $posEnd - $posStart);
 
@@ -28,17 +40,18 @@ $postKey = substr($url, $posStart, $posEnd - $posStart);
 
 $controller = new Controller();
 $dtoComment = new DTOPost_Comment_Tag();
+echo 'pos: ' . $posStart . ' name: ' .$buttonName . ' numb: ' .$buttonNumber;
 
-if (isset($_POST['commentbtn' . $buttonNumber])) {
+if (isset($_POST[$buttonName . $buttonNumber])) {
     try {
         if (!empty($_POST['comment' . $buttonNumber])) {
             $comment = array();
-            $comment['text'] = $_POST['comment' . $buttonNumber];
+            $comment['text'] = $_POST[substr($buttonName, 0, -3) . $buttonNumber];
             $comment['tagsComment'] = $_POST['tagsComment' . $buttonNumber];
             $comment['commentOwner'] = $_SESSION['username'];
-
-            $dtoComment->setComments($comment);
-            $controller->createNewComment($dtoComment, $postKey, 'comment');
+            echo 'aqui voy ak7 mi rico';
+            /*$dtoComment->setComments($comment);
+            $controller->createNewComment($dtoComment, $postKey, 'comment');*/
         }
     } catch (Exception $e) {
         $message = $e->getMessage();
@@ -52,7 +65,7 @@ if($pos == false){
 $len = strlen($url);
 $fileName = substr($url, $pos, $len);
 
-header('Location: ' . $fileName);
+/*header('Location: ' . $fileName);*/
 
 
 

@@ -27,5 +27,5 @@
             class="btn btn-primary pull-right btnComment" disabled>  <!--disabled-->
         <!--<i class="fas fa-cog"></i>-->Comment
     </button>
-    <br><br>
+    <br>
 </form>

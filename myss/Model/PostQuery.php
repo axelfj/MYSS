@@ -69,7 +69,7 @@ class PostQuery
         $comment->set("commentOwner", $commentOwner);
         $comment->set("time", $time);
 
-        $newComment = $database->save("comment", $comment);
+        $newComment = $database->save($type, $comment);
 
         // Gets just the number of key, because "$newPost" stores something like "post/83126"
         // and we just need that number.
