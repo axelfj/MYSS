@@ -1,11 +1,11 @@
-<form action="<?php echo 'comment.inc.php?' . $singlePost['key'] . '%commentbtn' . $postCounter . '@' . $fileName; ?>"
+<form action="<?php echo 'comment.inc.php?' . $postOrCommentKey . '%' . $buttonName . '@' . $fileName; ?>"
       method="post" enctype="multipart/form-data">
-                    <textarea id="<?php echo 'comment' . $postCounter; ?>"
-                              name="<?php echo 'comment' . $postCounter; ?>" type="text"
+                    <textarea id="<?php echo $textArea; ?>"
+                              name="<?php echo $textArea; ?>" type="text"
                               class="form-control classComment"
                               placeholder="Type a new comment..." style="resize: none;"></textarea><br>
-    <input id="<?php echo 'tagsComment' . $postCounter; ?>"
-           name="<?php echo 'tagsComment' . $postCounter; ?>" type="text"
+    <input id="<?php echo $tags; ?>"
+           name="<?php echo $tags; ?>" type="text"
            data-role="tagsinput"
            placeholder="Tags">
     <div class="row" style="">
@@ -22,10 +22,10 @@
         <div class="col-md-4"></div>
     </div><!-- row -->
     <hr>
-    <button id="<?php echo 'commentbtn' . $postCounter; ?>"
-            name="<?php echo 'commentbtn' . $postCounter; ?>"
+    <button id="<?php echo $buttonName; ?>"
+            name="<?php echo $buttonName; ?>"
             class="btn btn-primary pull-right btnComment" disabled>  <!--disabled-->
         <!--<i class="fas fa-cog"></i>-->Comment
     </button>
-    <br>
+    <br><br>
 </form>

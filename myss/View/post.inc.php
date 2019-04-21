@@ -117,7 +117,7 @@ try {
                                     $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
                                     $answers = $controller->getComments($singleComment['key'], 'answer');
                                     $numberOfAnswers = ($answers != null) ? sizeof($answers) : 0;
-
+                                    $postOrCommentKey = $singleComment['key'];
                                     include 'single-comment.inc.php';
 
                                     // The comment has answers.
@@ -125,6 +125,9 @@ try {
                                         $divClassName = 'answer' . $singleComment['key'];
                                         foreach ($answers as $singleComment){
                                             $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
+                                            $buttonName = 'answerbtn' . $commentCounter;
+                                            $textArea = 'answer' . $commentCounter;
+                                            $tags = 'tags_answer' . $commentCounter;
                                             include 'single-comment.inc.php';
                                         }
                                     }
@@ -134,7 +137,13 @@ try {
                             }
                             ?>
                             <hr>
-                            <?php include 'form-single-comment.inc.php';?>
+                            <?php
+                            $postOrCommentKey = $singlePost['key'];
+                            $buttonName = 'commentbtn' . $postCounter;
+                            $textArea = 'comment' . $postCounter;
+                            $tags = 'tags_comment' . $postCounter;
+                            include 'form-single-comment.inc.php';
+                            ?>
                         </div>
                     </div>
                     <?php

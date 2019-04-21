@@ -45,7 +45,5 @@
             <hr>
         </div>
     </div>
-    <?php if(strpos($divClassName, 'answer') !== false){
-        include 'form-single-comment.inc.php';
-    }?>
+
 </div>
