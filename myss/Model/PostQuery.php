@@ -4,6 +4,7 @@ use ArangoDBClient\Document as ArangoDocument;
 use ArangoDBClient\DocumentHandler as ArangoDocumentHandler;
 use function ArangoDBClient\readCollection;
 use ArangoDBClient\Statement as ArangoStatement;
+use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
 
 require_once "../Model/executeQuery.php";
 require_once "../Model/createEdges.php";
@@ -288,5 +289,21 @@ class PostQuery
             RETURN u._from' => ['postKey' => 'post/' . $postKey, 'userKey' => 'user/' . $userKey]];
 
         return readCollection($statements);
+    }
+
+    public static function like($userKey, $postKey){
+        try {
+            #$database = connect();
+            $document = new ArangoCollectionHandler(connect());
+
+            $cursor = $document->byExample('post', ['visibility' => "Public"], ['visibility' => "Private"]);
+
+            if ($cursor->getCount() != 0) {
+                userLiked($userKey, $postKey);
+            }
+
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 }

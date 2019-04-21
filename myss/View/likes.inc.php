@@ -10,9 +10,6 @@ require_once "../Model/executeQuery.php";
 session_start();
 
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
-use function ArangoDBClient\readCollection;
-use ArangoDBClient\Statement as ArangoStatement;
-
 
 $url = $_SERVER['REQUEST_URI'];
 $posStart = strpos($url, '@') + 1;
@@ -32,7 +29,6 @@ try {
 
     if ($cursor->getCount() != 0) {
         userLiked($_SESSION['userKey'], $postKey);
-
     }
 
 } catch (Exception $e) {
