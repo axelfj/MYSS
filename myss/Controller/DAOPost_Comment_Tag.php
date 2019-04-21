@@ -45,4 +45,9 @@ class DAOPost_Comment_Tag
         $this->dtoPost_Comment_Tag->setComments(PostQuery::getCommentsOrAnswers($postKey, $collectionName));
         return $this->dtoPost_Comment_Tag;
     }
+
+    public function like($userKey, $postKey)
+    {
+        PostQuery::like($userKey, $postKey);
+    }
 }

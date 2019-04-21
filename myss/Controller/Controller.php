@@ -232,4 +232,8 @@ class Controller
         return $post;
     }
 
+    public function like($userKey, $postKey){
+        $this->daoPost_Comment_Tag->like($userKey, $postKey);
+    }
+
 }
