@@ -5,8 +5,8 @@
 |-----------------------------------------------------------------------------|
 -->
 
-<div class="col-md-12 commentsblock border-top commentDiv" id="<?php echo $singleComment['key']; ?>">
-    <div class="media">
+<div class="col-md-12 commentsblock border-top <?php echo $divClassName;?>" style="display: none;">
+    <div class="media" <?php if(strpos($divClassName, 'answer') !== false) echo 'style="margin-left: 20px;"'?>>
         <div class="media-left"><a href="javascript:void(0)">
                 <img <?php
                 echo "src= " . $imageCommentOwner['userImage'];
@@ -29,10 +29,14 @@
                     ><i class="far fa-thumbs-up"></i>
                         0
                     </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <li><a href="#" title="" onclick="toggleDivAnswer('answerDiv');" class="prevent"><i
+                <?php
+                if(strpos($divClassName, 'answer') === false){?>
+                <li><a href="#" title="" onclick="toggleDivAnswer('<?php echo 'answer' . $singleComment['key'];?>');" class="prevent"><i
                                 class="far fa-comment-alt"></i>
-                        <?php echo 'View comments (' . ')'; ?>
+                        <?php echo 'View comments (' .$numberOfAnswers. ')'; ?>
                     </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <?php
+                }?>
                 <li><a href="#" title="" class="prevent"><i class="fas fa-tags"></i>
                         <?php echo str_replace(',', ', ', $singleComment['tagsComment']); ?>
                     </a></li>
@@ -41,4 +45,7 @@
             <hr>
         </div>
     </div>
+    <?php if(strpos($divClassName, 'answer') !== false){
+        include 'form-single-comment.inc.php';
+    }?>
 </div>

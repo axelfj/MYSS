@@ -53,7 +53,7 @@ try {
                 foreach ($dtoPost_Comment_Tag as $singlePost) {
                     $comments = $controller->getComments($singlePost['key'], 'comment');
                     $numberOfComments = ($comments != null) ? sizeof($comments) : 0;
-
+                    $divClassName =  'comment' . $singlePost['key'];
                     $image = $controller->getProfile($singlePost['owner']);
                     ?>
 
@@ -99,7 +99,7 @@ try {
                                             ><i class="far fa-thumbs-up"></i>
                                                 <?php echo PostQuery::getLikesCount($singlePost['key']); ?>
                                             </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <li><a href="#" title="" class="prevent" onclick="toggleDivAnswer('commentDiv');"><i class="far fa-comment-alt"></i>
+                                        <li><a href="#" title="" class="prevent" onclick="toggleDivAnswer('<?php echo $divClassName;?>');"><i class="far fa-comment-alt"></i>
                                                 <?php echo 'View comments (' . $numberOfComments . ')'; ?>
                                             </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="#" title="" class="prevent"><i class="fas fa-tags"></i>
@@ -115,24 +115,24 @@ try {
                                 $postOrCommentCounter = $commentCounter;
                                 foreach ($comments as $singleComment) {
                                     $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
-                                    include 'single-comment.inc.php';
-
                                     $answers = $controller->getComments($singleComment['key'], 'answer');
                                     $numberOfAnswers = ($answers != null) ? sizeof($answers) : 0;
 
+                                    include 'single-comment.inc.php';
+
                                     // The comment has answers.
                                     if(isset($answers)){
+                                        $divClassName = 'answer' . $singleComment['key'];
                                         foreach ($answers as $singleComment){
                                             $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
                                             include 'single-comment.inc.php';
                                         }
                                     }
-
                                     $commentCounter++;
                                 }
+                                /*include 'form-single-comment.inc.php';*/
                             }
                             ?>
-
                             <hr>
                             <?php include 'form-single-comment.inc.php';?>
                         </div>
