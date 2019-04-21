@@ -85,7 +85,7 @@ try {
                                     <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
                                         <li><a id="like"
                                                href="<?php
-                                               $user = $controller->verifyIfUserLiked($singlePost['key'], $_SESSION['userKey']);
+                                               $user = $controller->verifyIfUserLikedPost($singlePost['key'], $_SESSION['userKey']);
                                                if ($user->getCount() == 0) {
                                                    echo 'likes.inc.php?' . $fileName . '@' . $singlePost['key'];
                                                } else {
@@ -124,7 +124,7 @@ try {
                                                 <ul class="nav nav-pills pull-left" id="<?php echo 'commentTags' . $postCounter; ?>">
                                                     <li><a id="commentLike"
                                                            href="<?php
-                                                           $user = $controller->verifyIfUserLiked($singleComment['commentKey'], $_SESSION['userKey']);
+                                                           $user = $controller->verifyIfUserLikedComment($singleComment['commentKey'], $_SESSION['userKey']);
                                                            if ($user->getCount() == 0) {
                                                                echo 'commentLikes.inc.php?' . $fileName . '@' . $singleComment['commentKey'];
                                                            } else {
