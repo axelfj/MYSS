@@ -51,7 +51,7 @@ try {
             if (isset($dtoPost_Comment_Tag)) {
 
                 foreach ($dtoPost_Comment_Tag as $singlePost) {
-                    $comments = $controller->getComments($singlePost['key']);
+                    $comments = $controller->getComments($singlePost['key'], 'comment');
                     $numberOfComments = ($comments != null) ? sizeof($comments) : 0;
 
                     $image = $controller->getProfile($singlePost['owner']);
@@ -112,17 +112,19 @@ try {
                             <?php
                             if (isset($comments)) {
                                 $commentCounter = 0;
+                                $postOrCommentCounter = $commentCounter;
                                 foreach ($comments as $singleComment) {
                                     $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
                                     include 'single-comment.inc.php';
 
-                                    $answers = $controller->getComments($singleComment['key']);
+                                    $answers = $controller->getComments($singleComment['key'], 'answer');
                                     $numberOfAnswers = ($answers != null) ? sizeof($answers) : 0;
 
                                     // The comment has answers.
                                     if(isset($answers)){
                                         foreach ($answers as $singleComment){
-
+                                            $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
+                                            include 'single-comment.inc.php';
                                         }
                                     }
 
@@ -137,6 +139,7 @@ try {
                     </div>
                     <?php
                     $postCounter++;
+                    $postOrCommentCounter = $postCounter;
                 }
             }
         }

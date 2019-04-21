@@ -1,3 +1,10 @@
+<!--
+|-----------------------------------------------------------------------------|
+| Note:                                                                       |
+| The PHP variables that appear in this file, are declared in 'post.inc.php'. |
+|-----------------------------------------------------------------------------|
+-->
+
 <div class="col-md-12 commentsblock border-top commentDiv" id="<?php echo $singleComment['key']; ?>">
     <div class="media">
         <div class="media-left"><a href="javascript:void(0)">
@@ -16,7 +23,7 @@
             </h4>
             <hr>
             <p><?php echo $singleComment['text']; ?></p>
-            <ul class="nav nav-pills pull-left" id="<?php echo 'commentTags' . $postCounter; ?>">
+            <ul class="nav nav-pills pull-left" id="<?php echo 'commentTags' . $postOrCommentCounter; ?>">
                 <li><a id="commentLike"
                        href="#"
                     ><i class="far fa-thumbs-up"></i>

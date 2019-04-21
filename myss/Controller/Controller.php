@@ -19,9 +19,9 @@ class Controller
         return $this->daoPost_Comment_Tag->createNewPost($dtoPost);
     }
 
-    public function createNewComment($dtoComment, $postKey)
+    public function createNewComment($dtoComment, $postKey, $type)
     {
-        $this->daoPost_Comment_Tag->createNewComment($dtoComment, $postKey);
+        $this->daoPost_Comment_Tag->createNewComment($dtoComment, $postKey, $type);
     }
 
     public function verifyIfUserLiked($postKey, $userKey)
@@ -47,9 +47,9 @@ class Controller
         return $dtoPost_Comment_Tag->getPosts();
     }
 
-    public function getComments($postKey)
+    public function getComments($postKey, $collectionName)
     {
-        $dtoPost_Comment_Tag = $this->daoPost_Comment_Tag->getComments($postKey);
+        $dtoPost_Comment_Tag = $this->daoPost_Comment_Tag->getComments($postKey, $collectionName);
         return $dtoPost_Comment_Tag->getComments();
     }
 

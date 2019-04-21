@@ -38,7 +38,7 @@ if (isset($_POST['commentbtn' . $buttonNumber])) {
             $comment['commentOwner'] = $_SESSION['username'];
 
             $dtoComment->setComments($comment);
-            $controller->createNewComment($dtoComment, $postKey);
+            $controller->createNewComment($dtoComment, $postKey, 'comment');
         }
     } catch (Exception $e) {
         $message = $e->getMessage();

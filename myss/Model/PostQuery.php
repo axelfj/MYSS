@@ -17,7 +17,7 @@ class PostQuery
         try {
             $database = new ArangoDocumentHandler(connect());
             $infoPost = $dtoPost->getPosts();
-            if(!empty($infoPost['title']) && !empty($infoPost['post']) && !empty($infoPost['username'])) {
+            if (!empty($infoPost['title']) && !empty($infoPost['post']) && !empty($infoPost['username'])) {
 
                 $title = $infoPost['title'];
                 $text = $infoPost['post'];
@@ -53,7 +53,7 @@ class PostQuery
         }
     }
 
-    public static function createNewComment($dtoComment, $postKey)
+    public static function createNewComment($dtoComment, $postOrCommentKey, $type)
     {
         $database = new ArangoDocumentHandler(connect());
         $infoComment = $dtoComment->getComments();
@@ -76,7 +76,12 @@ class PostQuery
         $pos = strpos($newComment, "/") + 1;
         $commentKey = substr($newComment, $pos, strlen($newComment));
 
-        createEdge('post', $postKey, 'comment', $commentKey, 'has_comment');
+        if($type == 'comment'){
+            postHasComment($postOrCommentKey, $commentKey);
+        } else {
+            commentHasAnswer($postOrCommentKey, $commentKey);
+        }
+
     }
 
     public static function getMyPosts($username, $visibility)
@@ -127,14 +132,25 @@ class PostQuery
         }
     }
 
-    // Returns an array with all the comments' keys.
-    public static function getCommentsKeys($postKey)
+    // Returns an array with all the comments' or answers' keys.
+    public static function getCommentsKeys($postOrCommentKey, $collectionName)
     {
         try {
-            $query = [
-                'FOR u IN has_comment 
+            // If we want just the comments' keys of a post, this will be the query.
+            if ($collectionName == 'comment') {
+                $query = [
+                    'FOR u IN has_comment 
                  FILTER u._from == @from                                                         
-                 RETURN {key: u._key, from: u._from, to: u._to}' => ['from' => 'post/' . $postKey]];
+                 RETURN {key: u._key, from: u._from, to: u._to}' => ['from' => 'post/' . $postOrCommentKey]];
+            }
+            // By the other hand, if we want the answers' keys of a specific comment, this
+            // will be the query.
+            else {
+                $query = [
+                    'FOR u IN has_answer 
+                 FILTER u._from == @from                                                         
+                 RETURN {key: u._key, from: u._from, to: u._to}' => ['from' => 'comment/' . $postOrCommentKey]];
+            }
 
             $cursor = readCollection($query);
 
@@ -145,13 +161,18 @@ class PostQuery
         }
     }
 
-    // Returns an array with all the comments for a specific post.
-    public static function getPostComments($postKey)
+    // Returns an array with all the comments for a specific post or
+    // the answers for a specific comment, depending on the edge name.
+    public static function getCommentsOrAnswers($postKey, $collectionName)
     {
         try {
-            $cursor = PostQuery::getCommentsKeys($postKey);
+            $cursor = PostQuery::getCommentsKeys($postKey, $collectionName);
             $resultingDocuments = array();
             $numberOfComments = $cursor->getCount();
+
+            // Length of the word 'comment'-> 7, but we need to begin the slice from pos 8.
+            // Length of the word 'answer' -> 6, but we need to begin the slice from pos 7.
+            ($collectionName == 'comment') ? $sliceStartsAt = 8 : $sliceStartsAt = 7;
 
             if ($numberOfComments > 0) {
                 $commentsKeys = array();
@@ -159,11 +180,12 @@ class PostQuery
 
                 foreach ($cursor as $key => $value) {
                     $resultingDocuments[$key] = $value;
-                    $commentsKeys['postKey'] = $resultingDocuments[$key]->get('from');
-                    $commentsKeys['commentKey'] = substr($resultingDocuments[$key]->get('to'), 8,
+                    /*$commentsKeys['postKey'] = $resultingDocuments[$key]->get('from');*/
+                    $commentsKeys['commentKey'] = substr($resultingDocuments[$key]->get('to'), $sliceStartsAt,
                         strlen($resultingDocuments[$key]->get('to')));
 
-                    array_push($userComments, PostQuery::commentsFromKeyIntoArray($commentsKeys['commentKey']));
+                    array_push($userComments,
+                        PostQuery::commentsFromKeyIntoArray($commentsKeys['commentKey'], $collectionName));
                 }
                 return $userComments;
             }
@@ -174,10 +196,10 @@ class PostQuery
     }
 
     // Returns into an array all the comments found by their keys.
-    private static function commentsFromKeyIntoArray($commentKey)
+    private static function commentsFromKeyIntoArray($commentKey, $collectionName)
     {
-        $query = 'FOR x IN comment 
-                  FILTER x._key == @commentKey                   
+        $query = 'FOR x IN ' . $collectionName .
+                  ' FILTER x._key == @commentKey                   
                   RETURN {key: x._key, commentOwner: x.commentOwner, tagsComment: x.tagsComment, 
                   text: x.text, time: x.time}';
 
