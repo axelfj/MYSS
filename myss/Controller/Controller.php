@@ -205,10 +205,10 @@ class Controller
 
     // This function verifies if just an image is going to be uploaded. If that's true,
     // the destination path to the image will be set to $post array.
-    public function verifyImageUpload($post)
+    public function verifyImageUpload($post, $imageInputName)
     {
-        $imageName = $_FILES['postImage']['name'];
-        $imageTempName = $_FILES['postImage']['tmp_name'];
+        $imageName = $_FILES[$imageInputName]['name'];
+        $imageTempName = $_FILES[$imageInputName]['tmp_name'];
 
         if ($imageName != "") {
             $type = explode('.', $imageName);

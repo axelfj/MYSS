@@ -22,7 +22,16 @@
                     </small>
             </h4>
             <hr>
+            <?php
+            if($singleComment['destination'] != ''){ ?>
+                <center>
+                <img style="max-width:200px;max-height:200px;" src="<?php echo $singleComment['destination'];?>">
+                </center>
+                <br>
+                <?php
+            }?>
             <p><?php echo $singleComment['text']; ?></p>
+            <br>
             <ul class="nav nav-pills pull-left" id="<?php echo 'commentTags' . $postOrCommentCounter; ?>">
                 <li><a id="commentLike"
                        href="#"

@@ -48,8 +48,13 @@ if (isset($_POST[$buttonName . $buttonNumber])) {
             $comment['tagsComment'] = $_POST['tags_' . substr($buttonName, 0, -3) . $buttonNumber];
             $comment['commentOwner'] = $_SESSION['username'];
 
-            $dtoComment->setComments($comment);
-            $controller->createNewComment($dtoComment, $postKey, substr($buttonName, 0, -3));
+            $correctImageComment = $controller->verifyImageUpload($comment, 'commentImage');
+
+            if (isset($correctImageComment)) {
+                $dtoComment->setComments($correctImageComment);
+                $controller->createNewComment($dtoComment, $postKey, substr($buttonName, 0, -3));
+                unset($comment);
+            }
         }
     } catch (Exception $e) {
         $message = $e->getMessage();
