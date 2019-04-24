@@ -62,12 +62,14 @@ class PostQuery
         $text = $infoComment['text'];
         $tagsComment = $infoComment['tagsComment'];
         $commentOwner = $infoComment['commentOwner'];
+        $imagePath = $infoComment['destination'];
         $time = date('j-m-y H:i');
 
         $comment = new ArangoDocument();
         $comment->set("text", $text);
         $comment->set("tagsComment", $tagsComment);
         $comment->set("commentOwner", $commentOwner);
+        $comment->set("destination", $imagePath);
         $comment->set("time", $time);
 
         $newComment = $database->save($type, $comment);
@@ -201,7 +203,7 @@ class PostQuery
     {
         $query = 'FOR x IN ' . $collectionName .
                   ' FILTER x._key == @commentKey                   
-                  RETURN {key: x._key, commentOwner: x.commentOwner, tagsComment: x.tagsComment, 
+                  RETURN {key: x._key, commentOwner: x.commentOwner, tagsComment: x.tagsComment, destination: x.destination,
                   text: x.text, time: x.time}';
 
         $statement = new ArangoStatement(
@@ -230,6 +232,7 @@ class PostQuery
                 $comment['tagsComment'] = $resultingDocuments[$key]->get('tagsComment');
                 $comment['text'] = $resultingDocuments[$key]->get('text');
                 $comment['time'] = $resultingDocuments[$key]->get('time');
+                $comment['destination'] = $resultingDocuments[$key]->get('destination');
                 $comment['key'] = $resultingDocuments[$key]->get('key');
 
                 $userComments += $comment;

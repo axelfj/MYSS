@@ -33,7 +33,7 @@ else if (isset($_POST['postbtn'])) {
             $post['username'] = $_SESSION['username'];
             $post['time'] = date('j-m-y H:i');
 
-            $correctPost = $controller->verifyImageUpload($post);
+            $correctPost = $controller->verifyImageUpload($post, 'postImage');
 
             if (isset($correctPost)) {
                 $dtoPost->setPosts($correctPost);
