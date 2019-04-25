@@ -113,11 +113,12 @@ try {
                             if (isset($comments)) {
                                 $commentCounter = 0;
                                 $postOrCommentCounter = $commentCounter;
+
                                 foreach ($comments as $singleComment) {
                                     $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
                                     $answers = $controller->getComments($singleComment['key'], 'answer');
                                     $numberOfAnswers = ($answers != null) ? sizeof($answers) : 0;
-                                    $postOrCommentKey = $singleComment['key'];
+                                    $commentKey = $singleComment['key'];
                                     include 'single-comment.inc.php';
 
                                     // The comment has answers.
@@ -125,26 +126,16 @@ try {
 
                                         foreach ($answers as $singleComment){
                                             $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
-                                            /*$buttonName = 'answerbtn' . $commentCounter;
-                                            $textArea = 'answer' . $commentCounter;
-                                            $tags = 'tags_answer' . $commentCounter;*/
-                                            $divClassName = 'answer' . $singleComment['key'];
+                                            $divClassName = 'answer' . $commentKey;
                                             include 'single-comment.inc.php';
                                         }
                                     }
                                     $commentCounter++;
                                 }
-                                /*include 'form-single-comment.inc.php';*/
                             }
                             ?>
                             <hr>
-                            <?php
-                            $postOrCommentKey = $singlePost['key'];
-                            $buttonName = 'commentbtn' . $postCounter;
-                            $textArea = 'comment' . $postCounter;
-                            $tags = 'tags_comment' . $postCounter;
-                            include 'form-single-comment.inc.php';
-                            ?>
+                            <?php include 'form-single-comment.inc.php'; ?>
                         </div>
                     </div>
                     <?php
