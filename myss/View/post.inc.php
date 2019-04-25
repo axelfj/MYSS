@@ -59,7 +59,7 @@ try {
                     }
                 }
 
-
+                // This query means that he's in his profile.
                 else{
                     $dtoPost_Comment_Tag = $controller->getPosts($_SESSION['username'], '');
                 }
@@ -68,25 +68,61 @@ try {
             // This is the query that means that he's at the index.
             else {
 
-                // We must bring the posts that are public and also the privates of the "friends".
-                // A query to bring all the users from the collections.
-                $usersQuery = "FOR x in user 
-                               RETURN {key: x._key, username: x.username}";
+                // First, we will check if he's following someone.
+                $friendsCursor = $controller->getAllMyFriends($_SESSION['userKey']);
 
-                $usersCursor = \ArangoDBClient\readCollectionWithoutBinding($usersQuery);
+                // Let's get all his friends into an array.
+                $friendsArray           = Array(); // Helps in the cursor.
+                $privatePosts           = Array(); // Here will be the posts.
+                $friendsCounter         = 0;
+                $auxiliaryArray         = Array(); // Helpfully.
 
-                // We fetch all the usernames and their keys into an array.
-                $resultingDocuments = array();
-                $attributesArray    = array();
-                foreach ($usersCursor as $key => $value) {
-                    $resultingDocuments[$key] = $value;
-                    $attributesArray['key']         = $resultingDocuments[$key]->get('key');
-                    $attributesArray['username']    = $resultingDocuments[$key]->get('username');
+                // We verify if we're following somebody.
+                if ($friendsCursor->getCount() > 0) {
+
+                    // Then we obtain their usernames.
+                    // Remember that they will come: user/key.
+                    foreach ($friendsCursor as $key => $value) {
+                        $auxiliaryArray[$key]           = $value;
+                        $friendsArray[$friendsCounter]  = $auxiliaryArray[$key]->get('_to');
+                        $friendsCounter++;
+                    }
+
+                    // Now, let's get only their keys. And with that, their usernames.
+                    for ($counter = 0; $counter < count($friendsArray); $counter++){
+                        $friendsArray[$counter] = substr($friendsArray[$counter], 5);
+                        $userCursor             = $document->byExample('user',
+                                                                        ['_key' => $friendsArray[$counter]]);
+
+                        // Here will be fetched our username.
+                        foreach ($userCursor as $key => $value) {
+                            $auxiliaryArray[$key]       = $value;
+                            $usernameArray[$counter]    = $auxiliaryArray[$key]->get('username');
+                        }
+
+                        // For every username in the username, let's retrieve their posts.
+                        array_push($privatePosts, $controller->getPosts($usernameArray[$counter],
+                             'Private'));
+                    }
+
+                    // Finally, we make the query, save those posts, append the private ones and set them to him.
+                    $publicPosts  = $controller->getPosts(null, '');
+
+                    // We must obtain the array that is inside every array.
+                    for($counter = 0; $counter < sizeof($privatePosts); $counter++){
+                        array_push($publicPosts, $privatePosts[$counter][0]);
+                    }
+
+                    $dtoPost_Comment_Tag = $publicPosts + $privatePosts;
+                }
+
+                // This means that he's following nobody.
+                else{
+                    $dtoPost_Comment_Tag = $controller->getPosts(null, '');
                 }
 
 
-                // For each of them, we will check with the function ifFollowing if they're friends.
-                $dtoPost_Comment_Tag = $controller->getPosts(null, '');
+
             }
             $postCounter = 0;
             if (isset($dtoPost_Comment_Tag)) {

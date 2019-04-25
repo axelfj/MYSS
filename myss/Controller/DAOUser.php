@@ -51,4 +51,10 @@ class DAOUser
         return UserQuery::ifFollowing($fromUser, $toUser);
     }
 
+    // Calls the UserQuery function to get all the friends from an User.
+    public function getAllMyFriends($userId)
+    {
+        return UserQuery::getAllMyFriends($userId);
+    }
+
 }
