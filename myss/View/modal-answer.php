@@ -10,7 +10,7 @@
 
             <div class="modal-body">
 
-                <form action="<?php echo 'comment.inc.php?' . $postOrCommentKey . '%' . 'answerbtn' . $commentCounter . '@' . $fileName; ?>"
+                <form action="<?php echo 'comment.inc.php?' . $commentKey . '%' . 'answerbtn' . $commentCounter . '@' . $fileName; ?>"
                       method="post" enctype="multipart/form-data">
                 <textarea id="<?php echo 'answer' . $commentCounter; ?>"
                           name="<?php echo 'answer' . $commentCounter; ?>" type="text"
