@@ -6,7 +6,7 @@
 -->
 
 <div class="col-md-12 commentsblock border-top <?php echo $divClassName; ?>" style="display: none;">
-    <div class="media" <?php if (strpos($divClassName, 'answer') !== false) echo 'style="margin-left: 20px;"' ?>>
+    <div class="media" <?php if (strpos($divClassName, 'answer') !== false) echo 'style="margin-left: 30px;"' ?>>
         <div class="media-left"><a href="javascript:void(0)">
                 <img <?php
                 echo "src= " . $imageCommentOwner['userImage'];
@@ -24,14 +24,12 @@
             <hr>
             <?php
             if ($singleComment['destination'] != '') { ?>
-                <center>
-                    <img style="max-width:200px;max-height:200px;" src="<?php echo $singleComment['destination']; ?>">
-                </center>
-                <br>
+                <img style="max-width:100%; max-height:100%;" src="<?php echo $singleComment['destination']; ?>">
+                <br><br>
                 <?php
             } ?>
             <p><?php echo $singleComment['text']; ?></p>
-            <br>
+
             <ul class="nav nav-pills pull-left" id="<?php echo 'commentTags' . $postOrCommentCounter; ?>">
                 <li><a id="commentLike"
                        href="#"
@@ -54,8 +52,7 @@
                         <?php echo str_replace(',', ', ', $singleComment['tagsComment']); ?>
                     </a></li>
             </ul>
-            <br>
-            <hr>
+            <br><br>
         </div>
     </div>
 </div>
