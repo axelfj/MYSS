@@ -99,7 +99,7 @@ try {
                                             ><i class="far fa-thumbs-up"></i>
                                                 <?php echo PostQuery::getLikesCount($singlePost['key']); ?>
                                             </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <li><a href="#" title="" class="prevent" onclick="toggleDivAnswer('<?php echo $divClassName;?>');"><i class="far fa-comment-alt"></i>
+                                        <li><a href="#" title="" class="prevent" onclick="toggleDivAnswer('<?php echo $divClassName;?>');"><i class="far fa-comment"></i>
                                                 <?php echo 'View comments (' . $numberOfComments . ')'; ?>
                                             </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="#" title="" class="prevent"><i class="fas fa-tags"></i>
@@ -122,12 +122,13 @@ try {
 
                                     // The comment has answers.
                                     if(isset($answers)){
-                                        $divClassName = 'answer' . $singleComment['key'];
+
                                         foreach ($answers as $singleComment){
                                             $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
-                                            $buttonName = 'answerbtn' . $commentCounter;
+                                            /*$buttonName = 'answerbtn' . $commentCounter;
                                             $textArea = 'answer' . $commentCounter;
-                                            $tags = 'tags_answer' . $commentCounter;
+                                            $tags = 'tags_answer' . $commentCounter;*/
+                                            $divClassName = 'answer' . $singleComment['key'];
                                             include 'single-comment.inc.php';
                                         }
                                     }
