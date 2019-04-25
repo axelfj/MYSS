@@ -80,6 +80,12 @@ class Controller
         return $this->daoUser->ifFollowing($fromUser, $toUser);
     }
 
+    // Tells the DAO to get to return all the friends.
+    public function getAllMyFriends($userId)
+    {
+        return $this->daoUser->getAllMyFriends($userId);
+    }
+
     function register($data)
     {
         try {
