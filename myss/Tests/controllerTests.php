@@ -359,10 +359,11 @@ class controllerTests extends TestCase
     public function testFollowUser($followed, $exists){
 
         $dtoUser = $this->controller->getProfile($followed["username"]);
+        $message = $this->controller->followUser($_SESSION['userKey'], $dtoUser['key']);
         if($exists) {
-            $this->assertTrue($this->controller->followUser($_SESSION['userKey'], $dtoUser['key']));
+            $this->assertTrue($message);
         } else{
-            $this->assertFalse($this->controller->followUser($_SESSION['userKey'], $dtoUser['key']));
+            $this->assertFalse($message);
         }
     }
 
@@ -398,6 +399,52 @@ class controllerTests extends TestCase
         ];
     }
 
+    /**
+     * @depends testFollowUser
+     * @dataProvider followedDataProvider
+     * @dataProvider notFollowedDataProvider
+     */
+    public function testIsFollowing($followed, $isFollowing){
+        $dtoUser = $this->controller->getProfile($followed["username"]);
+        $message = $this->controller->ifFollowing($_SESSION['userKey'], $dtoUser['key']);
+        if($isFollowing){
+            $this->assertTrue($message);
+        } else{
+            $this->assertFalse($message);
+        }
+    }
+
+    public function followedDataProvider(){
+        $dtoUser = array();
+        $dtoUser ['username'] = 'userprueba';
+        $dtoUser ['email'] = 'userprueba@gmail.com';
+        $dtoUser ['password'] = '1234';
+        $dtoUser ['name'] = 'Usuario de Prueba';
+        $dtoUser ['birthday'] = "23-08-1998";
+        $dtoUser['userImage'] = "image.png";
+
+        return[
+            [$dtoUser, True]
+        ];
+    }
+
+    public function notFollowedDataProvider(){
+        $dtoUser = array();
+        $dtoUser ['username'] = 'userprueba2';
+        $dtoUser ['email'] = 'userprueba2@gmail.com';
+        $dtoUser ['password'] = '1234';
+        $dtoUser ['name'] = 'Usuario de Prueba';
+        $dtoUser ['birthday'] = "23-08-1998";
+        $dtoUser['userImage'] = "image.png";
+        $_FILES['userImage']['name'] = "";
+        $_FILES['userImage']['tmp_name'] = "";
+
+        $this->controller->register($dtoUser);
+
+        return[
+            [$dtoUser, False]
+        ];
+    }
 
 
 }
