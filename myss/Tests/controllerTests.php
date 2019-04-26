@@ -403,6 +403,7 @@ class controllerTests extends TestCase
      * @depends testFollowUser
      * @dataProvider followedDataProvider
      * @dataProvider notFollowedDataProvider
+     * @dataProvider followDataProviderDontExist
      */
     public function testIsFollowing($followed, $isFollowing){
         $dtoUser = $this->controller->getProfile($followed["username"]);
