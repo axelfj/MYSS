@@ -34,13 +34,13 @@
                 <li><a id="commentLike"
                        href="<?php
                        $commentCountLikes = $controller->verifyIfUserLikedComment($singleComment['commentKey'], $_SESSION['userKey']);
-                       /*$answerCountLikes = $controller->verifyIfUserLikedAnswer($singleComment['commentKey'], $_SESSION['userKey']);*/
+                       $answerCountLikes = $controller->verifyIfUserLikedAnswer($singleComment['answerKey'], $_SESSION['userKey']);
                        if ($commentCountLikes->getCount() == 0 && $divClassName[0] != 'a') {
                            echo 'commentLikes.inc.php?' . $fileName . '@' . $singleComment['commentKey'];
                        }
-                       /*else if ($answerCountLikes->getCount() == 0){
+                       else if ($answerCountLikes->getCount() == 0 && $divClassName[0] == 'a'){
                            echo 'answerLikes.inc.php?' . $fileName . '@' . $singleComment['commentKey'];
-                       }*/
+                       }
                        else{
                            echo '#';
                        }
