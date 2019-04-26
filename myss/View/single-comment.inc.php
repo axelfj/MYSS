@@ -32,9 +32,16 @@
 
             <ul class="nav nav-pills pull-left" id="<?php echo 'commentTags' . $postOrCommentCounter; ?>">
                 <li><a id="commentLike"
-                       href="#"
+                       href="<?php
+                       $user = $controller->verifyIfUserLikedComment($singleComment['commentKey'], $_SESSION['userKey']);
+                       if ($user->getCount() == 0) {
+                           echo 'commentLikes.inc.php?' . $fileName . '@' . $singleComment['commentKey'];
+                       } else {
+                           echo '#';
+                       }
+                       ?>"
                     ><i class="far fa-thumbs-up"></i>
-                        0
+                        <?php echo PostQuery::getCommentLikeCount($singleComment['commentKey']); ?>
                     </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <?php
                 if (strpos($divClassName, 'answer') === false) {
