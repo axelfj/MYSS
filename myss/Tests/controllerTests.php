@@ -31,7 +31,11 @@ class controllerTests extends TestCase
      * @dataProvider userDataProviderComplete
      * */
     public function testRegisterNewUser($data, $complete){
+        $_FILES['userImage']['name'] = "";
+        $_FILES['userImage']['tmp_name'] = "";
+
         $message = $this->controller->register($data);
+
         if($complete) {
             $this->assertEquals("Register successful.", $message);
         } else{
@@ -47,7 +51,7 @@ class controllerTests extends TestCase
         $array ['password'] = '1234';
         $array ['name'] = 'Yocasta Valle';
         $array ['birthday'] = "23-08-1998";
-        $array['userImage'] = "image.png";
+        $array['userImage'] = "";
 
 
         return [
@@ -194,7 +198,7 @@ class controllerTests extends TestCase
 
         switch($correct){
             case("Correct"):
-                $this->assertEquals("Login succesful.", $message);
+                $this->assertEquals("Login successful.", $message);
                 break;
             case("Incorrect Email"):
                 $this->assertEquals("The user is not registered.", $message);
