@@ -26,7 +26,6 @@ function readCollection($statements)
             );
 
             $cursor = $statement->execute();
-            //var_dump($cursor->getAll());
         }
         return $cursor;
     } catch (ConnectException $e) {
@@ -38,4 +37,26 @@ function readCollection($statements)
     }
 }
 
-//readCollection($statements);
+// In case, we need to execute a query without binding anything.
+function readCollectionWithoutBinding($query){
+    try {
+        $connection = connect();
+            $statement = new Statement($connection, [
+                    'query' => $query,
+                    'count' => true,
+                    'batchSize' => 1000,
+                    'sanitize' => true,
+                ]
+            );
+
+            $cursor = $statement->execute();
+
+        return $cursor;
+    } catch (ConnectException $e) {
+        print $e . PHP_EOL;
+    } catch (ServerException $e) {
+        print $e . PHP_EOL;
+    } catch (ClientException $e) {
+        print $e . PHP_EOL;
+    }
+}
