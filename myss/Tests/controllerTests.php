@@ -351,4 +351,53 @@ class controllerTests extends TestCase
         ];
     }
 
+    /**
+     * @depends testLoginAllData
+     * @dataProvider followedDataProviderExist
+     * @dataProvider followDataProviderDontExist
+     */
+    public function testFollowUser($followed, $exists){
+
+        $dtoUser = $this->controller->getProfile($followed["username"]);
+        if($exists) {
+            $this->assertTrue($this->controller->followUser($_SESSION['userKey'], $dtoUser['key']));
+        } else{
+            $this->assertFalse($this->controller->followUser($_SESSION['userKey'], $dtoUser['key']));
+        }
+    }
+
+    public function followedDataProviderExist(){
+        $dtoUser = array();
+        $dtoUser ['username'] = 'userprueba';
+        $dtoUser ['email'] = 'userprueba@gmail.com';
+        $dtoUser ['password'] = '1234';
+        $dtoUser ['name'] = 'Usuario de Prueba';
+        $dtoUser ['birthday'] = "23-08-1998";
+        $dtoUser['userImage'] = "image.png";
+        $_FILES['userImage']['name'] = "";
+        $_FILES['userImage']['tmp_name'] = "";
+
+        $this->controller->register($dtoUser);
+
+        return[
+            [$dtoUser, True]
+        ];
+    }
+
+    public function followDataProviderDontExist(){
+        $dtoUser = array();
+        $dtoUser ['username'] = 'esteusuarionoexiste';
+        $dtoUser ['email'] = 'inexistente@gmail.com';
+        $dtoUser ['password'] = '1234';
+        $dtoUser ['name'] = 'No existe';
+        $dtoUser ['birthday'] = "23-08-1998";
+        $dtoUser['userImage'] = "image.png";
+
+        return[
+            [$dtoUser, False]
+        ];
+    }
+
+
+
 }
