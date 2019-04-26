@@ -16,9 +16,9 @@ class DAOPost_Comment_Tag
         return PostQuery::createNewPost($dtoPost);
     }
 
-    public function createNewComment($dtoComment, $postKey)
+    public function createNewComment($dtoComment, $postKey, $type)
     {
-        PostQuery::createNewComment($dtoComment, $postKey);
+        PostQuery::createNewComment($dtoComment, $postKey, $type);
     }
 
     public function verifyIfUserLikedPost($postKey, $userKey)
@@ -45,9 +45,14 @@ class DAOPost_Comment_Tag
         return $this->dtoPost_Comment_Tag;
     }
 
-    public function getComments($postKey)
+    public function getComments($postKey, $collectionName)
     {
-        $this->dtoPost_Comment_Tag->setComments(PostQuery::getPostComments($postKey));
+        $this->dtoPost_Comment_Tag->setComments(PostQuery::getCommentsOrAnswers($postKey, $collectionName));
         return $this->dtoPost_Comment_Tag;
+    }
+
+    public function like($userKey, $postKey)
+    {
+        PostQuery::like($userKey, $postKey);
     }
 }
