@@ -43,6 +43,13 @@
                        ?>"
                     ><i class="far fa-thumbs-up"></i>
                         <?php echo PostQuery::getCommentLikeCount($singleComment['commentKey']); ?>
+                    </a>
+                    <a href="#" data-toggle="modal"
+                       data-target="#<?php echo 'like' . $postOrCommentCounter; ?>">
+                        <?php
+                        $userOrUsers = (PostQuery::getPostLikeCount($singleComment['key']) == 1) ? 'user ' : 'users ';
+                        echo $userOrUsers . 'liked';
+                        ?>
                     </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <?php
                 if (strpos($divClassName, 'answer') === false) {
