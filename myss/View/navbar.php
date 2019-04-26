@@ -3,19 +3,17 @@
 session_start();
 
 require_once "../Controller/Controller.php";
+if (isset($_POST['searchByTag'])) {
 
-try {
-    $controller = new Controller();
-    $cursor= 12345;
-    if(!empty($_POST['search']))
-    $cursor = $controller->filterPostsByTag($_POST['search']);
-    var_dump($cursor);
+    try {
+        $controller = new Controller();
+        $cursor = $controller->filterPostsByTag($_POST['searchByTag']);
+        var_dump($cursor);
 
-
-} catch (Exception $e) {
-    throwException($e);
+    } catch (Exception $e) {
+        throwException($e);
+    }
 }
-
 ?>
 
 <body style="background-color: #E7E7E9;" class="profile-page">
@@ -32,9 +30,9 @@ try {
             <ul class="navbar-nav text-left">
                 <li class="nav-item">
                     <div class="input-group md-form form-sm form-2 pl-0">
-                        <form class="search-form" action="">
+                        <form class="search-form" action="index.php" method="post">
                             <input class="form-control my-0 py-1 blue-border" type="text" placeholder="Search"
-                                   aria-label="Search" name="search" id="search">
+                                   aria-label="Search" name="searchByTag" id="searchByTag">
                         </form>
                         <div class="input-group-append">
                             <i class="fas fa-search" aria-hidden="true"
