@@ -15,9 +15,15 @@ use ArangoDBClient\Statement as ArangoStatement;
 
 
 $url = $_SERVER['REQUEST_URI'];
+
 $posStart = strpos($url, '@') + 1;
 $posEnd = strlen($url);
 $commentKey = substr($url, $posStart, $posEnd - $posStart);
+
+$posStart = strpos($url, '/') + 1;
+$posEnd = strpos($url, '@') - 1 ;
+$divClassName = substr($url, $posStart, $posEnd - $posStart);
+
 $pos = strpos($url, 'profile.php');
 if ($pos == false) {
     header('Location: index.php');
@@ -28,7 +34,7 @@ try {
     $database = connect();
     $document = new ArangoCollectionHandler(connect());
 
-    if(strpos($divClassName, 'answer') === false){
+    if($divClassName !== 'answer'){
         userLikedComment($_SESSION['userKey'], $commentKey);
     }
     else{
