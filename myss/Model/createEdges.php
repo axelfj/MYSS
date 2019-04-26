@@ -54,6 +54,10 @@ function postHasComment($idPost, $idComment){
     createEdge('post', $idPost, 'comment', $idComment, 'has_comment');
 }
 
+function commentHasAnswer($idComment, $idAnswer){
+    createEdge('comment', $idComment, 'answer', $idAnswer, 'has_answer');
+}
+
 function userCommented($idUser, $idComment){
     createEdge('user', $idUser, 'comment', $idComment, 'commented');
 }
