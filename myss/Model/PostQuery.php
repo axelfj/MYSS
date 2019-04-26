@@ -306,11 +306,13 @@ class PostQuery
         }
     }
 
-    public static function getCommentLikeCount($idPost)
+    public static function getLikeCount($idPost, $collection)
     {
         try {
             $statements = [
-                'FOR u in liked FILTER u._to == @commentKey RETURN u' => ['commentKey' => 'comment/' . $idPost]];
+                'FOR u in liked 
+                FILTER u._to == @key 
+                RETURN u._from' => ['key' => $collection . '/' . $idPost]];
             $liked = readCollection($statements);
             return $liked->getCount();
         } catch (Exception $e) {

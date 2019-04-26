@@ -35,14 +35,19 @@
                        href="<?php
                        $user = $controller->verifyIfUserLikedComment($singleComment['commentKey'], $_SESSION['userKey']);
                        if ($user->getCount() == 0) {
-
-                           echo 'commentLikes.inc.php?' . $fileName . "/" . $divClassName . '@' . $singleComment['commentKey'];
+                           echo 'commentLikes.inc.php?' . $fileName . "/" . $divClassName[0] . '@' . $singleComment['commentKey'];
                        } else {
                            echo '#';
                        }
                        ?>"
                     ><i class="far fa-thumbs-up"></i>
-                        <?php echo PostQuery::getCommentLikeCount($singleComment['commentKey']); ?>
+                        <?php if ($divClassName[0] == 'a'){
+                            echo PostQuery::getLikeCount($singleComment['commentKey'], 'answer');
+                        }
+                        else{
+                            echo PostQuery::getLikeCount($singleComment['commentKey'], 'comment');
+                        }
+                         ?>
                     </a>
                     <a href="#" data-toggle="modal"
                        data-target="#<?php echo 'like' . $postOrCommentCounter; ?>">

@@ -12,7 +12,6 @@ use ArangoDBClient\Edge;
 use ArangoDBClient\GraphHandler;
 use ArangoDBClient\Vertex;
 
-// Can make an user to follow another. One must send the key from the username.
 function userFollow($fromUser, $toUser){
     try{
         if($toUser == null){
@@ -36,8 +35,6 @@ function connectTags($idPost, $tagsArray){
         } else {
             foreach ($cursorTag as $key => $value) {
                 $resultingDocument[$key] = $value;
-
-                // Gets the id of the tag.
                 $idTag = $resultingDocument[$key]->getHandle();
                 $tagkey = substr($idTag, 4, 10);
                 createEdge('post', $idPost, 'tag', $tagkey, 'has_tag');
@@ -83,7 +80,6 @@ function createEdge($fromCollection, $idFrom, $toCollection, $idTo, $relation){
     $cursorFrom = $collectionHandler->byExample($fromCollection, ['_key' => $idFrom]);
     $cursorTo   = $collectionHandler->byExample($toCollection, ['_key' => $idTo]);
 
-    // Now, we get the documents iterating over the cursors.
     $from = null;
     $to = null;
     $resultingDocument  = array();
