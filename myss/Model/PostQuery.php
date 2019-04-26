@@ -90,15 +90,24 @@ class PostQuery
                  RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, destination: u.destination, 
                           tagsPost: u.tagsPost, visibility: u.visibility, time: u.time, likes: u.likes}'
                     => ['username' => $username]];
-            } else {
+            } else if($visibility == 'Private') {
                 $query = [
                     'FOR u IN post 
-                 FILTER u.owner == @username 
+                 FILTER u.owner == @username and u.visibility == "Private" 
                  SORT u.time DESC 
                  RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, destination: u.destination, 
                           tagsPost: u.tagsPost, visibility: u.visibility, time: u.time, likes: u.likes}'
                     => ['username' => $username]];
             }
+             else{
+                 $query = [
+                     'FOR u IN post 
+                 FILTER u.owner == @username 
+                 SORT u.time DESC 
+                 RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, destination: u.destination, 
+                          tagsPost: u.tagsPost, visibility: u.visibility, time: u.time, likes: u.likes}'
+                        => ['username' => $username]];
+                }
 
             $publicPosts = PostQuery::postsIntoArray($query);
 
