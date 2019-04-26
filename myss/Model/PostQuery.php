@@ -287,7 +287,7 @@ class PostQuery
             $statements = [
                 'FOR u in liked 
                 FILTER u._to == @postKey 
-                RETURN u' => ['postKey' => 'post/' . $idPost]];
+                RETURN u._from' => ['postKey' => 'post/' . $idPost]];
             return readCollection($statements);
         } catch (Exception $e) {
             $e->getMessage();
