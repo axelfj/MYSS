@@ -47,11 +47,13 @@
                 if (strpos($divClassName, 'answer') === false) {
                     ?>
                     <li><a href="#" title=""
-                           onclick="toggleDivAnswer('<?php echo 'answer' . $singleComment['key']; ?>');" class="prevent"><i class="far fa-comment"></i>
+                           onclick="toggleDivAnswer('<?php echo 'answer' . $singleComment['key']; ?>');"
+                           class="prevent"><i class="far fa-comment"></i>
                             </i>
                             <?php echo 'View replies (' . $numberOfAnswers . ')'; ?>
                         </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <li><a href="#" title="" data-toggle="modal" data-target="#<?php echo 'modal' . $commentCounter;?>" class="prevent">
+                    <li><a href="#" title="" data-toggle="modal" data-target="#<?php echo 'modal' . $commentCounter; ?>"
+                           class="prevent">
                             <i class="far fa-comment-dots"></i> Reply</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <?php
                 } ?>

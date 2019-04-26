@@ -210,6 +210,7 @@ try {
                                         }
                                     }
                                     $commentCounter++;
+                                    $divClassName =  'comment' . $singlePost['key'];
                                 }
                             }
                             ?>
