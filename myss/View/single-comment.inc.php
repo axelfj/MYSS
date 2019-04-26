@@ -53,7 +53,7 @@
                             </i>
                             <?php echo 'View replies (' . $numberOfAnswers . ')'; ?>
                         </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <li><a href="#" title="" data-toggle="modal" data-target="#<?php echo 'modal' . $commentCounter; ?>"
+                    <li><a href="#" title="" data-toggle="modal" data-target="#<?php echo 'modal' . $commentKey; ?>"
                            class="prevent">
                             <i class="far fa-comment-dots"></i> Reply</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <?php
