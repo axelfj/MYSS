@@ -326,7 +326,6 @@ class PostQuery
             'FOR u IN liked 
             FILTER u._to == @postKey && u._from == @userKey 
             RETURN u._from' => ['postKey' => 'post/' . $postKey, 'userKey' => 'user/' . $userKey]];
-
         return readCollection($statements);
     }
 
@@ -336,7 +335,6 @@ class PostQuery
             'FOR u IN liked 
             FILTER u._to == @commentKey && u._from == @userKey 
             RETURN u._from' => ['commentKey' => 'comment/' . $commentKey, 'userKey' => 'user/' . $userKey]];
-
         return readCollection($statements);
     }
 
@@ -345,8 +343,7 @@ class PostQuery
         $statements = [
             'FOR u IN liked 
             FILTER u._to == @answerKey && u._from == @userKey 
-            RETURN u._from' => ['commentKey' => 'answer/' . $answerKey, 'userKey' => 'user/' . $userKey]];
-
+            RETURN u._from' => ['answerKey' => 'answer/' . $answerKey, 'userKey' => 'user/' . $userKey]];
         return readCollection($statements);
     }
 
