@@ -28,7 +28,13 @@ try {
     $database = connect();
     $document = new ArangoCollectionHandler(connect());
 
-    userLikedComment($_SESSION['userKey'], $commentKey);
+    if(strpos($divClassName, 'answer') === false){
+        userLikedComment($_SESSION['userKey'], $commentKey);
+    }
+    else{
+        userLikedAnswer($_SESSION['userKey'], $commentKey);
+    }
+
 
 } catch (Exception $e) {
     echo $e->getMessage();
