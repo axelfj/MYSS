@@ -1,4 +1,4 @@
-<div id="<?php echo 'modal' . $commentCounter; ?>" class="modal fade" role="dialog">
+<div id="<?php echo 'modal' . $commentKey; ?>" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -10,14 +10,14 @@
 
             <div class="modal-body">
 
-                <form action="<?php echo 'comment.inc.php?' . $commentKey . '%' . 'answerbtn' . $commentCounter . '@' . $fileName; ?>"
+                <form action="<?php echo 'comment.inc.php?' . $commentKey . '%' . 'answerbtn' . $commentKey . '@' . $fileName; ?>"
                       method="post" enctype="multipart/form-data">
-                <textarea id="<?php echo 'answer' . $commentCounter; ?>"
-                          name="<?php echo 'answer' . $commentCounter; ?>" type="text"
+                <textarea id="<?php echo 'answer' . $commentKey; ?>"
+                          name="<?php echo 'answer' . $commentKey; ?>" type="text"
                           class="form-control classComment"
                           placeholder="Type a new reply..." style="resize: none;"></textarea><br>
-                    <input id="<?php echo 'tags_answer' . $commentCounter; ?>"
-                           name="<?php echo 'tags_answer' . $commentCounter; ?>" type="text"
+                    <input id="<?php echo 'tags_answer' . $commentKey; ?>"
+                           name="<?php echo 'tags_answer' . $commentKey; ?>" type="text"
                            data-role="tagsinput"
                            placeholder="Tags">
                     <div class="row" style="">
@@ -34,8 +34,8 @@
                         <div class="col-md-4"></div>
                     </div><!-- row -->
                     <hr>
-                    <button id="<?php echo 'answerbtn' . $commentCounter; ?>"
-                            name="<?php echo 'answerbtn' . $commentCounter; ?>"
+                    <button id="<?php echo 'answerbtn' . $commentKey; ?>"
+                            name="<?php echo 'answerbtn' . $commentKey; ?>"
                             class="btn btn-primary pull-right btnComment" disabled>  <!--disabled-->
                         <!--<i class="fas fa-cog"></i>-->Answer
                     </button>
