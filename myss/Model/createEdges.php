@@ -66,8 +66,12 @@ function userLikedPost($idUser, $idPost){
     createEdge('user', $idUser, 'post', $idPost, 'liked');
 }
 
-function userLikedComment($idUser, $idPost){
-    createEdge('user', $idUser, 'comment', $idPost, 'liked');
+function userLikedComment($idUser, $idComment){
+    createEdge('user', $idUser, 'comment', $idComment, 'liked');
+}
+
+function userLikedAnswer($idUser, $idAnswer){
+    createEdge('user', $idUser, 'answer', $idAnswer, 'liked');
 }
 
 function createEdge($fromCollection, $idFrom, $toCollection, $idTo, $relation){

@@ -325,6 +325,16 @@ class PostQuery
         return readCollection($statements);
     }
 
+    public static function verifyIfUserLikedAnswer($answerKey, $userKey)
+    {
+        $statements = [
+            'FOR u IN liked 
+            FILTER u._to == @answerKey && u._from == @userKey 
+            RETURN u._from' => ['commentKey' => 'answer/' . $answerKey, 'userKey' => 'user/' . $userKey]];
+
+        return readCollection($statements);
+    }
+
     public static function like($userKey, $postKey){
         try {
             #$database = connect();
