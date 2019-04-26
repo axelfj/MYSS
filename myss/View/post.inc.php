@@ -168,11 +168,14 @@ try {
                                                }
                                                ?>"
                                             ><i class="far fa-thumbs-up"></i>
-
+                                                <?php echo PostQuery::getPostLikeCount($singlePost['key']); ?>
                                             </a>
                                         <a href="#" data-toggle="modal"
                                            data-target="#<?php echo 'like' . $postCounter; ?>">
-                                            <?php echo PostQuery::getPostLikeCount($singlePost['key']); ?>
+                                            <?php
+                                            $userOrUsers = (PostQuery::getPostLikeCount($singlePost['key']) == 1) ? 'user ' : 'users ';
+                                            echo $userOrUsers . 'liked';
+                                            ?>
                                         </a>
                                         </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="#" title="" class="prevent"
@@ -186,8 +189,8 @@ try {
                                     </ul>
                                 </div>
                             </div>
-
                             <?php
+                            include 'modal-likes.php';
                             if (isset($comments)) {
                                 $commentCounter = 0;
                                 $postOrCommentCounter = $commentCounter;

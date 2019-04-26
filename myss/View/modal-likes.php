@@ -4,15 +4,12 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Liked by @<?php echo $singlePost['owner']; ?></h4>
+                <h4 class="modal-title">Liked by</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <div class="modal-body">
-                <h4 class="modal-title">Liked by @<?php echo $singlePost['owner']; ?></h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-                <br><br>
+                <h5 class="modal-title">@<?php echo $singlePost['owner']; ?></h5>
             </div>
         </div>
     </div>
