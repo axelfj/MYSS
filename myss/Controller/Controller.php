@@ -36,7 +36,7 @@ class Controller
 
     public function verifyIfUserLikedAnswer($postKey, $userKey)
     {
-        return $this->daoPost_Comment_Tag->verifyIfUserLikedAnwer($postKey, $userKey);
+        return $this->daoPost_Comment_Tag->verifyIfUserLikedAnswer($postKey, $userKey);
     }
 
     public function getUser($email)
