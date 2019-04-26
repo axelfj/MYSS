@@ -224,7 +224,10 @@ try {
             }
         }
     } else {
-        echo 'Register so you can see the posts!';
+        echo
+        '<div class="alert alert-info">
+            Register so you can see the posts!
+        </div>';
     }
 
 } catch
