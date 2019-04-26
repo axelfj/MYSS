@@ -391,7 +391,7 @@ class PostQuery
                     $postKey = substr($postKey,5);
                     $post = self::getPostFromKey($postKey);
 
-                    array_push($findedPosts, $post);
+                    $findedPosts= array_merge($findedPosts, $post);
                 }
                 return $findedPosts;
 
