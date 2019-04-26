@@ -77,7 +77,7 @@ class Controller
 
     public function followUser($fromUser, $toUser)
     {
-        $this->daoUser->followUser($fromUser, $toUser);
+        return $this->daoUser->followUser($fromUser, $toUser);
     }
 
     public function ifFollowing($fromUser, $toUser)

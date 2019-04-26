@@ -89,7 +89,7 @@ class UserQuery
 
     public static function followUser($fromUser, $toUser)
     {
-        userFollow($fromUser, $toUser);
+        return userFollow($fromUser, $toUser);
     }
 
     // Checks if an user is following another one.
