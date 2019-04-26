@@ -14,7 +14,15 @@ use ArangoDBClient\Vertex;
 
 // Can make an user to follow another. One must send the key from the username.
 function userFollow($fromUser, $toUser){
-    createEdge('user', $fromUser, 'user', $toUser, 'follows');
+    try{
+        if($toUser == null){
+            return false;
+        }
+        createEdge('user', $fromUser, 'user', $toUser, 'follows');
+        return true;
+    } catch (Exception $e){
+        return false;
+    }
 }
 
 function connectTags($idPost, $tagsArray){
@@ -46,12 +54,20 @@ function postHasComment($idPost, $idComment){
     createEdge('post', $idPost, 'comment', $idComment, 'has_comment');
 }
 
+function commentHasAnswer($idComment, $idAnswer){
+    createEdge('comment', $idComment, 'answer', $idAnswer, 'has_answer');
+}
+
 function userCommented($idUser, $idComment){
     createEdge('user', $idUser, 'comment', $idComment, 'commented');
 }
 
-function userLiked($idUser, $idPost){
+function userLikedPost($idUser, $idPost){
     createEdge('user', $idUser, 'post', $idPost, 'liked');
+}
+
+function userLikedComment($idUser, $idPost){
+    createEdge('user', $idUser, 'comment', $idPost, 'liked');
 }
 
 function createEdge($fromCollection, $idFrom, $toCollection, $idTo, $relation){

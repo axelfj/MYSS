@@ -10,9 +10,6 @@ require_once "../Model/executeQuery.php";
 session_start();
 
 use ArangoDBClient\CollectionHandler as ArangoCollectionHandler;
-use function ArangoDBClient\readCollection;
-use ArangoDBClient\Statement as ArangoStatement;
-
 
 $url = $_SERVER['REQUEST_URI'];
 $posStart = strpos($url, '@') + 1;
@@ -31,8 +28,7 @@ try {
     $cursor = $document->byExample('post', ['visibility' => "Public"], ['visibility' => "Private"]);
 
     if ($cursor->getCount() != 0) {
-        userLiked($_SESSION['userKey'], $postKey);
-
+        userLikedPost($_SESSION['userKey'], $postKey);
     }
 
 } catch (Exception $e) {
