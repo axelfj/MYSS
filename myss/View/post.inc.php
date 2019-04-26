@@ -73,6 +73,7 @@ try {
 
                 // Let's get all his friends into an array.
                 $friendsArray           = Array(); // Helps in the cursor.
+                $usernameArray          = Array();
                 $privatePosts           = Array(); // Here will be the posts.
                 $friendsCounter         = 0;
                 $auxiliaryArray         = Array(); // Helpfully.
@@ -105,24 +106,27 @@ try {
                              'Private'));
                     }
 
-                    // Finally, we make the query, save those posts, append the private ones and set them to him.
-                    $publicPosts  = $controller->getPosts(null, '');
+                    // We make the query, save those posts, append the private ones and set them to him.
+                    // We also query our posts.
+                    $publicPosts    = $controller->getPosts(null, '');
+                    $myPosts        = $controller->getPosts($_SESSION['username'], '');
 
                     // We must obtain the array that is inside every array.
                     for($counter = 0; $counter < sizeof($privatePosts); $counter++){
                         array_push($publicPosts, $privatePosts[$counter][0]);
                     }
 
-                    $dtoPost_Comment_Tag = $publicPosts + $privatePosts;
+                    var_dump($publicPosts);
+                    var_dump($myPosts);
+                    var_dump($privatePosts);
+                    
+                    $dtoPost_Comment_Tag = $publicPosts + $privatePosts + $myPosts;
                 }
 
                 // This means that he's following nobody.
                 else{
                     $dtoPost_Comment_Tag = $controller->getPosts(null, '');
                 }
-
-
-
             }
             $postCounter = 0;
             if (isset($dtoPost_Comment_Tag)) {
