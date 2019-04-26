@@ -20,8 +20,8 @@ $posStart = strpos($url, '@') + 1;
 $posEnd = strlen($url);
 $commentKey = substr($url, $posStart, $posEnd - $posStart);
 
-$posStart = strpos($url, '/') + 1;
-$posEnd = strpos($url, '@') - 1 ;
+$posStart = strpos($url, '@')-3;
+$posEnd = strpos($url, '@')-1;
 $divClassName = substr($url, $posStart, $posEnd - $posStart);
 
 $pos = strpos($url, 'profile.php');
@@ -34,11 +34,12 @@ try {
     $database = connect();
     $document = new ArangoCollectionHandler(connect());
 
-    if($divClassName !== 'answer'){
-        userLikedComment($_SESSION['userKey'], $commentKey);
+    echo $divClassName;
+    if($divClassName == 'a'){
+        userLikedAnswer($_SESSION['userKey'], $commentKey);
     }
     else{
-        userLikedAnswer($_SESSION['userKey'], $commentKey);
+        userLikedComment($_SESSION['userKey'], $commentKey);
     }
 
 
