@@ -281,6 +281,19 @@ class PostQuery
         return null;
     }
 
+    public static function getUserLiked($idPost)
+    {
+        try {
+            $statements = [
+                'FOR u in liked 
+                FILTER u._to == @postKey 
+                RETURN u' => ['postKey' => 'post/' . $idPost]];
+            return readCollection($statements);
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+    }
+
     public static function getPostLikeCount($idPost)
     {
         try {
