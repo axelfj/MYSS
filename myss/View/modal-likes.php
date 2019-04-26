@@ -12,7 +12,7 @@
                 <h5 class="modal-title">
                     @<?php $cursor = PostQuery::getUserLiked($singlePost['key']);
                     var_dump($cursor->getAll());
-                    /*echo $singlePost['owner']*/ ?></h5>
+                    ?></h5>
             </div>
         </div>
     </div>

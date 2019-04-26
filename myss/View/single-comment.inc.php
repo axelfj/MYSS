@@ -35,7 +35,13 @@
                        href="<?php
                        $user = $controller->verifyIfUserLikedComment($singleComment['commentKey'], $_SESSION['userKey']);
                        if ($user->getCount() == 0) {
-                           echo 'commentLikes.inc.php?' . $fileName . "/" . $divClassName[0] . '@' . $singleComment['commentKey'];
+                           if ($divClassName[0] == 'a'){
+                               echo 'answerLikes.inc.php?' . $fileName . '@' . $singleComment['commentKey'];
+                           }
+                           else{
+                               echo 'commentLikes.inc.php?' . $fileName . '@' . $singleComment['commentKey'];
+                           }
+
                        } else {
                            echo '#';
                        }

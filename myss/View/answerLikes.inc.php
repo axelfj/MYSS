@@ -18,7 +18,7 @@ $url = $_SERVER['REQUEST_URI'];
 
 $posStart = strpos($url, '@') + 1;
 $posEnd = strlen($url);
-$commentKey = substr($url, $posStart, $posEnd - $posStart);
+$answerKey = substr($url, $posStart, $posEnd - $posStart);
 $pos = strpos($url, 'profile.php');
 if ($pos == false) {
     header('Location: index.php');
@@ -26,7 +26,7 @@ if ($pos == false) {
     header('Location: profile.php');
 }
 try {
-    userLikedComment($_SESSION['userKey'], $commentKey);
+    userLikedAnswer($_SESSION['userKey'], $answerKey);
 } catch (Exception $e) {
     echo $e->getMessage();
 }
