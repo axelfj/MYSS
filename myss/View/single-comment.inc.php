@@ -33,27 +33,26 @@
             <ul class="nav nav-pills pull-left" id="<?php echo 'commentTags' . $postOrCommentCounter; ?>">
                 <li><a id="commentLike"
                        href="<?php
-                       $user = $controller->verifyIfUserLikedComment($singleComment['commentKey'], $_SESSION['userKey']);
-                       if ($user->getCount() == 0) {
-                           if ($divClassName[0] == 'a'){
-                               echo 'answerLikes.inc.php?' . $fileName . '@' . $singleComment['commentKey'];
-                           }
-                           else{
-                               echo 'commentLikes.inc.php?' . $fileName . '@' . $singleComment['commentKey'];
-                           }
-
-                       } else {
+                       $commentCountLikes = $controller->verifyIfUserLikedComment($singleComment['commentKey'], $_SESSION['userKey']);
+                       /*$answerCountLikes = $controller->verifyIfUserLikedAnswer($singleComment['commentKey'], $_SESSION['userKey']);*/
+                       if ($commentCountLikes->getCount() == 0 && $divClassName[0] != 'a') {
+                           echo 'commentLikes.inc.php?' . $fileName . '@' . $singleComment['commentKey'];
+                       }
+                       /*else if ($answerCountLikes->getCount() == 0){
+                           echo 'answerLikes.inc.php?' . $fileName . '@' . $singleComment['commentKey'];
+                       }*/
+                       else{
                            echo '#';
                        }
+
                        ?>"
                     ><i class="far fa-thumbs-up"></i>
-                        <?php if ($divClassName[0] == 'a'){
+                        <?php if ($divClassName[0] == 'a') {
                             echo PostQuery::getLikeCount($singleComment['commentKey'], 'answer');
-                        }
-                        else{
+                        } else {
                             echo PostQuery::getLikeCount($singleComment['commentKey'], 'comment');
                         }
-                         ?>
+                        ?>
                     </a>
                     <a href="#" data-toggle="modal"
                        data-target="#<?php echo 'like' . $postOrCommentCounter; ?>">

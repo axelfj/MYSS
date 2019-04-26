@@ -31,6 +31,11 @@ class DAOPost_Comment_Tag
         return PostQuery::verifyIfUserLikedComment($postKey, $userKey);
     }
 
+    public function verifyIfUserLikedAnswer($postKey, $userKey)
+    {
+        return PostQuery::verifyIfUserLikedAnswer($postKey, $userKey);
+    }
+
     public function getPosts($username, $visibility)
     {
         // If there's an username, it means that we need the posts from the current user.
