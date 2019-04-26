@@ -9,7 +9,10 @@
             </div>
 
             <div class="modal-body">
-                <h5 class="modal-title">@<?php echo PostQuery::getPostLikeCount($singlePost['key']); ?></h5>
+                <h5 class="modal-title">
+                    @<?php $cursor = PostQuery::getUserLiked($singlePost['key']);
+                    var_dump($cursor->getAll());
+                    /*echo $singlePost['owner']*/ ?></h5>
             </div>
         </div>
     </div>
