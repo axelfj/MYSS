@@ -231,21 +231,21 @@ else if (isset($_POST['postbtn'])) {
                 <hr>
                 <div class="col-md-12">
                     <div class="memberblock"><a href="" class="member"> <img
-                                    src="img/user.png" alt="">
+                                    src="userImages/user.png" alt="">
                             <div class="memmbername">Ajay Sriram</div>
-                        </a> <a href="" class="member"> <img src="img/user.png"
+                        </a> <a href="" class="member"> <img src="userImages/user.png"
                                                              alt="">
                             <div class="memmbername">Rajesh Sriram</div>
-                        </a> <a href="" class="member"> <img src="img/user.png"
+                        </a> <a href="" class="member"> <img src="userImages/user.png"
                                                              alt="">
                             <div class="memmbername">Manish Sriram</div>
-                        </a> <a href="" class="member"> <img src="img/user.png"
+                        </a> <a href="" class="member"> <img src="userImages/user.png"
                                                              alt="">
                             <div class="memmbername">Chandra Amin</div>
-                        </a> <a href="" class="member"> <img src="img/user.png"
+                        </a> <a href="" class="member"> <img src="userImages/user.png"
                                                              alt="">
                             <div class="memmbername">John Sriram</div>
-                        </a> <a href="" class="member"> <img src="img/user.png"
+                        </a> <a href="" class="member"> <img src="userImages/user.png"
                                                              alt="">
                             <div class="memmbername">Lincoln Sriram</div>
                         </a></div>
