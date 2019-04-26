@@ -7,9 +7,7 @@ if (isset($_POST['searchByTag'])) {
 
     try {
         $controller = new Controller();
-        $cursor = $controller->filterPostsByTag($_POST['searchByTag']);
-        var_dump($cursor);
-
+        $dtoPost_Comment_Tag = $controller->filterPostsByTag($_POST['searchByTag']);
     } catch (Exception $e) {
         throwException($e);
     }

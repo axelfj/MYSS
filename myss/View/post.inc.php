@@ -65,8 +65,8 @@ try {
                 }
             }
 
-            // This is the query that means that he's at the index.
-            else {
+            // This is the query that means that he's at the index and he's not searching posts by a specific tag.
+            else if(!isset($dtoPost_Comment_Tag)){
 
                 // First, we will check if he's following someone.
                 $friendsCursor = $controller->getAllMyFriends($_SESSION['userKey']);
@@ -120,12 +120,9 @@ try {
                 else{
                     $dtoPost_Comment_Tag = $controller->getPosts(null, '');
                 }
-
-
-
             }
             $postCounter = 0;
-            if (isset($dtoPost_Comment_Tag)) {
+            if (isset($dtoPost_Comment_Tag) && sizeof($dtoPost_Comment_Tag) != 0) {
 
                 foreach ($dtoPost_Comment_Tag as $singlePost) {
                     $comments = $controller->getComments($singlePost['key'], 'comment');
@@ -217,6 +214,13 @@ try {
                     $postCounter++;
                     $postOrCommentCounter = $postCounter;
                 }
+            }
+
+            else if(sizeof($dtoPost_Comment_Tag) == 0){
+                echo
+                '<div class="alert alert-info">
+                    <strong>No results!</strong> No posts with tag "' . $_POST['searchByTag'] . '"
+                </div>';
             }
         }
     } else {
