@@ -363,7 +363,6 @@ class PostQuery
                     $resultingTags[$key] = $value;
                     $tag["key"] = $resultingTags[$key]->get("key");
                 }
-//                return $tag["key"];
 
                 $query2 = [
                     'FOR u IN has_tag

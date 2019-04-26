@@ -135,19 +135,27 @@ else if (isset($_POST['postbtn'])) {
                     $userFollowingUser = $controller->ifFollowing($_SESSION['userKey'], $dtoUser['key']);
 
                     if ($usernameVisited == false || $usernameVisited == $_SESSION['username']) { ?>
-                        <button id="followbtn" name="followbtn" class="btn btn-primary followbtn"
+                        <!--<button id="followbtn" name="followbtn" class="btn btn-primary followbtn"
                                 style="margin-top: 25px;">
                             <i class="fas fa-cog"></i>
-                        </button>
+                        </button>-->
+
+                            <button class="btn btn-primary dropdown-toggle followbtn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: 25px;">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="logout.php">Log out</a>
+                            </div>
+
                     <?php } else if (!$userFollowingUser) { ?>
                         <form method="post">
-                            <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick="prueba()"
+                            <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick=""
                                     style="margin-top: 25px;">
                                 <i class="fas fa-user-plus"></i> Follow
                             </button>
                         </form>
                     <?php } else { ?>
-                        <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick="prueba()"
+                        <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick=""
                                 style="margin-top: 25px;">
                             <i class="fas fa-user-check"></i> Following
                         </button>
