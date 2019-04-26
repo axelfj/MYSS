@@ -25,6 +25,9 @@ class UserQuery
         $user->set("password", $password);
         $user->set("name", $name);
         $user->set("birthday", $birthday);
+        if ($userImage == '') {
+            $userImage = "img/user.jpg";
+        }
         $user->set("userImage", $userImage);
 
         $database->save("user", $user);
@@ -87,13 +90,15 @@ class UserQuery
         return null;
     }
 
+    // We must send the keys.
     public static function followUser($fromUser, $toUser)
     {
-        userFollow($fromUser, $toUser);
+        return userFollow($fromUser, $toUser);
     }
 
     // Checks if an user is following another one.
-    public static function ifFolowing($fromUser, $toUser)
+    // We must send the keys.
+    public static function ifFollowing($fromUser, $toUser)
     {
         $query = ['
         FOR x IN follows 
@@ -111,4 +116,16 @@ class UserQuery
 
     }
 
+    // Gets all my friends usernames.
+    public static function getAllMyFriends($userId)
+    {
+        // In the Follows collection we must ask for the user/$userid.
+        $userIdComplete = 'user/' . $userId;
+        $statements = [
+            'FOR x in follows
+            FILTER x._from == @fromUser 
+            RETURN x' => ['fromUser' => $userIdComplete]];
+
+        return readCollection($statements);
+    }
 }

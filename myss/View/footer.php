@@ -23,13 +23,19 @@
     $(document).on('keyup', '.classComment', function () {
         var id = $(this).attr('id');
         var len = id.lenght;
-        var num = id.slice(7, len);
+        if(id.includes('comment')){
+            var button = '#commentbtn';
+            var num = id.slice(7, len);
+        } else {
+            var button = '#answerbtn';
+            var num = id.slice(6, len);
+        }
 
         if ($(this).val() != '') {
-            $("#commentbtn" + num).removeAttr('disabled');
+            $(button + num).removeAttr('disabled');
         }
         else {
-            $("#commentbtn" + num).attr("disabled", true);
+            $(button + num).attr("disabled", true);
         }
     });
     $(".imgAdd").click(function(){
