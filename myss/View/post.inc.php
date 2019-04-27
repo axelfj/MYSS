@@ -53,8 +53,7 @@ try {
 
                         // This brings all the posts of that user, but only in the profile of the person.
                         $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, '');
-                    }
-                    else{
+                    } else {
 
                         $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, 'Public');
                         if ($dtoPost_Comment_Tag != null)
@@ -65,19 +64,18 @@ try {
                     $dtoPost_Comment_Tag = $controller->getPosts($_SESSION['username'], '');
                     sort($dtoPost_Comment_Tag);
                 }
-            } 
-            // This is the query that means that he's at the index and he's not searching posts by a specific tag.
-            else if(!isset($dtoPost_Comment_Tag)){
+            } // This is the query that means that he's at the index and he's not searching posts by a specific tag.
+            else if (!isset($dtoPost_Comment_Tag)) {
 
                 // First, we will check if he's following someone.
                 $friendsCursor = $controller->getAllMyFriends($_SESSION['userKey']);
 
                 // Let's get all his friends into an array.
-                $friendsArray           = Array(); // Helps in the cursor.
-                $usernameArray          = Array();
-                $privatePosts           = Array(); // Here will be the posts.
-                $friendsCounter         = 0;
-                $auxiliaryArray         = Array(); // Helpfully.
+                $friendsArray = Array(); // Helps in the cursor.
+                $usernameArray = Array();
+                $privatePosts = Array(); // Here will be the posts.
+                $friendsCounter = 0;
+                $auxiliaryArray = Array(); // Helpfully.
 
 
                 // We verify if we're following somebody.
@@ -110,9 +108,9 @@ try {
 
                     // We make the query, save those posts, append the private ones and set them to him.
                     // We also query our posts.
-                    $publicPosts            = $controller->getPosts(null, '');
-                    $myPosts                = $controller->getPosts($_SESSION['username'], 'Private');
-                    $dtoPost_Comment_Tag    = Array();
+                    $publicPosts = $controller->getPosts(null, '');
+                    $myPosts = $controller->getPosts($_SESSION['username'], 'Private');
+                    $dtoPost_Comment_Tag = Array();
 
                     // We must obtain the array that is inside every array.
                     for ($counter = 0; $counter < sizeof($privatePosts); $counter++) {
@@ -123,31 +121,30 @@ try {
                     $dtoPost_Comment_Tag = $publicPosts + $privatePosts;
 
                     // We add the posts from the user that is logged in.
-                    for ($counter = 0; $counter < sizeof($myPosts); $counter++){
-                        array_push($dtoPost_Comment_Tag, $myPosts[$counter]);
-                    }
+                    if ($myPosts != null)
+                        for ($counter = 0; $counter < sizeof($myPosts); $counter++) {
+                            array_push($dtoPost_Comment_Tag, $myPosts[$counter]);
+                        }
 
                     sort($dtoPost_Comment_Tag);
-                }
-
-                // This means that he's following nobody.
-                else{
+                } // This means that he's following nobody.
+                else {
 
                     // We will bring his privates posts and the public ones.
                     // And also checking that they aren't empty.
-                    $publicPosts            = $controller->getPosts(null, '');
-                    $hisPosts               = $controller->getPosts($_SESSION['username'], 'Private');
-                    $dtoPost_Comment_Tag    = Array();
+                    $publicPosts = $controller->getPosts(null, '');
+                    $hisPosts = $controller->getPosts($_SESSION['username'], 'Private');
+                    $dtoPost_Comment_Tag = Array();
 
-                    if(!empty($publicPosts)){
+                    if (!empty($publicPosts)) {
                         $dtoPost_Comment_Tag = $dtoPost_Comment_Tag + $publicPosts;
                     }
-                    if(!empty($hisPosts)){
-                        for ($counter = 0; $counter < sizeof($hisPosts); $counter++){
+                    if (!empty($hisPosts)) {
+                        for ($counter = 0; $counter < sizeof($hisPosts); $counter++) {
                             array_push($dtoPost_Comment_Tag, $hisPosts[$counter]);
                         }
                     }
-                    if(empty($dtoPost_Comment_Tag)){
+                    if (empty($dtoPost_Comment_Tag)) {
                         $dtoPost_Comment_Tag = null;    // Very important! If not null, the code above will crash.
                     }
 
@@ -209,13 +206,13 @@ try {
                                             ><i class="far fa-thumbs-up"></i>
                                                 <?php echo PostQuery::getPostLikeCount($singlePost['key']); ?>
                                             </a>
-                                        <a href="#" data-toggle="modal"
-                                           data-target="#<?php echo 'like' . $postCommentOrAnswerKey; ?>">
-                                            <?php
-                                            $userOrUsers = (PostQuery::getPostLikeCount($singlePost['key']) == 1) ? 'user ' : 'users ';
-                                            echo $userOrUsers . 'liked';
-                                            ?>
-                                        </a>
+                                            <a href="#" data-toggle="modal"
+                                               data-target="#<?php echo 'like' . $postCommentOrAnswerKey; ?>">
+                                                <?php
+                                                $userOrUsers = (PostQuery::getPostLikeCount($singlePost['key']) == 1) ? 'user ' : 'users ';
+                                                echo $userOrUsers . 'liked';
+                                                ?>
+                                            </a>
                                         </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li><a href="#" title="" class="prevent"
                                                onclick="toggleDivAnswer('<?php echo $divClassName; ?>');"><i
@@ -252,7 +249,7 @@ try {
                                         }
                                     }
                                     $commentCounter++;
-                                    $divClassName =  'comment' . $singlePost['key'];
+                                    $divClassName = 'comment' . $singlePost['key'];
                                 }
 
                             }
@@ -265,11 +262,9 @@ try {
                     $postCounter++;
                     $postOrCommentCounter = $postCounter;
                 }
-            }
-
-            else if($dtoPost_Comment_Tag != null && sizeof($dtoPost_Comment_Tag) == 0){
+            } else if ($dtoPost_Comment_Tag != null && sizeof($dtoPost_Comment_Tag) == 0) {
                 echo
-                '<div class="alert alert-info">
+                    '<div class="alert alert-info">
                     <strong>No results!</strong> No posts with tag "' . $_POST['searchByTag'] . '"
                 </div>';
             }
