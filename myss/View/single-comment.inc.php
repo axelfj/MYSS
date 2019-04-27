@@ -33,25 +33,45 @@
             <ul class="nav nav-pills pull-left" id="<?php echo 'commentTags' . $postOrCommentCounter; ?>">
                 <li><a id="commentLike"
                        href="<?php
-                       $user = $controller->verifyIfUserLikedComment($singleComment['commentKey'], $_SESSION['userKey']);
-                       if ($user->getCount() == 0) {
+                       $commentCountLikes = $controller->verifyIfUserLikedComment($singleComment['commentKey'], $_SESSION['userKey']);
+                       $answerCountLikes = $controller->verifyIfUserLikedAnswer($singleComment['commentKey'], $_SESSION['userKey']);
+                       if ($commentCountLikes->getCount() == 0 && $divClassName[0] != 'a') {
                            echo 'commentLikes.inc.php?' . $fileName . '@' . $singleComment['commentKey'];
-                       } else {
+                       }
+                       else if ($answerCountLikes->getCount() == 0 && $divClassName[0] == 'a'){
+                           echo 'answerLikes.inc.php?' . $fileName . '@' . $singleComment['commentKey'];
+                       }
+                       else{
                            echo '#';
                        }
+
                        ?>"
                     ><i class="far fa-thumbs-up"></i>
-                        <?php echo PostQuery::getCommentLikeCount($singleComment['commentKey']); ?>
+                        <?php if ($divClassName[0] == 'a') {
+                            echo PostQuery::getLikeCount($singleComment['commentKey'], 'answer');
+                        } else {
+                            echo PostQuery::getLikeCount($singleComment['commentKey'], 'comment');
+                        }
+                        ?>
+                    </a>
+                    <a href="#" data-toggle="modal"
+                       data-target="#<?php echo 'like' . $postOrCommentCounter; ?>">
+                        <?php
+                        $userOrUsers = (PostQuery::getPostLikeCount($singleComment['key']) == 1) ? 'user ' : 'users ';
+                        echo $userOrUsers . 'liked';
+                        ?>
                     </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <?php
                 if (strpos($divClassName, 'answer') === false) {
                     ?>
                     <li><a href="#" title=""
-                           onclick="toggleDivAnswer('<?php echo 'answer' . $singleComment['key']; ?>');" class="prevent"><i class="far fa-comment"></i>
+                           onclick="toggleDivAnswer('<?php echo 'answer' . $singleComment['key']; ?>');"
+                           class="prevent"><i class="far fa-comment"></i>
                             </i>
                             <?php echo 'View replies (' . $numberOfAnswers . ')'; ?>
                         </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <li><a href="#" title="" data-toggle="modal" data-target="#<?php echo 'modal' . $commentCounter;?>" class="prevent">
+                    <li><a href="#" title="" data-toggle="modal" data-target="#<?php echo 'modal' . $commentKey; ?>"
+                           class="prevent">
                             <i class="far fa-comment-dots"></i> Reply</a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <?php
                 } ?>

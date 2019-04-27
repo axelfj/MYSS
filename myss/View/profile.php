@@ -135,19 +135,27 @@ else if (isset($_POST['postbtn'])) {
                     $userFollowingUser = $controller->ifFollowing($_SESSION['userKey'], $dtoUser['key']);
 
                     if ($usernameVisited == false || $usernameVisited == $_SESSION['username']) { ?>
-                        <button id="followbtn" name="followbtn" class="btn btn-primary followbtn"
+                        <!--<button id="followbtn" name="followbtn" class="btn btn-primary followbtn"
                                 style="margin-top: 25px;">
                             <i class="fas fa-cog"></i>
-                        </button>
+                        </button>-->
+
+                            <button class="btn btn-primary dropdown-toggle followbtn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: 25px;">
+                                <i class="fas fa-cog"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="logout.php">Log out</a>
+                            </div>
+
                     <?php } else if (!$userFollowingUser) { ?>
                         <form method="post">
-                            <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick="prueba()"
+                            <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick=""
                                     style="margin-top: 25px;">
                                 <i class="fas fa-user-plus"></i> Follow
                             </button>
                         </form>
                     <?php } else { ?>
-                        <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick="prueba()"
+                        <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick=""
                                 style="margin-top: 25px;">
                             <i class="fas fa-user-check"></i> Following
                         </button>
@@ -231,21 +239,21 @@ else if (isset($_POST['postbtn'])) {
                 <hr>
                 <div class="col-md-12">
                     <div class="memberblock"><a href="" class="member"> <img
-                                    src="img/user.png" alt="">
+                                    src="userImages/user.png" alt="">
                             <div class="memmbername">Ajay Sriram</div>
-                        </a> <a href="" class="member"> <img src="img/user.png"
+                        </a> <a href="" class="member"> <img src="userImages/user.png"
                                                              alt="">
                             <div class="memmbername">Rajesh Sriram</div>
-                        </a> <a href="" class="member"> <img src="img/user.png"
+                        </a> <a href="" class="member"> <img src="userImages/user.png"
                                                              alt="">
                             <div class="memmbername">Manish Sriram</div>
-                        </a> <a href="" class="member"> <img src="img/user.png"
+                        </a> <a href="" class="member"> <img src="userImages/user.png"
                                                              alt="">
                             <div class="memmbername">Chandra Amin</div>
-                        </a> <a href="" class="member"> <img src="img/user.png"
+                        </a> <a href="" class="member"> <img src="userImages/user.png"
                                                              alt="">
                             <div class="memmbername">John Sriram</div>
-                        </a> <a href="" class="member"> <img src="img/user.png"
+                        </a> <a href="" class="member"> <img src="userImages/user.png"
                                                              alt="">
                             <div class="memmbername">Lincoln Sriram</div>
                         </a></div>

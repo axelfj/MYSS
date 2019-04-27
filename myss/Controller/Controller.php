@@ -34,6 +34,11 @@ class Controller
         return $this->daoPost_Comment_Tag->verifyIfUserLikedComment($postKey, $userKey);
     }
 
+    public function verifyIfUserLikedAnswer($postKey, $userKey)
+    {
+        return $this->daoPost_Comment_Tag->verifyIfUserLikedAnswer($postKey, $userKey);
+    }
+
     public function getUser($email)
     {
         $dtoUser = $this->daoUser->getUser($email);
@@ -198,6 +203,13 @@ class Controller
         } catch (Exception $e) {
             return $e->getMessage();
         }
+    }
+
+
+    public function filterPostsByTag($tag)
+    {
+        $dtoPost_Comment_Tag = $this->daoPost_Comment_Tag->filterPostsByTag($tag);
+        return $dtoPost_Comment_Tag->getPosts();
     }
 
     // Verifies if an user is trying to visit another user's profile.

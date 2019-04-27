@@ -15,6 +15,7 @@ use ArangoDBClient\Statement as ArangoStatement;
 
 
 $url = $_SERVER['REQUEST_URI'];
+
 $posStart = strpos($url, '@') + 1;
 $posEnd = strlen($url);
 $commentKey = substr($url, $posStart, $posEnd - $posStart);
@@ -25,11 +26,7 @@ if ($pos == false) {
     header('Location: profile.php');
 }
 try {
-    $database = connect();
-    $document = new ArangoCollectionHandler(connect());
-
     userLikedComment($_SESSION['userKey'], $commentKey);
-
 } catch (Exception $e) {
     echo $e->getMessage();
 }
