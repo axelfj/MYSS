@@ -124,7 +124,7 @@ try {
                     $numberOfComments = ($comments != null) ? sizeof($comments) : 0;
                     $divClassName = 'comment' . $singlePost['key'];
                     $image = $controller->getProfile($singlePost['owner']);
-                    $postCommentOrModalKey = $singlePost['key'];
+                    $postCommentOrAnswerKey = $singlePost['key'];
                     ?>
 
                     <div class="panel container" style="background-color: white;"
@@ -172,7 +172,7 @@ try {
                                                 <?php echo PostQuery::getPostLikeCount($singlePost['key']); ?>
                                             </a>
                                         <a href="#" data-toggle="modal"
-                                           data-target="#<?php echo 'like' . $postCounter; ?>">
+                                           data-target="#<?php echo 'like' . $postCommentOrAnswerKey; ?>">
                                             <?php
                                             $userOrUsers = (PostQuery::getPostLikeCount($singlePost['key']) == 1) ? 'user ' : 'users ';
                                             echo $userOrUsers . 'liked';
@@ -195,20 +195,21 @@ try {
                             if (isset($comments)) {
                                 $commentCounter = 0;
                                 $postOrCommentCounter = $commentCounter;
-
+                                include 'modal-likes.php';
                                 foreach ($comments as $singleComment) {
                                     $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
                                     $answers = $controller->getComments($singleComment['key'], 'answer');
                                     $numberOfAnswers = ($answers != null) ? sizeof($answers) : 0;
-                                    $postCommentOrModalKey = $commentKey = $singleComment['key'];
+                                    $postCommentOrAnswerKey = $commentKey = $singleComment['key'];
 
                                     include 'single-comment.inc.php';
 
                                     if (isset($answers)) {
+                                        include 'modal-likes.php';
                                         foreach ($answers as $singleComment) {
                                             $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
                                             $divClassName = 'answer' . $commentKey;
-                                            $postCommentOrModalKey = $singleComment['key'];
+                                            $postCommentOrAnswerKey = $singleComment['key'];
                                             include 'single-comment.inc.php';
                                         }
                                     }
