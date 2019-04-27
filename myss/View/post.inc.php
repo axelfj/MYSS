@@ -127,9 +127,10 @@ try {
                     $dtoPost_Comment_Tag = $publicPosts + $privatePosts;
 
                     // We add the posts from the user that is logged in.
-                    for ($counter = 0; $counter < sizeof($myPosts); $counter++) {
-                        array_push($dtoPost_Comment_Tag, $myPosts[$counter]);
-                    }
+                    if ($myPosts > 0)
+                        for ($counter = 0; $counter < sizeof($myPosts); $counter++) {
+                            array_push($dtoPost_Comment_Tag, $myPosts[$counter]);
+                        }
 
                     if (!empty($dtoPost_Comment_Tag)) {
                         sort($dtoPost_Comment_Tag);
