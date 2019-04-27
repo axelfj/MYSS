@@ -19,7 +19,7 @@
                                 <a href="javascript:void(0)">
                                     <img src= "' . $cursorUser['userImage'] . '" class="media-object"></a>
                                         <h4 style="padding-left: 10px;padding-top: 10px;">
-                                        <a href="profile.php?' . $cursorUser['username'] . '">' . $cursorUser['username'] . '</h4>
+                                        <a href="profile.php?' . $cursorUser['username'] . '">' . $cursorUser['username'] . '</a></h4>
                               </div>
                               <hr>';
                     }
