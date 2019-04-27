@@ -30,10 +30,11 @@ class controllerTests extends TestCase
      * @dataProvider userDataProviderWithoutBirthday
      * @dataProvider userDataProviderComplete
      * */
+
+
     public function testRegisterNewUser($data, $complete){
         $_FILES['userImage']['name'] = "";
         $_FILES['userImage']['tmp_name'] = "";
-
         $message = $this->controller->register($data);
 
         if($complete) {
@@ -44,7 +45,8 @@ class controllerTests extends TestCase
     }
 
 
-    public function userDataProviderComplete(){
+    public function userDataProviderComplete()
+    {
         $array = array();
         $array ['username'] = 'YValle';
         $array ['email'] = 'yvalle@gmail.com';
@@ -59,7 +61,8 @@ class controllerTests extends TestCase
         ];
     }
 
-    public function userDataProviderWithoutUsername(){
+    public function userDataProviderWithoutUsername()
+    {
         $array = array();
         $array ['username'] = '';
         $array ['email'] = 'yvalle@gmail.com';
@@ -74,7 +77,8 @@ class controllerTests extends TestCase
         ];
     }
 
-    public function userDataProviderWithoutEmail(){
+    public function userDataProviderWithoutEmail()
+    {
         $array = array();
         $array ['username'] = 'YValle';
         $array ['email'] = '';
@@ -89,7 +93,8 @@ class controllerTests extends TestCase
         ];
     }
 
-    public function userDataProviderWithoutPassword(){
+    public function userDataProviderWithoutPassword()
+    {
         $array = array();
         $array ['username'] = 'YValle';
         $array ['email'] = 'yvalle@gmail.com';
@@ -104,7 +109,8 @@ class controllerTests extends TestCase
         ];
     }
 
-    public function userDataProviderWithoutName(){
+    public function userDataProviderWithoutName()
+    {
         $array = array();
         $array ['username'] = 'YValle';
         $array ['email'] = 'yvalle@gmail.com';
@@ -119,7 +125,8 @@ class controllerTests extends TestCase
         ];
     }
 
-    public function userDataProviderWithoutBirthday(){
+    public function userDataProviderWithoutBirthday()
+    {
         $array = array();
         $array ['username'] = 'YValle';
         $array ['email'] = 'yvalle@gmail.com';
@@ -134,7 +141,8 @@ class controllerTests extends TestCase
         ];
     }
 
-    public function userDataProviderRepeatedEmail(){
+    public function userDataProviderRepeatedEmail()
+    {
         $array = array();
         $array ['username'] = 'YValle1';
         $array ['email'] = 'yvalle@gmail.com';
@@ -161,7 +169,8 @@ class controllerTests extends TestCase
      * @depends testRegisterNewUser
      * @dataProvider userDataProviderComplete
      */
-    public function testNonRepetitiveUsername($data){
+    public function testNonRepetitiveUsername($data)
+    {
         $message = $this->controller->register($data);
 
         $this->assertEquals("Cannot register. The username has been taken.", $message);
@@ -171,7 +180,8 @@ class controllerTests extends TestCase
      * @depends testRegisterNewUser
      * @dataProvider userDataProviderRepeatedEmail
      */
-    public function testNonRepetitiveEmail($data){
+    public function testNonRepetitiveEmail($data)
+    {
         $message = $this->controller->register($data);
 
         $this->assertEquals("Cannot register. The email has been taken.", $message);
@@ -180,7 +190,8 @@ class controllerTests extends TestCase
     /**
      * @depends testRegisterNewUser
      * */
-    public function testIsEmailTaken(){
+    public function testIsEmailTaken()
+    {
         $this->assertTrue($this->controller->isEmailTaken("yvalle@gmail.com"));
     }
 
@@ -193,7 +204,8 @@ class controllerTests extends TestCase
      * @dataProvider loginDataProviderWithoutEmail
      * @dataProvider loginDataProviderWithoutPassword
      * */
-    public function testLoginAllData($data, $correct){
+    public function testLoginAllData($data, $correct)
+    {
         $message = $this->controller->login($data);
 
         switch($correct){
@@ -213,7 +225,8 @@ class controllerTests extends TestCase
         }
     }
 
-    public function loginDataProviderCorrectPassword(){
+    public function loginDataProviderCorrectPassword()
+    {
         $array = array();
         $array ['email'] = 'yvalle@gmail.com';
         $array ['password'] = '1234';
@@ -223,7 +236,8 @@ class controllerTests extends TestCase
         ];
     }
 
-    public function loginDataProviderIncorrectEmail(){
+    public function loginDataProviderIncorrectEmail()
+    {
         $array = array();
         $array ['email'] = 'yvalle@gmai.com';
         $array ['password'] = '1234';
@@ -233,7 +247,8 @@ class controllerTests extends TestCase
         ];
     }
 
-    public function loginDataProviderIncorrectPassword(){
+    public function loginDataProviderIncorrectPassword()
+    {
         $array = array();
         $array ['email'] = 'yvalle@gmail.com';
         $array ['password'] = '12345';
@@ -243,7 +258,8 @@ class controllerTests extends TestCase
         ];
     }
 
-    public function loginDataProviderWithoutEmail(){
+    public function loginDataProviderWithoutEmail()
+    {
         $array = array();
         $array ['email'] = '';
         $array ['password'] = '1234';
@@ -253,7 +269,8 @@ class controllerTests extends TestCase
         ];
     }
 
-    public function loginDataProviderWithoutPassword(){
+    public function loginDataProviderWithoutPassword()
+    {
         $array = array();
         $array ['email'] = 'yvalle@gmail.com';
         $array ['password'] = '';
@@ -270,7 +287,8 @@ class controllerTests extends TestCase
      * @dataProvider dtoPostDataProviderMissingUser
      * @depends testLoginAllData
      */
-    public function testCreatePost($dtoPost, $correct){
+    public function testCreatePost($dtoPost, $correct)
+    {
         $test = $this->controller->createNewPost($dtoPost);
         if($correct) {
             $this->assertTrue($test);
@@ -279,7 +297,8 @@ class controllerTests extends TestCase
         }
     }
 
-    public function dtoPostDataProviderCorrectData(){
+    public function dtoPostDataProviderCorrectData()
+    {
         $post = array();
         $post['title'] = "Título de prueba";
         $post['post'] = "Este será un post de prueba";
@@ -297,7 +316,8 @@ class controllerTests extends TestCase
         ];
     }
 
-    public function dtoPostDataProviderMissingBody(){
+    public function dtoPostDataProviderMissingBody()
+    {
         $post = array();
         $post['title'] = "Título de prueba";
         $post['post'] = "";
@@ -315,7 +335,8 @@ class controllerTests extends TestCase
         ];
     }
 
-    public function dtoPostDataProviderMissingTitle(){
+    public function dtoPostDataProviderMissingTitle()
+    {
         $post = array();
         $post['title'] = "";
         $post['post'] = "Este será un post de prueba";
@@ -333,7 +354,8 @@ class controllerTests extends TestCase
         ];
     }
 
-    public function dtoPostDataProviderMissingUser(){
+    public function dtoPostDataProviderMissingUser()
+    {
         $post = array();
         $post['title'] = "Título de prueba";
         $post['post'] = "Este será un post de prueba";
@@ -349,6 +371,14 @@ class controllerTests extends TestCase
         return[
             [$dtoPosts, False]
         ];
+    }
+
+
+    public function testTagKey()
+    {
+        $key = $this->controller->filterPostsByTag("Prueba");
+
+        $this->assertEquals(218151, $key);
     }
 
     /**
@@ -446,6 +476,5 @@ class controllerTests extends TestCase
             [$dtoUser, False]
         ];
     }
-
-
+    
 }

@@ -1,4 +1,18 @@
-<?php session_start(); ?>
+<?php
+
+session_start();
+
+require_once "../Controller/Controller.php";
+if (isset($_POST['searchByTag'])) {
+
+    try {
+        $controller = new Controller();
+        $dtoPost_Comment_Tag = $controller->filterPostsByTag($_POST['searchByTag']);
+    } catch (Exception $e) {
+        throwException($e);
+    }
+}
+?>
 
 <body style="background-color: #E7E7E9;" class="profile-page">
 <!--================ Start Header Area =================-->
@@ -10,14 +24,13 @@
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse flex-grow-0 ml-auto" id="navbarSupportedContent">
             <ul class="navbar-nav text-left">
                 <li class="nav-item">
                     <div class="input-group md-form form-sm form-2 pl-0">
-                        <form class="search-form" action="#">
+                        <form class="search-form" action="index.php" method="post">
                             <input class="form-control my-0 py-1 blue-border" type="text" placeholder="Search"
-                                   aria-label="Search">
+                                   aria-label="Search" name="searchByTag" id="searchByTag">
                         </form>
                         <div class="input-group-append">
                             <i class="fas fa-search" aria-hidden="true"
@@ -27,7 +40,6 @@
                 </li>
             </ul>
         </div>
-
         <div class="collapse navbar-collapse flex-grow-0 ml-auto" id="navbarSupportedContent">
             <ul class="navbar-nav text-right" style="padding-right:400px;">
                 <li class="nav-item">
@@ -39,20 +51,9 @@
             </ul>
         </div>
     </nav>
-
 </header>
+
 <br><br><br><br>
 <!--================ End Header Area =================-->
-
-<!--================ Pop-Up Post Area =================-->
-<div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-            </div>
-        </div>
-    </div>
-</div>
 
 
