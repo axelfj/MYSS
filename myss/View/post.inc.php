@@ -53,15 +53,18 @@ try {
 
                         // This brings all the posts of that user, but only in the profile of the person.
                         $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, '');
+                        sort($dtoPost_Comment_Tag);
                     }
                     else{
                         $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, 'Public');
+                        sort($dtoPost_Comment_Tag);
                     }
                 }
 
                 // This query means that he's in his profile.
                 else{
                     $dtoPost_Comment_Tag = $controller->getPosts($_SESSION['username'], '');
+                    sort($dtoPost_Comment_Tag);
                 }
             }
 
@@ -124,6 +127,8 @@ try {
                     for ($counter = 0; $counter < sizeof($myPosts); $counter++){
                         array_push($dtoPost_Comment_Tag, $myPosts[$counter]);
                     }
+
+                    sort($dtoPost_Comment_Tag);
                 }
 
                 // This means that he's following nobody.
@@ -146,6 +151,8 @@ try {
                     if(empty($dtoPost_Comment_Tag)){
                         $dtoPost_Comment_Tag = null;    // Very important! If not null, the code above will crash.
                     }
+
+                    sort($dtoPost_Comment_Tag);
                 }
             }
             $postCounter = 0;
