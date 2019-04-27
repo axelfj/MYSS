@@ -90,6 +90,30 @@ class UserQuery
         return null;
     }
 
+    public static function getUsernameAndImage($userKey){
+        try {
+            $statements = [
+                'FOR u in user 
+                FILTER u._key == @userKey 
+                RETURN {username: u.username, userImage: u.userImage}' => ['userKey' => $userKey]];
+
+            $cursor = readCollection($statements);
+            $resultingDocuments = array();
+            $usernameAndPicture = array();
+
+            if ($cursor->getCount() > 0) {
+                foreach ($cursor as $key => $value) {
+                    $resultingDocuments[$key] = $value;
+                    $usernameAndPicture['username'] = $resultingDocuments[$key]->get('username');
+                    $usernameAndPicture['userImage'] = $resultingDocuments[$key]->get('userImage');
+                }
+            }
+            return $usernameAndPicture;
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+    }
+
     // We must send the keys.
     public static function followUser($fromUser, $toUser)
     {

@@ -23,7 +23,7 @@
     $(document).on('keyup', '.classComment', function () {
         var id = $(this).attr('id');
         var len = id.lenght;
-        if(id.includes('comment')){
+        if (id.includes('comment')) {
             var button = '#commentbtn';
             var num = id.slice(7, len);
         } else {
@@ -38,26 +38,25 @@
             $(button + num).attr("disabled", true);
         }
     });
-    $(".imgAdd").click(function(){
+    $(".imgAdd").click(function () {
         $(this).closest(".row").find('.imgAdd').before('<div class="col-sm-2 imgUp"><div class="imagePreview"></div><label class="btn btn-primary">Upload<input type="file" class="uploadFile img" value="Upload Photo" style="width:0px;height:0px;overflow:hidden;"></label><i class="fa fa-times del"></i></div>');
     });
-    $(document).on("click", "i.del" , function() {
+    $(document).on("click", "i.del", function () {
         $(this).parent().remove();
     });
-    $(function() {
-        $(document).on("change",".uploadFile", function()
-        {
+    $(function () {
+        $(document).on("change", ".uploadFile", function () {
             var uploadFile = $(this);
             var files = !!this.files ? this.files : [];
             if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
 
-            if (/^image/.test( files[0].type)){ // only image file
+            if (/^image/.test(files[0].type)) { // only image file
                 var reader = new FileReader(); // instance of the FileReader
                 reader.readAsDataURL(files[0]); // read the local file
 
-                reader.onloadend = function(){ // set image data as background of div
+                reader.onloadend = function () { // set image data as background of div
                     //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
-                    uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url("+this.result+")");
+                    uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url(" + this.result + ")");
                     uploadFile.closest(".imgUp").find('.imagePreview').css("display", "block");
                 }
             }
@@ -67,14 +66,15 @@
     $('.prevent').click(function (event) {
         event.preventDefault();
     });
+
     function toggleDivAnswer(className) {
         var divElements = document.getElementsByClassName(className);
 
-        Array.prototype.forEach.call(divElements, function(element) {
-            if(element.style.display == 'none'){
+        Array.prototype.forEach.call(divElements, function (element) {
+            if (element.style.display == 'none') {
                 element.style.display = 'block';
             }
-            else{
+            else {
                 element.style.display = 'none';
             }
         });
