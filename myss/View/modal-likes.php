@@ -1,4 +1,4 @@
-<div id="<?php echo 'like' . $postCounter; ?>" class="modal fade" role="dialog">
+<div id="<?php echo 'like' . $postCommentOrAnswerKey; ?>" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -10,8 +10,8 @@
 
             <div class="modal-body">
                 <h5 class="modal-title">
-                    @<?php $cursor = PostQuery::getUserLiked($postCommentOrModalKey);
-                    var_dump($cursor->getAll());
+                    @<?php /*$cursor = PostQuery::getUserLiked($postCommentOrAnswerKey);
+                    var_dump($cursor->getAll());*/ echo $postCommentOrAnswerKey;
                     ?></h5>
             </div>
         </div>
