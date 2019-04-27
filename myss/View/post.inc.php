@@ -124,6 +124,7 @@ try {
                     $numberOfComments = ($comments != null) ? sizeof($comments) : 0;
                     $divClassName = 'comment' . $singlePost['key'];
                     $image = $controller->getProfile($singlePost['owner']);
+                    $postCommentOrModalKey = $singlePost['key'];
                     ?>
 
                     <div class="panel container" style="background-color: white;"
@@ -199,13 +200,15 @@ try {
                                     $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
                                     $answers = $controller->getComments($singleComment['key'], 'answer');
                                     $numberOfAnswers = ($answers != null) ? sizeof($answers) : 0;
-                                    $commentKey = $singleComment['key'];
+                                    $postCommentOrModalKey = $commentKey = $singleComment['key'];
+
                                     include 'single-comment.inc.php';
 
                                     if (isset($answers)) {
                                         foreach ($answers as $singleComment) {
                                             $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
                                             $divClassName = 'answer' . $commentKey;
+                                            $postCommentOrModalKey = $singleComment['key'];
                                             include 'single-comment.inc.php';
                                         }
                                     }
