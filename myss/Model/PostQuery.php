@@ -329,6 +329,110 @@ class PostQuery
         return readCollection($statements);
     }
 
+
+    public static function filterPostByTag($tag)
+    {
+        try {
+            $tag .= '%';
+            $query = [
+                'FOR u IN post 
+                FILTER u.tagsPosts LIKE @tag
+                RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, destination: u.destination, 
+                tagsPost: u.tagsPost, visibility: u.visibility, time: u.time, likes: u.likes}'
+                => ['tag' => $tag]];
+            $publicPosts = PostQuery::postsIntoArray($query);
+            return $publicPosts;
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+    }
+
+
+    public static function getTagKey($tag){
+        try{
+            if(!empty($tag)) {
+                $query = [
+                    'FOR u IN tag 
+                 FILTER u.name == @tagName                                                         
+                 RETURN {key: u._key}' => ['tagName' => $tag]];
+
+                $cursor = readCollection($query);
+
+                return $cursor;
+            }
+
+        }catch (Exception $exception){
+            $exception->getMessage();
+        }
+    }
+
+    public static function filterPostByTag2($tag){
+        try{
+            $cursor = PostQuery::getTagKey($tag);
+            if(!empty($cursor)) {
+                $resultingTags = array();
+                $tag =array();
+
+                foreach ($cursor as $key => $value) {
+                    $resultingTags[$key] = $value;
+                    $tag["key"] = $resultingTags[$key]->get("key");
+                }
+
+                $query2 = [
+                    'FOR u IN has_tag
+                     FILTER u._to == @to
+                     RETURN {key: u._key, from: u._from, to: u._to}' => ['to' => 'tag/' . $tag["key"]]];
+
+                $cursor2 = readCollection($query2);
+                $post = array();
+                $userPosts = array();
+                foreach ($cursor2 as $key => $value) {
+                    $resultingDocuments[$key] = $value;
+                    $post['to'] = $resultingDocuments[$key]->get('to');
+                    $post['from'] = $resultingDocuments[$key]->get('from');
+                    $post['key'] = $resultingDocuments[$key]->get('key');
+
+
+                    array_push($userPosts, $post);
+                }
+
+                $findedPosts = array();
+
+                foreach ($userPosts as $key => $value){
+                    $postKey = $userPosts[$key]["from"];
+
+                    $postKey = substr($postKey,5);
+                    $post = self::getPostFromKey($postKey);
+
+                    $findedPosts= array_merge($findedPosts, $post);
+                }
+                return $findedPosts;
+
+
+            }
+        }catch (Exception $exception){
+            $exception->getMessage();
+        }
+    }
+
+    public static function getPostFromKey($key){
+        try{
+            $query = [
+                '
+                FOR u IN post 
+                FILTER u._key == @key 
+                SORT u.time DESC 
+                RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, destination: u.destination,
+                tagsPost: u.tagsPost, visibility: u.visibility, time: u.time, likes: u.likes}'
+            => ['key' => $key]];
+            $posts = PostQuery::postsIntoArray($query);
+
+            return $posts;
+        }catch (Exception $e) {
+            $e->getMessage();
+        }
+    }
+
     public static function verifyIfUserLikedComment($commentKey, $userKey)
     {
         $statements = [
@@ -360,6 +464,7 @@ class PostQuery
 
         } catch (Exception $e) {
             echo $e->getMessage();
+
         }
     }
 }
