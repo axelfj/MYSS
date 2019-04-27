@@ -48,16 +48,17 @@
                        ?>"
                     ><i class="far fa-thumbs-up"></i>
                         <?php if ($divClassName[0] == 'a') {
-                            echo PostQuery::getLikeCount($singleComment['commentKey'], 'answer');
+                            $likeCount = PostQuery::getLikeCount($singleComment['commentKey'], 'answer');
                         } else {
-                            echo PostQuery::getLikeCount($singleComment['commentKey'], 'comment');
+                            $likeCount = PostQuery::getLikeCount($singleComment['commentKey'], 'comment');
                         }
+                        echo $likeCount;
                         ?>
                     </a>
                     <a href="#" data-toggle="modal"
-                       data-target="#<?php echo 'like' . $postOrCommentCounter; ?>">
+                       data-target="#<?php echo 'like' . $postCommentOrAnswerKey; ?>">
                         <?php
-                        $userOrUsers = (PostQuery::getPostLikeCount($singleComment['key']) == 1) ? 'user ' : 'users ';
+                        $userOrUsers = ($likeCount == 1) ? 'user ' : 'users ';
                         echo $userOrUsers . 'liked';
                         ?>
                     </a></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
