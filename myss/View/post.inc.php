@@ -53,17 +53,23 @@ try {
 
                         // This brings all the posts of that user, but only in the profile of the person.
                         $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, '');
+                        if (!empty($dtoPost_Comment_Tag)){
+                            sort($dtoPost_Comment_Tag);
+                        }
                     }
                     else{
 
                         $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, 'Public');
-                        if ($dtoPost_Comment_Tag != null)
+                        if (!empty($dtoPost_Comment_Tag)){
                             sort($dtoPost_Comment_Tag);
+                        }
                     }
                 } // This query means that he's in his profile.
                 else {
                     $dtoPost_Comment_Tag = $controller->getPosts($_SESSION['username'], '');
-                    sort($dtoPost_Comment_Tag);
+                    if (!empty($dtoPost_Comment_Tag)){
+                        sort($dtoPost_Comment_Tag);
+                    }
                 }
             } 
             // This is the query that means that he's at the index and he's not searching posts by a specific tag.
@@ -127,7 +133,9 @@ try {
                         array_push($dtoPost_Comment_Tag, $myPosts[$counter]);
                     }
 
-                    sort($dtoPost_Comment_Tag);
+                    if (!empty($dtoPost_Comment_Tag)){
+                        sort($dtoPost_Comment_Tag);
+                    }
                 }
 
                 // This means that he's following nobody.
@@ -151,7 +159,9 @@ try {
                         $dtoPost_Comment_Tag = null;    // Very important! If not null, the code above will crash.
                     }
 
-                    sort($dtoPost_Comment_Tag);
+                    if (!empty($dtoPost_Comment_Tag)){
+                        sort($dtoPost_Comment_Tag);
+                    }
                 }
             }
             $postCounter = 0;
