@@ -10,8 +10,19 @@
 
             <div class="modal-body">
                 <h5 class="modal-title">
-                    <?php $cursor = PostQuery::getUserLiked($postCommentOrAnswerKey);
-                    var_dump($cursor->getAll());
+                    <?php
+                    $cursorWithUserKeys = PostQuery::getUserLiked($postCommentOrAnswerKey);
+                    for ($i = 0; $i < sizeof($cursorWithUserKeys); $i++){
+                        $key = substr($cursorWithUserKeys[$i], 5, strlen($cursorWithUserKeys[$i]));
+                        $cursorUser = UserQuery::getUsernameAndImage($key);
+                        echo '<div class="row"  style="padding-left: 20px;">
+                                <a href="javascript:void(0)">
+                                    <img src= "' . $cursorUser['userImage'] . '" class="media-object"></a>
+                                        <h4 style="padding-left: 10px;padding-top: 10px;">
+                                        <a href="profile.php?' . $cursorUser['username'] . '">' . $cursorUser['username'] . '</h4>
+                              </div>
+                              <hr>';
+                    }
                     ?></h5>
             </div>
         </div>

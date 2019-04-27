@@ -289,39 +289,7 @@ class PostQuery
                 RETURN u._from' => ['key' => '%' . $idPost]];
 
             $cursor = readCollection($statements);
-            $resultingDocuments = array();
-            /*if ($cursor->getCount() > 0) {
-                $usernameAndPicture = array();
-                foreach ($cursor as $key => $value) {
-                    $resultingDocuments[$key] = self::userIdToUsernameAndPicture($value);
-                    $usernameAndPicture['username'] = $resultingDocuments[$key]->get('username');
-                    $usernameAndPicture['userImage'] = $resultingDocuments[$key]->get('userImage');
-                }
-            }*/
-            return $cursor;
-        } catch (Exception $e) {
-            $e->getMessage();
-        }
-    }
-
-    private static function userIdToUsernameAndPicture($id)
-    {
-        try {
-            $statements = [
-                'FOR u in user 
-                FILTER u._id == @_id 
-                RETURN {username: u.username, userImage: u.userImage}' => ['_id' => $id]];
-            $cursor = readCollection($statements);
-            $resultingDocuments = array();
-            if ($cursor->getCount() > 0) {
-                $usernameAndPicture = array();
-                foreach ($cursor as $key => $value) {
-                    $resultingDocuments[$key] = $value;
-                    $usernameAndPicture['username'] = $resultingDocuments[$key]->get('username');
-                    $usernameAndPicture['userImage'] = $resultingDocuments[$key]->get('userImage');
-                }
-            }
-            return $usernameAndPicture;
+            return $cursor->getAll();
         } catch (Exception $e) {
             $e->getMessage();
         }
