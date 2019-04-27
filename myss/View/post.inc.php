@@ -119,13 +119,32 @@ try {
                     var_dump($publicPosts);
                     var_dump($myPosts);
                     var_dump($privatePosts);
-                    
+
                     $dtoPost_Comment_Tag = $publicPosts + $privatePosts + $myPosts;
                 }
 
                 // This means that he's following nobody.
                 else{
-                    $dtoPost_Comment_Tag = $controller->getPosts(null, '');
+
+                    // We will bring his privates posts and the public ones.
+                    // And also checking that they aren't empty.
+                    $publicPosts            = $controller->getPosts(null, '');
+                    $hisPosts               = $controller->getPosts($_SESSION['username'], 'Private');
+                    $dtoPost_Comment_Tag    = Array();
+
+                    if(!empty($publicPosts)){
+                        $dtoPost_Comment_Tag = $dtoPost_Comment_Tag + $publicPosts;
+                    }
+                    if(!empty($hisPosts)){
+                        for ($counter = 0; $counter < sizeof($hisPosts); $counter++){
+                            array_push($dtoPost_Comment_Tag, $hisPosts[$counter]);
+                        }
+                    }
+                    if(empty($dtoPost_Comment_Tag)){
+                        $dtoPost_Comment_Tag = null;    // Very important! If not null, the code above will crash.
+                    }
+
+                    var_dump($dtoPost_Comment_Tag);
                 }
             }
             $postCounter = 0;
@@ -225,7 +244,9 @@ try {
             }
         }
     } else {
-        echo 'Register so you can see the posts!';
+        echo '<div class="alert alert-info">
+            Register so you can see the posts!
+        </div>';
     }
 
 } catch
