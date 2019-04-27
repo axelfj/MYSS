@@ -19,16 +19,15 @@ date_default_timezone_set('America/Costa_Rica');
 $url = $_SERVER['REQUEST_URI'];
 $posStart = strpos($url, 'commentbtn');
 
-if($posStart != false){
+if ($posStart != false) {
     $posStart += 10;
     $buttonName = 'commentbtn';
-}
-else{
+} else {
     $posStart = strpos($url, 'answerbtn') + 9;
     $buttonName = 'answerbtn';
 }
 
-$posEnd   = strpos($url, '@');
+$posEnd = strpos($url, '@');
 $buttonNumber = substr($url, $posStart, $posEnd - $posStart);
 
 // Gets the key of the post that is getting commented.
@@ -38,7 +37,7 @@ $postKey = substr($url, $posStart, $posEnd - $posStart);
 
 $controller = new Controller();
 $dtoComment = new DTOPost_Comment_Tag();
-echo 'pos: ' . $posStart . ' name: ' .$buttonName . ' numb: ' .$buttonNumber;
+echo 'pos: ' . $posStart . ' name: ' . $buttonName . ' numb: ' . $buttonNumber;
 
 if (isset($_POST[$buttonName . $buttonNumber])) {
     try {
@@ -62,7 +61,7 @@ if (isset($_POST[$buttonName . $buttonNumber])) {
 }
 
 $pos = strpos($url, 'profile.php');
-if($pos == false){
+if ($pos == false) {
     $pos = strpos($url, 'index.php');
 }
 $len = strlen($url);

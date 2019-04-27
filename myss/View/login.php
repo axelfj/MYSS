@@ -15,9 +15,6 @@ session_start();
 if (isset($_SESSION['userId'])) {
     header('Location: ..\View\index.php');
 }
-
-// Creates a connection to the database.
-$database = connect();
 ?>
 <center>
     <section class="">
@@ -25,7 +22,7 @@ $database = connect();
         $controller = new Controller();
         $message = $controller->login($_POST);
 
-        if($message == "Login successful."){
+        if ($message == "Login successful.") {
             header('Location: ..\View\index.php');
         }
         if (!empty($message)): ?>
@@ -49,7 +46,8 @@ $database = connect();
                                 onclick="login()">Log In
                         </button>
                         <br><br>
-                        <a class="genric-btn info-border circle arrow" href="signup.php" role="button">Don't have an account yet? Register here.</a><br>
+                        <a class="genric-btn info-border circle arrow" href="signup.php" role="button">Don't have an
+                            account yet? Register here.</a><br>
                     </form>
                 </div><!-- /.col -->
             </center>
