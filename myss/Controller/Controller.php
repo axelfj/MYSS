@@ -21,7 +21,7 @@ class Controller
 
     public function createNewComment($dtoComment, $postKey, $type)
     {
-        $this->daoPost_Comment_Tag->createNewComment($dtoComment, $postKey, $type);
+        return $this->daoPost_Comment_Tag->createNewComment($dtoComment, $postKey, $type);
     }
 
     public function verifyIfUserLikedPost($postKey, $userKey)
