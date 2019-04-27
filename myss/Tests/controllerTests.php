@@ -301,8 +301,8 @@ class controllerTests extends TestCase
     public function dtoPostDataProviderCorrectDataPublic(){
         $post = array();
         $post['title'] = "Título de prueba";
-        $post['post'] = "Este será un post de prueba";
-        $post['tagsPost'] = "Prueba";
+        $post['post'] = "Este será un post de prueba público";
+        $post['tagsPost'] = "Prueba,Public";
         $post['visibility'] = "Public";
         $post['username'] = "YValle";
         $post['time'] = date('j-m-y H:i');
@@ -320,8 +320,8 @@ class controllerTests extends TestCase
     public function dtoPostDataProviderCorrectDataPrivate(){
         $post = array();
         $post['title'] = "Título de prueba";
-        $post['post'] = "Este será un post de prueba";
-        $post['tagsPost'] = "Prueba";
+        $post['post'] = "Este será un post de prueba privado";
+        $post['tagsPost'] = "Prueba,Privado";
         $post['visibility'] = "Private";
         $post['username'] = "YValle";
         $post['time'] = date('j-m-y H:i');
@@ -392,13 +392,6 @@ class controllerTests extends TestCase
         ];
     }
 
-
-    public function testTagKey()
-    {
-        $key = $this->controller->filterPostsByTag("Prueba");
-
-        $this->assertEquals(218151, $key);
-    }
 
     /**
      * @depends testLoginAllData
