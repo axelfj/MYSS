@@ -55,7 +55,7 @@
                         ?>
                     </a>
                     <a href="#" data-toggle="modal"
-                       data-target="#<?php echo 'like' . $postOrCommentCounter; ?>">
+                       data-target="#<?php echo 'like' . $postCommentOrAnswerKey; ?>">
                         <?php
                         $userOrUsers = (PostQuery::getPostLikeCount($singleComment['key']) == 1) ? 'user ' : 'users ';
                         echo $userOrUsers . 'liked';
