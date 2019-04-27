@@ -84,43 +84,46 @@ try {
                     // Then we obtain their usernames.
                     // Remember that they will come: user/key.
                     foreach ($friendsCursor as $key => $value) {
-                        $auxiliaryArray[$key]           = $value;
-                        $friendsArray[$friendsCounter]  = $auxiliaryArray[$key]->get('_to');
+                        $auxiliaryArray[$key] = $value;
+                        $friendsArray[$friendsCounter] = $auxiliaryArray[$key]->get('_to');
                         $friendsCounter++;
                     }
 
                     // Now, let's get only their keys. And with that, their usernames.
-                    for ($counter = 0; $counter < count($friendsArray); $counter++){
+                    for ($counter = 0; $counter < count($friendsArray); $counter++) {
                         $friendsArray[$counter] = substr($friendsArray[$counter], 5);
-                        $userCursor             = $document->byExample('user',
-                                                                        ['_key' => $friendsArray[$counter]]);
+                        $userCursor = $document->byExample('user',
+                            ['_key' => $friendsArray[$counter]]);
 
                         // Here will be fetched our username.
                         foreach ($userCursor as $key => $value) {
-                            $auxiliaryArray[$key]       = $value;
-                            $usernameArray[$counter]    = $auxiliaryArray[$key]->get('username');
+                            $auxiliaryArray[$key] = $value;
+                            $usernameArray[$counter] = $auxiliaryArray[$key]->get('username');
                         }
 
                         // For every username in the username, let's retrieve their posts.
                         array_push($privatePosts, $controller->getPosts($usernameArray[$counter],
-                             'Private'));
+                            'Private'));
                     }
 
                     // We make the query, save those posts, append the private ones and set them to him.
                     // We also query our posts.
-                    $publicPosts    = $controller->getPosts(null, '');
-                    $myPosts        = $controller->getPosts($_SESSION['username'], '');
+                    $publicPosts            = $controller->getPosts(null, '');
+                    $myPosts                = $controller->getPosts($_SESSION['username'], '');
+                    $dtoPost_Comment_Tag    = Array();
 
                     // We must obtain the array that is inside every array.
-                    for($counter = 0; $counter < sizeof($privatePosts); $counter++){
+                    for ($counter = 0; $counter < sizeof($privatePosts); $counter++) {
                         array_push($publicPosts, $privatePosts[$counter][0]);
                     }
 
-                    var_dump($publicPosts);
-                    var_dump($myPosts);
-                    var_dump($privatePosts);
+                    // We save the posts.
+                    $dtoPost_Comment_Tag = $publicPosts + $privatePosts;
 
-                    $dtoPost_Comment_Tag = $publicPosts + $privatePosts + $myPosts;
+                    // We add the posts from the user that is logged in.
+                    for ($counter = 0; $counter < sizeof($myPosts); $counter++){
+                        array_push($dtoPost_Comment_Tag, $myPosts[$counter]);
+                    }
                 }
 
                 // This means that he's following nobody.
@@ -143,8 +146,6 @@ try {
                     if(empty($dtoPost_Comment_Tag)){
                         $dtoPost_Comment_Tag = null;    // Very important! If not null, the code above will crash.
                     }
-
-                    var_dump($dtoPost_Comment_Tag);
                 }
             }
             $postCounter = 0;
