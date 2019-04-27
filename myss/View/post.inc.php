@@ -232,7 +232,7 @@ try {
                             if (isset($comments)) {
                                 $commentCounter = 0;
                                 $postOrCommentCounter = $commentCounter;
-                                include 'modal-likes.php';
+
                                 foreach ($comments as $singleComment) {
                                     $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
                                     $answers = $controller->getComments($singleComment['key'], 'answer');
@@ -242,7 +242,7 @@ try {
                                     include 'single-comment.inc.php';
 
                                     if (isset($answers)) {
-                                        include 'modal-likes.php';
+
                                         foreach ($answers as $singleComment) {
                                             $imageCommentOwner = $controller->getProfile($singleComment['commentOwner']);
                                             $divClassName = 'answer' . $commentKey;
@@ -253,6 +253,7 @@ try {
                                     $commentCounter++;
                                     $divClassName =  'comment' . $singlePost['key'];
                                 }
+
                             }
                             ?>
                             <hr>
