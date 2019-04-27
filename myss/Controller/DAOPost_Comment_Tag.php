@@ -56,6 +56,13 @@ class DAOPost_Comment_Tag
         return $this->dtoPost_Comment_Tag;
     }
 
+
+    public function filterPostsByTag($tag)
+    {
+        $this->dtoPost_Comment_Tag->setPosts(PostQuery::filterPostByTag2($tag));
+        return $this->dtoPost_Comment_Tag;
+    }
+
     public function like($userKey, $postKey)
     {
         PostQuery::like($userKey, $postKey);
