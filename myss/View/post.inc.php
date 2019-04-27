@@ -109,7 +109,7 @@ try {
                     // We make the query, save those posts, append the private ones and set them to him.
                     // We also query our posts.
                     $publicPosts            = $controller->getPosts(null, '');
-                    $myPosts                = $controller->getPosts($_SESSION['username'], '');
+                    $myPosts                = $controller->getPosts($_SESSION['username'], 'Private');
                     $dtoPost_Comment_Tag    = Array();
 
                     // We must obtain the array that is inside every array.
