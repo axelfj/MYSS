@@ -461,7 +461,6 @@ class PostQuery
     public static function like($userKey, $postKey)
     {
         try {
-            #$database = connect();
             $document = new ArangoCollectionHandler(connect());
 
             $cursor = $document->byExample('post', ['visibility' => "Public"], ['visibility' => "Private"]);
@@ -474,5 +473,30 @@ class PostQuery
             echo $e->getMessage();
 
         }
+    }
+
+    public static function getTags(){
+        $query = 'FOR t in tag 
+             RETURN {tagName: t.name}';
+        $statement = new ArangoStatement(
+            connect(),
+            array(
+                "query"     => $query,
+                "count"     => true,
+                "batchSize" => 1000,
+                "sanitize"  => true
+            )
+        );
+
+        $cursor = $statement->execute();
+        $resultingDocuments = array();
+        $tags = array();
+
+        foreach ($cursor as $key => $value) {
+            $resultingDocuments[$key] = $value;
+            array_push($tags, $resultingDocuments[$key]->get('tagName'));
+        }
+
+        return $tags;
     }
 }
