@@ -56,33 +56,39 @@ class PostQuery
 
     public static function createNewComment($dtoComment, $postOrCommentKey, $type)
     {
-        $database = new ArangoDocumentHandler(connect());
-        $infoComment = $dtoComment->getComments();
+        try {
+            $database = new ArangoDocumentHandler(connect());
+            $infoComment = $dtoComment->getComments();
 
-        $text = $infoComment['text'];
-        $tagsComment = $infoComment['tagsComment'];
-        $commentOwner = $infoComment['commentOwner'];
-        $imagePath = $infoComment['destination'];
-        $time = date('j-m-y H:i');
+            $text = $infoComment['text'];
+            $tagsComment = $infoComment['tagsComment'];
+            $commentOwner = $infoComment['commentOwner'];
+            $imagePath = $infoComment['destination'];
+            $time = date('j-m-y H:i');
 
-        $comment = new ArangoDocument();
-        $comment->set("text", $text);
-        $comment->set("tagsComment", $tagsComment);
-        $comment->set("commentOwner", $commentOwner);
-        $comment->set("destination", $imagePath);
-        $comment->set("time", $time);
+            $comment = new ArangoDocument();
+            $comment->set("text", $text);
+            $comment->set("tagsComment", $tagsComment);
+            $comment->set("commentOwner", $commentOwner);
+            $comment->set("destination", $imagePath);
+            $comment->set("time", $time);
 
-        $newComment = $database->save($type, $comment);
+            $newComment = $database->save($type, $comment);
 
-        // Gets just the number of key, because "$newPost" stores something like "post/83126"
-        // and we just need that number.
-        $pos = strpos($newComment, "/") + 1;
-        $commentKey = substr($newComment, $pos, strlen($newComment));
+            // Gets just the number of key, because "$newPost" stores something like "post/83126"
+            // and we just need that number.
+            $pos = strpos($newComment, "/") + 1;
+            $commentKey = substr($newComment, $pos, strlen($newComment));
 
-        if ($type == 'comment') {
-            postHasComment($postOrCommentKey, $commentKey);
-        } else {
-            commentHasAnswer($postOrCommentKey, $commentKey);
+            if ($type == 'comment') {
+                postHasComment($postOrCommentKey, $commentKey);
+            } else {
+                commentHasAnswer($postOrCommentKey, $commentKey);
+            }
+            return true;
+        }catch (Exception $e){
+            return false;
+
         }
 
     }
