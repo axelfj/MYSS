@@ -87,5 +87,6 @@
 
 <?php
 include 'modal-answer.php';
+include 'modal-likes.php';
 ?>
 
