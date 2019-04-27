@@ -260,4 +260,8 @@ class Controller
         $this->daoPost_Comment_Tag->like($userKey, $postKey);
     }
 
+    public function getTags(){
+        return $this->daoPost_Comment_Tag->getTags();
+    }
+
 }

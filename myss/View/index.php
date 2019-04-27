@@ -32,38 +32,19 @@ $document = new ArangoCollectionHandler(connect());
             <div class="col-md-4 sidebar-widgets">
                 <div class="widget-wrap">
                     <div class="single-sidebar-widget post-category-widget" style="background: white">
-                        <h4 class="ti-tag"> Popular Tags </h4>
+                        <h4 class="ti-tag"> Popular post tags</h4>
+
                         <ul class="cat-list mt-20">
+                            <?php
+                            $tags = $controller->getTags();
+
+                            for($i = 0; $i < sizeof($tags) && $i < 5; $i++){?>
                             <li>
                                 <a href="#" class="d-flex justify-content-between">
-                                    <p>Fashion</p>
-                                    <p>59</p>
+                                    <p><i class="fas fa-tags"></i><?php echo ' ' . $tags[$i];?></p>
                                 </a>
                             </li>
-                            <li>
-                                <a href="#" class="d-flex justify-content-between">
-                                    <p>Travel</p>
-                                    <p>09</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="d-flex justify-content-between">
-                                    <p>Lifestyle</p>
-                                    <p>24</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="d-flex justify-content-between">
-                                    <p>Shopping</p>
-                                    <p>44</p>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="d-flex justify-content-between">
-                                    <p>Food</p>
-                                    <p>15</p>
-                                </a>
-                            </li>
+                            <?php }?>
                         </ul>
                     </div>
                 </div>

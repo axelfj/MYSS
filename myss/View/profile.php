@@ -146,6 +146,7 @@ if (isset($_POST['followbtn'])) {
                             <a class="dropdown-item" href="logout.php">Log out</a>
                         </div>
 
+
                     <?php } else if (!$userFollowingUser) { ?>
                         <form method="post">
                             <button id="followbtn" name="followbtn" class="btn btn-primary followbtn" onclick=""
