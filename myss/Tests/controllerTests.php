@@ -501,10 +501,20 @@ class controllerTests extends TestCase
     /**
      * @depends testCreatePost
      */
-    public function testGetPosts(){
+    public function testGetPostsPublic(){
         $cursor = $this->controller->getPosts($_SESSION['username'], "Public");
-
         $this->assertEquals(1, sizeof($cursor));
     }
+
+    /**
+     * @depends testCreatePost
+     */
+    public function testGetPostsPrivate(){
+        $cursor = $this->controller->getPosts($_SESSION['username'], "Private");
+        $this->assertEquals(1, sizeof($cursor));
+    }
+
+
+
 
 }
