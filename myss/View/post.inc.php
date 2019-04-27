@@ -53,12 +53,16 @@ try {
 
                         // This brings all the posts of that user, but only in the profile of the person.
                         $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, '');
-                    } else {
+                    }
+                    else{
+
                         $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, 'Public');
+                        sort($dtoPost_Comment_Tag);
                     }
                 } // This query means that he's in his profile.
                 else {
                     $dtoPost_Comment_Tag = $controller->getPosts($_SESSION['username'], '');
+                    sort($dtoPost_Comment_Tag);
                 }
             } 
             // This is the query that means that he's at the index and he's not searching posts by a specific tag.
@@ -68,10 +72,12 @@ try {
                 $friendsCursor = $controller->getAllMyFriends($_SESSION['userKey']);
 
                 // Let's get all his friends into an array.
-                $friendsArray = Array(); // Helps in the cursor.
-                $privatePosts = Array(); // Here will be the posts.
-                $friendsCounter = 0;
-                $auxiliaryArray = Array(); // Helpfully.
+                $friendsArray           = Array(); // Helps in the cursor.
+                $usernameArray          = Array();
+                $privatePosts           = Array(); // Here will be the posts.
+                $friendsCounter         = 0;
+                $auxiliaryArray         = Array(); // Helpfully.
+
 
                 // We verify if we're following somebody.
                 if ($friendsCursor->getCount() > 0) {
@@ -101,18 +107,50 @@ try {
                             'Private'));
                     }
 
-                    // Finally, we make the query, save those posts, append the private ones and set them to him.
-                    $publicPosts = $controller->getPosts(null, '');
+                    // We make the query, save those posts, append the private ones and set them to him.
+                    // We also query our posts.
+                    $publicPosts            = $controller->getPosts(null, '');
+                    $myPosts                = $controller->getPosts($_SESSION['username'], 'Private');
+                    $dtoPost_Comment_Tag    = Array();
 
                     // We must obtain the array that is inside every array.
                     for ($counter = 0; $counter < sizeof($privatePosts); $counter++) {
                         array_push($publicPosts, $privatePosts[$counter][0]);
                     }
 
+                    // We save the posts.
                     $dtoPost_Comment_Tag = $publicPosts + $privatePosts;
-                } // This means that he's following nobody.
-                else {
-                    $dtoPost_Comment_Tag = $controller->getPosts(null, '');
+
+                    // We add the posts from the user that is logged in.
+                    for ($counter = 0; $counter < sizeof($myPosts); $counter++){
+                        array_push($dtoPost_Comment_Tag, $myPosts[$counter]);
+                    }
+
+                    sort($dtoPost_Comment_Tag);
+                }
+
+                // This means that he's following nobody.
+                else{
+
+                    // We will bring his privates posts and the public ones.
+                    // And also checking that they aren't empty.
+                    $publicPosts            = $controller->getPosts(null, '');
+                    $hisPosts               = $controller->getPosts($_SESSION['username'], 'Private');
+                    $dtoPost_Comment_Tag    = Array();
+
+                    if(!empty($publicPosts)){
+                        $dtoPost_Comment_Tag = $dtoPost_Comment_Tag + $publicPosts;
+                    }
+                    if(!empty($hisPosts)){
+                        for ($counter = 0; $counter < sizeof($hisPosts); $counter++){
+                            array_push($dtoPost_Comment_Tag, $hisPosts[$counter]);
+                        }
+                    }
+                    if(empty($dtoPost_Comment_Tag)){
+                        $dtoPost_Comment_Tag = null;    // Very important! If not null, the code above will crash.
+                    }
+
+                    sort($dtoPost_Comment_Tag);
                 }
             }
             $postCounter = 0;
@@ -231,8 +269,7 @@ try {
             }
         }
     } else {
-        echo
-        '<div class="alert alert-info">
+        echo '<div class="alert alert-info">
             Register so you can see the posts!
         </div>';
     }
