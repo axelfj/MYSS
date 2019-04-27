@@ -10,8 +10,8 @@
 
             <div class="modal-body">
                 <h5 class="modal-title">
-                    @<?php /*$cursor = PostQuery::getUserLiked($postCommentOrAnswerKey);
-                    var_dump($cursor->getAll());*/ echo $postCommentOrAnswerKey;
+                    <?php $cursor = PostQuery::getUserLiked($postCommentOrAnswerKey);
+                    var_dump($cursor->getAll());
                     ?></h5>
             </div>
         </div>

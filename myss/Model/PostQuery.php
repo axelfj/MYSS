@@ -285,8 +285,8 @@ class PostQuery
         try {
             $statements = [
                 'FOR u in liked 
-                FILTER u._to == @postKey 
-                RETURN u._from' => ['postKey' => 'post/' . $idPost]];
+                FILTER u._to LIKE @key 
+                RETURN u._from' => ['key' => '%' . $idPost]];
 
             $cursor = readCollection($statements);
             $resultingDocuments = array();
