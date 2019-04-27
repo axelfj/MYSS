@@ -67,4 +67,9 @@ class DAOPost_Comment_Tag
     {
         PostQuery::like($userKey, $postKey);
     }
+
+    public function getTags(){
+        $this->dtoPost_Comment_Tag->setTags(PostQuery::getTags());
+        return $this->dtoPost_Comment_Tag->getTags();
+    }
 }

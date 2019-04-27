@@ -135,11 +135,6 @@ else if (isset($_POST['postbtn'])) {
                     $userFollowingUser = $controller->ifFollowing($_SESSION['userKey'], $dtoUser['key']);
 
                     if ($usernameVisited == false || $usernameVisited == $_SESSION['username']) { ?>
-                        <!--<button id="followbtn" name="followbtn" class="btn btn-primary followbtn"
-                                style="margin-top: 25px;">
-                            <i class="fas fa-cog"></i>
-                        </button>-->
-
                             <button class="btn btn-primary dropdown-toggle followbtn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: 25px;">
                                 <i class="fas fa-cog"></i>
                             </button>
