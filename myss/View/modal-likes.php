@@ -12,7 +12,7 @@
                 <h5 class="modal-title">
                     <?php
                     $cursorWithUserKeys = PostQuery::getUserLiked($postCommentOrAnswerKey);
-                    for ($i = 0; $i < sizeof($cursorWithUserKeys); $i++){
+                    for ($i = 0; $i < sizeof($cursorWithUserKeys); $i++) {
                         $key = substr($cursorWithUserKeys[$i], 5, strlen($cursorWithUserKeys[$i]));
                         $cursorUser = UserQuery::getUsernameAndImage($key);
                         echo '<div class="row"  style="padding-left: 20px;">

@@ -20,9 +20,7 @@ date_default_timezone_set('America/Costa_Rica');
 
 if (isset($_POST['followbtn'])) {
     $controller->followUser($_SESSION['userKey'], $dtoUser['key']);
-}
-
-else if (isset($_POST['postbtn'])) {
+} else if (isset($_POST['postbtn'])) {
     try {
         if (!empty($_POST['title']) && !empty($_POST['post'])) {
             $post = array();
@@ -55,8 +53,7 @@ else if (isset($_POST['postbtn'])) {
                         <img <?php
                         if ($usernameVisited != false) {
                             echo "src= " . $dtoUser['userImage'];
-                        }
-                        else{
+                        } else {
                             echo "src= " . $_SESSION['userImage'];
                         }
                         ?>
@@ -140,12 +137,14 @@ else if (isset($_POST['postbtn'])) {
                             <i class="fas fa-cog"></i>
                         </button>-->
 
-                            <button class="btn btn-primary dropdown-toggle followbtn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: 25px;">
-                                <i class="fas fa-cog"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="logout.php">Log out</a>
-                            </div>
+                        <button class="btn btn-primary dropdown-toggle followbtn" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                style="margin-top: 25px;">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="logout.php">Log out</a>
+                        </div>
 
                     <?php } else if (!$userFollowingUser) { ?>
                         <form method="post">
@@ -240,23 +239,27 @@ else if (isset($_POST['postbtn'])) {
                 <div class="col-md-12">
                     <div class="memberblock">
                         <?php
-                        if($usernameVisited != false){
+                        if ($usernameVisited != false) {
                             $userFriends = $controller->getAllMyFriends($dtoUser['key']);
-                        } else{
+                        } else {
                             $userFriends = $controller->getAllMyFriends($_SESSION['userKey']);
                         }
 
-                        foreach($userFriends as $friend){?>
+                        foreach ($userFriends as $friend) {
+                            ?>
                             <?php
                             $friendArray = $friend->getAll();
                             $userKey = substr($friendArray['_to'], 5, strlen($friendArray['_to']));
                             $username = UserQuery::getUsernameAndImage($userKey);
                             ?>
-                            <a href="<?php echo 'profile.php?' . $username['username'];?>" class="member"> <img src="<?php echo $username['userImage'];?>" alt="" style="border-radius: 50px;">
-                                <center><div class="memmbername"><?php echo $username['username']; ?></div></center>
+                            <a href="<?php echo 'profile.php?' . $username['username']; ?>" class="member"> <img
+                                        src="<?php echo $username['userImage']; ?>" alt="" style="border-radius: 50px;">
+                                <center>
+                                    <div class="memmbername"><?php echo $username['username']; ?></div>
+                                </center>
                             </a>
                             <?php
-                        }?>
+                        } ?>
                     </div>
                 </div>
                 <div class="clearfix"></div>
