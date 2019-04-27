@@ -264,11 +264,12 @@ class controllerTests extends TestCase
     }
 
     /**
-     * @dataProvider dtoPostDataProviderCorrectData
+     * @depends testLoginAllData
+     * @dataProvider dtoPostDataProviderCorrectDataPublic
+     * @dataProvider dtoPostDataProviderCorrectDataPrivate
      * @dataProvider dtoPostDataProviderMissingBody
      * @dataProvider dtoPostDataProviderMissingTitle
      * @dataProvider dtoPostDataProviderMissingUser
-     * @depends testLoginAllData
      */
     public function testCreatePost($dtoPost, $correct){
         $test = $this->controller->createNewPost($dtoPost);
@@ -279,12 +280,30 @@ class controllerTests extends TestCase
         }
     }
 
-    public function dtoPostDataProviderCorrectData(){
+    public function dtoPostDataProviderCorrectDataPublic(){
         $post = array();
         $post['title'] = "Título de prueba";
         $post['post'] = "Este será un post de prueba";
         $post['tagsPost'] = "Prueba";
         $post['visibility'] = "Public";
+        $post['username'] = "YValle";
+        $post['time'] = date('j-m-y H:i');
+        $post['destination'] = "";
+
+        $dtoPosts = new DTOPost_Comment_Tag();
+        $dtoPosts->setPosts($post);
+
+        return[
+            [$dtoPosts, True]
+        ];
+    }
+
+    public function dtoPostDataProviderCorrectDataPrivate(){
+        $post = array();
+        $post['title'] = "Título de prueba";
+        $post['post'] = "Este será un post de prueba";
+        $post['tagsPost'] = "Prueba";
+        $post['visibility'] = "Private";
         $post['username'] = "YValle";
         $post['time'] = date('j-m-y H:i');
         $post['destination'] = "";
@@ -446,6 +465,25 @@ class controllerTests extends TestCase
             [$dtoUser, False]
         ];
     }
+
+    /**
+     * @depends testFollowUser
+     */
+    public function testGetAllFriends(){
+        $cursor = $this->controller->getAllMyFriends($_SESSION['userKey']);
+
+        $this->assertEquals(1, $cursor->getCount());
+    }
+
+    /**
+     * @depends testCreatePost
+     */
+    public function testGetPosts(){
+        $cursor = $this->controller->getPosts($_SESSION['username'], "Public");
+
+        $this->assertEquals(1, sizeof($cursor));
+    }
+
 
 
 }
