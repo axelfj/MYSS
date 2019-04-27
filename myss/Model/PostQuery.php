@@ -79,7 +79,7 @@ class PostQuery
         $pos = strpos($newComment, "/") + 1;
         $commentKey = substr($newComment, $pos, strlen($newComment));
 
-        if($type == 'comment'){
+        if ($type == 'comment') {
             postHasComment($postOrCommentKey, $commentKey);
         } else {
             commentHasAnswer($postOrCommentKey, $commentKey);
@@ -98,7 +98,7 @@ class PostQuery
                  RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, destination: u.destination, 
                           tagsPost: u.tagsPost, visibility: u.visibility, time: u.time, likes: u.likes}'
                     => ['username' => $username]];
-            } else if($visibility == 'Private') {
+            } else if ($visibility == 'Private') {
                 $query = [
                     'FOR u IN post 
                  FILTER u.owner == @username and u.visibility == "Private" 
@@ -106,16 +106,15 @@ class PostQuery
                  RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, destination: u.destination, 
                           tagsPost: u.tagsPost, visibility: u.visibility, time: u.time, likes: u.likes}'
                     => ['username' => $username]];
-            }
-             else{
-                 $query = [
-                     'FOR u IN post 
+            } else {
+                $query = [
+                    'FOR u IN post 
                  FILTER u.owner == @username 
                  SORT u.time DESC 
                  RETURN {key: u._key, owner: u.owner, title: u.title, text: u.text, destination: u.destination, 
                           tagsPost: u.tagsPost, visibility: u.visibility, time: u.time, likes: u.likes}'
-                        => ['username' => $username]];
-                }
+                    => ['username' => $username]];
+            }
 
             $publicPosts = PostQuery::postsIntoArray($query);
 
@@ -211,7 +210,7 @@ class PostQuery
     private static function commentsFromKeyIntoArray($commentKey, $collectionName)
     {
         $query = 'FOR x IN ' . $collectionName .
-                  ' FILTER x._key == @commentKey                   
+            ' FILTER x._key == @commentKey                   
                   RETURN {key: x._key, commentOwner: x.commentOwner, tagsComment: x.tagsComment, destination: x.destination,
                   text: x.text, time: x.time}';
 
@@ -288,7 +287,41 @@ class PostQuery
                 'FOR u in liked 
                 FILTER u._to == @postKey 
                 RETURN u._from' => ['postKey' => 'post/' . $idPost]];
-            return readCollection($statements);
+
+            $cursor = readCollection($statements);
+            $resultingDocuments = array();
+            /*if ($cursor->getCount() > 0) {
+                $usernameAndPicture = array();
+                foreach ($cursor as $key => $value) {
+                    $resultingDocuments[$key] = self::userIdToUsernameAndPicture($value);
+                    $usernameAndPicture['username'] = $resultingDocuments[$key]->get('username');
+                    $usernameAndPicture['userImage'] = $resultingDocuments[$key]->get('userImage');
+                }
+            }*/
+            return $cursor;
+        } catch (Exception $e) {
+            $e->getMessage();
+        }
+    }
+
+    private static function userIdToUsernameAndPicture($id)
+    {
+        try {
+            $statements = [
+                'FOR u in user 
+                FILTER u._id == @_id 
+                RETURN {username: u.username, userImage: u.userImage}' => ['_id' => $id]];
+            $cursor = readCollection($statements);
+            $resultingDocuments = array();
+            if ($cursor->getCount() > 0) {
+                $usernameAndPicture = array();
+                foreach ($cursor as $key => $value) {
+                    $resultingDocuments[$key] = $value;
+                    $usernameAndPicture['username'] = $resultingDocuments[$key]->get('username');
+                    $usernameAndPicture['userImage'] = $resultingDocuments[$key]->get('userImage');
+                }
+            }
+            return $usernameAndPicture;
         } catch (Exception $e) {
             $e->getMessage();
         }
@@ -347,7 +380,8 @@ class PostQuery
         return readCollection($statements);
     }
 
-    public static function like($userKey, $postKey){
+    public static function like($userKey, $postKey)
+    {
         try {
             #$database = connect();
             $document = new ArangoCollectionHandler(connect());
