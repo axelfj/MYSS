@@ -514,7 +514,26 @@ class controllerTests extends TestCase
         $this->assertEquals(1, sizeof($cursor));
     }
 
+    /**
+     * @depends testCreatePost
+     */
+    public function testComment(){
+        $cursor = $this->controller->getPosts($_SESSION['username'], "Public");
+        $postKey = $cursor[0]["key"];
 
+
+        $comment['text'] = 'Este es un comentario de prueba.';
+        $comment['tagsComment'] = 'Comentario,Prueba';
+        $comment['commentOwner'] = "YValle";
+        $comment['destination'] = '';
+
+        $dtoComment = new DTOPost_Comment_Tag();
+        $dtoComment->setComments($comment);
+
+        $message = $this->controller->createNewComment($dtoComment, $postKey, "comment");
+
+        $this->assertTrue($message);
+    }
 
 
 }
