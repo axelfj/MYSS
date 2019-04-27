@@ -57,7 +57,8 @@ try {
                     else{
 
                         $dtoPost_Comment_Tag = $controller->getPosts($usernameVisited, 'Public');
-                        sort($dtoPost_Comment_Tag);
+                        if ($dtoPost_Comment_Tag != null)
+                            sort($dtoPost_Comment_Tag);
                     }
                 } // This query means that he's in his profile.
                 else {
@@ -266,7 +267,7 @@ try {
                 }
             }
 
-            else if(sizeof($dtoPost_Comment_Tag) == 0){
+            else if($dtoPost_Comment_Tag != null && sizeof($dtoPost_Comment_Tag) == 0){
                 echo
                 '<div class="alert alert-info">
                     <strong>No results!</strong> No posts with tag "' . $_POST['searchByTag'] . '"
