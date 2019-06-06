@@ -43,6 +43,25 @@ if (isset($_POST['followbtn'])) {
         $message = $e->getMessage();
     }
 }
+
+// The 'saveBtn' index is a button located in 'edit-profile.php'.
+if (isset($_POST['saveBtn'])) {
+    try {
+        $data = array();
+        $data['username'] = $_POST['changeUsername'];
+        $data['email'] = $_POST['changeEmail'];
+        $data['name'] = $_POST['changeName'];
+        $data['birthday'] = $_POST['changeBirthday'];
+        $messages = $controller->changeInformation($data);
+        /*echo $messages;*/
+        foreach ($messages as $m)
+        {
+            echo $m;
+        }
+    } catch (Exception $e) {
+        $message = $e->getMessage();
+    }
+}
 ?>
 <div class="container">
     <div class="row">
@@ -139,7 +158,8 @@ if (isset($_POST['followbtn'])) {
                             <i class="fas fa-cog"></i>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" data-toggle="modal" data-target="#editProfile" style="cursor: pointer;">Edit info</a>
+                            <a class="dropdown-item" data-toggle="modal" data-target="#editProfile"
+                               style="cursor: pointer;">Edit info</a>
                             <a class="dropdown-item" href="logout.php">Log out</a>
                         </div>
 
