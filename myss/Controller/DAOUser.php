@@ -57,4 +57,26 @@ class DAOUser
         return UserQuery::getAllMyFriends($userId);
     }
 
+    public function changeUsername($currentUsername, $newUsername)
+    {
+        UserQuery::changeUsername($currentUsername, $newUsername);
+        $_SESSION['username'] = $newUsername;
+    }
+
+    public function changeEmail($currentEmail, $newEmail)
+    {
+        UserQuery::changeEmail($currentEmail, $newEmail);
+        $_SESSION['email'] = $newEmail;
+    }
+
+    public function changeName($username, $newName)
+    {
+        UserQuery::changeName($username, $newName);
+        $_SESSION['name'] = $newName;
+    }
+
+    public static function changeBirthday($username, $newBirthday)
+    {
+        UserQuery::changeBirthday($username, $newBirthday);
+    }
 }

@@ -122,7 +122,7 @@ class Controller
                     } else {
                         return '<div class="alert alert-danger" role="alert">You just can upload ".gif", ".jpg", ".jpeg" and ".png" files</div>';
                     }
-                    
+
                 } else {
                     $data['userImage'] = 'img/user.png';
                 }
@@ -205,6 +205,48 @@ class Controller
         }
     }
 
+    public function changeInformation($data)
+    {
+        try {
+            $messages = array();
+            if (!$this->isUsernameTaken($data['username'])) {
+                if ($data['username'] != $_SESSION['username']) {
+                    $this->daoUser->changeUsername($_SESSION['username'], $data['username']);
+                } else {
+                    array_push($messages, '<div class="alert alert-danger" role="alert">
+                                                        The username it\'s already taken. Please try with another one.</div>');
+                }
+            }
+            if ($data['email'] != $_SESSION['email']) {
+                if (!$this->isEmailTaken($data['email'])) {
+                    if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+                        $this->daoUser->changeEmail($_SESSION['email'], $data['email']);
+                    } else {
+                        array_push($messages, '<div class="alert alert-danger" role="alert">
+                                                        The email is invalid.</div>');
+                    }
+                }
+                else {
+                    array_push($messages, '<div class="alert alert-danger" role="alert">
+                                                        The email it\'s already taken taken. Please try with another one.</div>');
+                }
+            }
+            if ($data['name'] != $_SESSION['name']) {
+                $this->daoUser->changeName($_SESSION['username'], $data['name']);
+            }
+            if (isset($data['birthday'])) {
+                $this->daoUser->changeBirthday($_SESSION['username'], $data['birthday']);
+            }
+            // There are no errors.
+            if(empty($messages)){
+                array_push($messages,'<div class="alert alert-success" role="alert">The information has been updated.</div>');
+            }
+            return $messages;
+
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
 
     public function filterPostsByTag($tag)
     {
@@ -256,11 +298,13 @@ class Controller
         return $post;
     }
 
-    public function like($userKey, $postKey){
+    public function like($userKey, $postKey)
+    {
         $this->daoPost_Comment_Tag->like($userKey, $postKey);
     }
 
-    public function getTags(){
+    public function getTags()
+    {
         return $this->daoPost_Comment_Tag->getTags();
     }
 

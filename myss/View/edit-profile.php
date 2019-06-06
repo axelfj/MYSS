@@ -1,5 +1,8 @@
 <?php
 $userInfo = $controller->getProfile($_SESSION['username']);
+
+
+
 ?>
 <div id="editProfile" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -15,39 +18,39 @@ $userInfo = $controller->getProfile($_SESSION['username']);
 
                 <form action="profile.php" method="post" class="form-signin" enctype="multipart/form-data">
                     <div class="form-group">
-                        <input id="username" name="username" type="text" class="form-control" required
+                        <input id="changeUsername" name="changeUsername" type="text" class="form-control" required
                                value="<?php echo $userInfo['username']; ?>">
                     </div>
                     <div class="form-group">
-                        <input id="email" name="email" type="text" class="form-control" required
+                        <input id="changeEmail" name="changeEmail" type="text" class="form-control" required
                                value="<?php echo $userInfo['email']; ?>">
                     </div>
                     <div class="form-group">
-                        <input id="password" name="password" type="password" class="form-control" required
+                        <input id="oldPassword" name="oldPassword" type="password" class="form-control"
                                placeholder="Old password">
                     </div>
                     <div class="form-group">
-                        <input id="newPassword" name="newPassword" type="password" class="form-control" required
+                        <input id="newPassword" name="newPassword" type="password" class="form-control"
                                placeholder="New password">
                     </div>
                     <div class="form-group">
-                        <input id="name" name="name" type="text" class="form-control" required
+                        <input id="changeName" name="changeName" type="text" class="form-control" required
                                value="<?php echo $userInfo['name']; ?>">
                     </div>
                     <div class="form-group">
-                        <input id="birthday" name="birthday" type="date" class="form-control" parsley-trigger="change" required
+                        <input id="changeBirthday" name="changeBirthday" type="date" class="form-control" parsley-trigger="change" required
                                value="<?php echo $userInfo['birthday']; ?>">
                     </div>
                     <div class="form-group" style="text-align:center;">
                         <label class="genric-btn info-border circle">
                             <i class="fas fa-upload"></i>Change picture
-                            <input id="userImage" name="userImage" type="file" accept='image/*'
+                            <input id="changeUserImage" name="changeUserImage" type="file" accept='image/*'
                                    class="uploadFile img" value="Upload Photo"
                                    style="width: 0px;height: 0px;overflow: hidden;">
                         </label>
                     </div>
                     <div class="modal-footer">
-                        <button id="editBtn" name="editBtn" class="btn btn-primary pull-right btnComment">
+                        <button id="saveBtn" name="saveBtn" class="btn btn-primary pull-right btnComment">
                             Save changes
                         </button>
                     </div>

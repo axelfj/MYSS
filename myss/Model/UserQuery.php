@@ -154,4 +154,44 @@ class UserQuery
 
         return readCollection($statements);
     }
+
+    public static function changeUsername($currentUsername, $newUsername)
+    {
+        $statements = [
+            'FOR u IN user
+            FILTER u.username == @current
+            UPDATE u WITH { username: @new } IN user' => ['current' => $currentUsername, 'new' => $newUsername]];
+
+        readCollection($statements);
+    }
+
+    public static function changeEmail($currentEmail, $newEmail)
+    {
+        $statements = [
+            'FOR u IN user
+            FILTER u.email == @current
+            UPDATE u WITH { email: @new } IN user' => ['current' => $currentEmail, 'new' => $newEmail]];
+
+        readCollection($statements);
+    }
+
+    public static function changeName($username, $newName)
+    {
+        $statements = [
+            'FOR u IN user
+            FILTER u.username == @username
+            UPDATE u WITH { name: @name } IN user' => ['username' => $username, 'name' => $newName]];
+
+        readCollection($statements);
+    }
+
+    public static function changeBirthday($username, $newBirthday)
+    {
+        $statements = [
+            'FOR u IN user
+            FILTER u.username == @username
+            UPDATE u WITH { birthday: @birthday } IN user' => ['username' => $username, 'birthday' => $newBirthday]];
+
+        readCollection($statements);
+    }
 }
