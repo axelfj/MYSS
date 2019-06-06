@@ -132,10 +132,6 @@ if (isset($_POST['followbtn'])) {
                     $userFollowingUser = $controller->ifFollowing($_SESSION['userKey'], $dtoUser['key']);
 
                     if ($usernameVisited == false || $usernameVisited == $_SESSION['username']) { ?>
-                        <!--<button id="followbtn" name="followbtn" class="btn btn-primary followbtn"
-                                style="margin-top: 25px;">
-                            <i class="fas fa-cog"></i>
-                        </button>-->
 
                         <button class="btn btn-primary dropdown-toggle followbtn" type="button" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
@@ -143,6 +139,7 @@ if (isset($_POST['followbtn'])) {
                             <i class="fas fa-cog"></i>
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" data-toggle="modal" data-target="#editProfile" style="cursor: pointer;">Edit info</a>
                             <a class="dropdown-item" href="logout.php">Log out</a>
                         </div>
 
@@ -272,4 +269,5 @@ if (isset($_POST['followbtn'])) {
 
 <?php
 include_once "footer.php";
+include_once "edit-profile.php";
 ?>
