@@ -47,7 +47,7 @@ $controller = new Controller();
                     </div>
                     <div class="form-group">
                         <label class="genric-btn info-border circle">
-                            <i class="fas fa-upload"></i>Upload photo
+                            <i class="fas fa-upload"></i>Upload picture
                             <input id="userImage" name="userImage" type="file" accept='image/*'
                                    class="uploadFile img" value="Upload Photo"
                                    style="width: 0px;height: 0px;overflow: hidden;">
