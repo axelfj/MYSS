@@ -211,11 +211,12 @@ class Controller
             $messages = array();
             $errorChangingUsername = $this->changeUsername($data['username']);
             $errorChangingEmail = $this->changeEmail($data['email']);
+            $errorChangingPicture = $this->changePicture();
 
-            if(!empty($data['oldPassword']) || !empty($data['newPassword'])){
+            if (!empty($data['oldPassword']) || !empty($data['newPassword'])) {
                 $errorChangingPassword = $this->changePassword($data['oldPassword'], $data['newPassword']);
 
-                if(isset($errorChangingPassword)){
+                if (isset($errorChangingPassword)) {
                     array_push($messages, $errorChangingPassword);
                 }
             }
@@ -224,6 +225,9 @@ class Controller
             }
             if (isset($errorChangingEmail)) {
                 array_push($messages, $errorChangingEmail);
+            }
+            if (isset($errorChangingPicture)) {
+                array_push($messages, $errorChangingPicture);
             }
             if ($data['name'] != $_SESSION['name']) {
                 $this->daoUser->changeName($_SESSION['username'], $data['name']);
@@ -271,16 +275,36 @@ class Controller
         }
     }
 
+    private function changePicture()
+    {
+        $imageName = $_FILES['changeUserImage']['name'];
+        $imageTempName = $_FILES['changeUserImage']['tmp_name'];
+
+        if ($imageName != "") {
+            $type = explode('.', $imageName);
+            $type = strtolower($type[count($type) - 1]);
+
+            if (in_array($type, array('gif', 'jpg', 'jpeg', 'png'))) {
+                $userImage = 'profilePictures/' . uniqid(rand()) . '.' . $type;
+                $this->daoUser->changePicture($_SESSION['username'], $userImage);
+                move_uploaded_file($imageTempName, $userImage);
+            } else {
+                return '<div class="alert alert-danger" role="alert">You just can upload ".gif", ".jpg", ".jpeg" and ".png" files</div>';
+            }
+
+        }
+    }
+
     private function changePassword($oldPassword, $newPassword)
     {
         $cursor = $this->getUser($_SESSION['email']);
         $oldPasswordEncrypted = '';
         $resultingDocuments = array();
 
-        if(empty($oldPassword )){
+        if (empty($oldPassword)) {
             return '<div class="alert alert-danger" role="alert">You have to type your current password.</div>';
         }
-        if(empty($newPassword)){
+        if (empty($newPassword)) {
             return '<div class="alert alert-danger" role="alert">The new password can\'t be empty.</div>';
         }
 
@@ -291,8 +315,7 @@ class Controller
         if (password_verify($oldPassword, $oldPasswordEncrypted)) {
             $newPasswordEncrypted = password_hash($newPassword, PASSWORD_BCRYPT);
             $this->daoUser->changePassword($_SESSION['username'], $newPasswordEncrypted);
-        }
-        else {
+        } else {
             return '<div class="alert alert-danger" role="alert">
                             The current password typed is incorrect.</div>';
         }

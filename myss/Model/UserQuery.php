@@ -137,9 +137,7 @@ class UserQuery
         if ($dataFound > 0) {
             return true;
         }
-
         return false;
-
     }
 
     // Gets all my friends usernames.
@@ -151,7 +149,6 @@ class UserQuery
             'FOR x in follows
             FILTER x._from == @fromUser 
             RETURN x' => ['fromUser' => $userIdComplete]];
-
         return readCollection($statements);
     }
 
@@ -161,7 +158,6 @@ class UserQuery
             'FOR u IN user
             FILTER u.username == @current
             UPDATE u WITH { username: @new } IN user' => ['current' => $currentUsername, 'new' => $newUsername]];
-
         readCollection($statements);
     }
 
@@ -171,7 +167,6 @@ class UserQuery
             'FOR u IN user
             FILTER u.email == @current
             UPDATE u WITH { email: @new } IN user' => ['current' => $currentEmail, 'new' => $newEmail]];
-
         readCollection($statements);
     }
 
@@ -181,7 +176,6 @@ class UserQuery
             'FOR u IN user
             FILTER u.username == @username
             UPDATE u WITH { name: @name } IN user' => ['username' => $username, 'name' => $newName]];
-
         readCollection($statements);
     }
 
@@ -191,7 +185,6 @@ class UserQuery
             'FOR u IN user
             FILTER u.username == @username
             UPDATE u WITH { birthday: @birthday } IN user' => ['username' => $username, 'birthday' => $newBirthday]];
-
         readCollection($statements);
     }
 
@@ -201,7 +194,15 @@ class UserQuery
             'FOR u IN user
             FILTER u.username == @username
             UPDATE u WITH { password: @password } IN user' => ['username' => $username, 'password' => $newPassword]];
+        readCollection($statements);
+    }
 
+    public static function changePicture($username, $newPicture)
+    {
+        $statements = [
+            'FOR u IN user
+            FILTER u.username == @username
+            UPDATE u WITH { userImage: @userImage } IN user' => ['username' => $username, 'userImage' => $newPicture]];
         readCollection($statements);
     }
 }
