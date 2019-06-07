@@ -152,8 +152,31 @@ class UserQuery
         return readCollection($statements);
     }
 
-    public static function searchFriends($username){
-        $users = UserQuery::getUsersStartingWith($username);
+    public static function getAllMyFriendsKeys($userId){
+        $cursor = UserQuery::getAllMyFriends($userId);
+        $userKeys = array();
+        foreach ($cursor as $key => $value){
+            $resultingDocuments[$key] = $value;
+            $userkey = $resultingDocuments[$key]->get('_to');
+
+            array_push($userKeys, $userkey);
+        }
+        return $userKeys;
+
+    }
+
+    public static function searchFriends($username, $userId){
+        $userkeys = UserQuery::getUsersStartingWith($username);
+        $friends = self::getAllMyFriendsKeys($userId);
+        $result = array();
+        foreach ($userkeys as $ukey => $uvalue){
+            foreach ($friends as $fkey => $fvalue){
+                if($uvalue == $fvalue){
+                    array_push($result, $uvalue);
+                }
+            }
+        }
+        return $result;
 
     }
 
@@ -162,17 +185,17 @@ class UserQuery
         $statement = [
             'FOR u IN user 
             FILTER u.username LIKE @username
-            RETURN {key: u._key, user: u.username}' => ['username' => $username]
+            RETURN {key: u._id, user: u.username}' => ['username' => $username]
         ];
 
         $cursor = readCollection($statement);
-        $usernames = array();
+        $userKeys = array();
         foreach ($cursor as $key => $value){
             $resultingDocuments[$key] = $value;
             $userkey = $resultingDocuments[$key]->get('key');
 
-            array_push($usernames, $userkey);
+            array_push($userKeys, $userkey);
         }
-        return $usernames;
+        return $userKeys;
     }
 }
