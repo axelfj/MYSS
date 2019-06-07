@@ -3,3 +3,4 @@ myss/.idea/workspace.xml
 myss/arangodb-php/composer.json
 *.xml
 *.xml
+*.iml
