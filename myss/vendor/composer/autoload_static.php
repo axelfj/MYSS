@@ -9,6 +9,7 @@ class ComposerStaticInit6b0b46055285fa90434706f2682d6b0f
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        'c65d09b6820da036953a371c8c73a9b1' => __DIR__ . '/..' . '/facebook/graph-sdk/src/Facebook/polyfills.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -23,6 +24,10 @@ class ComposerStaticInit6b0b46055285fa90434706f2682d6b0f
         'S' => 
         array (
             'Symfony\\Polyfill\\Ctype\\' => 23,
+        ),
+        'F' => 
+        array (
+            'Facebook\\' => 9,
         ),
         'D' => 
         array (
@@ -46,6 +51,10 @@ class ComposerStaticInit6b0b46055285fa90434706f2682d6b0f
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
+        'Facebook\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/facebook/graph-sdk/src/Facebook',
+        ),
         'Doctrine\\Instantiator\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
@@ -67,7 +76,6 @@ class ComposerStaticInit6b0b46055285fa90434706f2682d6b0f
     );
 
     public static $classMap = array (
-        'Email' => __DIR__ . '/../..' . '/src/email.php',
         'Help' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Help.php',
         'PHPUnit\\Exception' => __DIR__ . '/..' . '/phpunit/phpunit/src/Exception.php',
         'PHPUnit\\Framework\\Assert' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert.php',
