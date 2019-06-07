@@ -84,4 +84,10 @@ class DAOUser
     {
         UserQuery::changePassword($username, $newPassword);
     }
+
+    public static function changePicture($username, $newImage)
+    {
+        UserQuery::changePicture($username, $newImage);
+        $_SESSION['userImage'] = $newImage;
+    }
 }
