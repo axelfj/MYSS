@@ -7,7 +7,9 @@ if (isset($_POST['searchByTag'])) {
 
     try {
         $controller = new Controller();
-        $dtoPost_Comment_Tag = $controller->filterPostsByTag($_POST['searchByTag'],1);
+        $dtoPost_Comment_Tag = $controller->filterPostsByTag($_POST['search'],1);
+        //$dtoPost_Comment_Tag = $controller->filterUsername($_POST['search'],2);
+        //$dtoPost_Comment_Tag = $controller->filterDescription($_POST['search'],3);
     } catch (Exception $e) {
         throwException($e);
     }
@@ -30,7 +32,7 @@ if (isset($_POST['searchByTag'])) {
                     <div class="input-group md-form form-sm form-2 pl-0">
                         <form class="search-form" action="index.php" method="post">
                             <input class="form-control my-0 py-1 blue-border" type="text" placeholder="Search"
-                                   aria-label="Search" name="searchByTag" id="searchByTag">
+                                   aria-label="Search" name="search" id="search">
                         </form>
                         <div class="input-group-append">
                             <i class="fas fa-search" aria-hidden="true"
