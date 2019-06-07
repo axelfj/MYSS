@@ -57,4 +57,10 @@ class DAOUser
         return UserQuery::getAllMyFriends($userId);
     }
 
+    public function filterUsername($username)
+    {
+        $this->dtoUser->setUser(UserQuery::getUsersStartingWith($username));
+        return $this->dtoUser->getUser();
+    }
+
 }
