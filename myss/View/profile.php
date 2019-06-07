@@ -52,8 +52,10 @@ if (isset($_POST['saveBtn'])) {
         $data['email'] = $_POST['changeEmail'];
         $data['name'] = $_POST['changeName'];
         $data['birthday'] = $_POST['changeBirthday'];
+        $data['oldPassword'] = $_POST['oldPassword'];
+        $data['newPassword'] = $_POST['newPassword'];
         $messages = $controller->changeInformation($data);
-        /*echo $messages;*/
+
         foreach ($messages as $m)
         {
             echo $m;

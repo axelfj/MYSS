@@ -70,7 +70,7 @@ class UserQuery
         FOR x IN user 
         FILTER x.username == @username
         RETURN {key: x._key, username: x.username, name: x.name, email: x.email, birthday: x.birthday, 
-        password: x.password, userImage: x.userImage}' => ['username' => $username]];
+                userImage: x.userImage}' => ['username' => $username]];
 
         $cursor = readCollection($query);
         $resultingDocuments = array();
@@ -191,6 +191,16 @@ class UserQuery
             'FOR u IN user
             FILTER u.username == @username
             UPDATE u WITH { birthday: @birthday } IN user' => ['username' => $username, 'birthday' => $newBirthday]];
+
+        readCollection($statements);
+    }
+
+    public static function changePassword($username, $newPassword)
+    {
+        $statements = [
+            'FOR u IN user
+            FILTER u.username == @username
+            UPDATE u WITH { password: @password } IN user' => ['username' => $username, 'password' => $newPassword]];
 
         readCollection($statements);
     }

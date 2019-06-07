@@ -79,4 +79,9 @@ class DAOUser
     {
         UserQuery::changeBirthday($username, $newBirthday);
     }
+
+    public static function changePassword($username, $newPassword)
+    {
+        UserQuery::changePassword($username, $newPassword);
+    }
 }

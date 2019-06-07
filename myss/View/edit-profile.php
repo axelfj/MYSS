@@ -27,7 +27,7 @@ $userInfo = $controller->getProfile($_SESSION['username']);
                     </div>
                     <div class="form-group">
                         <input id="oldPassword" name="oldPassword" type="password" class="form-control"
-                               placeholder="Old password">
+                               placeholder="Current password">
                     </div>
                     <div class="form-group">
                         <input id="newPassword" name="newPassword" type="password" class="form-control"
