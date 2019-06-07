@@ -108,6 +108,7 @@ try {
                         }
 
                         // For every username in the username, let's retrieve their posts.
+                        if ($controller->getPosts($usernameArray[$counter], 'Private') != null)
                         array_push($privatePosts, $controller->getPosts($usernameArray[$counter],
                             'Private'));
                     }
