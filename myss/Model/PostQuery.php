@@ -422,6 +422,8 @@ class PostQuery
         }
     }
 
+
+
     public static function getPostFromKey($key){
         try{
             $query = [
@@ -498,5 +500,18 @@ class PostQuery
         }
 
         return $tags;
+    }
+
+    public static function getPostByText($text){
+        $texto = "%". $text . "%";
+        $statement = [
+            'FOR p IN post 
+            FILTER p.text LIKE @text AND p.visibility == "Public"
+            RETURN {key: p._key, owner: p.owner, title: p.title, text: p.text, destination: p.destination,
+                tagsPost: p.tagsPost, visibility: p.visibility, time: p.time, likes: p.likes}' => ['text' => $texto]
+        ];
+        $posts = PostQuery::postsIntoArray($statement);
+
+        return $posts;
     }
 }

@@ -1,7 +1,7 @@
 <?php
-require_once "UserQuery.php";
+require_once "PostQuery.php";
 
-$result = UserQuery::searchFriends("user",439832);
+$result = PostQuery::getPostByText("post");
 
 var_dump($result);
 
