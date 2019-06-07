@@ -212,6 +212,18 @@ class Controller
         return $dtoPost_Comment_Tag->getPosts();
     }
 
+    public function filterUsername($user)
+    {
+        $dtoUser = $this->daoUser->filterPostsByTag($user);
+        return $dtoUser->get();
+    }
+
+    public function filterDescription($description)
+    {
+        $dtoPost_Comment_Tag = $this->daoPost_Comment_Tag->filterPostsByTag($description);
+        return $dtoPost_Comment_Tag->getPosts();
+    }
+
     // Verifies if an user is trying to visit another user's profile.
     // If that occurs, then this function will return the username of the
     // user that is getting visited. If not, then it will return false.
