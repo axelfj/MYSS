@@ -1,7 +1,8 @@
 <?php
-require_once "PostQuery.php";
+require_once "UserQuery.php";
 
-$resutl = PostQuery::filterPostByTag2("Prueba");
+$result = UserQuery::getUsersStartingWith("Y");
 
-var_dump($resutl);
+var_dump($result);
+
 

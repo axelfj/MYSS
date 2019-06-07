@@ -139,7 +139,6 @@ class UserQuery
         return false;
 
     }
-
     // Gets all my friends usernames.
     public static function getAllMyFriends($userId)
     {
@@ -151,5 +150,29 @@ class UserQuery
             RETURN x' => ['fromUser' => $userIdComplete]];
 
         return readCollection($statements);
+    }
+
+    public static function searchFriends($username){
+        $users = UserQuery::getUsersStartingWith($username);
+
+    }
+
+    public static function getUsersStartingWith($username){
+        $username .= "%";
+        $statement = [
+            'FOR u IN user 
+            FILTER u.username LIKE @username
+            RETURN {key: u._key, user: u.username}' => ['username' => $username]
+        ];
+
+        $cursor = readCollection($statement);
+        $usernames = array();
+        foreach ($cursor as $key => $value){
+            $resultingDocuments[$key] = $value;
+            $userkey = $resultingDocuments[$key]->get('key');
+
+            array_push($usernames, $userkey);
+        }
+        return $usernames;
     }
 }
