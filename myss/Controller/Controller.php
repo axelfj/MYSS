@@ -209,27 +209,21 @@ class Controller
     {
         try {
             $messages = array();
-            if (!$this->isUsernameTaken($data['username'])) {
-                if ($data['username'] != $_SESSION['username']) {
-                    $this->daoUser->changeUsername($_SESSION['username'], $data['username']);
-                } else {
-                    array_push($messages, '<div class="alert alert-danger" role="alert">
-                                                        The username it\'s already taken. Please try with another one.</div>');
+            $errorChangingUsername = $this->changeUsername($data['username']);
+            $errorChangingEmail = $this->changeEmail($data['email']);
+
+            if(!empty($data['oldPassword']) || !empty($data['newPassword'])){
+                $errorChangingPassword = $this->changePassword($data['oldPassword'], $data['newPassword']);
+
+                if(isset($errorChangingPassword)){
+                    array_push($messages, $errorChangingPassword);
                 }
             }
-            if ($data['email'] != $_SESSION['email']) {
-                if (!$this->isEmailTaken($data['email'])) {
-                    if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-                        $this->daoUser->changeEmail($_SESSION['email'], $data['email']);
-                    } else {
-                        array_push($messages, '<div class="alert alert-danger" role="alert">
-                                                        The email is invalid.</div>');
-                    }
-                }
-                else {
-                    array_push($messages, '<div class="alert alert-danger" role="alert">
-                                                        The email it\'s already taken taken. Please try with another one.</div>');
-                }
+            if (isset($errorChangingUsername)) {
+                array_push($messages, $errorChangingUsername);
+            }
+            if (isset($errorChangingEmail)) {
+                array_push($messages, $errorChangingEmail);
             }
             if ($data['name'] != $_SESSION['name']) {
                 $this->daoUser->changeName($_SESSION['username'], $data['name']);
@@ -238,13 +232,69 @@ class Controller
                 $this->daoUser->changeBirthday($_SESSION['username'], $data['birthday']);
             }
             // There are no errors.
-            if(empty($messages)){
-                array_push($messages,'<div class="alert alert-success" role="alert">The information has been updated.</div>');
+            if (empty($messages)) {
+                array_push($messages, '<div class="alert alert-success" role="alert">
+                            The information has been updated.</div>');
             }
             return $messages;
 
         } catch (Exception $e) {
             return $e->getMessage();
+        }
+    }
+
+    private function changeUsername($newUsername)
+    {
+        if (!$this->isUsernameTaken($newUsername)) {
+            if ($newUsername != $_SESSION['username']) {
+                $this->daoUser->changeUsername($_SESSION['username'], $newUsername);
+            } else {
+                return '<div class="alert alert-danger" role="alert">
+                            The username it\'s already taken. Please try with another one.</div>';
+            }
+        }
+    }
+
+    private function changeEmail($newEmail)
+    {
+        if ($newEmail != $_SESSION['email']) {
+            if (!$this->isEmailTaken($newEmail)) {
+                if (filter_var($newEmail, FILTER_VALIDATE_EMAIL)) {
+                    $this->daoUser->changeEmail($_SESSION['email'], $newEmail);
+                } else {
+                    return '<div class="alert alert-danger" role="alert">The email is invalid.</div>';
+                }
+            } else {
+                return '<div class="alert alert-danger" role="alert">
+                            The email it\'s already taken taken. Please try with another one.</div>';
+            }
+        }
+    }
+
+    private function changePassword($oldPassword, $newPassword)
+    {
+        $cursor = $this->getUser($_SESSION['email']);
+        $oldPasswordEncrypted = '';
+        $resultingDocuments = array();
+
+        if(empty($oldPassword )){
+            return '<div class="alert alert-danger" role="alert">You have to type your current password.</div>';
+        }
+        if(empty($newPassword)){
+            return '<div class="alert alert-danger" role="alert">The new password can\'t be empty.</div>';
+        }
+
+        foreach ($cursor as $key => $value) {
+            $resultingDocuments [$key] = $value;
+            $oldPasswordEncrypted = $resultingDocuments [$key]->get('password');
+        }
+        if (password_verify($oldPassword, $oldPasswordEncrypted)) {
+            $newPasswordEncrypted = password_hash($newPassword, PASSWORD_BCRYPT);
+            $this->daoUser->changePassword($_SESSION['username'], $newPasswordEncrypted);
+        }
+        else {
+            return '<div class="alert alert-danger" role="alert">
+                            The current password typed is incorrect.</div>';
         }
     }
 
