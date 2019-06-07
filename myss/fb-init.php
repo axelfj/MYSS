@@ -34,3 +34,17 @@ try{
     echo $e->getTraceAsString();
 }
 
+// If we have his accesso token.
+if ($_SESSION['userToken']){
+
+    try{
+        $facebookAPI->setDefaultAccessToken($_SESSION['userToken']);
+        $queryResult = $facebookAPI->get('/me?locale=en_US&fields=name,email');
+        $userInformation = $queryResult->getGraphUser();
+        echo $userInformation->getField('name');
+    } catch (Exception $e){
+        echo $e->getTraceAsString();
+    }
+
+
+}
