@@ -72,4 +72,10 @@ class DAOPost_Comment_Tag
         $this->dtoPost_Comment_Tag->setTags(PostQuery::getTags());
         return $this->dtoPost_Comment_Tag->getTags();
     }
+
+    public function filterPostsByDescription($description)
+    {
+        $this->dtoPost_Comment_Tag->setPosts(PostQuery::getPostByText($description));
+        return $this->dtoPost_Comment_Tag;
+    }
 }

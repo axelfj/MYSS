@@ -109,8 +109,8 @@ try {
 
                         // For every username in the username, let's retrieve their posts.
                         if ($controller->getPosts($usernameArray[$counter], 'Private') != null)
-                        array_push($privatePosts, $controller->getPosts($usernameArray[$counter],
-                            'Private'));
+                            array_push($privatePosts, $controller->getPosts($usernameArray[$counter],
+                                'Private'));
                     }
 
                     // We make the query, save those posts, append the private ones and set them to him.

@@ -511,7 +511,6 @@ class PostQuery
                 tagsPost: p.tagsPost, visibility: p.visibility, time: p.time, likes: p.likes}' => ['text' => $texto]
         ];
         $posts = PostQuery::postsIntoArray($statement);
-
         return $posts;
     }
 }
