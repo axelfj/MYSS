@@ -23,18 +23,17 @@ $loginURL   = $helper->getLoginUrl('http://localhost/MYSS/myss/View/login.php');
 
 try{
 
-    // Now, let's catch the information.
+    // Now, let's catch his token and save it.
     $userToken = $helper->getAccessToken();
     if (isset($userToken)){
-        $_SESSION['userToken'] = (string)$userToken;
-        header("Location:../View/login.php");
+        $_SESSION['userToken'] = (string)$userToken;        // We put it in the session to have it "globally".
     }
 
 } catch (Exception $e){
     echo $e->getTraceAsString();
 }
 
-// If we have his accesso token.
+// If we have his access token, then we can make an array with all of his information.
 if ($_SESSION['userToken']){
 
     try{
