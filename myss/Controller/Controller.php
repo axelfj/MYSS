@@ -249,12 +249,14 @@ class Controller
 
     private function changeUsername($newUsername)
     {
-        if (!$this->isUsernameTaken($newUsername)) {
-            if ($newUsername != $_SESSION['username']) {
-                $this->daoUser->changeUsername($_SESSION['username'], $newUsername);
+        if ($newUsername != $_SESSION['username']) {
+            if (!$this->isUsernameTaken($newUsername)) {
+                if ($newUsername != $_SESSION['username']) {
+                    $this->daoUser->changeUsername($_SESSION['username'], $newUsername);
+                }
             } else {
                 return '<div class="alert alert-danger" role="alert">
-                            The username it\'s already taken. Please try with another one.</div>';
+                            The typed username it\'s already taken. Please try with another one.</div>';
             }
         }
     }
@@ -270,7 +272,7 @@ class Controller
                 }
             } else {
                 return '<div class="alert alert-danger" role="alert">
-                            The email it\'s already taken taken. Please try with another one.</div>';
+                            The typed email it\'s already taken. Please try with another one.</div>';
             }
         }
     }
