@@ -59,8 +59,8 @@ class DAOUser
 
     public function filterUsername($username)
     {
-        $this->dtoUser->setUser(UserQuery::getUsersStartingWith($username));
-        return $this->dtoUser->getUser();
+        $result = UserQuery::getUsersStartingWith($username, $SESSION["key"]);
+        return $result;
     }
 
 }

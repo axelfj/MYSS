@@ -1,7 +1,10 @@
 <?php
-require_once "PostQuery.php";
+require_once "UserQuery.php";
+require_once "../Controller/Controller.php";
 
-$result = PostQuery::getPostByText("post");
+$controller = new Controller();
+$SESSION["key"] = 565498;
+$result = $controller->filterUsername("user");
 
 var_dump($result);
 

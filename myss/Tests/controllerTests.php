@@ -536,4 +536,15 @@ class controllerTests extends TestCase
     }
 
 
+    //Pruebas tercer proyecto
+
+    /**
+     * @depends testFollowUser
+     */
+    public function testSearchFriends(){
+        $result = $this->controller->filterUsername("usuario");
+        $resultlength = count($result);
+        $this->assertEquals(1, $resultlength);
+    }
+
 }

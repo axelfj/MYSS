@@ -213,8 +213,8 @@ class Controller
 
     public function filterUsername($user)
     {
-        $dtoUser = $this->daoUser->filterUsername($user);
-        return $dtoUser->getUser();
+        $result = $this->daoUser->filterUsername($user);
+        return $result;
     }
 
     public function filterDescription($description)
