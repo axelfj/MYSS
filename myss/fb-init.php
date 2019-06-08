@@ -21,6 +21,9 @@ $facebookAPI = new \Facebook\Facebook([
 $helper     = $facebookAPI->getRedirectLoginHelper();
 $loginURL   = $helper->getLoginUrl('http://localhost/MYSS/myss/View/login.php'); // Redirects here.
 
+// We set the userToken in the session. 
+$_SESSION['userToken'] == null;
+
 try{
 
     // Now, let's catch his token and save it.
@@ -34,7 +37,7 @@ try{
 }
 
 // If we have his access token, then we can make an array with all of his information.
-if ($_SESSION['userToken']){
+if ($_SESSION['userToken'] != null){
 
     try{
         $facebookAPI->setDefaultAccessToken($_SESSION['userToken']);
