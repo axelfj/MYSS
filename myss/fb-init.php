@@ -22,7 +22,7 @@ $helper     = $facebookAPI->getRedirectLoginHelper();
 $loginURL   = $helper->getLoginUrl('http://localhost/MYSS/myss/View/login.php'); // Redirects here.
 
 // We set the userToken in the session. 
-$_SESSION['userToken'] == null;
+$_SESSION['userToken'] = null;
 
 try{
 
