@@ -15,9 +15,9 @@ require "../fb-init.php";
 if (isset($_SESSION['userId'])) {
     header('Location: ..\View\index.php');
 }
-
-var_dump($_SESSION);
 ?>
+
+
 <center>
     <section class="">
         <?php
