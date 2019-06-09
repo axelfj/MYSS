@@ -59,7 +59,7 @@ class DAOUser
 
     public function filterUsername($username)
     {
-        $result = UserQuery::getUsersStartingWith($username, $SESSION["key"]);
+        $result = UserQuery::getUsersStartingWith($username, $_SESSION["userKey"]);
         return $result;
     }
 
