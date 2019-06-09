@@ -5,9 +5,6 @@ include_once "banner.php";
 require_once "../Controller/connection.php";
 require_once "../Controller/Controller.php";
 
-// We add the Facebook API.
-require "../fb-init.php";
-
 $controller = new Controller();
 ?>
 
@@ -59,7 +56,6 @@ $controller = new Controller();
                     <button id="signinbtn" name="signinbtn" class="genric-btn info circle" type="submit"
                             value="register" onclick="register()">Sign up
                     </button>
-                    <a href="<?php echo $loginURL; ?>"> Sign-up With Facebook! </a>
                     <br><br>
                     <a class="genric-btn info-border circle arrow" href="login.php" role="button">Already have an
                         account? Log in here.<span class="lnr lnr-arrow-right"></span></a>

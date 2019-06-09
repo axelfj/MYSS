@@ -17,7 +17,6 @@ if (isset($_SESSION['userId'])) {
 }
 ?>
 
-
 <center>
     <section class="">
         <?php
@@ -47,12 +46,7 @@ if (isset($_SESSION['userId'])) {
                         <button id="loginbtn" name="loginbtn" class="genric-btn info circle" type="submit" value="login"
                                 onclick="login()">Log In
                         </button>
-
-
                         <a href="<?php echo $loginURL; ?>"> Login With Facebook! </a>
-
-
-
                         <br><br>
                         <a class="genric-btn info-border circle arrow" href="signup.php" role="button">Don't have an
                             account yet? Register here.</a><br>
