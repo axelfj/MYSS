@@ -358,10 +358,11 @@ class PostQuery
     public static function getTagKey($tag){
         try{
             if(!empty($tag)) {
+                $text = "%". $tag . "%";
                 $query = [
                     'FOR u IN tag 
-                 FILTER u.name == @tagName                                                         
-                 RETURN {key: u._key}' => ['tagName' => $tag]];
+                 FILTER u.name LIKE @tagName                                                         
+                 RETURN {key: u._key}' => ['tagName' => $text]];
 
                 $cursor = readCollection($query);
 

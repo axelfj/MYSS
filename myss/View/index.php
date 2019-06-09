@@ -13,7 +13,7 @@ use ArangoDBClient\Document as ArangoDocument;
 
 $database = connect();
 $document = new ArangoCollectionHandler(connect());
-
+$controller = new Controller();
 ?>
 
 <!--================ Start Blog Post Area =================-->
@@ -23,7 +23,19 @@ $document = new ArangoCollectionHandler(connect());
             <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-12">
-                        <?php include_once "post.inc.php"; ?>
+                        <?php
+                        if (!empty($dtoUser)){
+                            echo '<h5>Users</h5><br>';
+                            /*var_dump($dtoUser);*/
+                            include_once "user-found.inc.php";
+                        }
+                        if (!empty($dtoPost_Comment_Tag)){
+                            echo '<h5>By tag</h5><br>';
+                            /*var_dump($dtoPost_Comment_Tag);*/
+                            include_once "post.inc.php";
+                        }
+                        include_once "post.inc.php";
+                        ?>
                     </div>
                 </div>
             </div>

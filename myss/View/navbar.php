@@ -3,13 +3,13 @@
 session_start();
 
 require_once "../Controller/Controller.php";
-if (isset($_POST['searchByTag'])) {
+if (isset($_POST['search'])) {
 
     try {
         $controller = new Controller();
         $dtoPost_Comment_Tag = $controller->filterPostsByTag($_POST['search'],1);
-        //$dtoPost_Comment_Tag = $controller->filterUsername($_POST['search'],2);
-        //$dtoPost_Comment_Tag = $controller->filterDescription($_POST['search'],3);
+        $dtoUser = $controller->filterUsername($_POST['search'],2);
+        $dtoText = $controller->filterDescription($_POST['search'],3);
     } catch (Exception $e) {
         throwException($e);
     }

@@ -185,15 +185,15 @@ class UserQuery
         $statement = [
             'FOR u IN user 
             FILTER u.username LIKE @username
-            RETURN {key: u._id, user: u.username}' => ['username' => $username]
+            RETURN {key: u._id, username: u.username}' => ['username' => $username]
         ];
 
         $cursor = readCollection($statement);
         $userKeys = array();
         foreach ($cursor as $key => $value){
             $resultingDocuments[$key] = $value;
-            $userkey = $resultingDocuments[$key]->get('key');
-
+            $userkey['key'] = $resultingDocuments[$key]->get('key');
+            $userkey['username'] = $resultingDocuments[$key]->get('username');
             array_push($userKeys, $userkey);
         }
         return $userKeys;
