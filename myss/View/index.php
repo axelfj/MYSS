@@ -24,17 +24,29 @@ $controller = new Controller();
                 <div class="row">
                     <div class="col-md-12">
                         <?php
-                        if (!empty($dtoUser)){
-                            echo '<h5>Users</h5><br>';
-                            /*var_dump($dtoUser);*/
-                            include_once "user-found.inc.php";
-                        }
-                        if (!empty($dtoPost_Comment_Tag)){
-                            echo '<h5>By tag</h5><br>';
-                            /*var_dump($dtoPost_Comment_Tag);*/
+                        if (!isset($_POST['search'])) {
                             include_once "post.inc.php";
+                        } else{
+                            echo '<h5>Users</h5><br>';
+                            if (!empty($dtoUser)){
+                                include_once "user-found.inc.php";
+                            } else {
+                                echo '<div class="alert alert-danger" role="alert">No users found.</div>';
+                            }
+                            echo '<h5>By tag "'. $_POST['search'] . '"</h5><br>';
+                            if (!empty($dtoPost_Comment_Tag)){
+                                include "post.inc.php";
+                            } else {
+                                echo '<div class="alert alert-danger" role="alert">No posts found by tag.</div>';
+                            }
+                            echo '<h5>By text "'. $_POST['search'] . '"</h5><br>';
+                            if (!empty($dtoText)){
+                                $dtoPost_Comment_Tag = $dtoText;
+                                include "post.inc.php";
+                            } else {
+                                echo '<div class="alert alert-danger" role="alert">No posts found by text.</div>';
+                            }
                         }
-                        include_once "post.inc.php";
                         ?>
                     </div>
                 </div>

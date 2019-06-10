@@ -366,7 +366,19 @@ class PostQuery
 
                 $cursor = readCollection($query);
 
-                return $cursor;
+                if ($cursor->getCount() > 0) {
+                    $tag = array();
+                    $tagsFound = array();
+
+                    foreach ($cursor as $key => $value) {
+                        $resultingDocuments[$key] = $value;
+                        $tag['key'] = $resultingDocuments[$key]->get('key');
+
+                        array_push($tagsFound, $tag);
+                    }
+                    return $tagsFound;
+                }
+                return null;
             }
 
         }catch (Exception $exception){
@@ -377,13 +389,16 @@ class PostQuery
     public static function filterPostByTag2($tag){
         try{
             $cursor = PostQuery::getTagKey($tag);
+            var_dump($cursor);
             if(!empty($cursor)) {
                 $resultingTags = array();
                 $tag =array();
+                $tags =array();
 
                 foreach ($cursor as $key => $value) {
                     $resultingTags[$key] = $value;
-                    $tag["key"] = $resultingTags[$key]->get("key");
+                    $tag["key"] = $resultingTags[$key]['key'];
+                    array_push($tags, $tag);
                 }
 
                 $query2 = [
@@ -399,12 +414,11 @@ class PostQuery
                     $post['to'] = $resultingDocuments[$key]->get('to');
                     $post['from'] = $resultingDocuments[$key]->get('from');
                     $post['key'] = $resultingDocuments[$key]->get('key');
-
-
+                    
                     array_push($userPosts, $post);
                 }
 
-                $findedPosts = array();
+                $foundPosts = array();
 
                 foreach ($userPosts as $key => $value){
                     $postKey = $userPosts[$key]["from"];
@@ -412,9 +426,9 @@ class PostQuery
                     $postKey = substr($postKey,5);
                     $post = self::getPostFromKey($postKey);
 
-                    $findedPosts= array_merge($findedPosts, $post);
+                    $foundPosts= array_merge($foundPosts, $post);
                 }
-                return $findedPosts;
+                return $foundPosts;
 
 
             }
