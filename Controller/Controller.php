@@ -205,6 +205,7 @@ class Controller
         }
     }
 
+
     public function changeInformation($data)
     {
         try {
@@ -323,9 +324,22 @@ class Controller
         }
     }
 
+
     public function filterPostsByTag($tag)
     {
         $dtoPost_Comment_Tag = $this->daoPost_Comment_Tag->filterPostsByTag($tag);
+        return $dtoPost_Comment_Tag->getPosts();
+    }
+
+    public function filterUsername($user)
+    {
+        $result = $this->daoUser->filterUsername($user);
+        return $result;
+    }
+
+    public function filterDescription($description)
+    {
+        $dtoPost_Comment_Tag = $this->daoPost_Comment_Tag->filterPostsByDescription($description);
         return $dtoPost_Comment_Tag->getPosts();
     }
 
@@ -383,4 +397,12 @@ class Controller
         return $this->daoPost_Comment_Tag->getTags();
     }
 
+    public function search($text, $mode){
+        if ($mode == 1)
+            $this->filterPostsByTag($text);
+        if ($mode == 2)
+            $this->filterDescription($text);
+        if ($mode == 3)
+            $this->filterUsername($text);
+    }
 }

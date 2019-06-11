@@ -411,7 +411,7 @@ class controllerTests extends TestCase
 
     public function followedDataProviderExist(){
         $dtoUser = array();
-        $dtoUser ['username'] = 'userprueba';
+        $dtoUser ['username'] = 'usuarioSeguido';
         $dtoUser ['email'] = 'userprueba@gmail.com';
         $dtoUser ['password'] = '1234';
         $dtoUser ['name'] = 'Usuario de Prueba';
@@ -459,7 +459,7 @@ class controllerTests extends TestCase
 
     public function followedDataProvider(){
         $dtoUser = array();
-        $dtoUser ['username'] = 'userprueba';
+        $dtoUser ['username'] = 'usuarioSeguido';
         $dtoUser ['email'] = 'userprueba@gmail.com';
         $dtoUser ['password'] = '1234';
         $dtoUser ['name'] = 'Usuario de Prueba';
@@ -473,7 +473,7 @@ class controllerTests extends TestCase
 
     public function notFollowedDataProvider(){
         $dtoUser = array();
-        $dtoUser ['username'] = 'userprueba2';
+        $dtoUser ['username'] = 'usuarioNoSeguido';
         $dtoUser ['email'] = 'userprueba2@gmail.com';
         $dtoUser ['password'] = '1234';
         $dtoUser ['name'] = 'Usuario de Prueba';
@@ -536,4 +536,74 @@ class controllerTests extends TestCase
     }
 
 
+    //Pruebas tercer proyecto
+
+    /**
+     * @depends testFollowUser
+     * @dataProvider friendDataProvider
+     * @dataProvider unFriendDataProvider
+     * @dataProvider similarUsernameFriendDataProvider
+     */
+    public function testSearchFriends($username, $followed){
+        $result = $this->controller->filterUsername($username);
+        $resultLength = count($result);
+        if($followed) {
+            $this->assertEquals(1, $resultLength);
+        } else{
+            $this->assertEquals(0, $resultLength);
+        }
+    }
+
+    public function similarUsernameFriendDataProvider(){
+        return[
+            ["usuario", true]
+        ];
+    }
+
+    public function friendDataProvider(){
+        return[
+            ["usuarioSeguido", true]
+        ];
+    }
+
+    public function unFriendDataProvider(){
+        return[
+            ["usuarioNoSeguido", false]
+        ];
+    }
+
+    /**
+     * @depends testCreatePost
+     * @dataProvider searchedPrivateDataProvided
+     * @dataProvider searchedPublicDataProvided
+     * @dataProvider searchedSimilarDataProvided
+     */
+
+    public function testSearchPostByDescription($description, $founded){
+        $result = $this->controller->filterDescription($description);
+        if($founded){
+            $resultLength = count($result);
+            $this->assertEquals(1, $resultLength);
+        }else{
+            $this->assertEquals(null, $result);
+        }
+    }
+
+    public function searchedPublicDataProvided(){
+        return[
+            ["prueba público", true]
+        ];
+    }
+
+    public function searchedPrivateDataProvided(){
+        return[
+            ["prueba Privado", false]
+        ];
+    }
+
+    public function searchedSimilarDataProvided(){
+        return[
+            ["prueba", true]
+        ];
+    }
 }
