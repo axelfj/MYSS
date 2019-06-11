@@ -168,10 +168,12 @@ class UserQuery
     public static function searchFriends($username, $userId){
         $userkeys = UserQuery::getUsersStartingWith($username);
         $friends = self::getAllMyFriendsKeys($userId);
+
         $result = array();
+
         foreach ($userkeys as $ukey => $uvalue){
             foreach ($friends as $fkey => $fvalue){
-                if($uvalue == $fvalue){
+                if($uvalue["key"] == $fvalue){
                     array_push($result, $uvalue);
                 }
             }
