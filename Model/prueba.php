@@ -3,8 +3,8 @@ require_once "UserQuery.php";
 require_once "../Controller/Controller.php";
 
 $controller = new Controller();
-$SESSION["key"] = 565498;
-$result = $controller->filterUsername("user");
+$_SESSION["userKey"] = 608812;
+$result = $controller->filterUsername("usuario");
 
 var_dump($result);
 

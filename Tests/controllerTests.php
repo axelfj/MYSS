@@ -411,7 +411,7 @@ class controllerTests extends TestCase
 
     public function followedDataProviderExist(){
         $dtoUser = array();
-        $dtoUser ['username'] = 'userprueba';
+        $dtoUser ['username'] = 'usuarioSeguido';
         $dtoUser ['email'] = 'userprueba@gmail.com';
         $dtoUser ['password'] = '1234';
         $dtoUser ['name'] = 'Usuario de Prueba';
@@ -459,7 +459,7 @@ class controllerTests extends TestCase
 
     public function followedDataProvider(){
         $dtoUser = array();
-        $dtoUser ['username'] = 'userprueba';
+        $dtoUser ['username'] = 'usuarioSeguido';
         $dtoUser ['email'] = 'userprueba@gmail.com';
         $dtoUser ['password'] = '1234';
         $dtoUser ['name'] = 'Usuario de Prueba';
@@ -473,7 +473,7 @@ class controllerTests extends TestCase
 
     public function notFollowedDataProvider(){
         $dtoUser = array();
-        $dtoUser ['username'] = 'userprueba2';
+        $dtoUser ['username'] = 'usuarioNoSeguido';
         $dtoUser ['email'] = 'userprueba2@gmail.com';
         $dtoUser ['password'] = '1234';
         $dtoUser ['name'] = 'Usuario de Prueba';
@@ -540,11 +540,40 @@ class controllerTests extends TestCase
 
     /**
      * @depends testFollowUser
+     * @dataProvider friendDataProvider
+     * @dataProvider unFriendDataProvider
+     * @dataProvider similarUsernameFriendDataProvider
      */
-    public function testSearchFriends(){
-        $result = $this->controller->filterUsername("usuario");
-        $resultlength = count($result);
-        $this->assertEquals(1, $resultlength);
+    public function testSearchFriends($username, $followed){
+        $result = $this->controller->filterUsername($username);
+        $resultLength = count($result);
+        if($followed) {
+            $this->assertEquals(1, $resultLength);
+        } else{
+            $this->assertEquals(0, $resultLength);
+        }
     }
 
+    public function similarUsernameFriendDataProvider(){
+        return[
+            ["usuario", true]
+        ];
+    }
+
+    public function friendDataProvider(){
+        return[
+            ["usuarioSeguido", true]
+        ];
+    }
+
+    public function unFriendDataProvider(){
+        return[
+            ["usuarioNoSeguido", false]
+        ];
+    }
+//
+//    /**
+//     * @depends
+//     */
+//    public function testSearchPostByDescription(){}
 }
