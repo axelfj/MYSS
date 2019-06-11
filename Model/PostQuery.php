@@ -358,14 +358,27 @@ class PostQuery
     public static function getTagKey($tag){
         try{
             if(!empty($tag)) {
+                $text = "%". $tag . "%";
                 $query = [
                     'FOR u IN tag 
-                 FILTER u.name == @tagName                                                         
-                 RETURN {key: u._key}' => ['tagName' => $tag]];
+                 FILTER u.name LIKE @tagName                                                         
+                 RETURN {key: u._key}' => ['tagName' => $text]];
 
                 $cursor = readCollection($query);
 
-                return $cursor;
+                if ($cursor->getCount() > 0) {
+                    $tag = array();
+                    $tagsFound = array();
+
+                    foreach ($cursor as $key => $value) {
+                        $resultingDocuments[$key] = $value;
+                        $tag['key'] = $resultingDocuments[$key]->get('key');
+
+                        array_push($tagsFound, $tag);
+                    }
+                    return $tagsFound;
+                }
+                return null;
             }
 
         }catch (Exception $exception){
@@ -376,13 +389,16 @@ class PostQuery
     public static function filterPostByTag2($tag){
         try{
             $cursor = PostQuery::getTagKey($tag);
+            var_dump($cursor);
             if(!empty($cursor)) {
                 $resultingTags = array();
                 $tag =array();
+                $tags =array();
 
                 foreach ($cursor as $key => $value) {
                     $resultingTags[$key] = $value;
-                    $tag["key"] = $resultingTags[$key]->get("key");
+                    $tag["key"] = $resultingTags[$key]['key'];
+                    array_push($tags, $tag);
                 }
 
                 $query2 = [
@@ -398,12 +414,11 @@ class PostQuery
                     $post['to'] = $resultingDocuments[$key]->get('to');
                     $post['from'] = $resultingDocuments[$key]->get('from');
                     $post['key'] = $resultingDocuments[$key]->get('key');
-
-
+                    
                     array_push($userPosts, $post);
                 }
 
-                $findedPosts = array();
+                $foundPosts = array();
 
                 foreach ($userPosts as $key => $value){
                     $postKey = $userPosts[$key]["from"];
@@ -411,9 +426,9 @@ class PostQuery
                     $postKey = substr($postKey,5);
                     $post = self::getPostFromKey($postKey);
 
-                    $findedPosts= array_merge($findedPosts, $post);
+                    $foundPosts= array_merge($foundPosts, $post);
                 }
-                return $findedPosts;
+                return $foundPosts;
 
 
             }
@@ -421,6 +436,8 @@ class PostQuery
             $exception->getMessage();
         }
     }
+
+
 
     public static function getPostFromKey($key){
         try{
@@ -498,5 +515,17 @@ class PostQuery
         }
 
         return $tags;
+    }
+
+    public static function getPostByText($text){
+        $texto = "%". $text . "%";
+        $statement = [
+            'FOR p IN post 
+            FILTER p.text LIKE @text AND p.visibility == "Public"
+            RETURN {key: p._key, owner: p.owner, title: p.title, text: p.text, destination: p.destination,
+                tagsPost: p.tagsPost, visibility: p.visibility, time: p.time, likes: p.likes}' => ['text' => $texto]
+        ];
+        $posts = PostQuery::postsIntoArray($statement);
+        return $posts;
     }
 }

@@ -139,7 +139,6 @@ class UserQuery
         }
         return false;
     }
-
     // Gets all my friends usernames.
     public static function getAllMyFriends($userId)
     {
@@ -151,6 +150,7 @@ class UserQuery
             RETURN x' => ['fromUser' => $userIdComplete]];
         return readCollection($statements);
     }
+
 
     public static function changeUsername($currentUsername, $newUsername)
     {
@@ -204,5 +204,53 @@ class UserQuery
             FILTER u.username == @username
             UPDATE u WITH { userImage: @userImage } IN user' => ['username' => $username, 'userImage' => $newPicture]];
         readCollection($statements);
+    }
+    public static function getAllMyFriendsKeys($userId){
+        $cursor = UserQuery::getAllMyFriends($userId);
+        $userKeys = array();
+        foreach ($cursor as $key => $value){
+            $resultingDocuments[$key] = $value;
+            $userkey = $resultingDocuments[$key]->get('_to');
+
+            array_push($userKeys, $userkey);
+        }
+        return $userKeys;
+
+    }
+
+    public static function searchFriends($username, $userId){
+        $userkeys = UserQuery::getUsersStartingWith($username);
+        $friends = self::getAllMyFriendsKeys($userId);
+
+        $result = array();
+
+        foreach ($userkeys as $ukey => $uvalue){
+            foreach ($friends as $fkey => $fvalue){
+                if($uvalue["key"] == $fvalue){
+                    array_push($result, $uvalue);
+                }
+            }
+        }
+        return $result;
+
+    }
+
+    public static function getUsersStartingWith($username){
+        $username .= "%";
+        $statement = [
+            'FOR u IN user 
+            FILTER u.username LIKE @username
+            RETURN {key: u._id, username: u.username}' => ['username' => $username]
+        ];
+
+        $cursor = readCollection($statement);
+        $userKeys = array();
+        foreach ($cursor as $key => $value){
+            $resultingDocuments[$key] = $value;
+            $userkey['key'] = $resultingDocuments[$key]->get('key');
+            $userkey['username'] = $resultingDocuments[$key]->get('username');
+            array_push($userKeys, $userkey);
+        }
+        return $userKeys;
     }
 }

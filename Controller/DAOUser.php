@@ -57,6 +57,7 @@ class DAOUser
         return UserQuery::getAllMyFriends($userId);
     }
 
+
     public function changeUsername($currentUsername, $newUsername)
     {
         UserQuery::changeUsername($currentUsername, $newUsername);
@@ -90,4 +91,12 @@ class DAOUser
         UserQuery::changePicture($username, $newImage);
         $_SESSION['userImage'] = $newImage;
     }
+
+    public function filterUsername($username)
+    {
+        $result = UserQuery::searchFriends($username, $_SESSION["userKey"]);
+        return $result;
+    }
+
+
 }

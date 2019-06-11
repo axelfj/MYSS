@@ -1,7 +1,11 @@
 <?php
-require_once "PostQuery.php";
+require_once "UserQuery.php";
+require_once "../Controller/Controller.php";
 
-$resutl = PostQuery::filterPostByTag2("Prueba");
+$controller = new Controller();
+$_SESSION["userKey"] = 608812;
+$result = $controller->filterUsername("usuario");
 
-var_dump($resutl);
+var_dump($result);
+
 

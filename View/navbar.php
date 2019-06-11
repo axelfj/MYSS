@@ -3,11 +3,13 @@
 session_start();
 
 require_once "../Controller/Controller.php";
-if (isset($_POST['searchByTag'])) {
+if (isset($_POST['search'])) {
 
     try {
         $controller = new Controller();
-        $dtoPost_Comment_Tag = $controller->filterPostsByTag($_POST['searchByTag']);
+        $dtoPost_Comment_Tag = $controller->filterPostsByTag($_POST['search'],1);
+        $dtoUser = $controller->filterUsername($_POST['search'],2);
+        $dtoText = $controller->filterDescription($_POST['search'],3);
     } catch (Exception $e) {
         throwException($e);
     }
@@ -30,7 +32,7 @@ if (isset($_POST['searchByTag'])) {
                     <div class="input-group md-form form-sm form-2 pl-0">
                         <form class="search-form" action="index.php" method="post">
                             <input class="form-control my-0 py-1 blue-border" type="text" placeholder="Search"
-                                   aria-label="Search" name="searchByTag" id="searchByTag">
+                                   aria-label="Search" name="search" id="search">
                         </form>
                         <div class="input-group-append">
                             <i class="fas fa-search" aria-hidden="true"
