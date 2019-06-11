@@ -571,9 +571,39 @@ class controllerTests extends TestCase
             ["usuarioNoSeguido", false]
         ];
     }
-//
-//    /**
-//     * @depends
-//     */
-//    public function testSearchPostByDescription(){}
+
+    /**
+     * @depends testCreatePost
+     * @dataProvider searchedPrivateDataProvided
+     * @dataProvider searchedPublicDataProvided
+     * @dataProvider searchedSimilarDataProvided
+     */
+
+    public function testSearchPostByDescription($description, $founded){
+        $result = $this->controller->filterDescription($description);
+        if($founded){
+            $resultLength = count($result);
+            $this->assertEquals(1, $resultLength);
+        }else{
+            $this->assertEquals(null, $result);
+        }
+    }
+
+    public function searchedPublicDataProvided(){
+        return[
+            ["prueba público", true]
+        ];
+    }
+
+    public function searchedPrivateDataProvided(){
+        return[
+            ["prueba Privado", false]
+        ];
+    }
+
+    public function searchedSimilarDataProvided(){
+        return[
+            ["prueba", true]
+        ];
+    }
 }
