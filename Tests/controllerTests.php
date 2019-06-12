@@ -606,4 +606,78 @@ class controllerTests extends TestCase
             ["prueba", true]
         ];
     }
+
+    /**
+     * @depends testLoginAllData
+     * @dataProvider correctUsernameDataProvider
+     * @dataProvider incorrectDataProvider
+     * @dataProvider usedUsernameDataProvider
+    */
+    public function testModifyUsername($newUsename, $correct){
+        $data = $_SESSION;
+        $_FILES['changeUserImage']['name'] = "";
+        $_FILES['changeUserImage']['tmp_name'] = "";
+        $data["username"] = $newUsename;
+        $result = $this->controller->changeInformation($data);
+        if($correct){
+            $this->assertEquals('<div class="alert alert-success" role="alert">
+                            The information has been updated.</div>', $result[0]);
+        }
+        else if($newUsename == "") {
+            $this->assertEquals("<div class=\"alert alert-danger\" role=\"alert\">
+                            The username can't be empty</div>", $result[0]);
+        } else{
+            $this->assertEquals("<div class=\"alert alert-danger\" role=\"alert\">
+                            The typed username it's already taken. Please try with another one.</div>", $result[0]);
+        }
+    }
+
+    public function correctUsernameDataProvider(){
+        return[
+            ["newUsername", true]
+        ];
+    }
+
+    public function incorrectDataProvider(){
+        return[
+            ["", false]
+        ];
+    }
+
+    public function usedUsernameDataProvider(){
+        return[
+            ["usuarioSeguido", false]
+        ];
+    }
+
+    /**
+     * @depends testLoginAllData
+     * @dataProvider correctNameDataProvider
+     * @dataProvider incorrectDataProvider
+     */
+    public function testModifyName($newName, $correct){
+        $data = $_SESSION;
+        $_FILES['changeUserImage']['name'] = "";
+        $_FILES['changeUserImage']['tmp_name'] = "";
+        $data["name"] = $newName;
+        $result = $this->controller->changeInformation($data);
+        if($correct){
+            $this->assertEquals('<div class="alert alert-success" role="alert">
+                            The information has been updated.</div>', $result[0]);
+        } else{
+            $this->assertEquals('<div class="alert alert-danger" role="alert">
+                            The name can\'t be empty</div>', $result[0]);
+        }
+    }
+
+
+    public function correctNameDataProvider(){
+        return[
+          ["New Name", true]
+        ];
+    }
+
+    
+
+
 }
