@@ -213,6 +213,7 @@ class Controller
             $errorChangingUsername = $this->changeUsername($data['username']);
             $errorChangingEmail = $this->changeEmail($data['email']);
             $errorChangingPicture = $this->changePicture();
+            $errorChangingName = $this->changeName($data['name']);
 
             if (!empty($data['oldPassword']) || !empty($data['newPassword'])) {
                 $errorChangingPassword = $this->changePassword($data['oldPassword'], $data['newPassword']);
@@ -230,8 +231,8 @@ class Controller
             if (isset($errorChangingPicture)) {
                 array_push($messages, $errorChangingPicture);
             }
-            if ($data['name'] != $_SESSION['name']) {
-                $this->daoUser->changeName($_SESSION['username'], $data['name']);
+            if (isset($errorChangingName)) {
+                array_push($messages, $errorChangingName);
             }
             if (isset($data['birthday'])) {
                 $this->daoUser->changeBirthday($_SESSION['username'], $data['birthday']);
@@ -252,12 +253,27 @@ class Controller
     {
         if ($newUsername != $_SESSION['username']) {
             if (!$this->isUsernameTaken($newUsername)) {
-                if ($newUsername != $_SESSION['username']) {
+                if (!ctype_space($newUsername)){
                     $this->daoUser->changeUsername($_SESSION['username'], $newUsername);
+                } else {
+                    return '<div class="alert alert-danger" role="alert">
+                            The username can\'t be empty</div>';
                 }
             } else {
                 return '<div class="alert alert-danger" role="alert">
                             The typed username it\'s already taken. Please try with another one.</div>';
+            }
+        }
+    }
+
+    private function changeName($newName)
+    {
+        if ($newName != $_SESSION['name']) {
+            if (!ctype_space($newName)){
+                $this->daoUser->changeName($_SESSION['username'], $newName);
+            } else {
+                return '<div class="alert alert-danger" role="alert">
+                            The name can\'t be empty</div>';
             }
         }
     }
