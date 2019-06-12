@@ -677,7 +677,127 @@ class controllerTests extends TestCase
         ];
     }
 
-    
+    /**
+     * @depends testLoginAllData
+     * @dataProvider correctEmailDataProvider
+     * @dataProvider incorrectDataProvider
+     * @dataProvider takenEmailDataProvider
+     *
+     */
+    public function testModifyEmail($email, $correct){
+        $data = $_SESSION;
+        $_FILES['changeUserImage']['name'] = "";
+        $_FILES['changeUserImage']['tmp_name'] = "";
+        $data["email"] = $email;
+        $result = $this->controller->changeInformation($data);
+        if($correct){
+            $this->assertEquals('<div class="alert alert-success" role="alert">
+                            The information has been updated.</div>', $result[0]);
+        }
+        else if($email == "") {
+            $this->assertEquals("<div class=\"alert alert-danger\" role=\"alert\">The email is invalid.</div>", $result[0]);
+        } else{
+            $this->assertEquals("<div class=\"alert alert-danger\" role=\"alert\">
+                            The typed email it's already taken. Please try with another one.</div>", $result[0]);
+        }
+    }
 
+    public function correctEmailDataProvider(){
+        return[
+            ["newemail@gmail.com", true]
+        ];
+    }
 
+    public function takenEmailDataProvider(){
+        return[
+            ["userprueba2@gmail.com", false]
+        ];
+    }
+
+    /**
+     * @depends testLoginAllData
+     * @dataProvider incorrectPasswordDataProvider
+     * @dataProvider correctPasswordDataProvider
+     * @dataProvider missingOldPasswordDataProvider
+     * @dataProvider missingNewPasswordDataProvider
+
+     *
+     */
+    public function testModifyPassword($oldPassword, $newPassword, $correct){
+        $data = $_SESSION;
+        $_FILES['changeUserImage']['name'] = "";
+        $_FILES['changeUserImage']['tmp_name'] = "";
+        $data["oldPassword"] = $oldPassword;
+        $data["newPassword"] = $newPassword;
+        $result = $this->controller->changeInformation($data);
+        if($correct){
+            $this->assertEquals('<div class="alert alert-success" role="alert">
+                            The information has been updated.</div>', $result[0]);
+        }else if(empty($oldPassword)){
+            $this->assertEquals('<div class="alert alert-danger" role="alert">You have to type your current password.</div>', $result[0]);
+        } else if(empty($newPassword)){
+            $this->assertEquals('<div class="alert alert-danger" role="alert">The new password can\'t be empty.</div>', $result[0]);
+        } else{
+            $this->assertEquals('<div class="alert alert-danger" role="alert">
+                            The current password typed is incorrect.</div>', $result[0]);
+
+        }
+    }
+
+    public function correctPasswordDataProvider(){
+        return[
+            ["1234", "12345", true]
+        ];
+    }
+
+    public function missingOldPasswordDataProvider(){
+        return[
+            ["", "12345", false]
+        ];
+    }
+
+    public function missingNewPasswordDataProvider(){
+        return[
+            ["1234", "", false]
+        ];
+    }
+
+    public function incorrectPasswordDataProvider(){
+        return[
+            ["12345", "1234", false]
+        ];
+    }
+
+    /**
+     * @depends testLoginAllData
+     * @dataProvider correctImageDataProvider
+     * @dataProvider incorrectImageDataProvider
+     */
+
+    public function testModifyImage($imageName, $correct){
+        $data = $_SESSION;
+        $_FILES['changeUserImage']['name'] = $imageName;
+        $_FILES['changeUserImage']['tmp_name'] = $imageName;
+
+        $result = $this->controller->changeInformation($data);
+        if($correct){
+            $this->assertEquals('<div class="alert alert-success" role="alert">
+                            The information has been updated.</div>', $result[0]);
+        }
+        else{
+            $this->assertEquals('<div class="alert alert-danger" role="alert">You just can upload ".gif", ".jpg", ".jpeg" and ".png" files</div>', $result[0]);
+        }
+    }
+
+    public function correctImageDataProvider(){
+        return[
+            ["image.PNG", true]
+        ];
+    }
+
+    public function incorrectImageDataProvider(){
+        return[
+            ["image.PDF", false]
+        ];
+    }
 }
