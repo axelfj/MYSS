@@ -253,7 +253,7 @@ class Controller
     {
         if ($newUsername != $_SESSION['username']) {
             if (!$this->isUsernameTaken($newUsername)) {
-                if (!ctype_space($newUsername)){
+                if (!ctype_space($newUsername) && !empty($newUsername)){
                     $this->daoUser->changeUsername($_SESSION['username'], $newUsername);
                 } else {
                     return '<div class="alert alert-danger" role="alert">
@@ -269,7 +269,7 @@ class Controller
     private function changeName($newName)
     {
         if ($newName != $_SESSION['name']) {
-            if (!ctype_space($newName)){
+            if (!ctype_space($newName) && !empty($newName)){
                 $this->daoUser->changeName($_SESSION['username'], $newName);
             } else {
                 return '<div class="alert alert-danger" role="alert">
