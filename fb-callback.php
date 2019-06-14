@@ -70,36 +70,42 @@ $_SESSION['userToken'] = (string)$userToken;  // We put it in the session to hav
 if ($_SESSION['userToken'] != null) {
     try {
 
+        /*
         echo '<h3>TOKEN</h3>';
         var_dump($_SESSION);
-
+        */
         // We assign the token.
         $facebookAPI->setDefaultAccessToken($_SESSION['userToken']);
 
-        echo '<h3>FACEBOOK API</h3>';
+        /*echo '<h3>FACEBOOK API</h3>';
         var_dump($facebookAPI);
+        */
 
         // Asks for: name, birthday, his profile pic.
         $queryResult = $facebookAPI->get('/me?locale=en_US&fields=email');
 
-        echo '<h3>QUERY RESULT</h3>';
-        var_dump($queryResult);
+        /*echo '<h3>QUERY RESULT</h3>';
+        var_dump($queryResult);*/
 
         // Gets the information of the User.
         $userInformation = $queryResult->getGraphUser();
 
-        echo '<h3>USER INFORMATION</h3>';
-        var_dump($userInformation);
+        /*echo '<h3>USER INFORMATION</h3>';
+        var_dump($userInformation);*/
 
         // We save this email.
         $facebookEmailProvidedByAPI = $userInformation->getField('email');
 
-        echo '<h3>FACEBOOK EMAiL PROVIDED</h3>';
-        var_dump($facebookEmailProvidedByAPI);
+        /*echo '<h3>FACEBOOK EMAiL PROVIDED</h3>';
+        var_dump($facebookEmailProvidedByAPI);*/
 
         // Now, let's see if he's in the database.
         $controller = new Controller();
         if ($controller->isEmailTaken($facebookEmailProvidedByAPI) == true) {
+
+            /*echo '<h3>IF </h3>';
+            var_dump($controller->isEmailTaken($facebookEmailProvidedByAPI));
+            */
 
             // We gather his information and set it in the $_SESSION.
             $userInformationCursor = $controller->getUser($facebookEmailProvidedByAPI);
@@ -121,10 +127,10 @@ if ($_SESSION['userToken'] != null) {
             $_SESSION['email'] = $profile['email'];
             $_SESSION['userImage'] = $profile['userImage'];
 
-            header('Location: http://myss-qa.herokuapp.com/View/index.php');
+            header('Location: https://myss-qa.herokuapp.com/View/index.php');
         } // He's not in the database, let's redirect him to the register.
         else {
-            header('Location: http://myss-qa.herokuapp.com/View/login.php');
+            header('Location: https://myss-qa.herokuapp.com/View/login.php');
             // Send a message here.
         }
 
