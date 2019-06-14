@@ -11,7 +11,7 @@ require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php"
 
 // The Facebook API.
 require "../fb-init.php";
-require "../fb-callback.php";
+
 
 if (isset($_SESSION['userId'])) {
     header('Location: ..\View\index.php');
