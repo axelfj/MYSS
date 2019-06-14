@@ -70,7 +70,9 @@ if (! $userToken->isLongLived()) {
     echo '<h3>Long-lived</h3>';
     var_dump($userToken->getValue());
 }
+
 $_SESSION['userToken'] = (string)$userToken;  // We put it in the session to have it "globally".
+var_dump($_SESSION);
 // If we have his access token, then we can make an array with all of his information.
     if ($_SESSION['userToken'] != null) {
         try {
@@ -86,7 +88,7 @@ $_SESSION['userToken'] = (string)$userToken;  // We put it in the session to hav
 
             // We save this email.
             $facebookEmailProvidedByAPI = $userInformation->getField('email');
-            var_dump($facebookEmailProvidedByAPI);
+
 
             // Now, let's see if he's in the database.
             $controller = new Controller();
