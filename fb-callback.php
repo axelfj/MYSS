@@ -81,7 +81,7 @@ if ($_SESSION['userToken'] != null) {
 
         // We save this email.
         $facebookEmailProvidedByAPI = $userInformation->getField('email');
-        
+
         // Now, let's see if he's in the database.
         $controller = new Controller();
         if ($controller->isEmailTaken($facebookEmailProvidedByAPI) == true) {
@@ -106,7 +106,8 @@ if ($_SESSION['userToken'] != null) {
             $_SESSION['email'] = $profile['email'];
             $_SESSION['userImage'] = $profile['userImage'];
 
-            header('http://myss-qa.herokuapp.com/View/index.php');
+            var_dump($_SESSION);
+            // header('http://myss-qa.herokuapp.com/View/index.php');
         } // He's not in the database, let's redirect him to the register.
         else {
             header('http://myss-qa.herokuapp.com/View/login.php');
