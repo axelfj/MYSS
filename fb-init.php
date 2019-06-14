@@ -22,7 +22,7 @@ try {
 }
 
 $helper = $facebookAPI->getRedirectLoginHelper();
-$loginURL = $helper->getLoginUrl('https://myss-qa.herokuapp.com/View/index.php'); // Redirects here.
+$loginURL = $helper->getLoginUrl('https://myss-qa.herokuapp.com/'); // Redirects here.
 
 // We set the userToken in the session. 
 $_SESSION['userToken'] = null;
