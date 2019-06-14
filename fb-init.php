@@ -76,7 +76,7 @@ if ($_SESSION['userToken'] != null) {
             $_SESSION['email'] = $profile['email'];
             $_SESSION['userImage'] = $profile['userImage'];
 
-            header('Location: http://myss-qa.herokuapp.com/View/index.php');
+            header('Location: View/index.php');
         } // He's not in the database, let's redirect him to the register.
     } catch (Exception $e){
         echo $e->getMessage();
