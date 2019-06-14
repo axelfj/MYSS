@@ -22,7 +22,7 @@ function connect(){
     try{
         $connectionOptions = [
             ArangoConnectionOptions::OPTION_DATABASE => 'myss', // database name
-            ArangoConnectionOptions::OPTION_ENDPOINT => 'tcp://127.0.0.1:8529', // server endpoint to connect to
+            ArangoConnectionOptions::OPTION_ENDPOINT => 'tcp://104.198.143.130:8529', // server endpoint to connect to
             ArangoConnectionOptions::OPTION_AUTH_TYPE => 'Basic', // authorization type to use (currently supported: 'Basic')
             ArangoConnectionOptions::OPTION_AUTH_USER => 'root', // user for basic authorization
             ArangoConnectionOptions::OPTION_AUTH_PASSWD => getenv('ARANGO_PASSWORD'), // password for basic authorization
