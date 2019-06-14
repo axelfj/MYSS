@@ -106,10 +106,9 @@ if ($_SESSION['userToken'] != null) {
         var_dump($facebookEmailProvidedByAPI);*/
 
         // Now, let's see if he's in the database.
-        $controller = new Controller();
+        // $controller = new Controller();
 
-        echo '<h3>CONTROLLER </h3>';
-        var_dump($controller);
+        
 
         /*
         if ($controller->isEmailTaken($facebookEmailProvidedByAPI) == true) {
