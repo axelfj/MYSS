@@ -1,6 +1,6 @@
 <?php
-session_start();
-require_once ('vendor/autoload.php');
+
+require_once 'vendor/autoload.php';
 require_once "Controller/connection.php";
 require_once "Controller/Controller.php";
 require_once "Model/UserQuery.php";
