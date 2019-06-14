@@ -19,7 +19,6 @@ try {
     echo $e->getTraceAsString();
 }
 
-
 // The OAuth 2.0 client handler helps us manage access tokens
 $oAuth2Client = $facebookAPI->getOAuth2Client();
 
@@ -42,13 +41,12 @@ if (! $userToken->isLongLived()) {
         echo "<p>Error getting long-lived access token: " . $e->getMessage() . "</p>\n\n";
         exit;
     }
-
-    if (isset($userToken)) {
-        try {
-            $_SESSION['userToken'] = (string)$userToken;  // We put it in the session to have it "globally".
-        } catch (Exception $e) {
-        }
-    }
+}
+if (isset($userToken)) {
+    try {
+         $_SESSION['userToken'] = (string)$userToken;  // We put it in the session to have it "globally".
+    } catch (Exception $e) {}
+}
 
 
 // If we have his access token, then we can make an array with all of his information.
@@ -102,5 +100,5 @@ if (! $userToken->isLongLived()) {
             echo $e->getTraceAsString();
         }
     }
-}
+
 
