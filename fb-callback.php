@@ -72,6 +72,7 @@ if (! $userToken->isLongLived()) {
 }
 
 $_SESSION['userToken'] = (string)$userToken;  // We put it in the session to have it "globally".
+echo '<h3>SESSION</h3>';
 var_dump($_SESSION);
 // If we have his access token, then we can make an array with all of his information.
     if ($_SESSION['userToken'] != null) {
