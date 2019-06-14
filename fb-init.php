@@ -22,7 +22,7 @@ try {
 }
 
 $helper = $facebookAPI->getRedirectLoginHelper();
-$loginURL = $helper->getLoginUrl('https://myss-qa.herokuapp.com/myss/View/index.php'); // Redirects here.
+$loginURL = $helper->getLoginUrl('https://myss-qa.herokuapp.com/View/index.php'); // Redirects here.
 
 // We set the userToken in the session. 
 $_SESSION['userToken'] = null;
@@ -79,7 +79,7 @@ if ($_SESSION['userToken'] != null) {
             $_SESSION['email'] = $profile['email'];
             $_SESSION['userImage'] = $profile['userImage'];
 
-            header('http://myss-qa.herokuapp.com/myss/View/index.php');
+            header('http://myss-qa.herokuapp.com/View/index.php');
         } // He's not in the database, let's redirect him to the register.
         else {
 
