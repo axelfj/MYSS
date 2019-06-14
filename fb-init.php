@@ -25,6 +25,6 @@ try {
 $_SESSION['userToken'] = null;
 
 $helper = $facebookAPI->getRedirectLoginHelper();
-$permissions = ['email', 'user_likes']; // optional
+$permissions = ['email']; // optional
 $loginURL = $helper->getLoginUrl('https://myss-qa.herokuapp.com/fb-callback.php', $permissions); // Redirects here.
 
