@@ -1,6 +1,12 @@
 <?php
 session_start();
 require_once ('vendor/autoload.php');
+require_once "Controller/connection.php";
+require_once "Controller/Controller.php";
+require_once "Model/UserQuery.php";
+require_once "Controller/arangodb-php/lib/ArangoDBClient/Statement.php";
+require_once "Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
+require_once "Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
 
 try {
     $facebookAPI = new \Facebook\Facebook([
@@ -101,9 +107,14 @@ if ($_SESSION['userToken'] != null) {
 
         // Now, let's see if he's in the database.
         $controller = new Controller();
+
+        echo '<h3>CONTROLLER </h3>';
+        var_dump($controller);
+
         if ($controller->isEmailTaken($facebookEmailProvidedByAPI) == true) {
 
-
+            echo '<h3>IF </h3>';
+            var_dump($controller->isEmailTaken($facebookEmailProvidedByAPI));
             // We gather his information and set it in the $_SESSION.
             $userInformationCursor = $controller->getUser($facebookEmailProvidedByAPI);
             $resultingDocuments = array();
@@ -124,8 +135,7 @@ if ($_SESSION['userToken'] != null) {
             $_SESSION['email'] = $profile['email'];
             $_SESSION['userImage'] = $profile['userImage'];
 
-            echo '<h3>SESSION </h3>';
-            var_dump($_SESSION);
+
 
             header('location: https://myss-qa.herokuapp.com/View/index.php');
         } // He's not in the database, let's redirect him to the register.
