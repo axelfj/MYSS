@@ -10,7 +10,7 @@ require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
 
 // We add the Facebook API.
-require "../fb-init.php";
+require "fb-init.php";
 
 if (isset($_SESSION['userId'])) {
     header('Location: ..\View\index.php');
