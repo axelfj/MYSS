@@ -72,17 +72,30 @@ if ($_SESSION['userToken'] != null) {
 
         echo '<h3>TOKEN</h3>';
         var_dump($_SESSION);
+
         // We assign the token.
         $facebookAPI->setDefaultAccessToken($_SESSION['userToken']);
+
+        echo '<h3>FACEBOOK API</h3>';
+        var_dump($facebookAPI);
 
         // Asks for: name, birthday, his profile pic.
         $queryResult = $facebookAPI->get('/me?locale=en_US&fields=email');
 
+        echo '<h3>QUERY RESULT</h3>';
+        var_dump($queryResult);
+
         // Gets the information of the User.
         $userInformation = $queryResult->getGraphUser();
 
+        echo '<h3>USER INFORMATION</h3>';
+        var_dump($userInformation);
+
         // We save this email.
         $facebookEmailProvidedByAPI = $userInformation->getField('email');
+
+        echo '<h3>FACEBOOK EMAiL PROVIDED</h3>';
+        var_dump($facebookEmailProvidedByAPI);
 
         // Now, let's see if he's in the database.
         $controller = new Controller();
