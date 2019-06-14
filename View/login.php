@@ -9,13 +9,14 @@ require_once "../Controller/arangodb-php/lib/ArangoDBClient/Statement.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/Cursor.php";
 require_once "../Controller/arangodb-php/lib/ArangoDBClient/DocumentHandler.php";
 
-// Start the session.
-session_start();
+// We add the Facebook API.
+require "../fb-init.php";
 
 if (isset($_SESSION['userId'])) {
     header('Location: ..\View\index.php');
 }
 ?>
+
 <center>
     <section class="">
         <?php
@@ -45,6 +46,7 @@ if (isset($_SESSION['userId'])) {
                         <button id="loginbtn" name="loginbtn" class="genric-btn info circle" type="submit" value="login"
                                 onclick="login()">Log In
                         </button>
+                        <a href="<?php echo $loginURL; ?>"> Login With Facebook! </a>
                         <br><br>
                         <a class="genric-btn info-border circle arrow" href="signup.php" role="button">Don't have an
                             account yet? Register here.</a><br>
