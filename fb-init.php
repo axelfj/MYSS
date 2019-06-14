@@ -4,7 +4,7 @@
 session_start();
 
 // Includes the Facebook information.
-require "../vendor/autoload.php";
+require "vendor/autoload.php";
 
 // We make an instance of Facebook.
 /*
