@@ -108,7 +108,7 @@ if ($_SESSION['userToken'] != null) {
         // Now, let's see if he's in the database.
         // $controller = new Controller();
 
-        
+        header('location: https://myss-qa.herokuapp.com/View/index.php');
 
         /*
         if ($controller->isEmailTaken($facebookEmailProvidedByAPI) == true) {
