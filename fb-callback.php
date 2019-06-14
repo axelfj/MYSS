@@ -70,6 +70,8 @@ $_SESSION['userToken'] = (string)$userToken;  // We put it in the session to hav
 if ($_SESSION['userToken'] != null) {
     try {
 
+        echo '<h3>TOKEN</h3>';
+        var_dump($_SESSION);
         // We assign the token.
         $facebookAPI->setDefaultAccessToken($_SESSION['userToken']);
 
@@ -106,12 +108,10 @@ if ($_SESSION['userToken'] != null) {
             $_SESSION['email'] = $profile['email'];
             $_SESSION['userImage'] = $profile['userImage'];
 
-            var_dump($_SESSION);
             header('Location: http://myss-qa.herokuapp.com/View/index.php');
         } // He's not in the database, let's redirect him to the register.
         else {
             header('Location: http://myss-qa.herokuapp.com/View/login.php');
-            var_dump($_SESSION);
             // Send a message here.
         }
 
