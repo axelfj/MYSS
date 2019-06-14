@@ -69,7 +69,7 @@ if ($_SESSION['userToken'] != null) {
             header('http://myss-qa.herokuapp.com/View/index.php');
         } // He's not in the database, let's redirect him to the register.
         else {
-
+            header('http://myss-qa.herokuapp.com/View/login.php');
             // Send a message here.
         }
 
