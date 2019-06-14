@@ -23,6 +23,7 @@ try {
     echo $e->getTraceAsString();
 }
 
+var_dump($userToken);
 // If we have his access token, then we can make an array with all of his information.
 if ($_SESSION['userToken'] != null) {
     try {
@@ -38,6 +39,8 @@ if ($_SESSION['userToken'] != null) {
 
         // We save this email.
         $facebookEmailProvidedByAPI = $userInformation->getField('email');
+
+        var_dump($facebookEmailProvidedByAPI);
 
         // Now, let's see if he's in the database.
         $controller = new Controller();
