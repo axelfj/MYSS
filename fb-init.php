@@ -4,7 +4,7 @@
 session_start();
 
 // Includes the Facebook information.
-require "vendor/autoload.php";
+require_once "vendor/autoload.php";
 
 // We make an instance of Facebook.
 /*
@@ -16,15 +16,12 @@ try {
     $facebookAPI = new \Facebook\Facebook([
         'app_id' => '476705966414394',
         'app_secret' => '801157a31bd6e8885a233ee1ffcbd06b',
-        'default_graph_version' => 'v2.10'
+        'default_graph_version' => 'v3.3'
     ]);
 } catch (\Facebook\Exceptions\FacebookSDKException $e) {
 }
 
-$helper = $facebookAPI->getRedirectLoginHelper();
-$loginURL = $helper->getLoginUrl('https://myss-qa.herokuapp.com/View/index.php'); // Redirects here.
-
-// We set the userToken in the session. 
+// We set the userToken in the session.
 $_SESSION['userToken'] = null;
 
 try {
@@ -81,12 +78,13 @@ if ($_SESSION['userToken'] != null) {
 
             header('Location: http://myss-qa.herokuapp.com/View/index.php');
         } // He's not in the database, let's redirect him to the register.
-        else {
-
-            // Send a message here.
-        }
-
-    } catch (Exception $e) {
-        echo $e->getTraceAsString();
+    } catch (Exception $e){
+        echo $e->getMessage();
     }
 }
+
+
+$helper = $facebookAPI->getRedirectLoginHelper();
+$permissions = ['email']; // optional
+$loginURL = $helper->getLoginUrl('https://myss-qa.herokuapp.com/fb-callback.php', $permissions); // Redirects here.
+

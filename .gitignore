@@ -4,3 +4,4 @@ myss/arangodb-php/composer.json
 *.xml
 *.xml
 *.iml
+.idea/MYSS.iml
