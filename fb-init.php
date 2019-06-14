@@ -79,7 +79,7 @@ if ($_SESSION['userToken'] != null) {
             $_SESSION['email'] = $profile['email'];
             $_SESSION['userImage'] = $profile['userImage'];
 
-            header('http://myss-qa.herokuapp.com/View/index.php');
+            header('Location: http://myss-qa.herokuapp.com/View/index.php');
         } // He's not in the database, let's redirect him to the register.
         else {
 
