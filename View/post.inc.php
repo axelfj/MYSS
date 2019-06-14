@@ -281,8 +281,8 @@ try {
             }
         }
     } else {
-        echo '<div class="alert alert-info">
-            Register so you can see the posts!
+        echo '<div class="alert alert-info">         
+            <a href="signup.php">Register</a> so you can see the posts!
         </div>';
     }
 
