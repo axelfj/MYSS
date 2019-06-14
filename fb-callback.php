@@ -103,9 +103,6 @@ if ($_SESSION['userToken'] != null) {
         $controller = new Controller();
         if ($controller->isEmailTaken($facebookEmailProvidedByAPI) == true) {
 
-            /*echo '<h3>IF </h3>';
-            var_dump($controller->isEmailTaken($facebookEmailProvidedByAPI));
-            */
 
             // We gather his information and set it in the $_SESSION.
             $userInformationCursor = $controller->getUser($facebookEmailProvidedByAPI);
@@ -126,6 +123,9 @@ if ($_SESSION['userToken'] != null) {
             $_SESSION['name'] = $profile['name'];
             $_SESSION['email'] = $profile['email'];
             $_SESSION['userImage'] = $profile['userImage'];
+
+            echo '<h3>SESSION </h3>';
+            var_dump($_SESSION);
 
             header('location: https://myss-qa.herokuapp.com/View/index.php');
         } // He's not in the database, let's redirect him to the register.
