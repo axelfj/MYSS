@@ -81,10 +81,7 @@ if ($_SESSION['userToken'] != null) {
 
         // We save this email.
         $facebookEmailProvidedByAPI = $userInformation->getField('email');
-
-        echo '<h3>EMAIL</h3>';
-        var_dump($facebookEmailProvidedByAPI);
-
+        
         // Now, let's see if he's in the database.
         $controller = new Controller();
         if ($controller->isEmailTaken($facebookEmailProvidedByAPI) == true) {
