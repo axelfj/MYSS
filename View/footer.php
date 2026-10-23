@@ -14,7 +14,7 @@
 <script src="js/jquery.magnific-popup.min.js"></script>
 <script
         type="text/javascript"
-        src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"
+        src="https://maps.googleapis.com/maps/api/js?key=<?php echo rawurlencode(getenv('GOOGLE_MAPS_API_KEY') ?: ''); ?>"
 ></script>
 <script src="js/bootstrap-datepicker.js"></script>
 <script src="js/main.js"></script>
