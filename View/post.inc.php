@@ -174,7 +174,7 @@ try {
                     ?>
 
                     <div class="panel container" style="background-color: white;"
-                         id="<?php echo $singlePost['key']; ?>">
+                         id="<?php echo htmlspecialchars((string) $singlePost['key'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>">
                         <div class="col-md-12 container" style="background-color: white;">
                             <div class="media">
 
@@ -186,23 +186,23 @@ try {
                                             ?> alt="" class="media-object">
                                         </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <h4 class=""><a
-                                                    href="<?php echo 'profile.php?' . $singlePost['owner']; ?>"><?php echo $singlePost['owner']; ?></a><br>
+                                                    href="<?php echo 'profile.php?' . $singlePost['owner']; ?>"><?php echo htmlspecialchars((string) $singlePost['owner'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></a><br>
                                             <small><i class="fa fa-clock-o"
-                                                      id="<?php echo 'time' . $postCounter; ?>"></i> <?php echo $singlePost['time']; ?>
+                                                      id="<?php echo 'time' . $postCounter; ?>"></i> <?php echo htmlspecialchars((string) $singlePost['time'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>
                                             </small>
                                         </h4>
                                     </div>
                                     <hr>
-                                    <h4 id="<?php echo 'title' . $postCounter; ?>"><?php echo $singlePost['title']; ?></h4>
+                                    <h4 id="<?php echo 'title' . $postCounter; ?>"><?php echo htmlspecialchars((string) $singlePost['title'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></h4>
                                     <br>
                                     <?php
                                     if ($singlePost['destination'] != '') { ?>
                                         <img style="max-width:100%;max-height:100%;"
-                                             src="<?php echo $singlePost['destination']; ?>">
+                                             src="<?php echo htmlspecialchars((string) $singlePost['destination'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>">
                                         <br><br>
                                         <?php
                                     } ?>
-                                    <p id="<?php echo 'text' . $postCounter; ?>"><?php echo $singlePost['text']; ?></p>
+                                    <p id="<?php echo 'text' . $postCounter; ?>"><?php echo htmlspecialchars((string) $singlePost['text'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></p>
 
                                     <ul class="nav nav-pills pull-left" id="<?php echo 'tags' . $postCounter; ?>">
                                         <li><a id="like"

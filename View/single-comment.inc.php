@@ -14,21 +14,21 @@
         <div class="media-body">
             <h4 class="media-heading"><a href="#">
                     <a href="<?php echo 'profile.php?' . $singleComment['commentOwner']; ?>">
-                        <?php echo $singleComment['commentOwner']; ?>
+                        <?php echo htmlspecialchars((string) $singleComment['commentOwner'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>
                     </a>
                     <br>
                     <small>
-                        <i class="fa fa-clock-o"></i> <?php echo $singleComment['time']; ?>
+                        <i class="fa fa-clock-o"></i> <?php echo htmlspecialchars((string) $singleComment['time'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>
                     </small>
             </h4>
             <hr>
             <?php
             if ($singleComment['destination'] != '') { ?>
-                <img style="max-width:100%; max-height:100%;" src="<?php echo $singleComment['destination']; ?>">
+                <img style="max-width:100%; max-height:100%;" src="<?php echo htmlspecialchars((string) $singleComment['destination'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?>">
                 <br><br>
                 <?php
             } ?>
-            <p><?php echo $singleComment['text']; ?></p>
+            <p><?php echo htmlspecialchars((string) $singleComment['text'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); ?></p>
 
             <ul class="nav nav-pills pull-left" id="<?php echo 'commentTags' . $postOrCommentCounter; ?>">
                 <li><a id="commentLike"
