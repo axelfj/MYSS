@@ -31,6 +31,6 @@
     "bootstrap": ">=2.3.2"
   },
   "scripts": {
-    "test": "grunt jasmine"
+    "test": "npm test"
   }
 }

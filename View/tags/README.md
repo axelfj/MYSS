@@ -122,17 +122,21 @@ To reference a tags instance that you've already attached to a selector, (eg. $(
 
 ### Building
 
-For a one off:
+Use Node.js 24 or later. Install the locked development dependencies first:
 
-	$ grunt build
+	$ npm ci --ignore-scripts
 
-_To build continuously_:
+Build JavaScript and CSS from the CoffeeScript and Sass sources:
 
-	$ grunt watch
+	$ npm run build
+
+The build uses maintained CoffeeScript, Terser and Dart Sass packages. It no longer requires Grunt, Ruby Sass, Bower or PhantomJS.
 
 ### Testing
 
-	$ grunt test
+	$ npm test
+
+This builds the widget and runs the existing 45 Jasmine specifications in jsdom with jQuery. A real browser is still needed to manually check Bootstrap popover appearance and layout.
 
 ### Contributing
 
